@@ -1,5 +1,7 @@
 {
   "expo": {
     "sdkVersion": "23.0.0"
-  }
+  },
+  "name": "easi6driver",
+  "displayName": "Easi6ForDriver"
 }

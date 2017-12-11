@@ -1,0 +1,3 @@
+rootProject.name = 'easi6driver'
+
+include ':app'
