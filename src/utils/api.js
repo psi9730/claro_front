@@ -64,6 +64,14 @@ export async function del(path, suppressRedBox) {
 export async function request(method, path, body, suppressRedBox) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
+    // if 401 refresh token
+    // after refresh token retry
+
+    // if error display error message
+
+    // if success parse response JSON
+    // if parse error response raw string
+
     return handleResponse(
       path,
       response
