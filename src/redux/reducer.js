@@ -1,12 +1,15 @@
 import {fromJS} from 'immutable';
 import {combineReducers, loop} from 'redux-loop';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
+import LoginStateReducer from '../modules/login/LoginState';
 // ## Generator Reducer Imports
 
 const namespacedReducer = combineReducers({
   // Counter sample app state. This can be removed in a live application
   // rentals: RentalStateReducer,
   // ## Generator Reducers
+
+  login: LoginStateReducer,
 
   // Navigator states
 

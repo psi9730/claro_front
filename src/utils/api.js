@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
+import {decamelizeKeys} from 'humps';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 
@@ -105,7 +106,7 @@ async function sendRequest(method, path, body) {
     const token = await getAuthenticationToken();
     const headers = getRequestHeaders(body, token);
     const options = body
-      ? {method, headers, body: JSON.stringify(body)}
+      ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
 
     return timeout(fetch(endpoint, options), TIMEOUT);

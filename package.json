@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "flow-bin": "^0.61.0",
     "jest-expo": "23.0.0",
     "react-test-renderer": "16.0.0"
   },
@@ -11,23 +12,35 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "flow": "flow"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react-native": "^4.0.0",
     "bluebird": "^3.5.1",
-    "es6-symbol": "^3.1.1",
+    "event-emitter": "^0.3.5",
+    "humps": "^2.0.1",
+    "i18next": "^10.2.1",
+    "i18next-react-native-language-detector": "^1.0.2",
     "immutable": "^3.8.2",
+    "lodash": "^4.17.4",
     "react": "^16.2.0",
+    "react-autobind": "^1.0.6",
+    "react-i18next": "^7.3.0",
     "react-native": "^0.51.0",
+    "react-native-locale-detector": "^1.0.1",
+    "react-native-navigation": "^1.1.313",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-loop": "^4.2.4",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
-    "standard-http-error": "^2.0.1"
+    "standard-http-error": "^2.0.1",
+    "styled-components": "^2.3.0"
   }
 }
