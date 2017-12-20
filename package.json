@@ -27,6 +27,7 @@
     "i18next": "^10.2.1",
     "i18next-react-native-language-detector": "^1.0.2",
     "lodash": "^4.17.4",
+    "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-autobind": "^1.0.6",
     "react-i18next": "^7.3.0",

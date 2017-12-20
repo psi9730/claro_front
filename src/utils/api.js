@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
-import {decamelizeKeys} from 'humps';
+import {decamelizeKeys, camelizeKeys} from 'humps';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 
@@ -111,6 +111,8 @@ async function sendRequest(method, path, body) {
       ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
 
+    console.log('request', endpoint, 'options', options);
+
     return timeout(fetch(endpoint, options), TIMEOUT);
   } catch (e) {
     throw new Error(e);
@@ -142,7 +144,7 @@ async function handleResponse(path, response) {
     return {
       status: response.status,
       headers: response.headers,
-      body: responseBody ? JSON.parse(responseBody) : null
+      body: responseBody ? camelizeKeys(JSON.parse(responseBody)) : null
     };
   } catch (e) {
     throw e;
@@ -155,7 +157,7 @@ function getRequestHeaders(body, token) {
     : {'Accept': 'application/json'};
 
   if (token) {
-    return {...headers, Authorization: token};
+    return {...headers, Authorization: `Bearer ${token}`};
   } else {
     return {...headers, Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='};
   }
@@ -171,7 +173,7 @@ async function getErrorMessageSafely(response) {
     }
 
     // Optimal case is JSON with a defined message property
-    const payload = JSON.parse(body);
+    const payload = camelizeKeys(JSON.parse(body));
     if (payload && payload.message) {
       return payload.message;
     }

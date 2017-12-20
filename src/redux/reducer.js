@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 
 import SessionStateReducer from '../modules/session/SessionState';
 import LoginStateReducer from '../modules/login/LoginState';
+import RentalsStateReducer from '../modules/rentals/RentalsState';
 // ## Generator Reducer Imports
 
 const rootReducer = combineReducers({
@@ -11,9 +12,11 @@ const rootReducer = combineReducers({
 
   login: LoginStateReducer,
 
+  rentals: RentalsStateReducer,
+
   // Navigator states
 
-  session: SessionStateReducer
+  session: SessionStateReducer,
 });
 
 export default rootReducer;
