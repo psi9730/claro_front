@@ -1,5 +1,6 @@
 // @flow
 import {call, put, takeLatest} from 'redux-saga/effects';
+import {WAIT_FOR_ACTION} from 'redux-wait-for-action';
 
 import {setAuthenticationToken} from '../../utils/authentication';
 import {post} from '../../utils/api';
@@ -19,6 +20,7 @@ const LOGIN_FAILURE = 'LoginState/LOGIN_FAILURE';
 export function loginRequest(username: string, password: string) {
   return {
     type: LOGIN_REQUEST,
+    [WAIT_FOR_ACTION]: LOGIN_SUCCESS,
     username,
     password,
   };

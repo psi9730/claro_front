@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+
 import LoginView from './LoginView';
 import * as LoginStateActions from './LoginState';
 import i18n from '../../utils/i18n';
@@ -13,7 +14,9 @@ export default connect(
   }),
   dispatch => {
     return {
-      loginStateActions: bindActionCreators(LoginStateActions, dispatch)
+      requestLogin: (username, password) => {
+        return dispatch(LoginStateActions.loginRequest(username, password));
+      }
     };
   }
 )(LoginView);

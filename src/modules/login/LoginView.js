@@ -22,9 +22,7 @@ type Props = {
   t: Function,
   user: {},
   loading: boolean,
-  loginStateActions: {
-    loginRequest: (username: string, password: string) => mixed,
-  },
+  requestLogin: (username: string, password: string) => Promise,
 };
 
 const EasiInput = styled.TextInput`
@@ -62,8 +60,12 @@ class LoginView extends Component<Props, State> {
     this.setState({password});
   }
 
-  requestLogin() {
-    this.props.loginStateActions.loginRequest(this.state.username, this.state.password);
+  onLoginPressed() {
+    this.props.requestLogin(this.state.username, this.state.password).then(() => {
+      this.props.navigator.push({
+        screen: 'easi6driver.RentalsScreen',
+      });
+    });
   }
 
   render() {
@@ -89,7 +91,7 @@ class LoginView extends Component<Props, State> {
         />
         <EasiButton
           title={t('login_submit')}
-          onPress={this.requestLogin}
+          onPress={this.onLoginPressed}
           disabled={loading}
         />
       </Container>

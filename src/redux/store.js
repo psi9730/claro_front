@@ -2,17 +2,20 @@ import {applyMiddleware, createStore, compose} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import thunkMiddleware from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
+import createReduxWaitForMiddleware from 'redux-wait-for-action';
 
 import loggerMiddleware from './middleware/loggerMiddleware';
 import reducer from './reducer';
 
 export const sagaMiddleware = createSagaMiddleware();
+export const waitForMiddleware = createReduxWaitForMiddleware();
 
 const enhancers = [
   applyMiddleware(
     promiseMiddleware,
     thunkMiddleware,
 	  sagaMiddleware,
+    waitForMiddleware,
     loggerMiddleware,
   ),
 ];

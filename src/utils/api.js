@@ -3,6 +3,7 @@ import HttpError from 'standard-http-error';
 import {decamelizeKeys, camelizeKeys} from 'humps';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
+import {setAuthenticationToken} from './authentication';
 
 const EventEmitter = require('event-emitter');
 
@@ -62,13 +63,62 @@ export async function del(path, suppressRedBox) {
  * @param {Object} body Anything that you can pass to JSON.stringify
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  */
+
+const REFRESH_TOKEN_REQUEST= 'API/REFRESH_TOKEN_REQUEST';
+const REFRESH_TOKEN_SUCCESS = 'API/REFRESH_TOKEN_SUCCESS';
+const REFRESH_TOKEN_FAILURE = 'API/REFRESH_TOKEN_FAILURE';
+
+let refreshing = null;
+
+async function refreshToken(refreshToken: string) {
+  const body = {
+    refreshToken,
+    grantType: 'refresh_token',
+  };
+  const token = await post('/auth/driver_token', body);
+  if (token) {
+    await setAuthenticationToken(token);
+    return true;
+  }
+  return false;
+}
+
 export async function request(method, path, body, suppressRedBox) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
+    const status = response.status;
     // if 401 refresh token
     // after refresh token retry
-
+    if (status === 401) {
+      if (refreshing === null) {
+        const token = await getAuthenticationToken();
+        if (token && token.refreshToken) {
+          refreshing = refreshToken(token.refreshToken);
+          if (await refreshing) {
+            return request(method, path, body, suppressRedBox);
+          }
+        }
+      } else {
+        if (await refreshing) {
+          return request(method, path, body, suppressRedBox);
+        }
+      }
+    }
     // if error display error message
+
+    // `fetch` promises resolve even if HTTP status indicates failure. Reroute
+    // promise flow control to interpret error responses as failures
+    if (status >= 400) {
+      const message = await getErrorMessageSafely(response);
+      const error = new HttpError(status, message);
+
+      // emit events on error channel, one for status-specific errors and other for all errors
+      errors.emit(status.toString(), {path, message: error.message});
+      errors.emit('*', {path, message: error.message}, status);
+
+      throw error;
+    }
+
 
     // if success parse response JSON
     // if parse error response raw string
@@ -104,14 +154,15 @@ async function sendRequest(method, path, body) {
   try {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
+    const forceBasic = path === '/auth/driver_token';
     const accessToken = token ? token.accessToken : null;
 
-    const headers = getRequestHeaders(body, accessToken);
+    const headers = getRequestHeaders(body, accessToken, forceBasic);
     const options = body
       ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
 
-    console.log('request', endpoint, 'options', options);
+    console.log('in sendRequest', endpoint, 'options', options);
 
     return timeout(fetch(endpoint, options), TIMEOUT);
   } catch (e) {
@@ -124,21 +175,6 @@ async function sendRequest(method, path, body) {
  */
 async function handleResponse(path, response) {
   try {
-    const status = response.status;
-
-    // `fetch` promises resolve even if HTTP status indicates failure. Reroute
-    // promise flow control to interpret error responses as failures
-    if (status >= 400) {
-      const message = await getErrorMessageSafely(response);
-      const error = new HttpError(status, message);
-
-      // emit events on error channel, one for status-specific errors and other for all errors
-      errors.emit(status.toString(), {path, message: error.message});
-      errors.emit('*', {path, message: error.message}, status);
-
-      throw error;
-    }
-
     // parse response text
     const responseBody = await response.text();
     return {
@@ -151,12 +187,12 @@ async function handleResponse(path, response) {
   }
 }
 
-function getRequestHeaders(body, token) {
+function getRequestHeaders(body, token, forceBasic = false) {
   const headers = body
     ? {'Accept': 'application/json', 'Content-Type': 'application/json'}
     : {'Accept': 'application/json'};
 
-  if (token) {
+  if (token && !forceBasic) {
     return {...headers, Authorization: `Bearer ${token}`};
   } else {
     return {...headers, Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='};
