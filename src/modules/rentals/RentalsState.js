@@ -22,12 +22,23 @@ const RENTALS_REQUEST = 'RentalsState/RENTALS_REQUEST';
 const RENTALS_SUCCESS = 'RentalsState/RENTALS_SUCCESS';
 const RENTALS_FAILURE = 'RentalsState/RENTALS_FAILURE';
 
+const RENTAL_DETAIL_REQUEST = 'RentalsState/RENTAL_DETAIL_REQUEST';
+const RENTAL_DETAIL_SUCCESS = 'RentalsState/RENTAL_DETAIL_SUCCESS';
+const RENTAL_DETAIL_FAILURE = 'RentalsState/RENTAL_DETAIL_FAILURE';
+
 // Action creators
 export function rentalsRequest(status: ?number, startDate: ?string) {
   return {
     type: RENTALS_REQUEST,
     status,
     startDate,
+  };
+}
+
+export function rentalDetailRequest(hash: string) {
+  return {
+    type: RENTAL_DETAIL_REQUEST,
+    hash,
   };
 }
 

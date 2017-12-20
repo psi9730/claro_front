@@ -24,14 +24,25 @@ export default connect(
     };
   }
 )(
-  lifecycle({
+  compose(
+    withHandlers({
+      onDetailItemPressed: (props) => (hash) => {
+        props.navigator.push({
+          screen: 'easi6driver.RentalDetailScreen',
+          passProps: {
+            hash,
+          },
+        });
+      }
+    })
+  )(lifecycle({
     componentDidMount() {
-      // navigator.geolocation.setRNConfiguration({skipPermissionRequests: false});
       this.props.rentalsStateActions.rentalsRequest();
+      // navigator.geolocation.setRNConfiguration({skipPermissionRequests: false});
       // navigator.geolocation.requestAuthorization();
       navigator.geolocation.watchPosition(getPositionAndSave)
     }
   })(
     RentalsView
-  )
+  ))
 );

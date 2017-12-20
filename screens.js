@@ -7,16 +7,19 @@ import store from './src/redux/store';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
 import RentalsScreen from './src/modules/rentals/RentalsViewContainer';
+import RentalDetailScreen from './src/modules/rentals/RentalDetailViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 
 const DRAWER_SCREEN = 'easi6driver.DrawerScreen';
 const LOGIN_SCREEN = 'easi6driver.LoginScreen';
 const RENTALS_SCREEN = 'easi6driver.RentalsScreen';
+const RENTAL_DETAIL_SCREEN = 'easi6driver.RentalDetailScreen';
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
   Navigation.registerComponent(DRAWER_SCREEN, () => DrawerScreen, store, Provider);
   Navigation.registerComponent(RENTALS_SCREEN, () => RentalsScreen, store, Provider);
+  Navigation.registerComponent(RENTAL_DETAIL_SCREEN, () => RentalDetailScreen, store, Provider);
   Navigation.registerComponent(LOGIN_SCREEN, () => LoginScreen, store, Provider);
 }
 

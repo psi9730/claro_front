@@ -1,10 +1,11 @@
 // @flow
 
 import React, {Component} from 'react';
-import {FlatList, Text, View,} from 'react-native';
+import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import _ from 'lodash';
 import moment from 'moment';
+import autoBind from 'react-autobind';
 
 type Props = {
   t: Function,
@@ -19,7 +20,7 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const RentalItemContainer = styled.View`
+const RentalItemContainer = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,18 +32,31 @@ const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm');
 const preferredLocale = (item, fieldName) => item[`${fieldName}${_.upperFirst('ko')}`] || item[fieldName];
 
 class RentalsView extends Component<Props> {
-  static renderRental({item: rental}) {
+  constructor(props) {
+    super(props);
+
+    autoBind(this);
+  }
+
+  renderRental({item: rental}) {
+    const onDetailItemPressed = () => {
+      this.props.onDetailItemPressed(rental.hash);
+    };
     const locations = _.map(rental.locationInfos || [], (loc, i) => ({
       ...loc,
       key: i,
     }));
     return (
-      <RentalItemContainer>
+      <RentalItemContainer
+        onPress={onDetailItemPressed}
+      >
         <Text>
           {m(rental.startDate)}
         </Text>
         {locations.map((loc) => (
-          <View key={loc.key}>
+          <View
+            key={loc.key}
+          >
             <Text>
               {preferredLocale(loc, 'name')}
             </Text>
@@ -66,7 +80,7 @@ class RentalsView extends Component<Props> {
       <Container>
         <FlatList
           data={renderRentals}
-          renderItem={RentalsView.renderRental}
+          renderItem={this.renderRental}
         />
       </Container>
     );
