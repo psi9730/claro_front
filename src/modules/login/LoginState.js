@@ -1,14 +1,13 @@
 // @flow
+import {call, put, takeLatest} from 'redux-saga/effects';
 
-import {Map} from 'immutable';
-import {loop, Cmd} from 'redux-loop';
-
+import {setAuthenticationToken} from '../../utils/authentication';
 import {post} from '../../utils/api';
 
 // Initial state
-const initialState = Map({
+const initialState = {
   loading: false,
-});
+};
 
 // Actions
 const LOGIN_REQUEST = 'LoginState/LOGIN_REQUEST';
@@ -17,18 +16,18 @@ const LOGIN_FAILURE = 'LoginState/LOGIN_FAILURE';
 
 // Action creators
 
-export function loginRequest(login: string, password: string) {
+export function loginRequest(username: string, password: string) {
   return {
     type: LOGIN_REQUEST,
-    login,
+    username,
     password,
   };
 }
 
-function loginSuccess(user) {
+function loginSuccess(token) {
   return {
     type: LOGIN_SUCCESS,
-    user
+    token,
   };
 }
 
@@ -36,42 +35,55 @@ function loginFailure(err) {
   return {
     type: LOGIN_FAILURE,
     err,
-  }
+  };
 }
 
-function requestLogin(login: string, password: string) {
+function* requestLogin({username, password}: {username: string, password: string}) {
   const body = {
-    login,
+    username,
     password,
     grantType: 'password',
   };
-  return post('/auth/driver_token', body);
+
+  try {
+    const token = yield call(post, '/auth/driver_token', body);
+
+    yield setAuthenticationToken(token);
+
+    yield put(loginSuccess(token));
+  } catch (e) {
+    yield put(loginFailure(e));
+  }
 }
 
 // Reducer
 export default function LoginStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return loop(
-        state.set('loading', true),
-        Cmd.run(requestLogin, {
-          successActionCreator: loginSuccess,
-          failActionCreator: loginFailure,
-          args: [action.login, action.password]
-        })
-      );
+      return {
+        ...state,
+        loading: true,
+      };
 
     case LOGIN_SUCCESS:
-      return state
-        .set('loading', false)
-        .set('user', action.user);
+      return {
+        ...state,
+        loading: false,
+        user: action.user,
+      };
 
     case LOGIN_FAILURE:
-      return state
-        .set('loading', false)
-        .set('err', action.err);
+      return {
+        ...state,
+        loading: false,
+        err: action.err,
+      };
 
     default:
       return state;
   }
 }
+
+export const LoginSaga = [
+  takeLatest(LOGIN_REQUEST, requestLogin),
+];

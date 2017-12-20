@@ -1,23 +1,34 @@
-import {Map} from 'immutable';
+// @flow
 
-let configuration = Map();
+import _ from 'lodash';
+
+let configuration = {};
 
 export function setConfiguration(name, value) {
-  configuration = configuration.set(name, value);
+  configuration = {
+    ...configuration,
+    [name]: value,
+  };
 }
 
 export function setAll(properties) {
-  configuration = configuration.merge(properties);
+  configuration = {
+    ...configuration,
+    ...properties,
+  };
 }
 
 export function unsetConfiguration(name) {
-  configuration = configuration.delete(name);
+  configuration = {
+    ...configuration,
+    [name]: undefined,
+  };
 }
 
 export function getConfiguration(key) {
-  if (!configuration.has(key)) {
+  if (!_.has(configuration, key)) {
     throw new Error('Undefined configuration key: ' + key);
   }
 
-  return configuration.get(key);
+  return _.get(configuration, key);
 }

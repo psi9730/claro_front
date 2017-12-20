@@ -1,11 +1,20 @@
 import {applyMiddleware, createStore, compose} from 'redux';
-import {install} from 'redux-loop';
-import middleware from './middleware';
+import promiseMiddleware from 'redux-promise';
+import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+
+import loggerMiddleware from './middleware/loggerMiddleware';
 import reducer from './reducer';
 
+export const sagaMiddleware = createSagaMiddleware();
+
 const enhancers = [
-  applyMiddleware(...middleware),
-  install()
+  applyMiddleware(
+    promiseMiddleware,
+    thunkMiddleware,
+	  sagaMiddleware,
+    loggerMiddleware,
+  ),
 ];
 
 /* Enable redux dev tools only in development.
@@ -25,7 +34,7 @@ const enhancer = composeEnhancers(...enhancers);
 // create the store
 const store = createStore(
   reducer,
-  null,
+  undefined,
   enhancer
 );
 

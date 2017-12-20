@@ -26,7 +26,6 @@
     "humps": "^2.0.1",
     "i18next": "^10.2.1",
     "i18next-react-native-language-detector": "^1.0.2",
-    "immutable": "^3.8.2",
     "lodash": "^4.17.4",
     "react": "^16.2.0",
     "react-autobind": "^1.0.6",
@@ -39,6 +38,7 @@
     "redux-logger": "^3.0.6",
     "redux-loop": "^4.2.4",
     "redux-promise": "^0.5.3",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "standard-http-error": "^2.0.1",
     "styled-components": "^2.3.0"

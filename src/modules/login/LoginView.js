@@ -14,7 +14,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 
 type State = {
-  login: string,
+  username: string,
   password: string,
 };
 
@@ -23,7 +23,7 @@ type Props = {
   user: {},
   loading: boolean,
   loginStateActions: {
-    loginRequest: (login: string, password: string) => mixed,
+    loginRequest: (username: string, password: string) => mixed,
   },
 };
 
@@ -45,8 +45,8 @@ const EasiButton = styled.Button`
 
 class LoginView extends Component<Props, State> {
   state = {
-    login: '',
-    password: '',
+    username: '+821020407667',
+    password: 'rlawlsdjr',
   };
   constructor(props) {
     super(props);
@@ -54,8 +54,8 @@ class LoginView extends Component<Props, State> {
     autoBind(this);
   }
 
-  onChangeLogin(login) {
-    this.setState({login});
+  onChangeUsername(username) {
+    this.setState({username});
   }
 
   onChangePassword(password) {
@@ -63,7 +63,7 @@ class LoginView extends Component<Props, State> {
   }
 
   requestLogin() {
-    this.props.loginStateActions.loginRequest(this.state.login, this.state.password);
+    this.props.loginStateActions.loginRequest(this.state.username, this.state.password);
   }
 
   render() {
@@ -71,18 +71,26 @@ class LoginView extends Component<Props, State> {
 
     return (
       <Container>
+        <Text>
+          easi6 for drivers
+
+        </Text>
         <EasiInput
           placeholder={t('login_phone')}
-          onChangeText={this.onChangeLogin}
-          value={this.state.login}
+          onChangeText={this.onChangeUsername}
+          value={this.state.username}
         />
         <EasiInput
           placeholder={t('login_password')}
+          // secureTextEntry={true}
+          autoCorrect={false}
           onChangeText={this.onChangePassword}
+          value={this.state.password}
         />
         <EasiButton
           title={t('login_submit')}
           onPress={this.requestLogin}
+          disabled={loading}
         />
       </Container>
     );

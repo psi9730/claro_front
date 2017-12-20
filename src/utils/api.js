@@ -104,7 +104,9 @@ async function sendRequest(method, path, body) {
   try {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
-    const headers = getRequestHeaders(body, token);
+    const accessToken = token ? token.accessToken : null;
+
+    const headers = getRequestHeaders(body, accessToken);
     const options = body
       ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
@@ -154,9 +156,9 @@ function getRequestHeaders(body, token) {
 
   if (token) {
     return {...headers, Authorization: token};
+  } else {
+    return {...headers, Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='};
   }
-
-  return headers;
 }
 
 // try to get the best possible error message out of a response
