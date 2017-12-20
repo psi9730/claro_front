@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {lifecycle} from 'recompose';
+import {lifecycle, compose, withHandlers} from 'recompose';
 import RentalsView from './RentalsView';
 import * as RentalsStateActions from './RentalsState';
 import i18n from '../../utils/i18n';
@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 const getPositionAndSave = () => {
   navigator.geolocation.getCurrentPosition((response) => {
-    console.log(response);
+    console.log('getCurrentPosition', response);
   })
 };
 
@@ -29,7 +29,7 @@ export default connect(
       // navigator.geolocation.setRNConfiguration({skipPermissionRequests: false});
       this.props.rentalsStateActions.rentalsRequest();
       // navigator.geolocation.requestAuthorization();
-      // navigator.geolocation.watchPosition(getPositionAndSave)
+      navigator.geolocation.watchPosition(getPositionAndSave)
     }
   })(
     RentalsView

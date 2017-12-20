@@ -5,6 +5,7 @@ import LoginView from './LoginView';
 import * as LoginStateActions from './LoginState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
+import {compose, withHandlers} from 'recompose';
 
 export default connect(
   state => ({
@@ -19,4 +20,16 @@ export default connect(
       }
     };
   }
-)(LoginView);
+)(
+  compose(
+    withHandlers({
+      onLoginPressed: (props) => (username, password) => {
+        props.requestLogin(username, password).then(() => {
+          props.navigator.resetTo({
+            screen: 'easi6driver.RentalsScreen',
+          });
+        });
+      }
+    })
+  )(LoginView)
+);
