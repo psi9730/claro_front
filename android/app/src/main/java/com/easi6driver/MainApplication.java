@@ -4,6 +4,7 @@ import android.app.Application;
 import com.reactnativenavigation.NavigationApplication;
 
 import com.facebook.react.ReactApplication;
+import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -24,8 +25,9 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReactNativeI18n()
+        new MainReactPackage(),
+            new RNSendIntentPackage(),
+        new ReactNativeI18n()
       );
     }
 
@@ -49,8 +51,11 @@ public class MainApplication extends NavigationApplication implements ReactAppli
   protected List<ReactPackage> getPackages() {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
+
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
+      new RNSendIntentPackage(),
+      new ReactNativeI18n()
     );
   }
 

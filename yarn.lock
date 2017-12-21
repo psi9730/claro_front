@@ -3628,6 +3628,10 @@ react-native-navigation@^1.1.313:
   dependencies:
     lodash "4.x.x"
 
+"react-native-send-intent@https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz":
+  version "1.0.22"
+  resolved "https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz#26d41f60da05ed3d142cfd90e4dae486a7a0552d"
+
 react-native@^0.51.0:
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.51.0.tgz#fe25934b3030fd323f3ca1a70f034133465955ed"

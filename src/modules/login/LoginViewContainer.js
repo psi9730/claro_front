@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
+import actions from '../../redux/actions';
 import LoginView from './LoginView';
-import * as LoginStateActions from './LoginState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, withHandlers} from 'recompose';
+import {RENTALS_SCREEN} from '../../../screens';
 
 export default connect(
   state => ({
@@ -13,21 +13,13 @@ export default connect(
     loading: _.get(state, ['login', 'loading']),
     t: i18n.getFixedT(),
   }),
-  dispatch => {
-    return {
-      requestLogin: (username, password) => {
-        return dispatch(LoginStateActions.loginRequest(username, password));
-      }
-    };
-  }
+  actions,
 )(
   compose(
     withHandlers({
       onLoginPressed: (props) => (username, password) => {
-        props.requestLogin(username, password).then(() => {
-          props.navigator.resetTo({
-            screen: 'easi6driver.RentalsScreen',
-          });
+        props.loginRequest(username, password).then(() => {
+          props.navigator.resetTo(RENTALS_SCREEN);
         });
       }
     })

@@ -1,8 +1,9 @@
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {lifecycle, compose, withHandlers} from 'recompose';
+import {compose, lifecycle, withHandlers} from 'recompose';
+
+import actions from '../../redux/actions';
+import {RENTAL_DETAIL_SCREEN} from '../../../screens';
 import RentalsView from './RentalsView';
-import * as RentalsStateActions from './RentalsState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
 
@@ -18,17 +19,13 @@ export default connect(
     loading: _.get(state, ['rentals', 'loading']),
     t: i18n.getFixedT(),
   }),
-  dispatch => {
-    return {
-      rentalsStateActions: bindActionCreators(RentalsStateActions, dispatch)
-    };
-  }
+  actions
 )(
   compose(
     withHandlers({
       onDetailItemPressed: (props) => (hash) => {
         props.navigator.push({
-          screen: 'easi6driver.RentalDetailScreen',
+          ...RENTAL_DETAIL_SCREEN,
           passProps: {
             hash,
           },
@@ -37,7 +34,7 @@ export default connect(
     })
   )(lifecycle({
     componentDidMount() {
-      this.props.rentalsStateActions.rentalsRequest();
+      this.props.rentalsRequest();
       // navigator.geolocation.setRNConfiguration({skipPermissionRequests: false});
       // navigator.geolocation.requestAuthorization();
       navigator.geolocation.watchPosition(getPositionAndSave)

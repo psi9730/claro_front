@@ -1,4 +1,4 @@
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from './easi6Storage';
 const STATE_STORAGE_KEY = 'Easi6ForDriverAppState:Latest';
 
 export async function resetSnapshot() {

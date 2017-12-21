@@ -1,13 +1,17 @@
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from './easi6Storage';
 
 const AUTHENTICATION_STORAGE_KEY = 'LoginState:Authentication';
 
 export async function getAuthenticationToken() {
-  const token = await AsyncStorage.getItem(AUTHENTICATION_STORAGE_KEY);
-  if (token) {
-    return JSON.parse(token);
+  try {
+    const token = await AsyncStorage.getItem(AUTHENTICATION_STORAGE_KEY);
+    if (token) {
+      return JSON.parse(token);
+    }
+    return null;
+  } catch (e) {
+    return null;
   }
-  return null;
 }
 
 export async function setAuthenticationToken(token) {

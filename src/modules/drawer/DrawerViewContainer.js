@@ -5,6 +5,7 @@ import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, withHandlers} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
+import {LOGIN_SCREEN, RENTALS_SCREEN} from '../../../screens';
 
 const hideDrawer = (props) => {
   props.navigator.toggleDrawer({
@@ -25,17 +26,13 @@ export default connect(
     withHandlers({
       goToRentals: (props) => () => {
         hideDrawer(props);
-        props.navigator.push({
-          screen: 'easi6driver.RentalsScreen',
-        });
+        props.navigator.push(RENTALS_SCREEN);
       },
       logout: (props) => () => {
         (async () => {
           hideDrawer(props);
           await clearAuthenticationToken();
-          props.navigator.resetTo({
-            screen: 'easi6driver.LoginScreen',
-          });
+          props.navigator.resetTo(LOGIN_SCREEN);
         })();
       },
     })

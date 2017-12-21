@@ -1,15 +1,19 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 import styled from 'styled-components/native';
 import _ from 'lodash';
 import moment from 'moment';
+import autoBind from 'react-autobind';
+
+import {preferredLocale} from '../../utils/i18n';
 
 type Props = {
   t: Function,
   rental: mixed,
   loading: boolean,
+  openMap: Function,
 };
 
 const Container = styled.View`
@@ -18,9 +22,33 @@ const Container = styled.View`
 
 const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm');
 
-const preferredLocale = (item, fieldName) => item[`${fieldName}${_.upperFirst('ko')}`] || item[fieldName];
 
 class RentalDetailView extends Component<Props> {
+  constructor(props) {
+    super(props);
+
+    autoBind(this);
+  }
+
+  renderLocation(loc) {
+    const onOpenMapButtonPressed = () => this.props.openMap(loc);
+
+    return (
+      <View key={loc.key}>
+        <Text>
+          {preferredLocale(loc, 'name')}
+        </Text>
+        <Text>
+          {preferredLocale(loc, 'address')}
+        </Text>
+        <Button
+          title="gotomap"
+          onPress={onOpenMapButtonPressed}
+        />
+      </View>
+    );
+  }
+
   render() {
     const {t, loading, rental} = this.props;
 
@@ -36,16 +64,7 @@ class RentalDetailView extends Component<Props> {
         <Text>
           {m(rental.startDate)}
         </Text>
-        {locations.map((loc) => (
-          <View key={loc.key}>
-            <Text>
-              {preferredLocale(loc, 'name')}
-            </Text>
-            <Text>
-              {preferredLocale(loc, 'address')}
-            </Text>
-          </View>
-        ))}
+        {locations.map(this.renderLocation)}
       </Container>
     )
   }

@@ -41,6 +41,6 @@ i18next
   .use(i18nextReactNative)
   .init(options);
 
-console.log('options', options);
-
 export default i18next;
+
+export const preferredLocale = (item, fieldName) => item[`${fieldName}${_.upperFirst('ko')}`] || item[fieldName];

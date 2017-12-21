@@ -7,6 +7,8 @@ import _ from 'lodash';
 import moment from 'moment';
 import autoBind from 'react-autobind';
 
+import {preferredLocale} from '../../utils/i18n';
+
 type Props = {
   t: Function,
   rentals: Array<Object>,
@@ -28,8 +30,6 @@ const RentalItemContainer = styled.TouchableOpacity`
 `;
 
 const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm');
-
-const preferredLocale = (item, fieldName) => item[`${fieldName}${_.upperFirst('ko')}`] || item[fieldName];
 
 class RentalsView extends Component<Props> {
   constructor(props) {
