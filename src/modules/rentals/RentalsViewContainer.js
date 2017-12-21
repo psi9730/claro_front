@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {compose, lifecycle, withHandlers} from 'recompose';
+import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 
 import actions from '../../redux/actions';
 import {RENTAL_DETAIL_SCREEN} from '../../../screens';
@@ -17,11 +17,13 @@ export default connect(
   state => ({
     rentals: _.get(state, ['rentals', 'items']),
     loading: _.get(state, ['rentals', 'loading']),
-    t: i18n.getFixedT(),
   }),
   actions
 )(
   compose(
+    withProps({
+      t: i18n.getFixedT(),
+    }),
     withHandlers({
       onDetailItemPressed: (props) => (hash) => {
         props.navigator.push({
@@ -31,7 +33,7 @@ export default connect(
           },
         });
       }
-    })
+    }),
   )(lifecycle({
     componentDidMount() {
       this.props.rentalsRequest();

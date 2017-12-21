@@ -31,6 +31,7 @@ class RentalDetailView extends Component<Props> {
   }
 
   renderLocation(loc) {
+    const {t} = this.props;
     const onOpenMapButtonPressed = () => this.props.openMap(loc);
 
     return (
@@ -42,7 +43,7 @@ class RentalDetailView extends Component<Props> {
           {preferredLocale(loc, 'address')}
         </Text>
         <Button
-          title="gotomap"
+          title={t('open_map')}
           onPress={onOpenMapButtonPressed}
         />
       </View>

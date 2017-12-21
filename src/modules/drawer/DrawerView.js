@@ -25,12 +25,30 @@ const Container = styled.View`
   align-items: center;
   background-color: white;
 `;
+const DriverContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`;
 
 class LoginView extends Component<Props, State> {
   constructor(props) {
     super(props);
 
     autoBind(this);
+  }
+
+  renderDriver() {
+    const {t, user} = this.props;
+
+    return (
+      <DriverContainer>
+        <Text>
+
+        </Text>
+      </DriverContainer>
+    );
   }
 
   render() {
