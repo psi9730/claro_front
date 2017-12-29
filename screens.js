@@ -47,17 +47,17 @@ export function startApp() {
   (async () => {
     console.log('startApp in async');
     const token = await getAuthenticationToken();
-    let firstScreen = LOGIN_SCREEN;
+    let firstScreen = {...LOGIN_SCREEN};
 
     if (token && token.accessToken) {
-      firstScreen = RENTALS_SCREEN;
+      firstScreen = {...RENTALS_SCREEN};
     }
 
     console.log('startApp in async startSingleScreenApp');
     Navigation.startSingleScreenApp({
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
-        left: DRAWER_SCREEN,
+        left: {...DRAWER_SCREEN},
         style: { // ( iOS only )
           drawerShadow: true, // optional, add this if you want a side menu drawer shadow
           contentOverlayColor: 'rgba(0,0,0,0.25)', // optional, add this if you want a overlay color when drawer is open

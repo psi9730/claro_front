@@ -3,13 +3,21 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import qs from 'qs';
 import _ from 'lodash';
+import {schema} from 'normalizr';
+import {createSelector} from 'reselect';
 
 import {get} from '../../utils/api';
+
+const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'hash'});
+const rentalsWithPage = new schema.Object({
+  items: [rentalSchema],
+});
 
 // Initial state
 const initialState = {
   loading: false,
-  items: [],
+  byId: {},
+  ids: [],
   page: {
     total: 0,
     current: 0,
@@ -35,17 +43,10 @@ export function rentalsRequest(status: ?number, startDate: ?string) {
   };
 }
 
-export function rentalDetailRequest(hash: string) {
-  return {
-    type: RENTAL_DETAIL_REQUEST,
-    hash,
-  };
-}
-
-function rentalsSuccess(rentalsWithCount) {
+function rentalsSuccess(payload) {
   return {
     type: RENTALS_SUCCESS,
-    ...rentalsWithCount,
+    payload,
   };
 }
 
@@ -63,13 +64,60 @@ function* requestRentals({status, startDate}: {status: ?number, startDate: ?stri
   };
 
   try {
-    const rentalsWithCount = yield call(get, `/driver/rentals?${qs.stringify(params)}`);
+    const res = yield call(get, `/driver/rentals?${qs.stringify(params)}`, rentalsWithPage);
 
-    yield put(rentalsSuccess(rentalsWithCount));
+    yield put(rentalsSuccess(res));
   } catch (e) {
     yield put(rentalsFailure(e));
   }
 }
+
+export function rentalDetailRequest(hash: string) {
+  return {
+    type: RENTAL_DETAIL_REQUEST,
+    hash,
+  };
+}
+
+function rentalDetailSuccess(rental) {
+  return {
+    type: RENTAL_DETAIL_SUCCESS,
+    rental,
+  };
+}
+
+function rentalDetailFailure(err) {
+  return {
+    type: RENTAL_DETAIL_FAILURE,
+    err,
+  };
+}
+
+function* requestRentalDetail({hash}: {hash: string}) {
+  try {
+    const rental = yield call(get, `/driver/rentals/${hash}`);
+
+    yield put(rentalDetailSuccess(rental));
+  } catch (e) {
+    yield put(rentalDetailFailure(e));
+  }
+}
+
+// Selectors
+
+const getRentalsById = (state) => state.rentals.byId;
+
+const getRentalIds = (state) => state.rentals.ids;
+
+const getRentalHash = (__, props) => props.hash;
+
+export const makeGetVisibleRentals = () => createSelector([getRentalsById, getRentalIds], (rentalsById, ids) => {
+  return _.map(ids, (id) => rentalsById[id]);
+});
+
+export const makeGetVisibleRental = () => createSelector([getRentalsById, getRentalHash], (rentalsById, hash) => {
+  return rentalsById[hash];
+});
 
 // Reducer
 export default function RentalsStateReducer(state = initialState, action = {}) {
@@ -84,7 +132,16 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: false,
-        ..._.pick(action, ['items', 'page', 'totalCnt']),
+        ids: action.payload.result.items,
+        byId: {
+          ...state.byId,
+          ...action.payload.entities.rentals,
+        },
+        page: {
+          ...state.page,
+          ...action.payload.result.page,
+        },
+        totalCnt: action.payload.result.totalCnt,
       };
 
     case RENTALS_FAILURE:
@@ -101,4 +158,5 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
 
 export const RentalsSaga = [
   takeLatest(RENTALS_REQUEST, requestRentals),
+  takeLatest(RENTAL_DETAIL_REQUEST, requestRentalDetail)
 ];

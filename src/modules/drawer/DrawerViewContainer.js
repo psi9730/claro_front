@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import DrawerView from './DrawerView';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
-import {compose, withHandlers} from 'recompose';
+import {compose, lifecycle, withHandlers} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
 import {LOGIN_SCREEN, RENTALS_SCREEN} from '../../../screens';
+import actions from '../../redux/actions';
 
 const hideDrawer = (props) => {
   props.navigator.toggleDrawer({
@@ -17,24 +18,32 @@ const hideDrawer = (props) => {
 
 export default connect(
   state => ({
-    user: _.get(state, ['login', 'user']),
+    me: _.get(state, ['login', 'me']),
     t: i18n.getFixedT(),
   }),
-  null,
+  actions,
 )(
   compose(
     withHandlers({
       goToRentals: (props) => () => {
         hideDrawer(props);
-        props.navigator.push(RENTALS_SCREEN);
+        props.navigator.push({...RENTALS_SCREEN});
       },
       logout: (props) => () => {
         (async () => {
           hideDrawer(props);
           await clearAuthenticationToken();
-          props.navigator.resetTo(LOGIN_SCREEN);
+          props.navigator.resetTo({...LOGIN_SCREEN});
         })();
       },
     })
-  )(DrawerView)
+  )(
+    lifecycle({
+      componentDidMount() {
+        this.props.fetchMeRequest();
+      }
+    })(
+      DrawerView
+    )
+  )
 );

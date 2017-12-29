@@ -1,9 +1,11 @@
 import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
 import {decamelizeKeys, camelizeKeys} from 'humps';
+import {normalize} from 'normalizr';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 import {setAuthenticationToken} from './authentication';
+import timeout from './timeout';
 
 const EventEmitter = require('event-emitter');
 
@@ -17,43 +19,47 @@ export const errors = new EventEmitter();
 /**
  * GET a path relative to API root url.
  * @param {String}  path Relative path to the configured API endpoint
+ * @param {Object} schema Schema that normalizing body
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise} of response body
  */
-export async function get(path, suppressRedBox) {
-  return bodyOf(request('get', path, null, suppressRedBox));
+export async function get(path, schema, suppressRedBox) {
+  return bodyOf(request('get', path, null, schema, suppressRedBox));
 }
 
 /**
  * POST JSON to a path relative to API root url
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} body Anything that you can pass to JSON.stringify
+ * @param {Object} schema Schema that normalizing body
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function post(path, body, suppressRedBox) {
-  return bodyOf(request('post', path, body, suppressRedBox));
+export async function post(path, body, schema, suppressRedBox) {
+  return bodyOf(request('post', path, body, schema, suppressRedBox));
 }
 
 /**
  * PUT JSON to a path relative to API root url
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} body Anything that you can pass to JSON.stringify
+ * @param {Object} schema Schema that normalizing body
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function put(path, body, suppressRedBox) {
-  return bodyOf(request('put', path, body, suppressRedBox));
+export async function put(path, body, schema, suppressRedBox) {
+  return bodyOf(request('put', path, body, schema, suppressRedBox));
 }
 
 /**
  * DELETE a path relative to API root url
  * @param {String} path Relative path to the configured API endpoint
+ * @param {Object} schema Schema that normalizing body
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function del(path, suppressRedBox) {
-  return bodyOf(request('delete', path, null, suppressRedBox));
+export async function del(path, schema, suppressRedBox) {
+  return bodyOf(request('delete', path, null, schema, suppressRedBox));
 }
 
 /**
@@ -83,7 +89,7 @@ async function refreshToken(refreshToken: string) {
   return false;
 }
 
-export async function request(method, path, body, suppressRedBox) {
+export async function request(method, path, body, schema, suppressRedBox) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
     const status = response.status;
@@ -95,12 +101,14 @@ export async function request(method, path, body, suppressRedBox) {
         if (token && token.refreshToken) {
           refreshing = refreshToken(token.refreshToken);
           if (await refreshing) {
-            return request(method, path, body, suppressRedBox);
+            refreshing = null;
+            return request(method, path, body, schema, suppressRedBox);
           }
         }
       } else {
         if (await refreshing) {
-          return request(method, path, body, suppressRedBox);
+          refreshing = null;
+          return request(method, path, body, schema, suppressRedBox);
         }
       }
     }
@@ -125,6 +133,7 @@ export async function request(method, path, body, suppressRedBox) {
 
     return handleResponse(
       path,
+      schema,
       response
     );
   }
@@ -150,6 +159,7 @@ export function url(path) {
  * Constructs and fires a HTTP request
  */
 async function sendRequest(method, path, body) {
+  console.log('sendRequest', method, path, body);
 
   try {
     const endpoint = url(path);
@@ -173,14 +183,22 @@ async function sendRequest(method, path, body) {
 /**
  * Receives and reads a HTTP response
  */
-async function handleResponse(path, response) {
+async function handleResponse(path, schema, response) {
   try {
     // parse response text
     const responseBody = await response.text();
+    let body = responseBody ? camelizeKeys(JSON.parse(responseBody)) : null;
+    console.log('before normalize', body);
+    if (body && schema) {
+      body = normalize(body, schema);
+    }
+    console.log('handleResponse', response, body);
+
+
     return {
       status: response.status,
       headers: response.headers,
-      body: responseBody ? camelizeKeys(JSON.parse(responseBody)) : null
+      body,
     };
   } catch (e) {
     throw e;
@@ -221,21 +239,6 @@ async function getErrorMessageSafely(response) {
     // Unreadable body, return whatever the server returned
     return response._bodyInit;
   }
-}
-
-/**
- * Rejects a promise after `ms` number of milliseconds, it is still pending
- */
-function timeout(promise, ms) {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error('timeout')), ms);
-    promise
-      .then(response => {
-        clearTimeout(timer);
-        resolve(response);
-      })
-      .catch(reject);
-  });
 }
 
 async function bodyOf(requestPromise) {

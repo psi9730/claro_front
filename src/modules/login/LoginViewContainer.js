@@ -21,7 +21,7 @@ export default connect(
     withHandlers({
       onLoginPressed: (props) => (username, password) => {
         props.loginRequest(username, password).then(() => {
-          props.navigator.resetTo(RENTALS_SCREEN);
+          props.navigator.resetTo({...RENTALS_SCREEN});
         });
       }
     }),

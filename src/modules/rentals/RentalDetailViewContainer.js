@@ -5,10 +5,11 @@ import actions from '../../redux/actions';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {openMapApp} from '../../utils/naviUtils';
+import {makeGetVisibleRental} from './RentalsState';
 
 export default connect(
   (state, ownProps) => ({
-    rental: _.filter(_.get(state, ['rentals', 'items']), {hash: ownProps.hash})[0],
+    rental: makeGetVisibleRental()(state, ownProps),
     loading: _.get(state, ['rentals', 'loading']),
   }),
   actions

@@ -4,6 +4,7 @@ import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import actions from '../../redux/actions';
 import {RENTAL_DETAIL_SCREEN} from '../../../screens';
 import RentalsView from './RentalsView';
+import {makeGetVisibleRentals} from './RentalsState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
 
@@ -15,7 +16,7 @@ const getPositionAndSave = () => {
 
 export default connect(
   state => ({
-    rentals: _.get(state, ['rentals', 'items']),
+    rentals: makeGetVisibleRentals()(state),
     loading: _.get(state, ['rentals', 'loading']),
   }),
   actions
