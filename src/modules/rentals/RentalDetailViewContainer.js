@@ -4,7 +4,7 @@ import View from './RentalDetailView';
 import actions from '../../redux/actions';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
-import {openMapApp} from '../../utils/naviUtils';
+import {openMapApp, openPhoneApp} from '../../utils/linkUtils';
 import {makeGetVisibleRental} from './RentalsState';
 
 export default connect(
@@ -19,7 +19,8 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      openMap: (props) => openMapApp,
+      openMap: () => openMapApp,
+      openPhone: () => openPhoneApp,
     }),
   )(
     lifecycle({

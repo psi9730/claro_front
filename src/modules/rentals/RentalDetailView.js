@@ -10,12 +10,13 @@ import autoBind from 'react-autobind';
 
 import {preferredLocale} from '../../utils/i18n';
 import easi6Theme from '../../utils/easi6Theme';
-
+import type RentalType from './RentalsState';
 type Props = {
   t: Function,
-  rental: {},
+  rental: RentalType,
   loading: boolean,
   openMap: Function,
+  openPhone: Function,
 };
 
 const Container = styled.View`
@@ -32,6 +33,7 @@ const LabelText = styled.Text`
 const DateText = styled.Text`
   font-size: 26px;
   margin-bottom: 4px;
+  margin-right: 4px;
 `;
 
 const Location = styled.View`
@@ -62,7 +64,16 @@ const Customer = styled.View`
   flex-flow: column;
 `;
 
-const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm');
+const CustomerText = styled.Text`
+  font-size: 20px;
+`;
+
+const HView = styled.View`
+  display: flex;
+  flex-flow: row;
+`;
+
+const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm A');
 
 class RentalDetailView extends Component<Props> {
   constructor(props) {
@@ -74,34 +85,37 @@ class RentalDetailView extends Component<Props> {
   renderCustomer() {
     const {t, rental} = this.props;
     const contactInfo = rental.contactInfo;
+    const onOpenPhoneButtonPressed = () => this.props.openPhone(contactInfo.phone);
 
     if (!contactInfo) return null;
 
     return (
       <Customer>
-        <Text>
+        <CustomerText>
           {contactInfo.name}
-        </Text>
-        <Text>
+        </CustomerText>
+        <CustomerPhone
+          onPress={onOpenPhoneButtonPressed}
+        >
           {contactInfo.phone}
-        </Text>
-        <View>
-          <Text>
-            {t('member_count')}
-          </Text>
-          <Text>
+        </CustomerPhone>
+        <HView>
+          <CustomerText>
+            {t('member_count')}:&nbsp;
+          </CustomerText>
+          <CustomerText>
             {rental.memberCount}
-          </Text>
-        </View>
+          </CustomerText>
+        </HView>
         {
-          rental.flightNumber && (<View>
-            <Text>
-              {t('flight_number')}
-            </Text>
-            <Text>
+          rental.flightNumber && (<HView>
+            <CustomerText>
+              {t('flight_number')}:&nbsp;
+            </CustomerText>
+            <CustomerText>
               {rental.flightNumber}
-            </Text>
-          </View>)
+            </CustomerText>
+          </HView>)
         }
       </Customer>
     );
@@ -148,9 +162,17 @@ class RentalDetailView extends Component<Props> {
           <LabelText>
             {t('rental_date')}
           </LabelText>
-          <DateText>
-            {m(rental.startDate)}
-          </DateText>
+          <HView>
+            <DateText>
+              {m(rental.startDate)}
+            </DateText>
+            {(rental.orderDays > 0) && (
+              <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
+            )}
+            {(rental.orderHours > 0) && (
+              <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
+            )}
+          </HView>
           <LabelText>
             {t('rental_locations')}
           </LabelText>

@@ -13,6 +13,18 @@ const rentalsWithPage = new schema.Object({
   items: [rentalSchema],
 });
 
+export type RentalType = {
+  memberCount: number,
+  contactInfo: {
+    name: string,
+    phone: string,
+  },
+  flightNumber: ?string,
+  locationInfos: Array<Object>,
+  orderDays: number,
+  orderHours: number,
+};
+
 // Initial state
 const initialState = {
   loading: false,

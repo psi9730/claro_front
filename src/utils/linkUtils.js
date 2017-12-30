@@ -9,3 +9,17 @@ export const openMapApp = (location) => {
     SendIntentAndroid.openMaps(`${location.latitude},${location.longitude}`)
   }
 };
+
+const isValidPhone = (phone) => {
+  return true;
+};
+
+export const openPhoneApp = (phone) => {
+  const isIos = Platform.OS === 'ios';
+  if (isIos) {
+
+  } else {
+    if (phone && isValidPhone(phone))
+    SendIntentAndroid.sendPhoneDial(phone);
+  }
+};

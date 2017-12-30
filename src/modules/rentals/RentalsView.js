@@ -10,10 +10,11 @@ import autoBind from 'react-autobind';
 
 import {preferredLocale} from '../../utils/i18n';
 import easi6Theme from '../../utils/easi6Theme';
+import type RentalType from './RentalsState';
 
 type Props = {
   t: Function,
-  rentals: Array<Object>,
+  rentals: Array<RentalType>,
   loading: boolean,
   rentalsStateActions: {
     rentalsRequest: () => mixed,
@@ -47,6 +48,10 @@ const LocationText = styled.Text`
   color: black;
 `;
 
+const HView = styled.View`
+  flex-flow: row;
+`;
+
 const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm A');
 
 class RentalsView extends Component<Props> {
@@ -59,7 +64,6 @@ class RentalsView extends Component<Props> {
   renderRental({item: rental}) {
     if (!rental) return null;
     const {t} = this.props;
-    console.log('t function', t);
     const onDetailItemPressed = () => {
       this.props.onDetailItemPressed(rental.hash);
     };
@@ -71,17 +75,17 @@ class RentalsView extends Component<Props> {
       <RentalItemContainer
         onPress={onDetailItemPressed}
       >
-        <View>
+        <HView>
           <DateText>
-            {m(rental.startDate)}
+            {m(rental.startDate)}&nbsp;
           </DateText>
           {(rental.orderDays > 0) && (
-            <DateText>{t('order_days', {days: rental.orderDays})}</DateText>
+            <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
           )}
           {(rental.orderHours > 0) && (
-            <DateText>{t('order_hours', {hours: rental.orderHours})}</DateText>
+            <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
           )}
-        </View>
+        </HView>
         {locations.map((loc) => (
           <LocationText
             key={loc.key}
