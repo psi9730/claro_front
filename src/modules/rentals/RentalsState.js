@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {schema} from 'normalizr';
 import {createSelector} from 'reselect';
 
-import {get} from '../../utils/api';
+import {get, post} from '../../utils/api';
 
 const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'hash'});
 const rentalsWithPage = new schema.Object({
@@ -45,6 +45,10 @@ const RENTALS_FAILURE = 'RentalsState/RENTALS_FAILURE';
 const RENTAL_DETAIL_REQUEST = 'RentalsState/RENTAL_DETAIL_REQUEST';
 const RENTAL_DETAIL_SUCCESS = 'RentalsState/RENTAL_DETAIL_SUCCESS';
 const RENTAL_DETAIL_FAILURE = 'RentalsState/RENTAL_DETAIL_FAILURE';
+
+const RENTAL_STATUS_CHANGE_REQUEST = 'RentalsState/RENTAL_STATUS_CHANGE_REQUEST';
+const RENTAL_STATUS_CHANGE_SUCCESS = 'RentalsState/RENTAL_STATUS_CHANGE_SUCCESS';
+const RENTAL_STATUS_CHANGE_FAILURE = 'RentalsState/RENTAL_STATUS_CHANGE_FAILURE';
 
 // Action creators
 export function rentalsRequest(status: ?number, startDate: ?string) {
@@ -91,10 +95,10 @@ export function rentalDetailRequest(hash: string) {
   };
 }
 
-function rentalDetailSuccess(rental) {
+function rentalDetailSuccess(payload) {
   return {
     type: RENTAL_DETAIL_SUCCESS,
-    rental,
+    payload,
   };
 }
 
@@ -107,11 +111,50 @@ function rentalDetailFailure(err) {
 
 function* requestRentalDetail({hash}: {hash: string}) {
   try {
-    const rental = yield call(get, `/driver/rentals/${hash}`);
+    const rental = yield call(get, `/driver/rentals/${hash}`, rentalSchema);
 
     yield put(rentalDetailSuccess(rental));
   } catch (e) {
     yield put(rentalDetailFailure(e));
+  }
+}
+
+export function rentalStatusChangeRequest(hash: string, status: number) {
+  return {
+    type: RENTAL_STATUS_CHANGE_REQUEST,
+    hash,
+    status,
+  };
+}
+
+function rentalStatusChangeSuccess(payload) {
+  return {
+    type: RENTAL_STATUS_CHANGE_SUCCESS,
+    payload,
+  };
+}
+
+function rentalStatusChangeFailure(err) {
+  return {
+    type: RENTAL_STATUS_CHANGE_FAILURE,
+    err,
+  };
+}
+
+function* requestRentalStatusChange({hash, status}: {hash: string, status: number}) {
+  try {
+    if (status === 40 || status === 50 || status === 60) {
+      const params = {
+        status: status+10,
+      };
+      const rental = yield call(post, `/driver/rentals/${hash}/status`, params, rentalSchema);
+
+      yield put(rentalStatusChangeSuccess(rental));
+    } else {
+      yield put(rentalStatusChangeFailure(e));
+    }
+  } catch (e) {
+    yield put(rentalStatusChangeFailure(e));
   }
 }
 
@@ -135,6 +178,8 @@ export const makeGetVisibleRental = () => createSelector([getRentalsById, getRen
 export default function RentalsStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case RENTALS_REQUEST:
+    case RENTAL_DETAIL_REQUEST:
+    case RENTAL_STATUS_CHANGE_REQUEST:
       return {
         ...state,
         loading: true,
@@ -156,7 +201,20 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
         totalCnt: action.payload.result.totalCnt,
       };
 
+    case RENTAL_DETAIL_SUCCESS:
+    case RENTAL_STATUS_CHANGE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        byId: {
+          ...state.byId,
+          ...action.payload.entities.rentals,
+        },
+      };
+
     case RENTALS_FAILURE:
+    case RENTAL_DETAIL_FAILURE:
+    case RENTAL_STATUS_CHANGE_FAILURE:
       return {
         ...state,
         loading: false,
@@ -170,5 +228,6 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
 
 export const RentalsSaga = [
   takeLatest(RENTALS_REQUEST, requestRentals),
-  takeLatest(RENTAL_DETAIL_REQUEST, requestRentalDetail)
+  takeLatest(RENTAL_DETAIL_REQUEST, requestRentalDetail),
+  takeLatest(RENTAL_STATUS_CHANGE_REQUEST, requestRentalStatusChange),
 ];

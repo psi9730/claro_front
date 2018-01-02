@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import SessionStateReducer from '../modules/session/SessionState';
-import LoginStateReducer from '../modules/login/LoginState';
+import DriverStateReducer from '../modules/driver/DriverState';
 import RentalsStateReducer from '../modules/rentals/RentalsState';
 // ## Generator Reducer Imports
 
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   // rentals: RentalStateReducer,
   // ## Generator Reducers
 
-  login: LoginStateReducer,
+  driver: DriverStateReducer,
 
   rentals: RentalsStateReducer,
 

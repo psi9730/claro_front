@@ -3,10 +3,10 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {WAIT_FOR_ACTION} from 'redux-wait-for-action';
 
-import {setAuthenticationToken} from '../../utils/authentication';
+import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
 import {post, get} from '../../utils/api';
 
-type LoginState = {
+type DriverState = {
   loading: boolean,
   me: ?{
     name: string,
@@ -22,13 +22,13 @@ const initialState = {
 };
 
 // Actions
-const LOGIN_REQUEST = 'LoginState/LOGIN_REQUEST';
-const LOGIN_SUCCESS = 'LoginState/LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'LoginState/LOGIN_FAILURE';
+const LOGIN_REQUEST = 'DriverState/LOGIN_REQUEST';
+const LOGIN_SUCCESS = 'DriverState/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'DriverState/LOGIN_FAILURE';
 
-const FETCH_ME_REQUEST = 'LoginState/FETCH_ME_REQUEST';
-const FETCH_ME_SUCCESS = 'LoginState/FETCH_ME_SUCCESS';
-const FETCH_ME_FAILURE = 'LoginState/FETCH_ME_FAILURE';
+const FETCH_ME_REQUEST = 'DriverState/FETCH_ME_REQUEST';
+const FETCH_ME_SUCCESS = 'DriverState/FETCH_ME_SUCCESS';
+const FETCH_ME_FAILURE = 'DriverState/FETCH_ME_FAILURE';
 
 // Action creators
 
@@ -68,6 +68,7 @@ function* requestLogin({username, password}: {username: string, password: string
     yield setAuthenticationToken(token);
 
     yield put(loginSuccess(token));
+    yield put(fetchMeRequest());
   } catch (e) {
     yield put(loginFailure(e));
   }
@@ -76,7 +77,6 @@ function* requestLogin({username, password}: {username: string, password: string
 export function fetchMeRequest() {
   return {
     type: FETCH_ME_REQUEST,
-    [WAIT_FOR_ACTION]: FETCH_ME_SUCCESS,
   };
 }
 
@@ -96,16 +96,21 @@ function fetchMeFailure(err) {
 
 function* requestFetchMe() {
   try {
-    const me = yield call(get, '/driver/me');
+    const token = yield getAuthenticationToken();
+    if (token && token.accessToken) {
+      const me = yield call(get, '/driver/me');
 
-    yield put(fetchMeSuccess(me));
+      yield put(fetchMeSuccess(me));
+    } else {
+      yield put(fetchMeFailure(null));
+    }
   } catch (e) {
     yield put(fetchMeFailure(e));
   }
 }
 
 // Reducer
-export default function LoginStateReducer(state: LoginState = initialState, action = {}): LoginState {
+export default function DriverStateReducer(state: DriverState = initialState, action = {}): DriverState {
   switch (action.type) {
     case LOGIN_REQUEST:
     case FETCH_ME_REQUEST:

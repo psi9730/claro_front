@@ -1,6 +1,6 @@
 import AsyncStorage from './easi6Storage';
 
-const AUTHENTICATION_STORAGE_KEY = 'LoginState:Authentication';
+const AUTHENTICATION_STORAGE_KEY = 'DriverState:Authentication';
 
 export async function getAuthenticationToken() {
   try {

@@ -89,7 +89,7 @@ async function refreshToken(refreshToken: string) {
   return false;
 }
 
-export async function request(method, path, body, schema, suppressRedBox) {
+export async function request(method, path, body, schema, suppressRedBox = true) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
     const status = response.status;

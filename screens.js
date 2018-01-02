@@ -3,12 +3,15 @@
 import {Navigation} from 'react-native-navigation';
 import {Provider} from 'react-redux';
 
+import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
-import LoginScreen from './src/modules/login/LoginViewContainer';
+import LoginScreen from './src/modules/driver/login/LoginViewContainer';
 import RentalsScreen from './src/modules/rentals/RentalsViewContainer';
 import RentalDetailScreen from './src/modules/rentals/RentalDetailViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
+
+const t = i18n.getFixedT();
 
 export const DRAWER_SCREEN = {
   screen: 'easi6driver.DrawerScreen',
@@ -17,19 +20,19 @@ export const DRAWER_SCREEN = {
 };
 export const LOGIN_SCREEN = {
   screen: 'easi6driver.LoginScreen',
-  title: 'Login',
+  title: t('title_login'),
   navigatorStyle: {},
   navigatorButtons: {},
 };
 export const RENTALS_SCREEN = {
   screen: 'easi6driver.RentalsScreen',
-  title: 'Rentals',
+  title: t('title_rentals'),
   navigatorStyle: {},
   navigatorButtons: {},
 };
 export const RENTAL_DETAIL_SCREEN = {
   screen: 'easi6driver.RentalDetailScreen',
-  title: 'Rental',
+  title: t('title_rental'),
   navigatorStyle: {},
   navigatorButtons: {},
 };
@@ -43,9 +46,7 @@ export function registerScreens() {
 }
 
 export function startApp() {
-  console.log('startApp');
   (async () => {
-    console.log('startApp in async');
     const token = await getAuthenticationToken();
     let firstScreen = {...LOGIN_SCREEN};
 
@@ -53,7 +54,6 @@ export function startApp() {
       firstScreen = {...RENTALS_SCREEN};
     }
 
-    console.log('startApp in async startSingleScreenApp');
     Navigation.startSingleScreenApp({
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app

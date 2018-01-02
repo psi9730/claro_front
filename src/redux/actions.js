@@ -1,7 +1,7 @@
-import * as LoginStateActions from '../modules/login/LoginState';
+import * as DriverStateActions from '../modules/driver/DriverState';
 import * as RentalsStateActions from '../modules/rentals/RentalsState';
 
 export default actions = {
-  ...LoginStateActions,
+  ...DriverStateActions,
   ...RentalsStateActions,
 };

@@ -17,23 +17,29 @@ type Props = {
   loading: boolean,
   openMap: Function,
   openPhone: Function,
+  statusChange: Function,
 };
 
 const Container = styled.View`
-  padding: 10px;
+  background-color: white;  
+`;
+
+const ScrollContainer = styled.ScrollView`
   background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const LabelText = styled.Text`
   font-size: 26px;
-  margin-top: 10px;
-  color: black;
+  margin-top: 18px;
 `;
 
 const DateText = styled.Text`
   font-size: 26px;
   margin-bottom: 4px;
   margin-right: 4px;
+  color: black;
 `;
 
 const Location = styled.View`
@@ -47,12 +53,14 @@ const LocationTexts = styled.View`
 `;
 const LocationText = styled.Text`
   font-size: 22px;
+  color: black;
 `;
 
 const OpenMapBtn = styled.TouchableOpacity`
   flex: 0 0 70px;
-  height: 70px;
   background-color: ${props => props.theme.mainBgColor};
+  align-items: center;
+  justify-content: center;
 `;
 
 const OpenMapText = styled.Text`
@@ -62,10 +70,20 @@ const OpenMapText = styled.Text`
 const Customer = styled.View`
   display: flex;
   flex-flow: column;
+  padding-bottom: 40px;
 `;
 
 const CustomerText = styled.Text`
   font-size: 20px;
+  color: black;
+`;
+
+const CustomerPhone = styled.TouchableOpacity`
+`;
+
+const CustomerPhoneText = styled.Text`
+  font-size: 20px;
+  color: ${props => props.theme.mainColor};
 `;
 
 const HView = styled.View`
@@ -73,7 +91,7 @@ const HView = styled.View`
   flex-flow: row;
 `;
 
-const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm A');
+const m = (dateTime) => moment(dateTime).format('YYYY-MM-DD HH:mm A');
 
 class RentalDetailView extends Component<Props> {
   constructor(props) {
@@ -84,6 +102,9 @@ class RentalDetailView extends Component<Props> {
 
   renderCustomer() {
     const {t, rental} = this.props;
+
+    if (rental.status >= 70) return null;
+
     const contactInfo = rental.contactInfo;
     const onOpenPhoneButtonPressed = () => this.props.openPhone(contactInfo.phone);
 
@@ -91,13 +112,16 @@ class RentalDetailView extends Component<Props> {
 
     return (
       <Customer>
+        <LabelText>
+          {t('rental_customer')}
+        </LabelText>
         <CustomerText>
           {contactInfo.name}
         </CustomerText>
         <CustomerPhone
           onPress={onOpenPhoneButtonPressed}
         >
-          {contactInfo.phone}
+          <CustomerPhoneText>{contactInfo.phone}</CustomerPhoneText>
         </CustomerPhone>
         <HView>
           <CustomerText>
@@ -146,6 +170,38 @@ class RentalDetailView extends Component<Props> {
     );
   }
 
+  renderButton() {
+    const {t, loading, rental} = this.props;
+
+    if (rental.status < 40 || rental.status >= 70) return null;
+
+    const onStatusChangePressed = () => this.props.statusChange();
+    const status = rental.status;
+    let txt = t('pick_up');
+
+    switch (status) {
+      case 50:
+        txt = t('start_driving');
+        break;
+      case 60:
+        txt = t('finish_driving');
+        break;
+      default:
+        break;
+    }
+
+    return (
+      <View>
+        <Button
+          title={txt}
+          onPress={onStatusChangePressed}
+          color={easi6Theme.mainColor}
+          disabled={loading}
+        />
+      </View>
+    )
+  }
+
   render() {
     const {t, rental} = this.props;
 
@@ -159,28 +215,29 @@ class RentalDetailView extends Component<Props> {
     return (
       <ThemeProvider theme={easi6Theme}>
         <Container>
-          <LabelText>
-            {t('rental_date')}
-          </LabelText>
-          <HView>
-            <DateText>
-              {m(rental.startDate)}
-            </DateText>
-            {(rental.orderDays > 0) && (
-              <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
-            )}
-            {(rental.orderHours > 0) && (
-              <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
-            )}
-          </HView>
-          <LabelText>
-            {t('rental_locations')}
-          </LabelText>
-          {locations.map(this.renderLocation)}
-          <LabelText>
-            {t('rental_customer')}
-          </LabelText>
-          {this.renderCustomer()}
+          <ScrollContainer>
+            <LabelText>
+              {t('rental_date')}
+            </LabelText>
+            <HView>
+              <DateText>
+                {m(rental.startDate)}
+              </DateText>
+              {(rental.orderDays > 0) && (
+                <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
+              )}
+              {(rental.orderHours > 0) && (
+                <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
+              )}
+            </HView>
+            <LabelText>
+              {t('rental_locations')}
+            </LabelText>
+            {locations.map(this.renderLocation)}
+            {this.renderCustomer()}
+            <View style={{flexGrow: 1}} />
+            {this.renderButton()}
+          </ScrollContainer>
         </Container>
       </ThemeProvider>
     )

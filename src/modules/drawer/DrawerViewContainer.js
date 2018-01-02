@@ -18,7 +18,7 @@ const hideDrawer = (props) => {
 
 export default connect(
   state => ({
-    me: _.get(state, ['login', 'me']),
+    me: _.get(state, ['driver', 'me']),
     t: i18n.getFixedT(),
   }),
   actions,

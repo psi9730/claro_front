@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
+import PhoneInput from 'react-native-phone-input';
 
 type State = {
   username: string,
@@ -32,8 +33,6 @@ const EasiInput = styled.TextInput`
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
   background-color: white;
 `;
 
@@ -41,10 +40,12 @@ const EasiButton = styled.Button`
   background: aquamarine;
 `;
 
-class LoginView extends Component<Props, State> {
+class ProfileView extends Component<Props, State> {
   state = {
-    username: '+821020407667',
-    password: 'rlawlsdjr',
+    username: '',
+    number: '',
+    iso2: '',
+    password: '',
   };
   constructor(props) {
     super(props);
@@ -52,32 +53,34 @@ class LoginView extends Component<Props, State> {
     autoBind(this);
   }
 
-  onChangeUsername(username) {
-    this.setState({username});
+  onChangeUsername(number) {
+    console.log(this.state.number);
+    this.setState({number});
+  }
+
+  onSelectCountry(iso2) {
+    console.log(this.state.iso2);
+    this.setState({iso2});
   }
 
   onChangePassword(password) {
     this.setState({password});
   }
 
-  onLoginPressed() {
-    this.props.onLoginPressed(this.state.username, this.state.password);
-  }
-
   render() {
-    const {t, loading, user} = this.props;
+    const {t, loading} = this.props;
 
     return (
       <Container>
         <Text>
           easi6 for drivers
-
         </Text>
-        <EasiInput
-          placeholder={t('login_phone')}
-          onChangeText={this.onChangeUsername}
-          value={this.state.username}
+        <PhoneInput
+          textProps={{placeholder: t('login_phone')}}
+          onChangePhoneNumber={this.onChangeUsername}
+          onSelectCountry={this.onSelectCountry}
         />
+        <View style={{height: '14px'}} />
         <EasiInput
           placeholder={t('login_password')}
           secureTextEntry={true}
@@ -95,4 +98,4 @@ class LoginView extends Component<Props, State> {
   }
 }
 
-export default LoginView;
+export default ProfileView;

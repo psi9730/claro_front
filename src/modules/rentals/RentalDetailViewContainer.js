@@ -21,6 +21,10 @@ export default connect(
     withHandlers({
       openMap: () => openMapApp,
       openPhone: () => openPhoneApp,
+      statusChange: (props) => () => {
+        const rental = props.rental;
+        props.rentalStatusChangeRequest(rental.hash, rental.status);
+      },
     }),
   )(
     lifecycle({

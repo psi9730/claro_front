@@ -1,3 +1,6 @@
+// @flow
+
+import {Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 
@@ -7,12 +10,6 @@ import RentalsView from './RentalsView';
 import {makeGetVisibleRentals} from './RentalsState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
-
-const getPositionAndSave = () => {
-  navigator.geolocation.getCurrentPosition((response) => {
-    console.log('getCurrentPosition', response);
-  })
-};
 
 export default connect(
   state => ({
@@ -38,9 +35,6 @@ export default connect(
   )(lifecycle({
     componentDidMount() {
       this.props.rentalsRequest();
-      // navigator.geolocation.setRNConfiguration({skipPermissionRequests: false});
-      // navigator.geolocation.requestAuthorization();
-      navigator.geolocation.watchPosition(getPositionAndSave)
     }
   })(
     RentalsView

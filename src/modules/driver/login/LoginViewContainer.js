@@ -1,16 +1,15 @@
 import {connect} from 'react-redux';
 
-import actions from '../../redux/actions';
+import actions from '../../../redux/actions';
 import LoginView from './LoginView';
-import i18n from '../../utils/i18n';
+import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps} from 'recompose';
-import {RENTALS_SCREEN} from '../../../screens';
+import {compose, withHandlers, withProps, lifecycle} from 'recompose';
+import {RENTALS_SCREEN} from '../../../../screens';
 
 export default connect(
   state => ({
-    user: _.get(state, ['login', 'user']),
-    loading: _.get(state, ['login', 'loading']),
+    loading: _.get(state, ['driver', 'loading']),
   }),
   actions,
 )(
@@ -25,5 +24,13 @@ export default connect(
         });
       }
     }),
-  )(LoginView)
+  )(
+    lifecycle({
+      componentDidMount() {
+        if (this.refs.phone) {
+          this.refs.phone.focus();
+        }
+      }
+    })(LoginView)
+  )
 );

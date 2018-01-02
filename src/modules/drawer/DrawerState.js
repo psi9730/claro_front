@@ -11,9 +11,9 @@ const initialState = {
 };
 
 // Actions
-const LOGIN_REQUEST = 'LoginState/LOGIN_REQUEST';
-const LOGIN_SUCCESS = 'LoginState/LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'LoginState/LOGIN_FAILURE';
+const LOGIN_REQUEST = 'DriverState/LOGIN_REQUEST';
+const LOGIN_SUCCESS = 'DriverState/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'DriverState/LOGIN_FAILURE';
 
 // Action creators
 
@@ -59,7 +59,7 @@ function* requestLogin({username, password}: {username: string, password: string
 }
 
 // Reducer
-export default function LoginStateReducer(state = initialState, action = {}) {
+export default function DriverStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {

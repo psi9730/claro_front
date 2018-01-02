@@ -3,6 +3,7 @@
 import 'babel-polyfill';
 import React from 'react';
 
+import {getPositionAndSave} from './src/utils/geoUtils';
 import mySaga from './src/redux/sagas';
 import {sagaMiddleware} from './src/redux/store';
 import './src/utils/i18n';
@@ -16,3 +17,10 @@ sagaMiddleware.run(mySaga);
 registerScreens();
 
 startApp();
+
+const watchId = navigator.geolocation.watchPosition(getPositionAndSave, (err) => {console.log('err', err)}, {
+  enableHighAccuracy: true,
+  timeout: 5000,
+});
+
+getPositionAndSave();
