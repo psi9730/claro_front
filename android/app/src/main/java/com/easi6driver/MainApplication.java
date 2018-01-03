@@ -4,6 +4,7 @@ import android.app.Application;
 import com.reactnativenavigation.NavigationApplication;
 
 import com.facebook.react.ReactApplication;
+import com.marianhello.react.BackgroundGeolocationPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +27,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new BackgroundGeolocationPackage(),
             new RNSendIntentPackage(),
         new ReactNativeI18n()
       );
@@ -54,6 +56,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
 
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
+      new BackgroundGeolocationPackage(),
       new RNSendIntentPackage(),
       new ReactNativeI18n()
     );

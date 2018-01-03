@@ -3,6 +3,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {WAIT_FOR_ACTION} from 'redux-wait-for-action';
 
+import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
 import {post, get} from '../../utils/api';
 
@@ -99,6 +100,7 @@ function* requestFetchMe() {
     const token = yield getAuthenticationToken();
     if (token && token.accessToken) {
       const me = yield call(get, '/driver/me');
+      yield call(Storage.setItem, 'driverId', `${me.id}`);
 
       yield put(fetchMeSuccess(me));
     } else {

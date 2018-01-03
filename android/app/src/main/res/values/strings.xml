@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Easi6ForDriver</string>
+    <string name="account_type">com.easi6driver.account</string>
+    <string name="content_authority">com.easi6driver.authority</string>
 </resources>
