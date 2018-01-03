@@ -14,6 +14,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
 import CountryPicker from 'react-native-country-picker-modal';
+import {ThemeProvider} from 'styled-components';
 
 import easi6Theme from '../../../utils/easi6Theme';
 
@@ -43,7 +44,12 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const EasiButton = styled.Button`
+const LoginButton = styled.TouchableOpacity`
+  background-color: ${props => props.theme.mainBgColor};
+`;
+const LoginText = styled.Text`
+  font-size: 30px;
+  color: ${props => props.theme.mainColor};
 `;
 
 const CoverText = styled.Text`
@@ -100,50 +106,54 @@ class LoginView extends Component<Props, State> {
     const {t, loading} = this.props;
 
     return (
-      <Container>
-        <CoverText>
-          {t('cover_text')}
-        </CoverText>
-        <PhoneInput
-          ref='phone'
-          textProps={{placeholder: t('login_phone')}}
-          onChangePhoneNumber={this.onChangeUsername}
-          onSelectCountry={this.onSelectCountry}
-          initialCountry='kr'
-          onPressFlag={this.onPressFlag}
-          style={{
-            width: '70%',
-          }}
-          textStyle={{
-            fontSize: 20,
-          }}
-        />
-        <CountryPicker
-          ref='countryPicker'
-          onChange={this.selectCountry}
-          translation='eng'
-          cca2={this.state.cca2}
-          filterable
-        >
-          <View />
-        </CountryPicker>
-        <PasswordInput
-          placeholder={t('login_password')}
-          autoCorrect={false}
-          onChangeText={this.onChangePassword}
-          value={this.state.password}
-          autoCapitalize='none'
-          onSubmitEditing={this.onLoginPressed}
-          blurOnSubmit
-          secureTextEntry
-        />
-        <EasiButton
-          title={t('login_submit')}
-          onPress={this.onLoginPressed}
-          disabled={loading}
-          color={easi6Theme.mainColor}
-        />
-      </Container>
+      <ThemeProvider theme={easi6Theme}>
+        <Container>
+          <CoverText>
+            {t('cover_text')}
+          </CoverText>
+          <PhoneInput
+            ref='phone'
+            textProps={{placeholder: t('login_phone')}}
+            onChangePhoneNumber={this.onChangeUsername}
+            onSelectCountry={this.onSelectCountry}
+            initialCountry='kr'
+            onPressFlag={this.onPressFlag}
+            style={{
+              width: '70%',
+            }}
+            textStyle={{
+              fontSize: 20,
+            }}
+          />
+          <CountryPicker
+            ref='countryPicker'
+            onChange={this.selectCountry}
+            translation='eng'
+            cca2={this.state.cca2}
+            filterable
+          >
+            <View />
+          </CountryPicker>
+          <PasswordInput
+            placeholder={t('login_password')}
+            autoCorrect={false}
+            onChangeText={this.onChangePassword}
+            value={this.state.password}
+            autoCapitalize='none'
+            onSubmitEditing={this.onLoginPressed}
+            blurOnSubmit
+            secureTextEntry
+          />
+          <LoginButton
+            onPress={this.onLoginPressed}
+            disabled={loading}
+          >
+            <LoginText>
+              {t('login_submit')}
+            </LoginText>
+          </LoginButton>
+        </Container>
+      </ThemeProvider>
     );
   }
 }
