@@ -136,12 +136,10 @@ export async function request(method, path, body, schema, suppressRedBox = true)
       schema,
       response
     );
-  }
-  catch (error) {
+  } catch (error) {
     if (!suppressRedBox) {
       logError(error, url(path), method);
     }
-    throw error;
   }
 }
 
@@ -188,7 +186,6 @@ async function handleResponse(path, schema, response) {
     // parse response text
     const responseBody = await response.text();
     let body = responseBody ? camelizeKeys(JSON.parse(responseBody)) : null;
-    console.log('before normalize', body);
     if (body && schema) {
       body = normalize(body, schema);
     }
@@ -244,7 +241,7 @@ async function getErrorMessageSafely(response) {
 async function bodyOf(requestPromise) {
   try {
     const response = await requestPromise;
-    return response.body;
+    return (response && response.body) || null;
   } catch (e) {
     throw e;
   }
