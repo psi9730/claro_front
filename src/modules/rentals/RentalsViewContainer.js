@@ -38,6 +38,10 @@ export default connect(
   )(lifecycle({
     componentDidMount() {
       const {t} = this.props;
+      this.props.navigator.setDrawerEnabled({
+        side: 'left',
+        enabled: true,
+      });
       this.props.rentalsRequest();
 
       Storage.getItem('driverId').then((driverId) => {

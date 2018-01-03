@@ -4,7 +4,7 @@ import actions from '../../../redux/actions';
 import LoginView from './LoginView';
 import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps, lifecycle} from 'recompose';
+import {compose, withHandlers, withProps} from 'recompose';
 import {RENTALS_SCREEN} from '../../../../screens';
 
 export default connect(
@@ -25,12 +25,6 @@ export default connect(
       }
     }),
   )(
-    lifecycle({
-      componentDidMount() {
-        if (this.refs.phone) {
-          this.refs.phone.focus();
-        }
-      }
-    })(LoginView)
+    LoginView
   )
 );

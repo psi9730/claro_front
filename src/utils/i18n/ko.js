@@ -1,5 +1,6 @@
 export default {
   translations: {
+    cover_text: 'easi6 기사용',
     login_phone: '전화번호',
     login_password: '비밀번호',
     login_submit: '로그인',

@@ -31,8 +31,9 @@ type Props = {
 
 const PasswordInput = styled.TextInput`
   width: 70%;
-  height: 40px;
   margin-bottom: 20px;
+  font-size: 20px;
+  margin-top: 10px;
 `;
 
 const Container = styled.View`
@@ -46,6 +47,7 @@ const EasiButton = styled.Button`
 `;
 
 const CoverText = styled.Text`
+  font-size: 40px;
   margin-bottom: 30px;
 `;
 
@@ -59,6 +61,14 @@ class LoginView extends Component<Props, State> {
     super(props);
 
     autoBind(this);
+  }
+
+  componentDidMount() {
+    this.props.navigator.setDrawerEnabled({
+      side: 'left',
+      enabled: false,
+    });
+    this.refs.phone.focus();
   }
 
   onChangeUsername(username) {
@@ -92,7 +102,7 @@ class LoginView extends Component<Props, State> {
     return (
       <Container>
         <CoverText>
-          easi6 for drivers
+          {t('cover_text')}
         </CoverText>
         <PhoneInput
           ref='phone'
@@ -103,6 +113,9 @@ class LoginView extends Component<Props, State> {
           onPressFlag={this.onPressFlag}
           style={{
             width: '70%',
+          }}
+          textStyle={{
+            fontSize: 20,
           }}
         />
         <CountryPicker
@@ -116,11 +129,13 @@ class LoginView extends Component<Props, State> {
         </CountryPicker>
         <PasswordInput
           placeholder={t('login_password')}
-          secureTextEntry={true}
           autoCorrect={false}
           onChangeText={this.onChangePassword}
           value={this.state.password}
           autoCapitalize='none'
+          onSubmitEditing={this.onLoginPressed}
+          blurOnSubmit
+          secureTextEntry
         />
         <EasiButton
           title={t('login_submit')}
