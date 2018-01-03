@@ -38,13 +38,13 @@ const RentalItemContainer = styled.TouchableOpacity`
 `;
 
 const DateText = styled.Text`
-  font-size: 26px;
+  font-size: 30px;
   color: black;
   margin-bottom: 4px;
   margin-right: 4px;
 `;
 const LocationText = styled.Text`
-  font-size: 22px;
+  font-size: 24px;
   color: black;
 `;
 

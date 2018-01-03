@@ -31,12 +31,12 @@ const ScrollContainer = styled.ScrollView`
 `;
 
 const LabelText = styled.Text`
-  font-size: 26px;
+  font-size: 30px;
   margin-top: 18px;
 `;
 
 const DateText = styled.Text`
-  font-size: 26px;
+  font-size: 30px;
   margin-bottom: 4px;
   margin-right: 4px;
   color: black;
@@ -50,9 +50,10 @@ const Location = styled.View`
 
 const LocationTexts = styled.View`
   flex: 1;
+  padding-bottom: 10px;
 `;
 const LocationText = styled.Text`
-  font-size: 22px;
+  font-size: 24px;
   color: black;
 `;
 

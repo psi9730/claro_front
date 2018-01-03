@@ -46,7 +46,13 @@ const MenuButton = styled.TouchableOpacity`
 `;
 const MenuText = styled.Text`
   color: ${props => props.theme.mainColor};
+  font-size: 20px;
 `;
+
+const DriverText = styled.Text`
+  font-size: 18px;
+`;
+
 class DrawerView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -61,17 +67,17 @@ class DrawerView extends Component<Props, State> {
 
     return (
       <DriverContainer>
-        <Text>
+        <DriverText>
           {me.name}
-        </Text>
+        </DriverText>
         {me.nameEn && (
-          <Text>
+          <DriverText>
             {me.nameEn}
-          </Text>
+          </DriverText>
         )}
-        <Text>
+        <DriverText>
           {me.phone}
-        </Text>
+        </DriverText>
       </DriverContainer>
     );
   }
