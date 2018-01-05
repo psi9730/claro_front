@@ -1,7 +1,7 @@
 // @flow
 
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {WAIT_FOR_ACTION} from 'redux-wait-for-action';
+import {WAIT_FOR_ACTION, ERROR_ACTION} from 'redux-wait-for-action';
 
 import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
@@ -37,6 +37,7 @@ export function loginRequest(username: string, password: string) {
   return {
     type: LOGIN_REQUEST,
     [WAIT_FOR_ACTION]: LOGIN_SUCCESS,
+    [ERROR_ACTION]: LOGIN_FAILURE,
     username,
     password,
   };
