@@ -10,6 +10,8 @@ export default {
     title_login: '로그인',
     title_rental: '예약 정보',
     title_rentals: '예약 목록',
+    title_profile: '프로필 수정',
+    menu_profile: '내 프로필',
     menu_logout: '로그아웃',
     menu_rentals: '예약 목록',
     rental_date: '일시',

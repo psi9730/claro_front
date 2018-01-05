@@ -98,6 +98,13 @@ class DrawerView extends Component<Props, State> {
               </MenuText>
             </MenuButton>
             <MenuButton
+              onPress={this.props.goToProfile}
+            >
+              <MenuText>
+                {t('menu_profile')}
+              </MenuText>
+            </MenuButton>
+            <MenuButton
               onPress={this.props.logout}
             >
               <MenuText>

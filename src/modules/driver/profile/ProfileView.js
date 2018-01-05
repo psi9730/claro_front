@@ -80,7 +80,7 @@ class ProfileView extends Component<Props, State> {
           onChangePhoneNumber={this.onChangeUsername}
           onSelectCountry={this.onSelectCountry}
         />
-        <View style={{height: '14px'}} />
+        <View />
         <EasiInput
           placeholder={t('login_password')}
           secureTextEntry={true}
