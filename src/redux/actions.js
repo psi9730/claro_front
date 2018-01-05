@@ -1,7 +1,12 @@
-import * as DriverStateActions from '../modules/driver/DriverState';
-import * as RentalsStateActions from '../modules/rentals/RentalsState';
+import {DriverTypes, DriverActions} from '../modules/driver/DriverState';
+import {RentalTypes, RentalActions} from '../modules/rentals/RentalsState';
+
+export {
+  DriverTypes,
+  RentalTypes,
+}
 
 export default actions = {
-  ...DriverStateActions,
-  ...RentalsStateActions,
+  ...DriverActions,
+  ...RentalActions,
 };

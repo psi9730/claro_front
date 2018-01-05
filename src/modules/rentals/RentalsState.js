@@ -5,8 +5,10 @@ import qs from 'qs';
 import _ from 'lodash';
 import {schema} from 'normalizr';
 import {createSelector} from 'reselect';
+import {createActions} from 'reduxsauce';
 
 import {get, post} from '../../utils/api';
+import {actionsGenerator} from "../../redux/reducerUtils";
 
 const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'hash'});
 const rentalsWithPage = new schema.Object({
@@ -37,41 +39,15 @@ const initialState = {
   totalCnt: 0,
 };
 
-// Actions
-const RENTALS_REQUEST = 'RentalsState/RENTALS_REQUEST';
-const RENTALS_SUCCESS = 'RentalsState/RENTALS_SUCCESS';
-const RENTALS_FAILURE = 'RentalsState/RENTALS_FAILURE';
+// Action Creators
 
-const RENTAL_DETAIL_REQUEST = 'RentalsState/RENTAL_DETAIL_REQUEST';
-const RENTAL_DETAIL_SUCCESS = 'RentalsState/RENTAL_DETAIL_SUCCESS';
-const RENTAL_DETAIL_FAILURE = 'RentalsState/RENTAL_DETAIL_FAILURE';
-
-const RENTAL_STATUS_CHANGE_REQUEST = 'RentalsState/RENTAL_STATUS_CHANGE_REQUEST';
-const RENTAL_STATUS_CHANGE_SUCCESS = 'RentalsState/RENTAL_STATUS_CHANGE_SUCCESS';
-const RENTAL_STATUS_CHANGE_FAILURE = 'RentalsState/RENTAL_STATUS_CHANGE_FAILURE';
-
-// Action creators
-export function rentalsRequest(status: ?number, startDate: ?string) {
-  return {
-    type: RENTALS_REQUEST,
-    status,
-    startDate,
-  };
-}
-
-function rentalsSuccess(payload) {
-  return {
-    type: RENTALS_SUCCESS,
-    payload,
-  };
-}
-
-function rentalsFailure(err) {
-  return {
-    type: RENTALS_FAILURE,
-    err,
-  };
-}
+export const {Types: RentalTypes, Creators: RentalActions} = createActions(
+  actionsGenerator({
+    rentalsRequest: ['status', 'startDate'],
+    rentalDetailRequest: ['hash'],
+    rentalStatusChangeRequest: ['hash', 'status'],
+  })
+);
 
 function* requestRentals({status, startDate}: {status: ?number, startDate: ?string}) {
   const params = {
@@ -82,63 +58,20 @@ function* requestRentals({status, startDate}: {status: ?number, startDate: ?stri
   try {
     const res = yield call(get, `/driver/rentals?${qs.stringify(params)}`, rentalsWithPage);
 
-    yield put(rentalsSuccess(res));
+    yield put(RentalActions.rentalsSuccess(res));
   } catch (e) {
-    yield put(rentalsFailure(e));
+    yield put(RentalActions.rentalsFailure(e));
   }
-}
-
-export function rentalDetailRequest(hash: string) {
-  return {
-    type: RENTAL_DETAIL_REQUEST,
-    hash,
-  };
-}
-
-function rentalDetailSuccess(payload) {
-  return {
-    type: RENTAL_DETAIL_SUCCESS,
-    payload,
-  };
-}
-
-function rentalDetailFailure(err) {
-  return {
-    type: RENTAL_DETAIL_FAILURE,
-    err,
-  };
 }
 
 function* requestRentalDetail({hash}: {hash: string}) {
   try {
     const rental = yield call(get, `/driver/rentals/${hash}`, rentalSchema);
 
-    yield put(rentalDetailSuccess(rental));
+    yield put(RentalActions.rentalDetailSuccess(rental));
   } catch (e) {
-    yield put(rentalDetailFailure(e));
+    yield put(RentalActions.rentalDetailFailure(e));
   }
-}
-
-export function rentalStatusChangeRequest(hash: string, status: number) {
-  return {
-    type: RENTAL_STATUS_CHANGE_REQUEST,
-    hash,
-    status,
-  };
-}
-
-function rentalStatusChangeSuccess(payload) {
-  return {
-    type: RENTAL_STATUS_CHANGE_SUCCESS,
-    payload,
-  };
-}
-
-function rentalStatusChangeFailure(err) {
-  return {
-    type: RENTAL_STATUS_CHANGE_FAILURE,
-    err,
-  };
 }
 
 function* requestRentalStatusChange({hash, status}: {hash: string, status: number}) {
@@ -149,12 +82,12 @@ function* requestRentalStatusChange({hash, status}: {hash: string, status: numbe
       };
       const rental = yield call(post, `/driver/rentals/${hash}/status`, params, rentalSchema);
 
-      yield put(rentalStatusChangeSuccess(rental));
+      yield put(RentalActions.rentalStatusChangeSuccess(rental));
     } else {
-      yield put(rentalStatusChangeFailure(e));
+      yield put(RentalActions.rentalStatusChangeFailure(e));
     }
   } catch (e) {
-    yield put(rentalStatusChangeFailure(e));
+    yield put(RentalActions.rentalStatusChangeFailure(e));
   }
 }
 
@@ -177,15 +110,15 @@ export const makeGetVisibleRental = () => createSelector([getRentalsById, getRen
 // Reducer
 export default function RentalsStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case RENTALS_REQUEST:
-    case RENTAL_DETAIL_REQUEST:
-    case RENTAL_STATUS_CHANGE_REQUEST:
+    case RentalTypes.RENTALS_REQUEST:
+    case RentalTypes.RENTAL_DETAIL_REQUEST:
+    case RentalTypes.RENTAL_STATUS_CHANGE_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case RENTALS_SUCCESS:
+    case RentalTypes.RENTALS_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -201,8 +134,8 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
         totalCnt: action.payload.result.totalCnt,
       };
 
-    case RENTAL_DETAIL_SUCCESS:
-    case RENTAL_STATUS_CHANGE_SUCCESS:
+    case RentalTypes.RENTAL_DETAIL_SUCCESS:
+    case RentalTypes.RENTAL_STATUS_CHANGE_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -212,13 +145,13 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
         },
       };
 
-    case RENTALS_FAILURE:
-    case RENTAL_DETAIL_FAILURE:
-    case RENTAL_STATUS_CHANGE_FAILURE:
+    case RentalTypes.RENTALS_FAILURE:
+    case RentalTypes.RENTAL_DETAIL_FAILURE:
+    case RentalTypes.RENTAL_STATUS_CHANGE_FAILURE:
       return {
         ...state,
         loading: false,
-        err: action.err,
+        error: action.error,
       };
 
     default:
@@ -227,7 +160,7 @@ export default function RentalsStateReducer(state = initialState, action = {}) {
 }
 
 export const RentalsSaga = [
-  takeLatest(RENTALS_REQUEST, requestRentals),
-  takeLatest(RENTAL_DETAIL_REQUEST, requestRentalDetail),
-  takeLatest(RENTAL_STATUS_CHANGE_REQUEST, requestRentalStatusChange),
+  takeLatest(RentalTypes.RENTALS_REQUEST, requestRentals),
+  takeLatest(RentalTypes.RENTAL_DETAIL_REQUEST, requestRentalDetail),
+  takeLatest(RentalTypes.RENTAL_STATUS_CHANGE_REQUEST, requestRentalStatusChange),
 ];
