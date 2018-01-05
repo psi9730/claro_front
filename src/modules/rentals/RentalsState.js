@@ -8,7 +8,7 @@ import {createSelector} from 'reselect';
 
 import {get, post} from '../../utils/api';
 
-const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'hash'});
+const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'rentalNumber'});
 const rentalsWithPage = new schema.Object({
   items: [rentalSchema],
 });
@@ -88,10 +88,10 @@ function* requestRentals({status, startDate}: {status: ?number, startDate: ?stri
   }
 }
 
-export function rentalDetailRequest(hash: string) {
+export function rentalDetailRequest(rentalNumber: string) {
   return {
     type: RENTAL_DETAIL_REQUEST,
-    hash,
+    rentalNumber,
   };
 }
 
@@ -109,9 +109,9 @@ function rentalDetailFailure(err) {
   };
 }
 
-function* requestRentalDetail({hash}: {hash: string}) {
+function* requestRentalDetail({rentalNumber}: {rentalNumber: string}) {
   try {
-    const rental = yield call(get, `/driver/rentals/${hash}`, rentalSchema);
+    const rental = yield call(get, `/driver/rentals/${rentalNumber}`, rentalSchema);
 
     yield put(rentalDetailSuccess(rental));
   } catch (e) {
@@ -119,10 +119,10 @@ function* requestRentalDetail({hash}: {hash: string}) {
   }
 }
 
-export function rentalStatusChangeRequest(hash: string, status: number) {
+export function rentalStatusChangeRequest(rentalNumber: string, status: number) {
   return {
     type: RENTAL_STATUS_CHANGE_REQUEST,
-    hash,
+    rentalNumber,
     status,
   };
 }
@@ -141,13 +141,13 @@ function rentalStatusChangeFailure(err) {
   };
 }
 
-function* requestRentalStatusChange({hash, status}: {hash: string, status: number}) {
+function* requestRentalStatusChange({rentalNumber, status}: {rentalNumber: string, status: number}) {
   try {
     if (status === 40 || status === 50 || status === 60) {
       const params = {
         status: status+10,
       };
-      const rental = yield call(post, `/driver/rentals/${hash}/status`, params, rentalSchema);
+      const rental = yield call(post, `/driver/rentals/${rentalNumber}/status`, params, rentalSchema);
 
       yield put(rentalStatusChangeSuccess(rental));
     } else {
@@ -164,14 +164,14 @@ const getRentalsById = (state) => state.rentals.byId;
 
 const getRentalIds = (state) => state.rentals.ids;
 
-const getRentalHash = (__, props) => props.hash;
+const getRentalNumber = (__, props) => props.rentalNumber;
 
 export const makeGetVisibleRentals = () => createSelector([getRentalsById, getRentalIds], (rentalsById, ids) => {
   return _.map(ids, (id) => rentalsById[id]);
 });
 
-export const makeGetVisibleRental = () => createSelector([getRentalsById, getRentalHash], (rentalsById, hash) => {
-  return rentalsById[hash];
+export const makeGetVisibleRental = () => createSelector([getRentalsById, getRentalNumber], (rentalsById, rentalNumber) => {
+  return rentalsById[rentalNumber];
 });
 
 // Reducer
