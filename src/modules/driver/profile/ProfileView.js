@@ -53,6 +53,7 @@ const EditProfileText = styled.Text`
 
 const ProfileText = styled.Text`
   font-size: 15px;
+  color: #909090;
 `;
 
 const ProfileInput = styled.TextInput`
