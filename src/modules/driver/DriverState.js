@@ -30,7 +30,7 @@ export const {Types: DriverTypes, Creators: DriverActions} = createActions(
   actionsGenerator({
     loginRequest: ['username', 'password'],
     fetchMeRequest: [],
-    editProfileRequest: ['name', 'name_en', 'username'],
+    editProfileRequest: ['name', 'name_en', 'phone'],
   })
 );
 
@@ -71,11 +71,11 @@ function* requestFetchMe() {
   }
 }
 
-function* requestEditProfile({name, name_en, username}: {name: string, name_en: string, username: string}) {
+function* requestEditProfile({name, name_en, phone}: {name: string, name_en: string, phone: string}) {
   const body = {
     name,
     name_en,
-    username,
+    phone,
   };
   try {
     const me = yield call(post, '/driver/me/update', body);
@@ -111,6 +111,7 @@ export default function DriverStateReducer(state: DriverState = initialState, ac
         me: action.payload,
       };
 
+    case DriverTypes.EDIT_PROFILE_FAILURE:
     case DriverTypes.LOGIN_FAILURE:
     case DriverTypes.FETCH_ME_FAILURE:
       return {
