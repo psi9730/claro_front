@@ -24,7 +24,7 @@ const Container = styled.View`
   background-color: ${props => props.theme.mainBgColor};
 `;
 const DriverContainer = styled.View`
-  flex: 0 0 200px;
+  flex: 0 0 270px;
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.mainBgColor};
@@ -50,7 +50,19 @@ const MenuText = styled.Text`
 `;
 
 const DriverText = styled.Text`
+  margin-top: 5px;
   font-size: 18px;
+`;
+
+const ProfileButton = styled.TouchableOpacity`
+  flex: 0 0 60px;
+  background-color: ${props => props.theme.mainBgColor};
+  justify-content: center;
+  align-items: center;
+`;
+const ProfileText = styled.Text`
+  color: ${props => props.theme.mainColor};
+  font-size: 14px;
 `;
 
 class DrawerView extends Component<Props, State> {
@@ -61,7 +73,7 @@ class DrawerView extends Component<Props, State> {
   }
 
   renderDriver() {
-    const {me} = this.props;
+    const {me, t} = this.props;
 
     if (!me) return null;
 
@@ -78,6 +90,13 @@ class DrawerView extends Component<Props, State> {
         <DriverText>
           {me.phone}
         </DriverText>
+        <ProfileButton
+          onPress={this.props.goToProfile}
+        >
+          <ProfileText>
+            {t('title_profile')}
+          </ProfileText>
+        </ProfileButton>
       </DriverContainer>
     );
   }

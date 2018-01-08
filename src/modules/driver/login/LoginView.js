@@ -57,6 +57,12 @@ const CoverText = styled.Text`
   margin-bottom: 30px;
 `;
 
+const GrayLine = styled.View`
+  height: 1px;
+  width: 70%;
+  background-color: gray;
+`;
+
 class LoginView extends Component<Props, State> {
   state = {
     username: '',
@@ -134,6 +140,7 @@ class LoginView extends Component<Props, State> {
           >
             <View />
           </CountryPicker>
+          <GrayLine/>
           <PasswordInput
             placeholder={t('login_password')}
             autoCorrect={false}
@@ -148,7 +155,9 @@ class LoginView extends Component<Props, State> {
             onPress={this.onLoginPressed}
             disabled={loading}
           >
-            <LoginText>
+            <LoginText
+              style={loading ? {color: 'gray',} : null}
+            >
               {t('login_submit')}
             </LoginText>
           </LoginButton>

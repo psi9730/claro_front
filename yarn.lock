@@ -3585,6 +3585,16 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
+ramda@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.24.1.tgz#c3b7755197f35b8dc3502228262c4c91ddb6b857"
+
+ramdasauce@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ramdasauce/-/ramdasauce-2.1.0.tgz#65ea157a9cfc17841a7dd6499d3f9f421dc2eb36"
+  dependencies:
+    ramda "^0.24.1"
+
 random-bytes@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
@@ -3872,7 +3882,7 @@ redux-wait-for-action@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/redux-wait-for-action/-/redux-wait-for-action-0.0.7.tgz#13ec487fcef089e04463c588eb83996f3f4df36a"
 
-redux@^3.7.2:
+redux@^3.7.1, redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -3880,6 +3890,14 @@ redux@^3.7.2:
     lodash-es "^4.2.1"
     loose-envify "^1.1.0"
     symbol-observable "^1.0.3"
+
+"reduxsauce@https://github.com/easi6/reduxsauce/archive/v0.8.1.tar.gz":
+  version "0.7.0"
+  resolved "https://github.com/easi6/reduxsauce/archive/v0.8.1.tar.gz#11d90fea86192fe598a358781ecff89ac9501e7b"
+  dependencies:
+    ramda "^0.24.1"
+    ramdasauce "^2.0.0"
+    redux "^3.7.1"
 
 regenerate@^1.2.1:
   version "1.3.3"

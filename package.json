@@ -49,6 +49,7 @@
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "redux-wait-for-action": "^0.0.7",
+    "reduxsauce": "https://github.com/easi6/reduxsauce/archive/v0.8.1.tar.gz",
     "reselect": "^3.0.1",
     "standard-http-error": "^2.0.1",
     "styled-components": "^2.3.0"

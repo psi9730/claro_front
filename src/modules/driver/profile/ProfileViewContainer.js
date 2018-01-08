@@ -10,6 +10,7 @@ import {RENTALS_SCREEN} from '../../../../screens';
 export default connect(
   state => ({
     loading: _.get(state, ['driver', 'loading']),
+    user: _.get(state, ['driver', 'me']),
   }),
   actions,
 )(
@@ -18,10 +19,8 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      onEditPressed: (props) => (username, password) => {
-        props.editProfileRequest(username, password).then(() => {
-          props.navigator.resetTo({...RENTALS_SCREEN});
-        });
+      onEditPressed: (props) => (name, name_en, phone) => {
+        props.editProfileRequest(name, name_en, phone);
       }
     }),
   )(ProfileView)
