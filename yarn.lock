@@ -3687,6 +3687,19 @@ react-native-phone-input@^0.1.10:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
+react-native-root-siblings@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-3.0.0.tgz#049f584f83ec5c18f16c5cfe1ef9aada26f685bf"
+  dependencies:
+    static-container "^1.0.0"
+
+react-native-root-toast@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-3.0.0.tgz#93292a5c743abbf0f46843dcfc8c89c6344bab50"
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-root-siblings "^3.0.0"
+
 "react-native-send-intent@https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz":
   version "1.0.22"
   resolved "https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz#26d41f60da05ed3d142cfd90e4dae486a7a0552d"
@@ -4297,6 +4310,10 @@ standard-http-error@^2.0.1:
   resolved "https://registry.yarnpkg.com/standard-http-error/-/standard-http-error-2.0.1.tgz#f8ae9172e3cef9cb38d2e7084a1925f57a7c34bd"
   dependencies:
     standard-error ">= 1.1.0 < 2"
+
+static-container@^1.0.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/static-container/-/static-container-1.2.0.tgz#1c6e92b869da47d32abe47f45f50bf39661d9c2f"
 
 statuses@1:
   version "1.4.0"
