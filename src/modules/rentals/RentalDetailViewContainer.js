@@ -23,13 +23,13 @@ export default connect(
       openPhone: () => openPhoneApp,
       statusChange: (props) => () => {
         const rental = props.rental;
-        props.rentalStatusChangeRequest(rental.hash, rental.status);
+        props.rentalStatusChangeRequest(rental.rentalNumber, rental.status);
       },
     }),
   )(
     lifecycle({
       componentDidMount() {
-        this.props.rentalDetailRequest(this.props.hash);
+        this.props.rentalDetailRequest(this.props.rentalNumber);
       }
     })(
       View

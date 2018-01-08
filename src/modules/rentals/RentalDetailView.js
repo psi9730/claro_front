@@ -192,7 +192,7 @@ class RentalDetailView extends Component<Props> {
     }
 
     return (
-      <View>
+      <View style={{marginBottom: 30}}>
         <Button
           title={txt}
           onPress={onStatusChangePressed}

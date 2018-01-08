@@ -26,11 +26,11 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      onDetailItemPressed: (props) => (hash) => {
+      onDetailItemPressed: (props) => (rentalNumber) => {
         props.navigator.push({
           ...RENTAL_DETAIL_SCREEN,
           passProps: {
-            hash,
+            rentalNumber,
           },
         });
       }
