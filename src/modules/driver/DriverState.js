@@ -1,13 +1,12 @@
 // @flow
 
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {WAIT_FOR_ACTION, ERROR_ACTION} from 'redux-wait-for-action';
 import {createActions} from 'reduxsauce';
 
 import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
-import {post, get} from '../../utils/api';
-import {actionsGenerator} from "../../redux/reducerUtils";
+import {get, post} from '../../utils/api';
+import {actionsGenerator} from '../../redux/reducerUtils';
 
 type DriverState = {
   loading: boolean,
