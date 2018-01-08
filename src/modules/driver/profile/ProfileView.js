@@ -45,6 +45,7 @@ const EditProfileButton = styled.TouchableOpacity`
   background-color: ${props => props.theme.mainColor};
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 const EditProfileText = styled.Text`
   color: ${props => props.theme.mainBgColor};
@@ -172,7 +173,7 @@ class ProfileView extends Component<Props, State> {
           <GrayLine/>
           <View
             style={{
-              marginTop: 300,
+              flexGrow: 1,
             }}
           />
           <EditProfileButton
