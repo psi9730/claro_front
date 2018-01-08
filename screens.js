@@ -39,7 +39,7 @@ export const RENTAL_DETAIL_SCREEN = {
 };
 export const PROFILE_SCREEN = {
   screen: 'easi6driver.ProfileScreen',
-  title: t('title_rental'),
+  title: t('title_profile'),
   navigatorStyle: {},
   navigatorButtons: {},
 }

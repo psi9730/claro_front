@@ -19,11 +19,8 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      onEditPressed: (props) => (username, password) => {
-        return;
-        // props.editProfileRequest(username, password).then(() => {
-        //   props.navigator.resetTo({...RENTALS_SCREEN});
-        // });
+      onEditPressed: (props) => (name, name_en, phone) => {
+        props.editProfileRequest(name, name_en, phone);
       }
     }),
   )(ProfileView)

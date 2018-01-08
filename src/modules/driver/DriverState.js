@@ -29,6 +29,7 @@ export const {Types: DriverTypes, Creators: DriverActions} = createActions(
   actionsGenerator({
     loginRequest: ['username', 'password'],
     fetchMeRequest: [],
+    editProfileRequest: ['name', 'name_en', 'username'],
   })
 );
 
@@ -62,10 +63,25 @@ function* requestFetchMe() {
 
       yield put(DriverActions.fetchMeSuccess(me));
     } else {
-      yield put(DriverActions.fetchMeFailure(null));
+      yield put(DriverActions.fetchMeFailure('not login'));
     }
   } catch (e) {
     yield put(DriverActions.fetchMeFailure(e));
+  }
+}
+
+function* requestEditProfile({name, name_en, username}: {name: string, name_en: string, username: string}) {
+  const body = {
+    name,
+    name_en,
+    username,
+  };
+  try {
+    const me = yield call(post, '/driver/me/update', body);
+
+    yield put(DriverActions.editProfileSuccess(me));
+  } catch (e) {
+    yield put(DriverActions.editProfileFailure(e));
   }
 }
 
@@ -74,11 +90,19 @@ export default function DriverStateReducer(state: DriverState = initialState, ac
   switch (action.type) {
     case DriverTypes.LOGIN_REQUEST:
     case DriverTypes.FETCH_ME_REQUEST:
+    case DriverTypes.EDIT_PROFILE_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
+    case DriverTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case DriverTypes.EDIT_PROFILE_SUCCESS:
     case DriverTypes.FETCH_ME_SUCCESS:
       return {
         ...state,
@@ -102,4 +126,5 @@ export default function DriverStateReducer(state: DriverState = initialState, ac
 export const LoginSaga = [
   takeLatest(DriverTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(DriverTypes.FETCH_ME_REQUEST, requestFetchMe),
+  takeLatest(DriverTypes.EDIT_PROFILE_REQUEST, requestEditProfile),
 ];

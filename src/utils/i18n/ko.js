@@ -11,7 +11,6 @@ export default {
     title_rental: '예약 정보',
     title_rentals: '예약 목록',
     title_profile: '프로필 수정',
-    menu_profile: '내 프로필',
     menu_logout: '로그아웃',
     menu_rentals: '예약 목록',
     rental_date: '일시',
@@ -19,5 +18,9 @@ export default {
     rental_customer: '고객 정보',
     member_count: '승객수',
     flight_number: '편명',
+    profile_name: '이름',
+    profile_name_en: '영문 이름',
+    profile_phone: '연락처',
+    done: '완료',
   },
 };
