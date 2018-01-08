@@ -63,7 +63,7 @@ function* requestFetchMe() {
 
       yield put(DriverActions.fetchMeSuccess(me));
     } else {
-      yield put(DriverActions.fetchMeFailure('login fail'));
+      yield put(DriverActions.fetchMeFailure('fetch me fail'));
     }
   } catch (e) {
     yield put(DriverActions.fetchMeFailure(e));

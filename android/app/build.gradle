@@ -21,7 +21,7 @@ project.ext.react = [
     entryFile: "index.android.js",
 
     // whether to bundle JS and assets in debug mode
-    bundleInDebug: true,
+    bundleInDebug: false,
 
     // whether to bundle JS and assets in release mode
     bundleInRelease: true,

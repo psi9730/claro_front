@@ -30,6 +30,11 @@ type Props = {
   onLoginPressed: (username: string, password: string) => void,
 };
 
+const PhoneInnerInput = styled.TextInput`
+  width: 70%;
+  font-size: 20px;
+`;
+
 const PasswordInput = styled.TextInput`
   width: 70%;
   margin-bottom: 20px;
@@ -129,6 +134,8 @@ class LoginView extends Component<Props, State> {
             }}
             textStyle={{
               fontSize: 20,
+              height: 40,
+              alignSelf: 'baseline',
             }}
           />
           <CountryPicker
