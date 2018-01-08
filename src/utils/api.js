@@ -20,11 +20,10 @@ export const errors = new EventEmitter();
  * GET a path relative to API root url.
  * @param {String}  path Relative path to the configured API endpoint
  * @param {Object} schema Schema that normalizing body
- * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise} of response body
  */
-export async function get(path, schema, suppressRedBox) {
-  return bodyOf(request('get', path, null, schema, suppressRedBox));
+export async function get(path, schema) {
+  return bodyOf(request('get', path, null, schema));
 }
 
 /**
@@ -32,11 +31,10 @@ export async function get(path, schema, suppressRedBox) {
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} body Anything that you can pass to JSON.stringify
  * @param {Object} schema Schema that normalizing body
- * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function post(path, body, schema, suppressRedBox) {
-  return bodyOf(request('post', path, body, schema, suppressRedBox));
+export async function post(path, body, schema) {
+  return bodyOf(request('post', path, body, schema));
 }
 
 /**
@@ -44,22 +42,20 @@ export async function post(path, body, schema, suppressRedBox) {
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} body Anything that you can pass to JSON.stringify
  * @param {Object} schema Schema that normalizing body
- * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function put(path, body, schema, suppressRedBox) {
-  return bodyOf(request('put', path, body, schema, suppressRedBox));
+export async function put(path, body, schema) {
+  return bodyOf(request('put', path, body, schema));
 }
 
 /**
  * DELETE a path relative to API root url
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} schema Schema that normalizing body
- * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function del(path, schema, suppressRedBox) {
-  return bodyOf(request('delete', path, null, schema, suppressRedBox));
+export async function del(path, schema) {
+  return bodyOf(request('delete', path, null, schema));
 }
 
 /**
@@ -67,7 +63,6 @@ export async function del(path, schema, suppressRedBox) {
  * @param {String} method One of: get|post|put|delete
  * @param {String} path Relative path to the configured API endpoint
  * @param {Object} body Anything that you can pass to JSON.stringify
- * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  */
 
 const REFRESH_TOKEN_REQUEST= 'API/REFRESH_TOKEN_REQUEST';
@@ -89,9 +84,9 @@ async function refreshToken(refreshToken: string) {
   return false;
 }
 
-export async function request(method, path, body, schema, suppressRedBox = true) {
+export async function request(method, path, body, schema) {
   try {
-    const response = await sendRequest(method, path, body, suppressRedBox);
+    const response = await sendRequest(method, path, body);
     const status = response.status;
     // if 401 refresh token
     // after refresh token retry
@@ -102,13 +97,13 @@ export async function request(method, path, body, schema, suppressRedBox = true)
           refreshing = refreshToken(token.refreshToken);
           if (await refreshing) {
             refreshing = null;
-            return request(method, path, body, schema, suppressRedBox);
+            return request(method, path, body, schema);
           }
         }
       } else {
         if (await refreshing) {
           refreshing = null;
-          return request(method, path, body, schema, suppressRedBox);
+          return request(method, path, body, schema);
         }
       }
     }
@@ -137,9 +132,7 @@ export async function request(method, path, body, schema, suppressRedBox = true)
       response
     );
   } catch (error) {
-    if (!suppressRedBox) {
-      logError(error, url(path), method);
-    }
+    throw error;
   }
 }
 
@@ -244,18 +237,5 @@ async function bodyOf(requestPromise) {
     return (response && response.body) || null;
   } catch (e) {
     throw e;
-  }
-}
-
-/**
- * Make best effort to turn a HTTP error or a runtime exception to meaningful error log message
- */
-function logError(error, endpoint, method) {
-  if (error.status) {
-    const summary = `(${error.status} ${error.statusText}): ${error._bodyInit}`;
-    console.error(`API request ${method.toUpperCase()} ${endpoint} responded with ${summary}`);
-  }
-  else {
-    console.error(`API request ${method.toUpperCase()} ${endpoint} failed with message "${error.message}"`);
   }
 }

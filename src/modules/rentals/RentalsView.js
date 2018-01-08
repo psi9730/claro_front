@@ -65,7 +65,7 @@ class RentalsView extends Component<Props> {
     if (!rental) return null;
     const {t} = this.props;
     const onDetailItemPressed = () => {
-      this.props.onDetailItemPressed(rental.hash);
+      this.props.onDetailItemPressed(rental.rentalNumber);
     };
     const locations = _.map(rental.locationInfos || [], (loc, i) => ({
       ...loc,
@@ -100,7 +100,7 @@ class RentalsView extends Component<Props> {
   render() {
     const {t, loading, rentals} = this.props;
     const renderRentals = _.map(rentals, (rental) => ({
-      key: rental.hash,
+      key: rental.rentalNumber,
       ...rental,
     }));
 

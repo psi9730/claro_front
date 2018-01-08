@@ -10,7 +10,7 @@ import {createActions} from 'reduxsauce';
 import {get, post} from '../../utils/api';
 import {actionsGenerator} from "../../redux/reducerUtils";
 
-const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'hash'});
+const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'rentalNumber'});
 const rentalsWithPage = new schema.Object({
   items: [rentalSchema],
 });
@@ -44,8 +44,8 @@ const initialState = {
 export const {Types: RentalTypes, Creators: RentalActions} = createActions(
   actionsGenerator({
     rentalsRequest: ['status', 'startDate'],
-    rentalDetailRequest: ['hash'],
-    rentalStatusChangeRequest: ['hash', 'status'],
+    rentalDetailRequest: ['rentalNumber'],
+    rentalStatusChangeRequest: ['rentalNumber', 'status'],
   })
 );
 
@@ -64,9 +64,9 @@ function* requestRentals({status, startDate}: {status: ?number, startDate: ?stri
   }
 }
 
-function* requestRentalDetail({hash}: {hash: string}) {
+function* requestRentalDetail({rentalNumber}: {rentalNumber: string}) {
   try {
-    const rental = yield call(get, `/driver/rentals/${hash}`, rentalSchema);
+    const rental = yield call(get, `/driver/rentals/${rentalNumber}`, rentalSchema);
 
     yield put(RentalActions.rentalDetailSuccess(rental));
   } catch (e) {
@@ -74,13 +74,13 @@ function* requestRentalDetail({hash}: {hash: string}) {
   }
 }
 
-function* requestRentalStatusChange({hash, status}: {hash: string, status: number}) {
+function* requestRentalStatusChange({rentalNumber, status}: {rentalNumber: string, status: number}) {
   try {
     if (status === 40 || status === 50 || status === 60) {
       const params = {
         status: status+10,
       };
-      const rental = yield call(post, `/driver/rentals/${hash}/status`, params, rentalSchema);
+      const rental = yield call(post, `/driver/rentals/${rentalNumber}/status`, params, rentalSchema);
 
       yield put(RentalActions.rentalStatusChangeSuccess(rental));
     } else {
@@ -97,14 +97,14 @@ const getRentalsById = (state) => state.rentals.byId;
 
 const getRentalIds = (state) => state.rentals.ids;
 
-const getRentalHash = (__, props) => props.hash;
+const getRentalNumber = (__, props) => props.rentalNumber;
 
 export const makeGetVisibleRentals = () => createSelector([getRentalsById, getRentalIds], (rentalsById, ids) => {
   return _.map(ids, (id) => rentalsById[id]);
 });
 
-export const makeGetVisibleRental = () => createSelector([getRentalsById, getRentalHash], (rentalsById, hash) => {
-  return rentalsById[hash];
+export const makeGetVisibleRental = () => createSelector([getRentalsById, getRentalNumber], (rentalsById, rentalNumber) => {
+  return rentalsById[rentalNumber];
 });
 
 // Reducer
