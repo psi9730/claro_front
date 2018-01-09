@@ -34,18 +34,24 @@ const RentalItemContainer = styled.TouchableOpacity`
   background-color: ${props => props.theme.mainBgColor};
   border-bottom-color: ${props => props.theme.borderColor};
   border-bottom-width: 0.5px;
-  padding: 10px;
+  padding: 15px;
+  padding-left: 20px;
 `;
 
 const DateText = styled.Text`
-  font-size: 30px;
+  font-size: 20px;
   color: black;
-  margin-bottom: 4px;
   margin-right: 4px;
 `;
+
 const LocationText = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
   color: black;
+`;
+
+const ColoredText = styled.Text`
+  font-size: 25px;
+  color: ${props => props.theme.mainColor};
 `;
 
 const HView = styled.View`
@@ -87,11 +93,21 @@ class RentalsView extends Component<Props> {
           )}
         </HView>
         {locations.map((loc) => (
-          <LocationText
-            key={loc.key}
+          <View
+            style={{
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
           >
-            {preferredLocale(loc, 'name')}
-          </LocationText>
+            <ColoredText>
+              &#8226;&nbsp;&nbsp;
+            </ColoredText>
+            <LocationText
+              key={loc.key}
+            >
+              {preferredLocale(loc, 'name')}
+            </LocationText>
+          </View>
         ))}
       </RentalItemContainer>
     )
