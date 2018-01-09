@@ -19,6 +19,7 @@ import {ThemeProvider} from 'styled-components';
 
 import easi6Theme from '../../../utils/easi6Theme';
 import toast from '../../../utils/toast';
+import mainLogo from '../../../assets/images/easi-6.svg';
 
 type State = {
   username: string,
@@ -49,19 +50,19 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: white;
-`;
-
-const LoginButton = styled.TouchableOpacity`
-  background-color: ${props => props.theme.mainBgColor};
-`;
-const LoginText = styled.Text`
-  font-size: 30px;
-  color: ${props => props.theme.mainColor};
+  padding: 15px;
+  padding-bottom: 35px;
 `;
 
 const CoverText = styled.Text`
-  font-size: 40px;
-  margin-bottom: 30px;
+  font-size: 24px;
+  color: black;
+`;
+
+const CoverView = styled.View`
+  flex-grow: 2;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const GrayLine = styled.View`
@@ -128,9 +129,17 @@ class LoginView extends Component<Props, State> {
     return (
       <ThemeProvider theme={easi6Theme}>
         <Container>
-          <CoverText>
-            {t('cover_text')}
-          </CoverText>
+          <CoverView>
+            <Image
+              style={{width: 60, height: 18}}
+              alt="logo image"
+              source={require('../../../assets/images/easi-6.png')}
+            />
+            <CoverText>
+              &nbsp;&nbsp;
+              {t('cover_text')}
+            </CoverText>
+          </CoverView>
           <PhoneInput
             ref='phone'
             textProps={{placeholder: t('login_phone')}}
@@ -168,16 +177,19 @@ class LoginView extends Component<Props, State> {
             blurOnSubmit
             secureTextEntry
           />
-          <LoginButton
-            onPress={this.onLoginPressed}
-            disabled={loading}
+          <View
+            style={{flexGrow: 3}}
+          />
+          <View
+            style={{alignSelf: 'stretch'}}
           >
-            <LoginText
-              style={loading ? {color: 'gray',} : null}
-            >
-              {t('login_submit')}
-            </LoginText>
-          </LoginButton>
+            <Button
+              title={t('login_submit')}
+              onPress={this.onLoginPressed}
+              color={easi6Theme.mainColor}
+              disabled={loading}
+            />
+          </View>
         </Container>
       </ThemeProvider>
     );
