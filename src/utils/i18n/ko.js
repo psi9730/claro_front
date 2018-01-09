@@ -22,5 +22,7 @@ export default {
     profile_name_en: '영문 이름',
     profile_phone: '연락처',
     done: '완료',
+    enter_your_phone: '전화번호를 입력하세요',
+    enter_your_password: '비밀번호를 입력하세요',
   },
 };

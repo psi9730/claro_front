@@ -9,6 +9,7 @@ import {
   View,
   TextInput,
   Button,
+  Keyboard,
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -17,6 +18,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
 
 import easi6Theme from '../../../utils/easi6Theme';
+import toast from '../../../utils/toast';
 
 type State = {
   username: string,
@@ -101,7 +103,14 @@ class LoginView extends Component<Props, State> {
   }
 
   onLoginPressed() {
-    this.props.onLoginPressed(this.state.username, this.state.password);
+    if(!this.state.username){
+      toast(this.props.t('enter_your_phone'),'error');
+    } else if(!this.state.password){
+      toast(this.props.t('enter_your_password'),'error');
+    } else {
+      Keyboard.dismiss();
+      this.props.onLoginPressed(this.state.username, this.state.password);
+    }
   }
 
   onPressFlag(){
@@ -133,6 +142,7 @@ class LoginView extends Component<Props, State> {
               width: '70%',
             }}
             textStyle={{
+              width: '100%',
               fontSize: 20,
               height: 40,
               alignSelf: 'baseline',
