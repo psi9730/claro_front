@@ -5,7 +5,9 @@ import {normalize} from 'normalizr';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 import {setAuthenticationToken} from './authentication';
+import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
+import toast from '../utils/toast';
 
 const EventEmitter = require('event-emitter');
 
@@ -113,6 +115,7 @@ export async function request(method, path, body, schema) {
     // promise flow control to interpret error responses as failures
     if (status >= 400) {
       const message = await getErrorMessageSafely(response);
+      toast(message, 'error');
       const error = new HttpError(status, message);
 
       // emit events on error channel, one for status-specific errors and other for all errors
@@ -157,6 +160,10 @@ async function sendRequest(method, path, body) {
     const token = await getAuthenticationToken();
     const forceBasic = path === '/auth/driver_token';
     const accessToken = token ? token.accessToken : null;
+
+    if(body && !accessToken) {
+      body = {...body, locale: deviceLocale}
+    }
 
     const headers = getRequestHeaders(body, accessToken, forceBasic);
     const options = body

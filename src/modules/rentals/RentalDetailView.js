@@ -21,7 +21,9 @@ type Props = {
 };
 
 const Container = styled.View`
-  background-color: white;  
+  background-color: white;
+  padding-left: 8px;
+  padding-right: 8px;
 `;
 
 const ScrollContainer = styled.ScrollView`
@@ -31,12 +33,13 @@ const ScrollContainer = styled.ScrollView`
 `;
 
 const LabelText = styled.Text`
-  font-size: 30px;
-  margin-top: 18px;
+  font-size: 18px;
+  margin-top: 19px;
+  margin-bottom: 4px;
 `;
 
 const DateText = styled.Text`
-  font-size: 30px;
+  font-size: 23px;
   margin-bottom: 4px;
   margin-right: 4px;
   color: black;
@@ -46,15 +49,22 @@ const Location = styled.View`
   display: flex;
   flex-flow: row;
   margin-top: 4px;
+  align-items: flex-start;
 `;
 
 const LocationTexts = styled.View`
   flex: 1;
   padding-bottom: 10px;
 `;
+
 const LocationText = styled.Text`
-  font-size: 24px;
+  font-size: 23px;
   color: black;
+`;
+
+const AddressText = styled.Text`
+  font-size: 18px;
+  color: #9e9e9e;
 `;
 
 const OpenMapBtn = styled.TouchableOpacity`
@@ -65,7 +75,9 @@ const OpenMapBtn = styled.TouchableOpacity`
 `;
 
 const OpenMapText = styled.Text`
+  font-size: 16px;
   color: ${props => props.theme.mainColor};
+  margin-top: 4px;
 `;
 
 const Customer = styled.View`
@@ -75,21 +87,28 @@ const Customer = styled.View`
 `;
 
 const CustomerText = styled.Text`
-  font-size: 20px;
+  font-size: 21px;
   color: black;
+  margin-bottom: 5px;
 `;
 
 const CustomerPhone = styled.TouchableOpacity`
+  margin-bottom: 5px;
 `;
 
 const CustomerPhoneText = styled.Text`
-  font-size: 20px;
+  font-size: 23px;
   color: ${props => props.theme.mainColor};
 `;
 
 const HView = styled.View`
   display: flex;
   flex-flow: row;
+`;
+
+const ColoredText = styled.Text`
+  font-size: 25px;
+  color: ${props => props.theme.mainColor};
 `;
 
 const m = (dateTime) => moment(dateTime).format('YYYY-MM-DD HH:mm A');
@@ -126,7 +145,7 @@ class RentalDetailView extends Component<Props> {
         </CustomerPhone>
         <HView>
           <CustomerText>
-            {t('member_count')}:&nbsp;
+            {t('member_count')}&nbsp;:&nbsp;
           </CustomerText>
           <CustomerText>
             {rental.memberCount}
@@ -152,13 +171,16 @@ class RentalDetailView extends Component<Props> {
 
     return (
       <Location key={loc.key}>
+        <ColoredText>
+          &#8226;&nbsp;&nbsp;
+        </ColoredText>
         <LocationTexts>
           <LocationText>
             {preferredLocale(loc, 'name')}
           </LocationText>
-          <LocationText>
+          <AddressText>
             {preferredLocale(loc, 'address')}
-          </LocationText>
+          </AddressText>
         </LocationTexts>
         <OpenMapBtn
           onPress={onOpenMapButtonPressed}
