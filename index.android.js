@@ -9,7 +9,13 @@ import './src/utils/i18n';
 import {registerScreens, startApp} from './screens';
 import {setConfiguration} from './src/utils/configuration';
 
-setConfiguration('API_ROOT', process.env.API_ROOT || 'http://127.0.0.1:9100');
+const isProd = process.env.NODE_ENV === 'production';
+let apiRoot = process.env.API_ROOT || 'http://127.0.0.1:9100';
+if (isProd) {
+  apiRoot = 'https://vendor.pyeongchangcarservice.com';
+}
+
+setConfiguration('API_ROOT', apiRoot);
 
 sagaMiddleware.run(mySaga);
 

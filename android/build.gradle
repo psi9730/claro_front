@@ -21,11 +21,12 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+        google()
     }
 }
 
 ext {
-    compileSdkVersion = 25
+    compileSdkVersion = 27
     buildToolsVersion = "27.0.2"
 }
 
@@ -45,7 +46,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '26.0.0-alpha1'
+                details.useVersion '27.0.2'
             }
         }
     }

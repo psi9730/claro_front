@@ -1,13 +1,12 @@
 // @flow
 
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {WAIT_FOR_ACTION, ERROR_ACTION} from 'redux-wait-for-action';
 import {createActions} from 'reduxsauce';
 
 import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
-import {post, get} from '../../utils/api';
-import {actionsGenerator} from "../../redux/reducerUtils";
+import {get, post} from '../../utils/api';
+import {actionsGenerator} from '../../redux/reducerUtils';
 import {customI18nextReactNative} from '../../utils/i18n';
 
 type DriverState = {
@@ -67,7 +66,7 @@ function* requestFetchMe() {
       yield put(DriverActions.fetchMeSuccess(me));
       yield put(DriverActions.updateLocaleRequest(customI18nextReactNative().detect()));
     } else {
-      yield put(DriverActions.fetchMeFailure('no token'));
+      yield put(DriverActions.fetchMeFailure('fetch me fail'));
     }
   } catch (e) {
     yield put(DriverActions.fetchMeFailure(e));

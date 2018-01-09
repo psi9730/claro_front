@@ -44,7 +44,7 @@ export default connect(
   )(
     lifecycle({
       componentDidMount() {
-        this.props.fetchMeRequest();
+        this.props.fetchMeRequest().then(() => {}).catch(() => {});
       }
     })(
       DrawerView

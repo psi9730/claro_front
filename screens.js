@@ -42,7 +42,7 @@ export const PROFILE_SCREEN = {
   title: t('title_profile'),
   navigatorStyle: {},
   navigatorButtons: {},
-}
+};
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
