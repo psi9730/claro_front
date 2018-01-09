@@ -41,6 +41,8 @@ export const customI18nextReactNative = () => {
   }
 };
 
+export const deviceLocale = customI18nextReactNative().detect();
+
 const isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {

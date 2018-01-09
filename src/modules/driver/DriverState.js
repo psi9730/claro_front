@@ -7,7 +7,7 @@ import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {actionsGenerator} from '../../redux/reducerUtils';
-import {customI18nextReactNative} from '../../utils/i18n';
+import {deviceLocale} from '../../utils/i18n';
 
 type DriverState = {
   loading: boolean,
@@ -64,7 +64,7 @@ function* requestFetchMe() {
       yield call(Storage.setItem, 'driverId', `${me.id}`);
 
       yield put(DriverActions.fetchMeSuccess(me));
-      yield put(DriverActions.updateLocaleRequest(customI18nextReactNative().detect()));
+      yield put(DriverActions.updateLocaleRequest(deviceLocale));
     } else {
       yield put(DriverActions.fetchMeFailure('fetch me fail'));
     }

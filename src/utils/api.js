@@ -5,7 +5,7 @@ import {normalize} from 'normalizr';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 import {setAuthenticationToken} from './authentication';
-import {customI18nextReactNative} from '../utils/i18n';
+import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
 
 const EventEmitter = require('event-emitter');
@@ -160,7 +160,7 @@ async function sendRequest(method, path, body) {
     const accessToken = token ? token.accessToken : null;
 
     if(body && !accessToken) {
-      body = {...body, locale: customI18nextReactNative().detect()}
+      body = {...body, locale: deviceLocale}
     }
 
     const headers = getRequestHeaders(body, accessToken, forceBasic);
