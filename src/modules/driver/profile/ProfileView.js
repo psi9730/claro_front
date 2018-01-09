@@ -102,10 +102,6 @@ class ProfileView extends Component<Props, State> {
     this.refs.countryPicker.openModal();
   }
 
-  onSelectCountry(iso2) {
-    this.setState({iso2});
-  }
-
   selectCountry(country){
     this.refs.phone.selectCountry(country.cca2.toLowerCase());
     this.setState({cca2: country.cca2})
@@ -158,6 +154,8 @@ class ProfileView extends Component<Props, State> {
             }}
             textStyle={{
               fontSize: 20,
+              height: 40,
+              alignSelf: 'baseline',
             }}
           />
           <CountryPicker
