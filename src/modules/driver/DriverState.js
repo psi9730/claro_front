@@ -8,6 +8,7 @@ import Storage from '../../utils/easi6Storage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
 import {post, get} from '../../utils/api';
 import {actionsGenerator} from "../../redux/reducerUtils";
+import {customI18nextReactNative} from '../../utils/i18n';
 
 type DriverState = {
   loading: boolean,
@@ -31,6 +32,7 @@ export const {Types: DriverTypes, Creators: DriverActions} = createActions(
     loginRequest: ['username', 'password'],
     fetchMeRequest: [],
     editProfileRequest: ['name', 'name_en', 'phone'],
+    updateLocaleRequest: ['locale'],
   })
 );
 
@@ -63,6 +65,7 @@ function* requestFetchMe() {
       yield call(Storage.setItem, 'driverId', `${me.id}`);
 
       yield put(DriverActions.fetchMeSuccess(me));
+      yield put(DriverActions.updateLocaleRequest(customI18nextReactNative().detect()));
     } else {
       yield put(DriverActions.fetchMeFailure('login fail'));
     }
@@ -86,12 +89,27 @@ function* requestEditProfile({name, name_en, phone}: {name: string, name_en: str
   }
 }
 
+function* requestUpdateLocale({locale}: {locale: string}) {
+  const body = {
+    locale,
+  };
+  try {
+    console.log('locale update in saga');
+    const me = yield call(post, '/driver/me/update', body);
+
+    yield put(DriverActions.updateLocaleSuccess(me));
+  } catch (e) {
+    yield put(DriverActions.updateLocaleFailure(e));
+  }
+}
+
 // Reducer
 export default function DriverStateReducer(state: DriverState = initialState, action = {}): DriverState {
   switch (action.type) {
     case DriverTypes.LOGIN_REQUEST:
     case DriverTypes.FETCH_ME_REQUEST:
     case DriverTypes.EDIT_PROFILE_REQUEST:
+    case DriverTypes.UPDATE_LOCALE_REQUEST:
       return {
         ...state,
         loading: true,
@@ -103,6 +121,7 @@ export default function DriverStateReducer(state: DriverState = initialState, ac
         loading: false,
       };
 
+    case DriverTypes.UPDATE_LOCALE_SUCCESS:
     case DriverTypes.EDIT_PROFILE_SUCCESS:
     case DriverTypes.FETCH_ME_SUCCESS:
       return {
@@ -111,6 +130,7 @@ export default function DriverStateReducer(state: DriverState = initialState, ac
         me: action.payload,
       };
 
+    case DriverTypes.UPDATE_LOCALE_FAILURE:
     case DriverTypes.EDIT_PROFILE_FAILURE:
     case DriverTypes.LOGIN_FAILURE:
     case DriverTypes.FETCH_ME_FAILURE:
@@ -129,4 +149,5 @@ export const LoginSaga = [
   takeLatest(DriverTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(DriverTypes.FETCH_ME_REQUEST, requestFetchMe),
   takeLatest(DriverTypes.EDIT_PROFILE_REQUEST, requestEditProfile),
+  takeLatest(DriverTypes.UPDATE_LOCALE_REQUEST, requestUpdateLocale),
 ];
