@@ -67,7 +67,7 @@ function* requestFetchMe() {
       yield put(DriverActions.fetchMeSuccess(me));
       yield put(DriverActions.updateLocaleRequest(customI18nextReactNative().detect()));
     } else {
-      yield put(DriverActions.fetchMeFailure('login fail'));
+      yield put(DriverActions.fetchMeFailure('no token'));
     }
   } catch (e) {
     yield put(DriverActions.fetchMeFailure(e));
@@ -94,7 +94,6 @@ function* requestUpdateLocale({locale}: {locale: string}) {
     locale,
   };
   try {
-    console.log('locale update in saga');
     const me = yield call(post, '/driver/me/update', body);
 
     yield put(DriverActions.updateLocaleSuccess(me));
