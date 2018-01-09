@@ -8,6 +8,7 @@ import {
   Text,
   View,
   TextInput,
+  Button,
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -37,6 +38,7 @@ const EasiInput = styled.TextInput`
 const Container = styled.View`
   flex: 1;
   padding: 15px;
+  padding-bottom: 35px;
   background-color: white;
 `;
 
@@ -47,6 +49,7 @@ const EditProfileButton = styled.TouchableOpacity`
   align-items: center;
   margin-bottom: 20px;
 `;
+
 const EditProfileText = styled.Text`
   color: ${props => props.theme.mainBgColor};
   font-size: 14px;
@@ -174,15 +177,12 @@ class ProfileView extends Component<Props, State> {
               flexGrow: 1,
             }}
           />
-          <EditProfileButton
-            style={loading ? {backgroundColor: 'gray',} : null}
+          <Button
+            title={t('done')}
             onPress={this.onEditPressed}
+            color={easi6Theme.mainColor}
             disabled={loading}
-          >
-            <EditProfileText>
-              {t('done')}
-            </EditProfileText>
-          </EditProfileButton>
+          />
         </Container>
       </ThemeProvider>
     );
