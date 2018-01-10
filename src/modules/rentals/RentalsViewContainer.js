@@ -4,6 +4,7 @@ import {Alert, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
+import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
 
 import Storage from '../../utils/easi6Storage';
 import actions from '../../redux/actions';
@@ -12,7 +13,7 @@ import RentalsView from './RentalsView';
 import {makeGetVisibleRentals} from './RentalsState';
 import i18n from '../../utils/i18n';
 import _ from 'lodash';
-import {url} from '../../utils/api';
+import {postPushToken, url} from '../../utils/api';
 
 export default connect(
   state => ({
@@ -43,6 +44,17 @@ export default connect(
         enabled: true,
       });
       this.props.rentalsRequest();
+
+      FCM.requestPermissions().then(() => console.log('granted')).catch(()=> console.log('notification permission rejected'));
+
+      FCM.getFCMToken().then(token => {
+        console.log('RentalsViewContainer getFCMToken', token);
+        return postPushToken(token);
+      }).then((res) => {
+        console.log('postPushToken res: ', res);
+      }).catch((e) => {
+        console.log('postPushToken error: ', e);
+      });
 
       Storage.getItem('driverId').then((driverId) => {
         if (!driverId) return null;

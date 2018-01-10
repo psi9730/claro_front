@@ -38,6 +38,8 @@
     "react-i18next": "^7.3.0",
     "react-native": "^0.51.0",
     "react-native-country-picker-modal": "^0.5.1",
+    "react-native-device-info": "^0.13.0",
+    "react-native-fcm": "^11.2.0",
     "react-native-locale-detector": "^1.0.1",
     "react-native-mauron85-background-geolocation": "^0.4.1",
     "react-native-navigation": "^1.1.313",

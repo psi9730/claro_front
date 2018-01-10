@@ -2,6 +2,9 @@ import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
 import {decamelizeKeys, camelizeKeys} from 'humps';
 import {normalize} from 'normalizr';
+import {Platform} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 import {setAuthenticationToken} from './authentication';
@@ -15,6 +18,15 @@ const TIMEOUT = 6000;
  * All HTTP errors are emitted on this channel for interested listeners
  */
 export const errors = new EventEmitter();
+
+export async function postPushToken(token) {
+  const body = {
+    token,
+    platform: Platform.OS === 'ios' ? 'ios' : 'android',
+    packageName: DeviceInfo.getBundleId(),
+  };
+  return request('post', '/driver/endpoint', body);
+}
 
 /**
  * GET a path relative to API root url.
@@ -69,16 +81,21 @@ const REFRESH_TOKEN_REQUEST= 'API/REFRESH_TOKEN_REQUEST';
 const REFRESH_TOKEN_SUCCESS = 'API/REFRESH_TOKEN_SUCCESS';
 const REFRESH_TOKEN_FAILURE = 'API/REFRESH_TOKEN_FAILURE';
 
-let refreshing = null;
+let refreshingPromise = null;
 
-async function refreshToken(refreshToken: string) {
+async function refreshToken() {
+  const token = await getAuthenticationToken();
+  const refreshToken = token.refreshToken;
+
+  if (!refreshToken) return false;
+
   const body = {
     refreshToken,
     grantType: 'refresh_token',
   };
-  const token = await post('/auth/driver_token', body);
-  if (token) {
-    await setAuthenticationToken(token);
+  const newToken = await post('/auth/driver_token', body);
+  if (newToken) {
+    await setAuthenticationToken(newToken);
     return true;
   }
   return false;
@@ -91,20 +108,12 @@ export async function request(method, path, body, schema) {
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
-      if (refreshing === null) {
-        const token = await getAuthenticationToken();
-        if (token && token.refreshToken) {
-          refreshing = refreshToken(token.refreshToken);
-          if (await refreshing) {
-            refreshing = null;
-            return request(method, path, body, schema);
-          }
-        }
-      } else {
-        if (await refreshing) {
-          refreshing = null;
-          return request(method, path, body, schema);
-        }
+      if (refreshingPromise === null) {
+        refreshingPromise = refreshToken();
+      }
+      if (await refreshingPromise) {
+        refreshingPromise = null;
+        return request(method, path, body, schema);
       }
     }
     // if error display error message
@@ -150,7 +159,7 @@ export function url(path) {
  * Constructs and fires a HTTP request
  */
 async function sendRequest(method, path, body) {
-  console.log('sendRequest', method, path, body);
+  // console.log('sendRequest', method, path, body);
 
   try {
     const endpoint = url(path);
@@ -163,7 +172,7 @@ async function sendRequest(method, path, body) {
       ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
 
-    console.log('in sendRequest', endpoint, 'options', options);
+    // console.log('in sendRequest', endpoint, 'options', options);
 
     return timeout(fetch(endpoint, options), TIMEOUT);
   } catch (e) {
@@ -182,8 +191,7 @@ async function handleResponse(path, schema, response) {
     if (body && schema) {
       body = normalize(body, schema);
     }
-    console.log('handleResponse', response, body);
-
+    // console.log('handleResponse', response, body);
 
     return {
       status: response.status,

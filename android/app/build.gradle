@@ -111,7 +111,7 @@ android {
     buildToolsVersion "27.0.2"
 
     defaultConfig {
-        applicationId "com.easi6driver"
+        applicationId "com.easi6.easi6driver.android"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -151,7 +151,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -162,6 +162,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
+    compile project(':react-native-fcm')
+    implementation 'com.google.firebase:firebase-messaging:11.0.4'
     compile project(':react-native-mauron85-background-geolocation')
     compile project(':react-native-send-intent')
     compile project(':react-native-locale-detector')
@@ -178,3 +181,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
