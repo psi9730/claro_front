@@ -19,6 +19,30 @@ const options = {
   },
 };
 
+export const customI18nextReactNative = () => {
+  return {
+    ...i18nextReactNative,
+    detect: () => {
+      const phoneLocale = i18nextReactNative.detect();
+      if (phoneLocale.match('^en-(\w)*')){
+        return 'en';
+      } else if (phoneLocale === 'ko-KR') {
+        return 'ko';
+      } else if (phoneLocale === 'ja-JP') {
+        return 'ja';
+      } else if (phoneLocale === 'zh-CN') {
+        return 'zh_hans';
+      } else if (phoneLocale === 'zh-TW') {
+        return 'zh_hant';
+      } else {
+        return 'ko';
+      }
+    }
+  }
+};
+
+export const deviceLocale = customI18nextReactNative().detect();
+
 const isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {
@@ -38,7 +62,7 @@ switch (whichBackend()) {
 }
 
 i18next
-  .use(i18nextReactNative)
+  .use(customI18nextReactNative())
   .init(options);
 
 export default i18next;
