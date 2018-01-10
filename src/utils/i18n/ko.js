@@ -24,6 +24,9 @@ export default {
     done: '완료',
     enter_your_phone: '전화번호를 입력하세요',
     enter_your_password: '비밀번호를 입력하세요',
-    no_rentals: '예약 내역이 없습니다.'
+    no_rentals: '예약 내역이 없습니다.',
+    pick_up: '픽업 시작',
+    start_driving: '주행 시작',
+    finish_driving: '주행 완료',
   },
 };

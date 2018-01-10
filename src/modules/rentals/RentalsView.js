@@ -108,19 +108,14 @@ class RentalsView extends Component<Props> {
         </HView>
         {locations.map((loc) => (
           <View
+            key={loc.key}
             style={{
               alignItems: 'center',
               flexDirection: 'row',
             }}
           >
-            <ColoredText>
-              &#8226;&nbsp;&nbsp;
-            </ColoredText>
-            <LocationText
-              key={loc.key}
-            >
-              {preferredLocale(loc, 'name')}
-            </LocationText>
+            <ColoredText>&#8226;&nbsp;&nbsp;</ColoredText>
+            <LocationText>{preferredLocale(loc, 'name')}</LocationText>
           </View>
         ))}
       </RentalItemContainer>
