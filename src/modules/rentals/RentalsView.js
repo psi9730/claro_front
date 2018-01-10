@@ -27,6 +27,20 @@ const Container = styled.View`
   flex-flow: column;
 `;
 
+const EmptyContainer = styled.View`
+  background-color: white;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EmptyText = styled.Text`
+  font-size: 20px;
+  color: black;
+  opacity: 0.4;
+`;
+
+
 const RentalItemContainer = styled.TouchableOpacity`
   display: flex;
   justify-content: flex-start;
@@ -119,6 +133,16 @@ class RentalsView extends Component<Props> {
       key: rental.rentalNumber,
       ...rental,
     }));
+
+    if(_.isEmpty(rentals)){
+      return (
+        <EmptyContainer>
+          <EmptyText>
+            {t('no_rentals')}
+          </EmptyText>
+        </EmptyContainer>
+      )
+    }
 
     return (
       <ThemeProvider theme={easi6Theme}>
