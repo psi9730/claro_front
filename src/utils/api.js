@@ -27,7 +27,11 @@ export async function postPushToken(token) {
     platform: Platform.OS === 'ios' ? 'ios' : 'android',
     packageName: DeviceInfo.getBundleId(),
   };
-  return request('post', '/driver/endpoint', body);
+  try {
+    return await request('post', '/driver/endpoint', body);
+  } catch (e) {
+    return false;
+  }
 }
 
 /**

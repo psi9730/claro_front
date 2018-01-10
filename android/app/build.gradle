@@ -114,8 +114,8 @@ android {
         applicationId "com.easi6.easi6driver.android"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 70
-        versionName "3.0.0"
+        versionCode 71
+        versionName "3.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

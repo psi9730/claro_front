@@ -1,16 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Text,
-  View,
-  TextInput,
-  Button,
-  Keyboard,
-} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
@@ -19,7 +10,6 @@ import {ThemeProvider} from 'styled-components';
 
 import easi6Theme from '../../../utils/easi6Theme';
 import toast from '../../../utils/toast';
-import mainLogo from '../../../assets/images/easi-6.svg';
 
 type State = {
   username: string,
