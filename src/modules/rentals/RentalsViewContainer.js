@@ -59,9 +59,11 @@ export default connect(
       Storage.getItem('driverId').then((driverId) => {
         if (!driverId) return null;
         BackgroundGeolocation.configure({
-          desiredAccuracy: 10,
+          desiredAccuracy: 100,
           stationaryRadius: 50,
           distanceFilter: 30,
+          notificationTitle: null,
+          notificationText: null,
           debug: process.env.NODE_ENV === 'development',
           startOnBoot: true,
           stopOnTerminate: false,
