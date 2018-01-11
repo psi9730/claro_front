@@ -8,18 +8,27 @@ target 'easi6driver' do
   react_native_path = "../node_modules/react-native"
   pod "yoga", :path => "#{react_native_path}/ReactCommon/yoga"
   pod "React", :path => react_native_path, :subspecs => [
-  'Core',
-  'RCTActionSheet',
-  'RCTAnimation',
-  'RCTGeolocation',
-  'RCTImage',
-  'RCTLinkingIOS',
-  'RCTNetwork',
-  'RCTSettings',
-  'RCTText',
-  'RCTVibration',
-  'RCTWebSocket'
+    'CxxBridge',
   ]
+#  , :subspecs => [
+#  'Core',
+#  'CxxBridge',
+#  'RCTActionSheet',
+#  'RCTAnimation',
+#  'RCTGeolocation',
+#  'RCTImage',
+#  'RCTLinkingIOS',
+#  'RCTNetwork',
+#  'RCTSettings',
+#  'RCTText',
+#  'RCTVibration',
+#  'RCTWebSocket'
+#  ]
+
+
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # Pods for easi6driver
   pod 'FirebaseMessaging'
@@ -33,15 +42,16 @@ target 'easi6driver' do
 
 end
 
-target 'easi6driver-tvOS' do
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+#target 'easi6driver-tvOS' do
+#  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+#  # use_frameworks!
+#
+#  # Pods for easi6driver-tvOS
+#
+#  target 'easi6driver-tvOSTests' do
+#    inherit! :search_paths
+#    # Pods for testing
+#  end
+#
+#end
 
-  # Pods for easi6driver-tvOS
-
-  target 'easi6driver-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
