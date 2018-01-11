@@ -47,9 +47,8 @@ export default connect(
 
       FCM.requestPermissions().then(() => console.log('granted')).catch(()=> console.log('notification permission rejected'));
 
-      FCM.getFCMToken().then(token => {
-        console.log('RentalsViewContainer getFCMToken', token);
-        return postPushToken(token);
+      Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
+        return postPushToken(...tokens);
       }).then((res) => {
         console.log('postPushToken res: ', res);
       }).catch((e) => {
@@ -64,7 +63,8 @@ export default connect(
           distanceFilter: 30,
           notificationTitle: null,
           notificationText: null,
-          debug: process.env.NODE_ENV === 'development',
+          // debug: process.env.NODE_ENV === 'development',
+          debug: false,
           startOnBoot: true,
           stopOnTerminate: false,
           locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
@@ -72,6 +72,7 @@ export default connect(
           fastestInterval: 7000,
           activitiesInterval: 10000,
           stopOnStillActivity: false,
+          activityType: 'AutomotiveNavigation',
           url: url('/driver/geo'),
           httpHeaders: {
             Driver: `Driver ${driverId}`,

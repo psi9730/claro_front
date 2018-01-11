@@ -21,9 +21,10 @@ const TIMEOUT = 6000;
  */
 export const errors = new EventEmitter();
 
-export async function postPushToken(token) {
+export async function postPushToken(fcmToken, apnsToken) {
   const body = {
-    token,
+    fcmToken,
+    apnsToken,
     platform: Platform.OS === 'ios' ? 'ios' : 'android',
     packageName: DeviceInfo.getBundleId(),
   };
