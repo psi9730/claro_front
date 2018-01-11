@@ -41,7 +41,6 @@ FCM.on(FCMEvent.Notification, async (notif) => {
 });
 FCM.on(FCMEvent.RefreshToken, (token) => {
   console.log('FCMEvent.RefreshToken', token);
-  // fcm token may not be available on first load, catch it here
   return postPushToken(token).then((res) => {
     console.log('postPushToken res: ', res);
   }).catch((e) => {

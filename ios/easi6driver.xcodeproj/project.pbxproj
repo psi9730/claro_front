@@ -43,6 +43,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */; };
 		DD91F989F6DD419E86E459AC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */; };
+		EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */; };
 		F91585885694F909A97A04F9 /* libPods-easi6driver-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 429CBA60320FCD19AA81EB0F /* libPods-easi6driver-tvOSTests.a */; };
 		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
 /* End PBXBuildFile section */
@@ -386,6 +387,7 @@
 		D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
 		E0A85BB12D19CB0258E2BA0E /* libPods-easi6driver-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBackgroundGeolocation.a; sourceTree = "<group>"; };
+		EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = easi6driver.entitlements; path = easi6driver/easi6driver.entitlements; sourceTree = "<group>"; };
 		F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		F2F2F146F9E8DCF82FEC5EA2 /* Pods-easi6driver-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 		13B07FAE1A68108700A75B9A /* easi6driver */ = {
 			isa = PBXGroup;
 			children = (
+				EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */,
 				ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1232,6 +1235,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

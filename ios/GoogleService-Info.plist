@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1029519102407-r7230ehtmomqpjqui6mnugka8agpa0u4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1029519102407-r7230ehtmomqpjqui6mnugka8agpa0u4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1029519102407-jogn7vh5opae4o95num4frarm5k0hnt5.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCYt1lGVXHxZLUTSoIiqzkSnJ4GHvPyfaE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1029519102407</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.easi6.easi6driver</string>
+	<key>PROJECT_ID</key>
+	<string>easiway-driver-7ac9a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>easiway-driver-7ac9a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1029519102407:ios:8602067a00b2d12e</string>
+	<key>DATABASE_URL</key>
+	<string>https://easiway-driver-7ac9a.firebaseio.com</string>
+</dict>
+</plist>
