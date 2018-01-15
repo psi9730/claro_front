@@ -5,19 +5,25 @@ import {Provider} from 'react-redux';
 
 import i18n from './src/utils/i18n';
 import store from './src/redux/store';
+import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import LoginScreen from './src/modules/driver/login/LoginViewContainer';
 import RentalsScreen from './src/modules/rentals/RentalsViewContainer';
 import RentalDetailScreen from './src/modules/rentals/RentalDetailViewContainer';
 import ProfileScreen from './src/modules/driver/profile/ProfileViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
+import burgerIcn from './src/assets/images/burger.png';
+
+const burgerBtn = {
+  id: 'toggleDrawer',
+  icon: burgerIcn,
+  disableIconTint: true,
+};
 
 const t = i18n.getFixedT();
 
 export const DRAWER_SCREEN = {
   screen: 'easi6driver.DrawerScreen',
-  passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
-  disableOpenGesture: false, // can the drawer be opened with a swipe instead of button (optional, Android only)
 };
 export const LOGIN_SCREEN = {
   screen: 'easi6driver.LoginScreen',
@@ -29,28 +35,33 @@ export const RENTALS_SCREEN = {
   screen: 'easi6driver.RentalsScreen',
   title: t('title_rentals'),
   navigatorStyle: {},
-  navigatorButtons: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
 };
 export const RENTAL_DETAIL_SCREEN = {
   screen: 'easi6driver.RentalDetailScreen',
   title: t('title_rental'),
-  navigatorStyle: {},
+  navigatorStyle: {
+  },
   navigatorButtons: {},
 };
 export const PROFILE_SCREEN = {
   screen: 'easi6driver.ProfileScreen',
   title: t('title_profile'),
   navigatorStyle: {},
-  navigatorButtons: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
 };
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
-  Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
-  Navigation.registerComponent(RENTALS_SCREEN.screen, () => RentalsScreen, store, Provider);
-  Navigation.registerComponent(RENTAL_DETAIL_SCREEN.screen, () => RentalDetailScreen, store, Provider);
-  Navigation.registerComponent(LOGIN_SCREEN.screen, () => LoginScreen, store, Provider);
-  Navigation.registerComponent(PROFILE_SCREEN.screen, () => ProfileScreen, store, Provider);
+  Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
+  Navigation.registerComponent(RENTALS_SCREEN.screen, () => NavigationWrapper(RentalsScreen), store, Provider);
+  Navigation.registerComponent(RENTAL_DETAIL_SCREEN.screen, () => NavigationWrapper(RentalDetailScreen), store, Provider);
+  Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
+  Navigation.registerComponent(PROFILE_SCREEN.screen, () => NavigationWrapper(ProfileScreen), store, Provider);
 }
 
 export function startApp() {
@@ -75,10 +86,9 @@ export function startApp() {
         type: 'MMDrawer', // optional, iOS only, types: 'TheSideBar', 'MMDrawer' default: 'MMDrawer'
         animationType: 'door', //optional, iOS only, for MMDrawer: 'door', 'parallax', 'slide', 'slide-and-scale'
         // for TheSideBar: 'airbnb', 'facebook', 'luvocracy','wunder-list'
-        disableOpenGesture: false // optional, can the drawer, both right and left, be opened with a swipe instead of button
+        disableOpenGesture: false, // optional, can the drawer, both right and left, be opened with a swipe instead of button
       },
-      passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
-      animationType: 'slide-down' // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
+      animationType: 'slide-down', // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
     });
   })();
 }

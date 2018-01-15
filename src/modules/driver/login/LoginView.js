@@ -10,6 +10,7 @@ import {ThemeProvider} from 'styled-components';
 
 import easi6Theme from '../../../utils/easi6Theme';
 import toast from '../../../utils/toast';
+import easi6Logo from '../../../assets/images/easi-6.png';
 
 type State = {
   username: string,
@@ -123,7 +124,7 @@ class LoginView extends Component<Props, State> {
             <Image
               style={{width: 60, height: 18}}
               alt="logo image"
-              source={require('../../../assets/images/easi-6.png')}
+              source={easi6Logo}
             />
             <CoverText>
               &nbsp;&nbsp;

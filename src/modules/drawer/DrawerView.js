@@ -5,7 +5,10 @@ import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, Touchabl
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
+import {Navigation} from 'react-native-navigation';
+
 import easi6Theme from '../../utils/easi6Theme';
+import {PROFILE_SCREEN} from '../../../screens';
 
 type Props = {
   t: (key: string, ...?string) => string,
@@ -14,6 +17,7 @@ type Props = {
     nameEn: ?string,
     phone: string,
   },
+  goToProfile: () => void,
   goToRentals: () => void,
 };
 

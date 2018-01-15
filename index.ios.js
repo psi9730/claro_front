@@ -8,9 +8,10 @@ import {sagaMiddleware} from './src/redux/store';
 import './src/utils/i18n';
 import {registerScreens, startApp} from './screens';
 import {setConfiguration} from './src/utils/configuration';
-import {default as FCM, FCMEvent, RemoteNotificationResult, WillPresentNotificationResult} from 'react-native-fcm';
-import {Platform} from "react-native";
+import {default as FCM, FCMEvent} from 'react-native-fcm';
+import {Platform} from 'react-native';
 import {postPushToken} from './src/utils/api';
+import {ScreenVisibilityListener} from './src/modules/navigation/NavigationWrapper';
 
 const isProd = process.env.NODE_ENV === 'production';
 let apiRoot = process.env.API_ROOT || 'http://10.0.1.8:9100';

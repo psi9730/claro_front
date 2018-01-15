@@ -1,5 +1,7 @@
-import {DriverTypes, DriverActions} from '../modules/driver/DriverState';
-import {RentalTypes, RentalActions} from '../modules/rentals/RentalsState';
+// @flow
+
+import {DriverActions, DriverTypes} from '../modules/driver/DriverState';
+import {RentalActions, RentalTypes} from '../modules/rentals/RentalsState';
 
 export {
   DriverTypes,

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {FlatList, Text, View, TouchableOpacity} from 'react-native';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import _ from 'lodash';
