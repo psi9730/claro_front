@@ -66,7 +66,7 @@ export const PROFILE_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
-  Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
+  Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
   Navigation.registerComponent(RENTALS_SCREEN.screen, () => NavigationWrapper(RentalsScreen), store, Provider);
   Navigation.registerComponent(PAST_RENTALS_SCREEN.screen, () => NavigationWrapper(PastRentalsScreen), store, Provider);
   Navigation.registerComponent(RENTAL_DETAIL_SCREEN.screen, () => NavigationWrapper(RentalDetailScreen), store, Provider);

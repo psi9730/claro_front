@@ -166,6 +166,7 @@ class LoginView extends Component<Props, State> {
             </CountryPicker>
             <GrayLine/>
             <PasswordInput
+              underlineColorAndroid="transparent"
               placeholder={t('login_password')}
               autoCorrect={false}
               onChangeText={this.onChangePassword}

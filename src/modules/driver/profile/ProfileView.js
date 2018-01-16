@@ -119,6 +119,7 @@ class ProfileView extends Component<Props, State> {
               {t('profile_name')}
             </ProfileText>
             <ProfileInput
+              underlineColorAndroid="transparent"
               placeholder={t('profile_name')}
               autoCorrect={false}
               autoCapitalize='none'
