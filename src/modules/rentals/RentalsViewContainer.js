@@ -34,7 +34,10 @@ export default connect(
             rentalNumber,
           },
         });
-      }
+      },
+      onRefreshCalled: (props) => () => {
+        props.rentalsRequest('live');
+      },
     }),
   )(lifecycle({
     componentDidMount() {
