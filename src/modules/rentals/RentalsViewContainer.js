@@ -43,9 +43,9 @@ export default connect(
         side: 'left',
         enabled: true,
       });
-      this.props.rentalsRequest();
+      this.props.rentalsRequest('live');
 
-      FCM.requestPermissions().then(() => console.log('granted')).catch(()=> console.log('notification permission rejected'));
+      FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
 
       Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
         return postPushToken(...tokens);
