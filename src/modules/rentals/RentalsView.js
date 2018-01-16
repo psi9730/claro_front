@@ -123,7 +123,7 @@ class RentalsView extends Component<Props> {
   }
 
   render() {
-    const {t, loading, rentals} = this.props;
+    const {t, loading, rentals, rentalsRequest} = this.props;
     const renderRentals = _.map(rentals, (rental) => ({
       key: rental.rentalNumber,
       ...rental,
@@ -145,6 +145,8 @@ class RentalsView extends Component<Props> {
           <FlatList
             data={renderRentals}
             renderItem={this.renderRental}
+            refreshing={loading}
+            onRefresh={rentalsRequest}
           />
         </Container>
       </ThemeProvider>
