@@ -55,12 +55,6 @@ const SwiperRow = styled.View`
   height: 60px;
 `;
 
-const SwiperButton = styled.TouchableOpacity`
-  flex: 0 0 100px;
-  align-items: center;
-  justify-content: center;
-`;
-
 const LabelText = styled.Text`
   font-size: 18px;
   margin-top: 19px;
@@ -272,20 +266,6 @@ class RentalDetailView extends Component<Props> {
     }
   };
   
-  onScrollBeginDrag() {
-    console.log('Scroll Start');
-    this.setState({
-      opacity: 0.7,
-    })
-  }
-  
-  onMomentumScrollEnd() {
-    console.log('Scroll End');
-    this.setState({
-      opacity: 1,
-    })
-  }
-  
   onPageScrollStateChanged(scrollState) {
     if (scrollState === 'dragging') {
       this.setState({
@@ -324,7 +304,7 @@ class RentalDetailView extends Component<Props> {
         <OpacityContainer opacity={this.state.opacity}>
           <Image style={{position: 'absolute', left: 0, top: 0, height: 60, width: 370, resizeMode: 'stretch'}} source={SwiperDragImage} />
           <Text style={{position: 'absolute',left: 155, top: 11, fontSize: 26, color: 'white'}}>{swiperText}</Text>
-          <Swiper ref={(ref) => {this.Swipe = ref;}} loop={false} showsPagination={false} showsButtons={false} autoplay={false} index={1} onIndexChanged={this.onIndexChanged} onPageScrollStateChanged={this.onPageScrollStateChanged} onScrollBeginDrag={this.onScrollBeginDrag} onMomentumScrollEnd={this.onMomentumScrollEnd}>
+          <Swiper ref={(ref) => {this.Swipe = ref;}} loop={false} showsPagination={false} showsButtons={false} autoplay={false} index={1} onIndexChanged={this.onIndexChanged} onPageScrollStateChanged={this.onPageScrollStateChanged}>
             <SwiperRow>
               <View style={{flex: 1}} />
             </SwiperRow>
