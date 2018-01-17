@@ -9,6 +9,7 @@ import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import LoginScreen from './src/modules/driver/login/LoginViewContainer';
 import RentalsScreen from './src/modules/rentals/RentalsViewContainer';
+import PastRentalsScreen from './src/modules/rentals/PastRentalsViewContainer';
 import RentalDetailScreen from './src/modules/rentals/RentalDetailViewContainer';
 import ProfileScreen from './src/modules/driver/profile/ProfileViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
@@ -39,6 +40,14 @@ export const RENTALS_SCREEN = {
     leftButtons: [burgerBtn],
   },
 };
+export const PAST_RENTALS_SCREEN = {
+  screen: 'easi6driver.PastRentalsScreen',
+  title: t('title_past_rentals'),
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
 export const RENTAL_DETAIL_SCREEN = {
   screen: 'easi6driver.RentalDetailScreen',
   title: t('title_rental'),
@@ -57,8 +66,9 @@ export const PROFILE_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
-  Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
+  Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
   Navigation.registerComponent(RENTALS_SCREEN.screen, () => NavigationWrapper(RentalsScreen), store, Provider);
+  Navigation.registerComponent(PAST_RENTALS_SCREEN.screen, () => NavigationWrapper(PastRentalsScreen), store, Provider);
   Navigation.registerComponent(RENTAL_DETAIL_SCREEN.screen, () => NavigationWrapper(RentalDetailScreen), store, Provider);
   Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
   Navigation.registerComponent(PROFILE_SCREEN.screen, () => NavigationWrapper(ProfileScreen), store, Provider);

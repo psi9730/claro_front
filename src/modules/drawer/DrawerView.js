@@ -121,6 +121,13 @@ class DrawerView extends Component<Props, State> {
               </MenuText>
             </MenuButton>
             <MenuButton
+              onPress={this.props.goToPastRentals}
+            >
+              <MenuText>
+                {t('menu_past_rentals')}
+              </MenuText>
+            </MenuButton>
+            <MenuButton
               onPress={this.props.logout}
             >
               <MenuText>

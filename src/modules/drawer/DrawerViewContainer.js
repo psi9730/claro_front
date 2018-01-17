@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
-import {LOGIN_SCREEN, RENTALS_SCREEN, PROFILE_SCREEN} from '../../../screens';
+import {LOGIN_SCREEN, RENTALS_SCREEN, PROFILE_SCREEN, PAST_RENTALS_SCREEN} from '../../../screens';
 import actions from '../../redux/actions';
 
 const hideDrawer = (props) => {
@@ -34,6 +34,10 @@ export default connect(
       goToRentals: (props) => () => {
         hideDrawer(props);
         props.navigator.handleDeepLink({link: RENTALS_SCREEN.screen});
+      },
+      goToPastRentals: (props) => () => {
+        hideDrawer(props);
+        props.navigator.handleDeepLink({link: PAST_RENTALS_SCREEN.screen});
       },
       logout: (props) => () => {
         (async () => {

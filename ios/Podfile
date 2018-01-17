@@ -31,6 +31,9 @@ target 'easi6driver' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # Pods for easi6driver
+  pod 'AppCenter/Crashes', '~> 1.1.0'
+  pod 'AppCenter/Analytics', '~> 1.1.0'
+  pod 'AppCenterReactNativeShared', '~> 1.1.0'
   pod 'FirebaseMessaging'
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'

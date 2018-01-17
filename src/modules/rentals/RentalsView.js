@@ -16,9 +16,8 @@ type Props = {
   t: Function,
   rentals: Array<RentalType>,
   loading: boolean,
-  rentalsStateActions: {
-    rentalsRequest: () => mixed,
-  },
+  onDetailItemPressed: Function,
+  onRefreshCalled: Function,
 };
 
 const Container = styled.View`
@@ -123,7 +122,7 @@ class RentalsView extends Component<Props> {
   }
 
   render() {
-    const {t, loading, rentals} = this.props;
+    const {t, loading, rentals, onRefreshCalled} = this.props;
     const renderRentals = _.map(rentals, (rental) => ({
       key: rental.rentalNumber,
       ...rental,
@@ -145,6 +144,8 @@ class RentalsView extends Component<Props> {
           <FlatList
             data={renderRentals}
             renderItem={this.renderRental}
+            refreshing={loading}
+            onRefresh={onRefreshCalled}
           />
         </Container>
       </ThemeProvider>
