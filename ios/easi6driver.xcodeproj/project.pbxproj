@@ -25,12 +25,16 @@
 		3959CF93AEF842C2B9DABE3A /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C59967FA44FB3B65C522D /* libRNI18n.a */; };
 		5A8EA2237DE14B7A8F9CC6D4 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		7F5DDF7D0A58474C957B352D /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9624804A555E4298B26CB5F4 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B39D7C680AA34ED48EE256B6 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */; };
 		D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */; };
 		DD91F989F6DD419E86E459AC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */; };
 		EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */; };
+		EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */; };
+		F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 481440DD12F04076BFF10E0B /* AppCenter-Config.plist */; };
 		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +228,27 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		EC6038C5200F27E3006C0C13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
+			remoteInfo = AppCenterReactNative;
+		};
+		EC603926200F2833006C0C13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 548694001D8384E600E6685A;
+			remoteInfo = AppCenterReactNativeAnalytics;
+		};
+		EC603979200F2890006C0C13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5419C2701D824AA700DDF3A1;
+			remoteInfo = AppCenterReactNativeCrashes;
+		};
 		ECAFB7272005B97900B5D76A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */;
@@ -346,24 +371,32 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = easi6driver/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		29FB2ECDFE98307E00F0DB62 /* Pods-easi6driver-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOS/Pods-easi6driver-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		3E787323292D4FA7950B3CFF /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		429CBA60320FCD19AA81EB0F /* libPods-easi6driver-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		452B86244CD4AA5F32C3DE1B /* Pods-easi6driver-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOS/Pods-easi6driver-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		481440DD12F04076BFF10E0B /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "easi6driver/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		7C6422E844386F79E6359A0B /* Pods-easi6driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.debug.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		83A0F0D68C4640D998F4ADD2 /* Pods-easi6driverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driverTests/Pods-easi6driverTests.debug.xcconfig"; sourceTree = "<group>"; };
+		920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61C59967FA44FB3B65C522D /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		BC8F995DBD73411D95526078 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		C7086D75432346FDB95F1618 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-locale-detector/RNI18n.xcodeproj"; sourceTree = "<group>"; };
+		D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
 		D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
 		E0A85BB12D19CB0258E2BA0E /* libPods-easi6driver-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBackgroundGeolocation.a; sourceTree = "<group>"; };
+		EC603765200E0443006C0C13 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = easi6driver.entitlements; path = easi6driver/easi6driver.entitlements; sourceTree = "<group>"; };
 		F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
@@ -404,6 +437,9 @@
 				9624804A555E4298B26CB5F4 /* libRCTBackgroundGeolocation.a in Frameworks */,
 				5A8EA2237DE14B7A8F9CC6D4 /* libRNFIRMessaging.a in Frameworks */,
 				D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */,
+				B39D7C680AA34ED48EE256B6 /* libAppCenterReactNative.a in Frameworks */,
+				EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				7F5DDF7D0A58474C957B352D /* libAppCenterReactNativeCrashes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +625,9 @@
 				C7086D75432346FDB95F1618 /* RNI18n.xcodeproj */,
 				3E787323292D4FA7950B3CFF /* RCTBackgroundGeolocation.xcodeproj */,
 				A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */,
+				D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */,
+				920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */,
+				3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -612,6 +651,7 @@
 				ECB1B2F91FE9F92400E7AF9D /* Recovered References */,
 				6D539BEB45A90059FF46159A /* Pods */,
 				6192674DCE414EA55026E72D /* Frameworks */,
+				481440DD12F04076BFF10E0B /* AppCenter-Config.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -636,6 +676,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		EC6038C2200F27E3006C0C13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC6038C6200F27E3006C0C13 /* libAppCenterReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC603923200F2832006C0C13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC603927200F2833006C0C13 /* libAppCenterReactNativeAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC603976200F2890006C0C13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC60397A200F2890006C0C13 /* libAppCenterReactNativeCrashes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ECAFB7242005B97900B5D76A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +715,9 @@
 				B61C59967FA44FB3B65C522D /* libRNI18n.a */,
 				EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */,
 				F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */,
+				75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */,
+				7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */,
+				526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -763,6 +830,18 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = EC6038C2200F27E3006C0C13 /* Products */;
+					ProjectRef = D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */;
+				},
+				{
+					ProductGroup = EC603923200F2832006C0C13 /* Products */;
+					ProjectRef = 920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */;
+				},
+				{
+					ProductGroup = EC603976200F2890006C0C13 /* Products */;
+					ProjectRef = 3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1019,6 +1098,27 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		EC6038C6200F27E3006C0C13 /* libAppCenterReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNative.a;
+			remoteRef = EC6038C5200F27E3006C0C13 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EC603927200F2833006C0C13 /* libAppCenterReactNativeAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeAnalytics.a;
+			remoteRef = EC603926200F2833006C0C13 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EC60397A200F2890006C0C13 /* libAppCenterReactNativeCrashes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeCrashes.a;
+			remoteRef = EC603979200F2890006C0C13 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ECAFB7282005B97900B5D76A /* libRNFIRMessaging.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1134,6 +1234,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */,
+				F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,6 +1386,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				EC603765200E0443006C0C13 /* ko */,
 			);
 			name = LaunchScreen.xib;
 			path = easi6driver;
@@ -1308,12 +1410,18 @@
 					"$(SRCROOT)/../node_modules/react-native-locale-detector/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = easi6driverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1338,12 +1446,18 @@
 					"$(SRCROOT)/../node_modules/react-native-locale-detector/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = easi6driverTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1372,6 +1486,9 @@
 					"$(SRCROOT)/../node_modules/react-native-locale-detector/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = easi6driver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1401,6 +1518,9 @@
 					"$(SRCROOT)/../node_modules/react-native-locale-detector/RNI18n",
 					"$(SRCROOT)/../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = easi6driver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1419,6 +1539,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1460,6 +1581,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
@@ -24,19 +24,17 @@ type Props = {
   onLoginPressed: (username: string, password: string) => void,
 };
 
-const PhoneInnerInput = styled.TextInput`
-  width: 70%;
-  font-size: 20px;
-`;
-
 const PasswordInput = styled.TextInput`
   width: 70%;
   margin-bottom: 20px;
   font-size: 20px;
   margin-top: 10px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
 `;
 
-const Container = styled.View`
+const Container = styled.KeyboardAvoidingView`
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -114,74 +112,85 @@ class LoginView extends Component<Props, State> {
     this.setState({cca2: country.cca2})
   }
 
+  static dismissKeyboard() {
+    Keyboard.dismiss();
+  }
+
   render() {
     const {t, loading} = this.props;
 
     return (
       <ThemeProvider theme={easi6Theme}>
-        <Container>
-          <CoverView>
-            <Image
-              style={{width: 60, height: 18}}
-              alt="logo image"
-              source={easi6Logo}
+        <TouchableWithoutFeedback
+          onPress={LoginView.dismissKeyboard}
+        >
+          <Container
+            keyboardVerticalOffset={0}
+            behavior='height'>
+            <CoverView>
+              <Image
+                style={{width: 60, height: 18}}
+                alt="logo image"
+                source={easi6Logo}
+              />
+              <CoverText>
+                &nbsp;&nbsp;
+                {t('cover_text')}
+              </CoverText>
+            </CoverView>
+            <PhoneInput
+              ref='phone'
+              textProps={{placeholder: t('login_phone')}}
+              onChangePhoneNumber={this.onChangeUsername}
+              onSelectCountry={this.onSelectCountry}
+              initialCountry='kr'
+              onPressFlag={this.onPressFlag}
+              style={{
+                width: '70%',
+              }}
+              textStyle={{
+                width: '100%',
+                fontSize: 20,
+                height: 40,
+                alignSelf: 'baseline',
+              }}
             />
-            <CoverText>
-              &nbsp;&nbsp;
-              {t('cover_text')}
-            </CoverText>
-          </CoverView>
-          <PhoneInput
-            ref='phone'
-            textProps={{placeholder: t('login_phone')}}
-            onChangePhoneNumber={this.onChangeUsername}
-            onSelectCountry={this.onSelectCountry}
-            initialCountry='kr'
-            onPressFlag={this.onPressFlag}
-            style={{
-              width: '70%',
-            }}
-            textStyle={{
-              width: '100%',
-              fontSize: 20,
-              height: 40,
-              alignSelf: 'baseline',
-            }}
-          />
-          <CountryPicker
-            ref='countryPicker'
-            onChange={this.selectCountry}
-            translation='eng'
-            cca2={this.state.cca2}
-            filterable
-          >
-            <View />
-          </CountryPicker>
-          <GrayLine/>
-          <PasswordInput
-            placeholder={t('login_password')}
-            autoCorrect={false}
-            onChangeText={this.onChangePassword}
-            value={this.state.password}
-            autoCapitalize='none'
-            onSubmitEditing={this.onLoginPressed}
-            blurOnSubmit
-            secureTextEntry
-          />
-          <View
-            style={{flexGrow: 3}}
-          />
-          <View
-            style={{alignSelf: 'stretch'}}
-          >
-            <Button
-              title={t('login_submit')}
-              onPress={this.onLoginPressed}
-              color={easi6Theme.mainColor}
-              disabled={loading}
+            <CountryPicker
+              ref='countryPicker'
+              onChange={this.selectCountry}
+              translation='eng'
+              cca2={this.state.cca2}
+              filterable
+            >
+              <View />
+            </CountryPicker>
+            <GrayLine/>
+            <PasswordInput
+              underlineColorAndroid="transparent"
+              placeholder={t('login_password')}
+              autoCorrect={false}
+              onChangeText={this.onChangePassword}
+              value={this.state.password}
+              autoCapitalize='none'
+              onSubmitEditing={this.onLoginPressed}
+              blurOnSubmit
+              secureTextEntry
             />
-          </View>
-        </Container>
+            <View
+              style={{flexGrow: 3}}
+            />
+            <View
+              style={{alignSelf: 'stretch'}}
+            >
+              <Button
+                title={t('login_submit')}
+                onPress={this.onLoginPressed}
+                color={easi6Theme.mainColor}
+                disabled={loading}
+              />
+            </View>
+          </Container>
+        </TouchableWithoutFeedback>
       </ThemeProvider>
     );
   }

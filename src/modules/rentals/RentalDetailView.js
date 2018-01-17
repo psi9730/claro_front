@@ -142,6 +142,14 @@ const ColoredText = styled.Text`
 
 const m = (dateTime) => moment(dateTime).format('YYYY-MM-DD HH:mm A');
 
+const RENTAL_STATUS_WAITPAY = 0;
+const RENTAL_STATUS_PENDING = 20;
+const RENTAL_STATUS_CONFIRMED = 30;
+const RENTAL_STATUS_ASSIGNED = 40;
+const RENTAL_STATUS_PICKUP = 50;
+const RENTAL_STATUS_INUSE = 60;
+const RENTAL_STATUS_FINISHED = 70;
+
 class RentalDetailView extends Component<Props> {
   constructor(props) {
     super(props);
@@ -155,7 +163,7 @@ class RentalDetailView extends Component<Props> {
   renderCustomer() {
     const {t, rental} = this.props;
 
-    if (rental.status >= 70) return null;
+    if (rental.status >= RENTAL_STATUS_FINISHED) return null;
 
     const contactInfo = rental.contactInfo;
     const onOpenPhoneButtonPressed = () => this.props.openPhone(contactInfo.phone);
@@ -228,17 +236,17 @@ class RentalDetailView extends Component<Props> {
   renderButton() {
     const {t, loading, rental} = this.props;
 
-    if (rental.status < 40 || rental.status >= 70) return null;
+    if (rental.status < RENTAL_STATUS_ASSIGNED || rental.status >= RENTAL_STATUS_FINISHED) return null;
 
     const onStatusChangePressed = () => this.props.statusChange();
     const status = rental.status;
     let txt = t('pick_up');
 
     switch (status) {
-      case 50:
+      case RENTAL_STATUS_PICKUP:
         txt = t('start_driving');
         break;
-      case 60:
+      case RENTAL_STATUS_INUSE:
         txt = t('finish_driving');
         break;
       default:

@@ -49,7 +49,7 @@ export const {Types: RentalTypes, Creators: RentalActions} = createActions(
   })
 );
 
-function* requestRentals({status, startDate}: {status: ?number, startDate: ?string}) {
+function* requestRentals({status, startDate}: {status: ?string, startDate: ?string}) {
   const params = {
     status,
     startDate,

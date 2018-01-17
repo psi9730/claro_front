@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import i18nextReactNative from 'i18next-react-native-language-detector'
 
 import ko from './ko';
+import en from './en';
 
 const whichBackend = () => 'memory';
 const options = {
@@ -54,7 +55,7 @@ switch (whichBackend()) {
   default:
     options.resources = {
       ko,
-      // en,
+      en,
       // ja,
       // zh_hans: zhHans,
       // zh_hant: zhHant,
