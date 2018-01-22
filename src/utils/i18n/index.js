@@ -25,16 +25,16 @@ export const customI18nextReactNative = () => {
     ...i18nextReactNative,
     detect: () => {
       const phoneLocale = i18nextReactNative.detect();
-      if (phoneLocale.match('^en-(\w)*')){
+      if (phoneLocale.match(/^en(.)*/)) {
         return 'en';
-      } else if (phoneLocale === 'ko-KR') {
+      } else if (phoneLocale.match(/ko(.)*/)) {
         return 'ko';
-      } else if (phoneLocale === 'ja-JP') {
+      } else if (phoneLocale.match(/ja(.)*/)) {
         return 'ja';
-      } else if (phoneLocale === 'zh-CN') {
-        return 'zh_hans';
       } else if (phoneLocale === 'zh-TW') {
         return 'zh_hant';
+      } else if (phoneLocale.match(/zh(.)*/)) {
+        return 'zh_hans';
       } else {
         return 'ko';
       }
