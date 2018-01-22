@@ -36,7 +36,7 @@ export const customI18nextReactNative = () => {
       } else if (phoneLocale.match(/zh(.)*/)) {
         return 'zh_hans';
       } else {
-        return ko;
+        return 'ko';
       }
     }
   }
