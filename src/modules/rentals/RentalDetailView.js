@@ -12,7 +12,10 @@ import Swiper from 'react-native-swiper';
 import {preferredLocale} from '../../utils/i18n';
 import easi6Theme from '../../utils/easi6Theme';
 import type RentalType from './RentalsState';
-import SwiperButtonImage from '../../assets/images/pickup.png';
+
+import PickupImage from '../../assets/images/pickup.png';
+import StartImage from '../../assets/images/start.png';
+import FinishImage from '../../assets/images/finish.png';
 import SwiperDragImage from '../../assets/images/drag.png';
 
 type Props = {
@@ -41,16 +44,10 @@ const SwiperContainer = styled.View`
   flex: 0 0 100px;
   display: flex;
   background-color: ${props => props.backgroundColor};
-  padding: 20px;
-`;
-
-const OpacityContainer = styled.View`
-  flex: 1;
-  display: flex;
-  opacity: ${props => props.opacity};
 `;
 
 const SwiperRow = styled.View`
+  display: flex;
   flex-direction: row;
   height: 60px;
 `;
@@ -227,97 +224,77 @@ class RentalDetailView extends Component<Props> {
     );
   }
 
-  renderButton() {
-    const {t, loading, rental} = this.props;
+  onIndexChanged(index) {
+    if(index === 0) {
+      const swipe = this.Swipe;
+      this.props.statusChange().then(() => {
+        swipe.scrollBy(1, false);
+      });
+    }
+  };
+
+  onScrollBeginDrag() {
+    this.setState({
+      opacity: 0.7,
+    })
+  }
+  onMomentumScrollEnd() {
+    this.setState({
+      opacity: 1,
+    })
+  }
+
+  renderSwipeButton() {
+    const {t, rental} = this.props;
 
     if (rental.status < RENTAL_STATUS_ASSIGNED || rental.status >= RENTAL_STATUS_FINISHED) return null;
-
-    const onStatusChangePressed = () => this.props.statusChange();
     const status = rental.status;
-    let txt = t('pick_up');
+    let color = '#1bb4e2';
+    let swiperText = t('pick_up');
+    let swiperImage = PickupImage;
 
     switch (status) {
       case RENTAL_STATUS_PICKUP:
-        txt = t('start_driving');
+        color = '#4a90e2';
+        swiperText = t('start_driving');
+        swiperImage = StartImage;
         break;
       case RENTAL_STATUS_INUSE:
-        txt = t('finish_driving');
+        color = '#ea655d';
+        swiperText = t('finish_driving');
+        swiperImage = FinishImage;
         break;
       default:
         break;
     }
 
     return (
-      <View style={{marginBottom: 30}}>
-        <Button
-          title={txt}
-          onPress={onStatusChangePressed}
-          color={easi6Theme.mainColor}
-          disabled={loading}
-        />
-      </View>
-    )
-  }
-
-  onIndexChanged(index) {
-    if(index === 0){
-      this.props.statusChange();
-      this.Swipe.scrollBy(1, false);
-    }
-  };
-  
-  onPageScrollStateChanged(scrollState) {
-    if (scrollState === 'dragging') {
-      this.setState({
-        opacity: 0.7,
-      })
-    } else {
-      this.setState({
-        opacity: 1,
-      })
-    }
-  }
-
-  renderSwipeButton() {
-    const {t, rental} = this.props;
-  
-    if (rental.status < 40 || rental.status >= 70) return null;
-    const status = rental.status;
-    let color = '#1bb4e2';
-    let swiperText = t('pick_up');
-  
-    switch (status) {
-      case 50:
-        color = '#4a90e2';
-        swiperText = t('start_driving');
-        break;
-      case 60:
-        color = '#ea655d';
-        swiperText = t('finish_driving');
-        break;
-      default:
-        break;
-    }
-    
-    return(
       <SwiperContainer backgroundColor={color}>
-        <OpacityContainer opacity={this.state.opacity}>
-          <Image style={{position: 'absolute', left: 0, top: 0, height: 60, width: 370, resizeMode: 'stretch'}} source={SwiperDragImage} />
-          <Text style={{position: 'absolute',left: 155, top: 11, fontSize: 26, color: 'white'}}>{swiperText}</Text>
-          <Swiper ref={(ref) => {this.Swipe = ref;}} loop={false} showsPagination={false} showsButtons={false} autoplay={false} index={1} onIndexChanged={this.onIndexChanged} onPageScrollStateChanged={this.onPageScrollStateChanged}>
-            <SwiperRow>
-              <View style={{flex: 1}} />
-            </SwiperRow>
-            <SwiperRow>
-              <Image style={{height: 60, width:90}} alt="button" source={SwiperButtonImage} />
-              <View style={{flex: 1}} />
-            </SwiperRow>
-          </Swiper>
-        </OpacityContainer>
+        <Image style={{position: 'absolute', start: 20, top: 20, end: 20, bottom: 20, width: 'auto', height: 'auto'}} source={SwiperDragImage} />
+        <Text style={{position: 'absolute',left: 175, top: 31, fontSize: 26, color: 'white', backgroundColor: 'transparent'}}>{swiperText}</Text>
+        <Swiper
+          ref={(ref) => {this.Swipe = ref;}}
+          loop={false} showsPagination={false}
+          showsButtons={false} autoplay={false}
+          index={1}
+          onIndexChanged={this.onIndexChanged}
+          onScrollBeginDrag={this.onScrollBeginDrag}
+          onTouchStart={this.onScrollBeginDrag}
+          onMomentumScrollEnd={this.onMomentumScrollEnd}
+          onTouchEnd={this.onMomentumScrollEnd}
+        >
+          <SwiperRow>
+            <View style={{flex: 1}} />
+          </SwiperRow>
+          <SwiperRow>
+            <Image style={{marginLeft: 20, marginTop: 20, height: 60, width: 90, opacity: this.state.opacity}} alt="button" source={swiperImage} />
+            <View style={{flex: 1}} />
+          </SwiperRow>
+        </Swiper>
       </SwiperContainer>
     );
   }
-  
+
   render() {
     const {t, rental} = this.props;
 
