@@ -95,6 +95,7 @@ const OpenMapBtn = styled.TouchableOpacity`
 `;
 
 const OpenMapText = styled.Text`
+  text-align: center;
   font-size: 16px;
   color: ${props => props.theme.mainColor};
   margin-top: 4px;
