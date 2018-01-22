@@ -96,7 +96,7 @@ export function startApp() {
         type: 'MMDrawer', // optional, iOS only, types: 'TheSideBar', 'MMDrawer' default: 'MMDrawer'
         animationType: 'door', //optional, iOS only, for MMDrawer: 'door', 'parallax', 'slide', 'slide-and-scale'
         // for TheSideBar: 'airbnb', 'facebook', 'luvocracy','wunder-list'
-        disableOpenGesture: false, // optional, can the drawer, both right and left, be opened with a swipe instead of button
+        disableOpenGesture: true, // optional, can the drawer, both right and left, be opened with a swipe instead of button
       },
       animationType: 'slide-down', // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
     });

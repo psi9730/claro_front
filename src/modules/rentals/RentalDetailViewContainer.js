@@ -23,7 +23,7 @@ export default connect(
       openPhone: () => openPhoneApp,
       statusChange: (props) => () => {
         const rental = props.rental;
-        props.rentalStatusChangeRequest(rental.rentalNumber, rental.status);
+        return props.rentalStatusChangeRequest(rental.rentalNumber, rental.status);
       },
     }),
   )(

@@ -50,6 +50,7 @@
     "react-native-phone-input": "^0.1.10",
     "react-native-root-toast": "^3.0.0",
     "react-native-send-intent": "https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz",
+    "react-native-swiper": "^1.5.13",
     "react-redux": "^5.0.6",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
