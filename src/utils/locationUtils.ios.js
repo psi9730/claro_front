@@ -15,7 +15,7 @@ const postGeoWithLocs = async () => {
   }
   locs = [];
 };
-const throttledPostGeoWithLocs = _.throttle(postGeoWithLocs, 30000);
+const throttledPostGeoWithLocs = _.throttle(postGeoWithLocs, 20000);
 
 export const checkStatus = () => {
   navigator.geolocation.requestAuthorization();
