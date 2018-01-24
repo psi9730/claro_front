@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
 import {LOGIN_SCREEN, PAST_RENTALS_SCREEN, PROFILE_SCREEN, RENTALS_SCREEN} from '../../../screens';
+import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -17,7 +19,34 @@ export default function NavigationWrapper(WrappedComponent) {
       const {navigator} = props;
       navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
       autoBind(this);
+      this.state = {
+        appState: AppState.currentState,
+      };
     }
+
+    componentDidMount() {
+      AppState.addEventListener('change', this._handleAppStateChange);
+      if (Platform.OS === 'ios') {
+        locationUtils.checkStatus();
+        locationUtils.watchPosition();
+      }
+    }
+
+    componentWillUnmount() {
+      AppState.removeEventListener('change', this._handleAppStateChange);
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+      if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+        if (Platform.OS === 'ios') {
+          locationUtils.checkStatus();
+          locationUtils.watchPosition();
+        }
+      } else {
+        // locationUtils.clearWatch(); // 지금은 굳이 clear하지 않음(보낼 수 있을때까지 보내봐)
+      }
+      this.setState({appState: nextAppState});
+    };
 
     render() {
       return <WrappedComponent {...this.props} />;

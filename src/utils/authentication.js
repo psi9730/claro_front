@@ -21,3 +21,11 @@ export async function setAuthenticationToken(token) {
 export async function clearAuthenticationToken() {
   return AsyncStorage.removeItem(AUTHENTICATION_STORAGE_KEY);
 }
+
+export async function getDriverId() {
+  try {
+    return await AsyncStorage.getItem('driverId');
+  } catch (e) {
+    return null;
+  }
+}

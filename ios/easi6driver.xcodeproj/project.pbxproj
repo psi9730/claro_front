@@ -807,6 +807,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = SU523S677L;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1477,6 +1478,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = SU523S677L;
@@ -1499,6 +1501,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.easi6.easi6driver;
 				PRODUCT_NAME = easi6driver;
+				PROVISIONING_PROFILE = "e241f06b-4b10-4180-b80c-e47f666e0468";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.easi6.easi6driver";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1510,6 +1514,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SU523S677L;
 				HEADER_SEARCH_PATHS = (
@@ -1531,6 +1537,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.easi6.easi6driver;
 				PRODUCT_NAME = easi6driver;
+				PROVISIONING_PROFILE = "8322a357-0e98-463c-95d3-37655a12bab0";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.easi6.easi6driver";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

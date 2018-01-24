@@ -10,21 +10,6 @@ target 'easi6driver' do
   pod "React", :path => react_native_path, :subspecs => [
     'CxxBridge',
   ]
-#  , :subspecs => [
-#  'Core',
-#  'CxxBridge',
-#  'RCTActionSheet',
-#  'RCTAnimation',
-#  'RCTGeolocation',
-#  'RCTImage',
-#  'RCTLinkingIOS',
-#  'RCTNetwork',
-#  'RCTSettings',
-#  'RCTText',
-#  'RCTVibration',
-#  'RCTWebSocket'
-#  ]
-
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
