@@ -30,7 +30,7 @@ export const watchPosition = () => {
       };
       await throttledPostGeoWithLocs();
       locs.push(param);
-    }, (e) => console.log('watchPositino err: ', e), {
+    }, (e) => console.log('watchPosition err: ', e), {
       distanceFilter: 30,
       enableHighAccuracy: true,
       timeout: 15000,

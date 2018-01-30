@@ -184,14 +184,14 @@ class RentalDetailView extends Component<Props> {
           </CustomerText>
         </HView>
         {
-          rental.flightNumber && (<HView>
+          rental.flightNumber ? (<HView>
             <CustomerText>
               {t('flight_number')}:&nbsp;
             </CustomerText>
             <CustomerText>
               {rental.flightNumber}
             </CustomerText>
-          </HView>)
+          </HView>): null
         }
       </Customer>
     );
@@ -317,12 +317,12 @@ class RentalDetailView extends Component<Props> {
               <DateText>
                 {m(rental.startDate)}
               </DateText>
-              {(rental.orderDays > 0) && (
+              {(rental.orderDays > 0) ? (
                 <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
-              )}
-              {(rental.orderHours > 0) && (
+              ) : null}
+              {(rental.orderHours > 0) ? (
                 <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
-              )}
+              ) : null}
             </HView>
             <LabelText>
               {t('rental_locations')}
