@@ -183,16 +183,16 @@ class RentalDetailView extends Component<Props> {
             {rental.memberCount}
           </CustomerText>
         </HView>
-        {
-          rental.flightNumber ? (<HView>
+        {rental.flightNumber ? (
+          <HView>
             <CustomerText>
               {t('flight_number')}:&nbsp;
             </CustomerText>
             <CustomerText>
               {rental.flightNumber}
             </CustomerText>
-          </HView>): null
-        }
+          </HView>
+        ) : null}
       </Customer>
     );
   }
