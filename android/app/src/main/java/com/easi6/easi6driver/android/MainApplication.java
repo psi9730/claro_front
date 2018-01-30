@@ -1,4 +1,4 @@
-package com.easi6driver;
+package com.easi6.easi6driver.android;
 
 import com.reactnativenavigation.NavigationApplication;
 
