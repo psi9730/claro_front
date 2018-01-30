@@ -98,12 +98,12 @@ class RentalsView extends Component<Props> {
           <DateText>
             {m(rental.startDate)}&nbsp;
           </DateText>
-          {(rental.orderDays > 0) && (
+          {(rental.orderDays > 0) ? (
             <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
-          )}
-          {(rental.orderHours > 0) && (
+          ) : null}
+          {(rental.orderHours > 0) ? (
             <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
-          )}
+          ) : null}
         </HView>
         {locations.map((loc) => (
           <View

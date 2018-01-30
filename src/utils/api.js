@@ -4,10 +4,11 @@ import {decamelizeKeys, camelizeKeys} from 'humps';
 import {normalize} from 'normalizr';
 import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import _ from 'lodash';
 
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
-import {setAuthenticationToken} from './authentication';
+import {getDriverId, setAuthenticationToken} from './authentication';
 import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
 import toast from '../utils/toast';
@@ -30,6 +31,14 @@ export async function postPushToken(fcmToken, apnsToken) {
   };
   try {
     return await request('post', '/driver/endpoint', body);
+  } catch (e) {
+    return false;
+  }
+}
+
+export async function postGeo(locs) {
+  try {
+    return await request('post', '/driver/geo', locs);
   } catch (e) {
     return false;
   }
@@ -179,7 +188,7 @@ async function sendRequest(method, path, body) {
       body = {...body, locale: deviceLocale}
     }
 
-    const headers = getRequestHeaders(body, accessToken, forceBasic);
+    const headers = await getRequestHeaders(body, accessToken, forceBasic);
     const options = body
       ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
       : {method, headers};
@@ -215,16 +224,22 @@ async function handleResponse(path, schema, response) {
   }
 }
 
-function getRequestHeaders(body, token, forceBasic = false) {
-  const headers = body
+async function getRequestHeaders(body, token, forceBasic = false) {
+  let headers = body
     ? {'Accept': 'application/json', 'Content-Type': 'application/json'}
     : {'Accept': 'application/json'};
 
-  if (token && !forceBasic) {
-    return {...headers, Authorization: `Bearer ${token}`};
-  } else {
-    return {...headers, Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='};
+  const driverId = await getDriverId();
+  if (driverId) {
+    _.assign(headers, {Driver: `Driver ${driverId}`});
   }
+
+  if (token && !forceBasic) {
+    _.assign(headers, {Authorization: `Bearer ${token}`});
+  } else {
+    _.assign(headers, {Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='});
+  }
+  return headers;
 }
 
 // try to get the best possible error message out of a response

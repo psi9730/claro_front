@@ -11,7 +11,7 @@ import easi6Theme from '../../utils/easi6Theme';
 import {PROFILE_SCREEN} from '../../../screens';
 
 type Props = {
-  t: (key: string, ...?string) => string,
+  t: Function,
   me: ?{
     name: string,
     nameEn: ?string,
@@ -19,6 +19,8 @@ type Props = {
   },
   goToProfile: () => void,
   goToRentals: () => void,
+  goToPastRentals: () => void,
+  logout: () => void,
 };
 
 const Container = styled.View`
@@ -69,8 +71,8 @@ const ProfileText = styled.Text`
   font-size: 14px;
 `;
 
-class DrawerView extends Component<Props, State> {
-  constructor(props) {
+class DrawerView extends Component<Props> {
+  constructor(props: Object) {
     super(props);
 
     autoBind(this);
@@ -86,11 +88,11 @@ class DrawerView extends Component<Props, State> {
         <DriverText>
           {me.name}
         </DriverText>
-        {me.nameEn && (
+        {me.nameEn ? (
           <DriverText>
             {me.nameEn}
           </DriverText>
-        )}
+        ) : null}
         <DriverText>
           {me.phone}
         </DriverText>

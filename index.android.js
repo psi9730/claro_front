@@ -3,7 +3,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import {Platform} from 'react-native';
-import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
+import FCM, {FCMEvent} from 'react-native-fcm';
 
 import mySaga from './src/redux/sagas';
 import {sagaMiddleware} from './src/redux/store';

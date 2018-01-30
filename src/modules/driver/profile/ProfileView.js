@@ -130,6 +130,7 @@ class ProfileView extends Component<Props, State> {
               {t('profile_name_en')}
             </ProfileText>
             <ProfileInput
+              underlineColorAndroid="transparent"
               placeholder={t('profile_name_en')}
               autoCorrect={false}
               autoCapitalize='none'
@@ -140,6 +141,7 @@ class ProfileView extends Component<Props, State> {
               {t('profile_phone')}
             </ProfileText>
             <PhoneInput
+              underlineColorAndroid="transparent"
               ref='phone'
               value={this.state.phone}
               textProps={{placeholder: t('proflie_phone')}}
