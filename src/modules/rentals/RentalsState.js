@@ -8,12 +8,16 @@ import {createSelector} from 'reselect';
 import {createActions} from 'reduxsauce';
 
 import {get, post} from '../../utils/api';
-import {actionsGenerator} from "../../redux/reducerUtils";
+import {actionsGenerator} from '../../redux/reducerUtils';
 
 const rentalSchema = new schema.Entity('rentals', {}, {idAttribute: 'rentalNumber'});
 const rentalsWithPage = new schema.Object({
   items: [rentalSchema],
 });
+
+export type LocationInfoType = {
+  key: string,
+}
 
 export type RentalType = {
   memberCount: number,
@@ -25,6 +29,8 @@ export type RentalType = {
   locationInfos: Array<Object>,
   orderDays: number,
   orderHours: number,
+  status: number,
+  startDate: Date,
 };
 
 // Initial state
@@ -84,7 +90,7 @@ function* requestRentalStatusChange({rentalNumber, status}: {rentalNumber: strin
 
       yield put(RentalActions.rentalStatusChangeSuccess(rental));
     } else {
-      yield put(RentalActions.rentalStatusChangeFailure(e));
+      yield put(RentalActions.rentalStatusChangeFailure(new Error('out_of_valid_status')));
     }
   } catch (e) {
     yield put(RentalActions.rentalStatusChangeFailure(e));
@@ -108,7 +114,7 @@ export const makeGetVisibleRental = () => createSelector([getRentalsById, getRen
 });
 
 // Reducer
-export default function RentalsStateReducer(state = initialState, action = {}) {
+export default function RentalsStateReducer(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case RentalTypes.RENTALS_REQUEST:
     case RentalTypes.RENTAL_DETAIL_REQUEST:

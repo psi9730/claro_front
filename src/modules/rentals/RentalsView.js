@@ -10,7 +10,7 @@ import autoBind from 'react-autobind';
 
 import {preferredLocale} from '../../utils/i18n';
 import easi6Theme from '../../utils/easi6Theme';
-import type RentalType from './RentalsState';
+import type {RentalType} from './RentalsState';
 
 type Props = {
   t: Function,

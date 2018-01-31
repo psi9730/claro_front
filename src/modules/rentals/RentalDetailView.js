@@ -11,7 +11,7 @@ import Swiper from 'react-native-swiper';
 
 import {preferredLocale} from '../../utils/i18n';
 import easi6Theme from '../../utils/easi6Theme';
-import type RentalType from './RentalsState';
+import type {RentalType, LocationInfoType} from './RentalsState';
 
 import PickupImage from '../../assets/images/pickup.png';
 import StartImage from '../../assets/images/start.png';
@@ -25,6 +25,10 @@ type Props = {
   openMap: Function,
   openPhone: Function,
   statusChange: Function,
+};
+
+type State = {
+  opacity: number,
 };
 
 const Container = styled.View`
@@ -127,6 +131,11 @@ const HView = styled.View`
   flex-flow: row;
 `;
 
+const VView = styled.View`
+  display: flex;
+  flex-flow: column;
+`;
+
 const ColoredText = styled.Text`
   font-size: 25px;
   color: ${props => props.theme.mainColor};
@@ -142,8 +151,8 @@ const RENTAL_STATUS_PICKUP = 50;
 const RENTAL_STATUS_INUSE = 60;
 const RENTAL_STATUS_FINISHED = 70;
 
-class RentalDetailView extends Component<Props> {
-  constructor(props) {
+class RentalDetailView extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -151,6 +160,8 @@ class RentalDetailView extends Component<Props> {
     };
     autoBind(this);
   }
+
+  Swipe: any;
 
   renderCustomer() {
     const {t, rental} = this.props;
@@ -183,21 +194,11 @@ class RentalDetailView extends Component<Props> {
             {rental.memberCount}
           </CustomerText>
         </HView>
-        {rental.flightNumber ? (
-          <HView>
-            <CustomerText>
-              {t('flight_number')}:&nbsp;
-            </CustomerText>
-            <CustomerText>
-              {rental.flightNumber}
-            </CustomerText>
-          </HView>
-        ) : null}
       </Customer>
     );
   }
 
-  renderLocation(loc) {
+  renderLocation(loc: LocationInfoType) {
     const {t} = this.props;
     const onOpenMapButtonPressed = () => this.props.openMap(loc);
 
@@ -225,7 +226,7 @@ class RentalDetailView extends Component<Props> {
     );
   }
 
-  onIndexChanged(index) {
+  onIndexChanged(index: number) {
     if(index === 0) {
       const swipe = this.Swipe;
       this.props.statusChange().then(() => {
@@ -324,6 +325,16 @@ class RentalDetailView extends Component<Props> {
                 <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
               ) : null}
             </HView>
+            {rental.flightNumber ? (
+              <VView>
+                <LabelText>
+                  {t('flight_number')}
+                </LabelText>
+                <HView><CustomerText>
+                  {rental.flightNumber}
+                </CustomerText></HView>
+              </VView>
+            ) : null}
             <LabelText>
               {t('rental_locations')}
             </LabelText>
