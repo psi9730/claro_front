@@ -6,7 +6,6 @@ import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import FCM from 'react-native-fcm';
 
 import locationUtils from '../../utils/locationUtils';
-import Storage from '../../utils/easi6Storage';
 import actions from '../../redux/actions';
 import {RENTAL_DETAIL_SCREEN} from '../../../screens';
 import RentalsView from './RentalsView';
@@ -49,7 +48,6 @@ export default connect(
       this.props.rentalsRequest('live');
 
       FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
-
       Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
         return postPushToken(...tokens);
       }).then((res) => {
@@ -58,15 +56,15 @@ export default connect(
         console.log('postPushToken error: ', e);
       });
 
-      (async () => {
-        if (Platform.OS === 'android') {
+      if (Platform.OS === 'android') {
+        (async () => {
           const driverId = await getDriverId();
           if (!driverId) return null;
           locationUtils.configure(driverId);
           locationUtils.registerOn();
           locationUtils.checkStatus();
-        }
-      })();
+        })();
+      }
     }
   })(
     RentalsView
