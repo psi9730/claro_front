@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "react-native start",
+    "clean": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && yarn cache clean && yarn && yarn start --reset-cache",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
