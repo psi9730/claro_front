@@ -2,19 +2,22 @@
 
 import 'babel-polyfill';
 import React from 'react';
+import {Platform} from 'react-native';
+import FCM, {FCMEvent} from 'react-native-fcm';
 
 import mySaga from './src/redux/sagas';
 import {sagaMiddleware} from './src/redux/store';
 import './src/utils/i18n';
 import {registerScreens, startApp} from './screens';
 import {setConfiguration} from './src/utils/configuration';
-import {default as FCM, FCMEvent} from 'react-native-fcm';
-import {Platform} from 'react-native';
 import {postPushToken} from './src/utils/api';
-import {ScreenVisibilityListener} from './src/modules/navigation/NavigationWrapper';
 
 const isProd = process.env.NODE_ENV === 'production';
-let apiRoot = process.env.API_ROOT || 'http://10.0.1.8:9100';
+let defaultHost = 'http://127.0.0.1:9100';
+if (Platform.OS === 'ios') {
+  defaultHost = 'http://10.0.1.8:9100';
+}
+let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {
   apiRoot = 'https://vendor.pyeongchangcarservice.com';
 }
@@ -27,6 +30,7 @@ registerScreens();
 
 startApp();
 
+console.log('fcm event listener attach');
 // this shall be called regardless of app state: running, background or not running. Won't be called when app is killed by user in iOS
 FCM.on(FCMEvent.Notification, async (notif) => {
   console.log('FCMEvent.Notification', notif);
@@ -38,7 +42,12 @@ FCM.on(FCMEvent.Notification, async (notif) => {
     //iOS: app is open/resumed because user clicked banner
     //Android: app is open/resumed because user clicked banner or tapped app icon
   }
-  // await someAsyncCall();
+
+  if (Platform.OS === 'ios') {
+    if (notif.finish) {
+      notif.finish();
+    }
+  }
 
   // if(Platform.OS ==='ios'){
   //   //optional
@@ -57,6 +66,8 @@ FCM.on(FCMEvent.Notification, async (notif) => {
   //       break;
   //   }
   // }
+
+  // await someAsyncCall();
 });
 FCM.on(FCMEvent.RefreshToken, (token) => {
   console.log('FCMEvent.RefreshToken', token);

@@ -65,6 +65,9 @@ public class MainApplication extends NavigationApplication implements ReactAppli
 
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
+      new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
+      new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
+      new AppCenterReactNativePackage(MainApplication.this),
       new RNDeviceInfo(),
       new FIRMessagingPackage(),
       new BackgroundGeolocationPackage(),

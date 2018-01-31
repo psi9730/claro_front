@@ -13,7 +13,11 @@ import {setConfiguration} from './src/utils/configuration';
 import {postPushToken} from './src/utils/api';
 
 const isProd = process.env.NODE_ENV === 'production';
-let apiRoot = process.env.API_ROOT || 'http://127.0.0.1:9100';
+let defaultHost = 'http://127.0.0.1:9100';
+if (Platform.OS === 'ios') {
+  defaultHost = 'http://10.0.1.8:9100';
+}
+let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {
   apiRoot = 'https://vendor.pyeongchangcarservice.com';
 }
@@ -26,6 +30,7 @@ registerScreens();
 
 startApp();
 
+console.log('fcm event listener attach');
 // this shall be called regardless of app state: running, background or not running. Won't be called when app is killed by user in iOS
 FCM.on(FCMEvent.Notification, async (notif) => {
   console.log('FCMEvent.Notification', notif);
@@ -37,6 +42,31 @@ FCM.on(FCMEvent.Notification, async (notif) => {
     //iOS: app is open/resumed because user clicked banner
     //Android: app is open/resumed because user clicked banner or tapped app icon
   }
+
+  if (Platform.OS === 'ios') {
+    if (notif.finish) {
+      notif.finish();
+    }
+  }
+
+  // if(Platform.OS ==='ios'){
+  //   //optional
+  //   //iOS requires developers to call completionHandler to end notification process. If you do not call it your background remote notifications could be throttled, to read more about it see https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623013-application.
+  //   //This library handles it for you automatically with default behavior (for remote notification, finish with NoData; for WillPresent, finish depend on "show_in_foreground"). However if you want to return different result, follow the following code to override
+  //   //notif._notificationType is available for iOS platfrom
+  //   switch(notif._notificationType){
+  //     case NotificationType.Remote:
+  //       notif.finish(RemoteNotificationResult.NewData); //other types available: RemoteNotificationResult.NewData, RemoteNotificationResult.ResultFailed
+  //       break;
+  //     case NotificationType.NotificationResponse:
+  //       notif.finish();
+  //       break;
+  //     case NotificationType.WillPresent:
+  //       notif.finish(WillPresentNotificationResult.All); //other types available: WillPresentNotificationResult.None
+  //       break;
+  //   }
+  // }
+
   // await someAsyncCall();
 });
 FCM.on(FCMEvent.RefreshToken, (token) => {
