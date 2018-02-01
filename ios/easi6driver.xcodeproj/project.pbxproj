@@ -33,6 +33,7 @@
 		D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */; };
 		DD91F989F6DD419E86E459AC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */; };
 		EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */; };
+		EC7E09232022B06600D6F432 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7E09252022B06600D6F432 /* InfoPlist.strings */; };
 		EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */; };
 		F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 481440DD12F04076BFF10E0B /* AppCenter-Config.plist */; };
 		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
@@ -398,6 +399,8 @@
 		EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBackgroundGeolocation.a; sourceTree = "<group>"; };
 		EC603765200E0443006C0C13 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EC7E09242022B06600D6F432 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC7E09262022B07900D6F432 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = easi6driver.entitlements; path = easi6driver/easi6driver.entitlements; sourceTree = "<group>"; };
 		F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		F2F2F146F9E8DCF82FEC5EA2 /* Pods-easi6driver-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -535,6 +538,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				EC7E09252022B06600D6F432 /* InfoPlist.strings */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -1236,6 +1240,7 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */,
 				F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */,
+				EC7E09232022B06600D6F432 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1391,6 +1396,15 @@
 			);
 			name = LaunchScreen.xib;
 			path = easi6driver;
+			sourceTree = "<group>";
+		};
+		EC7E09252022B06600D6F432 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC7E09242022B06600D6F432 /* ko */,
+				EC7E09262022B07900D6F432 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

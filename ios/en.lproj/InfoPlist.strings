@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  easi6driver
+
+  Created by Jineok Kim on 01/02/2018.
+  Copyright © 2018 Facebook. All rights reserved.
+*/
+
+NSLocationWhenInUseUsageDescription="Location info is requested for effective assignment and helping meet customer at precise location.";
+NSLocationAlwaysAndWhenInUseUsageDescription="Location info is always requested for effective assignment and helping meet customer at precise location.";
