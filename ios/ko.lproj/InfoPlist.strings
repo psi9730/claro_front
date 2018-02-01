@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  easi6driver
+
+  Created by Jineok Kim on 01/02/2018.
+  Copyright © 2018 Facebook. All rights reserved.
+*/
+
+NSLocationWhenInUseUsageDescription="매니저의 원활한 배차와 고객과의 만남 장소 확인을 위해 위치정보가 필요합니다.";
+NSLocationAlwaysAndWhenInUseUsageDescription="매니저의 원활한 배차와 고객과의 만남 장소 확인을 위해 위치정보가 항상 필요합니다.";
