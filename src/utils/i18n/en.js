@@ -30,5 +30,7 @@ export default {
     pick_up: 'Pick up',
     start_driving: 'Start Driving',
     finish_driving: 'Finish Driving',
+    arrival_terminal: 'Terminal',
+    meeting_point: 'Meeting point',
   },
 };

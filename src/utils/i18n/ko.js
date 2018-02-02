@@ -30,5 +30,7 @@ export default {
     pick_up: '픽업하러 가기',
     start_driving: '주행 시작',
     finish_driving: '주행 종료',
+    arrival_terminal: '터미널',
+    meeting_point: '만남 장소',
   },
 };

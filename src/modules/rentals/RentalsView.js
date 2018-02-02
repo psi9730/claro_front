@@ -69,18 +69,19 @@ const ColoredText = styled.Text`
 
 const HView = styled.View`
   flex-flow: row;
+  margin-bottom: 4px;
 `;
 
 const m = (dateTime) => moment(dateTime).format('MM-DD HH:mm A');
 
 class RentalsView extends Component<Props> {
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
 
     autoBind(this);
   }
 
-  renderRental({item: rental}) {
+  renderRental({item: rental}: {item: RentalType}) {
     if (!rental) return null;
     const {t} = this.props;
     const onDetailItemPressed = () => {

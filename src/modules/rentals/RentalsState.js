@@ -31,6 +31,8 @@ export type RentalType = {
   orderHours: number,
   status: number,
   startDate: Date,
+  scheduledFlight: ?Object,
+  rentalNumber: number,
 };
 
 // Initial state
