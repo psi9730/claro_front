@@ -18,7 +18,7 @@ export default {
     rental_date: '일시',
     rental_locations: '예약 위치',
     rental_customer: '고객 정보',
-    member_count: '승객수',
+    member_count: '승객 수',
     flight_number: '편명',
     profile_name: '이름',
     profile_name_en: '영문 이름',
@@ -30,5 +30,8 @@ export default {
     pick_up: '픽업하러 가기',
     start_driving: '주행 시작',
     finish_driving: '주행 종료',
+    arrival_terminal: '터미널',
+    meeting_point: '만남 장소',
+    luggage_count: '짐 수',
   },
 };

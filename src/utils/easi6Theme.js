@@ -1,5 +1,6 @@
 export default {
   mainBgColor: 'white',
-  mainColor: 'green',
+  mainColor: '#008000',
   borderColor: '#cccccc',
+  labelColor: '#909090',
 };

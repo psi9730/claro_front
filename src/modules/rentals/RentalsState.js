@@ -21,6 +21,7 @@ export type LocationInfoType = {
 
 export type RentalType = {
   memberCount: number,
+  luggageCount: number,
   contactInfo: {
     name: string,
     phone: string,
@@ -31,6 +32,8 @@ export type RentalType = {
   orderHours: number,
   status: number,
   startDate: Date,
+  scheduledFlight: ?Object,
+  rentalNumber: number,
 };
 
 // Initial state

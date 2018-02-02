@@ -57,13 +57,14 @@ const SwiperRow = styled.View`
 `;
 
 const LabelText = styled.Text`
-  font-size: 18px;
+  font-size: 15px;
   margin-top: 19px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  color: ${props => props.theme.labelColor};
 `;
 
 const DateText = styled.Text`
-  font-size: 23px;
+  font-size: 24px;
   margin-bottom: 4px;
   margin-right: 4px;
   color: black;
@@ -136,9 +137,40 @@ const VView = styled.View`
   flex-flow: column;
 `;
 
-const ColoredText = styled.Text`
+const BulletText = styled.Text`
   font-size: 25px;
   color: ${props => props.theme.mainColor};
+  margin-top: -5px;
+`;
+
+const TerminalVView = styled.View`
+  margin-top: 14px;
+  display: flex;
+  flex-flow: column;
+`;
+
+const AirportSection = styled.View`
+  display: flex;
+  flex-flow: column;
+  border-left-width: 3px;
+  padding-left: 17px;
+  margin-left: 4px;
+  margin-bottom: 20px;
+  border-left-color: ${props => props.theme.mainColor};
+`;
+
+const AirportLabel = styled.Text`
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: ${props => props.theme.mainColor};
+  font-weight: bold;
+  margin-top: -2px;
+`;
+
+const AirportText = styled.Text`
+  font-size: 23px;
+  font-weight: normal;
+  margin-bottom: -2px;
 `;
 
 const m = (dateTime) => moment(dateTime).format('YYYY-MM-DD HH:mm A');
@@ -194,6 +226,14 @@ class RentalDetailView extends Component<Props, State> {
             {rental.memberCount}
           </CustomerText>
         </HView>
+        <HView>
+          <CustomerText>
+            {t('luggage_count')}&nbsp;:&nbsp;
+          </CustomerText>
+          <CustomerText>
+            {rental.luggageCount}
+          </CustomerText>
+        </HView>
       </Customer>
     );
   }
@@ -204,9 +244,9 @@ class RentalDetailView extends Component<Props, State> {
 
     return (
       <Location key={loc.key}>
-        <ColoredText>
+        <BulletText>
           &#8226;&nbsp;&nbsp;
-        </ColoredText>
+        </BulletText>
         <LocationTexts>
           <LocationText>
             {preferredLocale(loc, 'name')}
@@ -307,6 +347,8 @@ class RentalDetailView extends Component<Props, State> {
       key: i,
     }));
 
+    const arrivalTerminal = rental.scheduledFlight && rental.scheduledFlight.arrivalTerminal;
+
     return (
       <ThemeProvider theme={easi6Theme}>
         <Container>
@@ -325,20 +367,35 @@ class RentalDetailView extends Component<Props, State> {
                 <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
               ) : null}
             </HView>
-            {rental.flightNumber ? (
-              <VView>
-                <LabelText>
-                  {t('flight_number')}
-                </LabelText>
-                <HView><CustomerText>
-                  {rental.flightNumber}
-                </CustomerText></HView>
-              </VView>
-            ) : null}
             <LabelText>
               {t('rental_locations')}
             </LabelText>
-            {locations.map(this.renderLocation)}
+            {locations.slice(0, 1).map(this.renderLocation)}
+            {(rental.flightNumber || !!arrivalTerminal) ? (
+              <AirportSection>
+                {rental.flightNumber ? (
+                  <VView>
+                    <AirportLabel>
+                      {t('flight_number')}
+                    </AirportLabel>
+                    <AirportText>
+                      {rental.flightNumber}
+                    </AirportText>
+                  </VView>
+                ) : null}
+                {!!arrivalTerminal ? (
+                  <TerminalVView>
+                    <AirportLabel>
+                      {t('meeting_point')}
+                    </AirportLabel>
+                    <AirportText>
+                      {t('arrival_terminal')} {arrivalTerminal}
+                    </AirportText>
+                  </TerminalVView>
+                ) : null}
+              </AirportSection>
+            ) : null}
+            {locations.slice(1).map(this.renderLocation)}
             {this.renderCustomer()}
           </ScrollContainer>
           {this.renderSwipeButton()}
