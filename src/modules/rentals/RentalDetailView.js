@@ -226,6 +226,14 @@ class RentalDetailView extends Component<Props, State> {
             {rental.memberCount}
           </CustomerText>
         </HView>
+        <HView>
+          <CustomerText>
+            {t('luggage_count')}&nbsp;:&nbsp;
+          </CustomerText>
+          <CustomerText>
+            {rental.luggageCount}
+          </CustomerText>
+        </HView>
       </Customer>
     );
   }

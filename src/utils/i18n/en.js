@@ -18,7 +18,7 @@ export default {
     rental_date: 'DateTime',
     rental_locations: 'Locations',
     rental_customer: 'Customer',
-    member_count: 'member count',
+    member_count: 'Rider count',
     flight_number: 'flight number',
     profile_name: 'Name',
     profile_name_en: 'English Name',
@@ -32,5 +32,6 @@ export default {
     finish_driving: 'Finish Driving',
     arrival_terminal: 'Terminal',
     meeting_point: 'Meeting point',
+    luggage_count: 'Luggage count',
   },
 };

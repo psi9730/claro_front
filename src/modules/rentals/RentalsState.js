@@ -21,6 +21,7 @@ export type LocationInfoType = {
 
 export type RentalType = {
   memberCount: number,
+  luggageCount: number,
   contactInfo: {
     name: string,
     phone: string,
