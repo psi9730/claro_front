@@ -2,6 +2,6 @@
     <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
     <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
     <string name="app_name">easi6 driver</string>
-    <string name="account_type">com.easi6driver.account</string>
-    <string name="content_authority">com.easi6driver.authority</string>
+    <string name="account_type">com.easi6.easi6driver.android.account</string>
+    <string name="content_authority">com.easi6.easi6driver.authority</string>
 </resources>
