@@ -52,13 +52,15 @@ export default connect(
       });
 
       FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
-      Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
-        return postPushToken(...tokens);
-      }).then((res) => {
-        console.log('postPushToken res: ', res);
-      }).catch((e) => {
-        console.log('postPushToken error: ', e);
-      });
+      setTimeout(() => {
+        Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
+          return postPushToken(...tokens);
+        }).then((res) => {
+          console.log('postPushToken res: ', res);
+        }).catch((e) => {
+          console.log('postPushToken error: ', e);
+        });
+      }, 3000);
 
       if (Platform.OS === 'android') {
         (async () => {

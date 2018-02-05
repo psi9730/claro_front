@@ -22,6 +22,12 @@ PODS:
   - boost/shared_ptr-includes (1.59.0)
   - boost/string_algorithms-includes (1.59.0)
   - DoubleConversion (1.1.5)
+  - Firebase/Core (4.8.0):
+    - FirebaseAnalytics (= 4.0.5)
+    - FirebaseCore (= 4.0.13)
+  - Firebase/Messaging (4.8.0):
+    - Firebase/Core
+    - FirebaseMessaging (= 2.0.8)
   - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -78,7 +84,7 @@ DEPENDENCIES:
   - AppCenter/Crashes (~> 1.1.0)
   - AppCenterReactNativeShared (~> 1.1.0)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
-  - FirebaseMessaging
+  - Firebase/Messaging
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -104,6 +110,7 @@ SPEC CHECKSUMS:
   AppCenterReactNativeShared: 76f8034b52ce0a9edcdb67b98f85e9790c813318
   boost: 30a15ffb6d9aa4646dd3caffc960753f4cb4ca4e
   DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
+  Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
   FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
@@ -117,6 +124,6 @@ SPEC CHECKSUMS:
   RNDeviceInfo: dc3cbee96cd2392cf03d6ff6191dc15f1606a166
   yoga: b5d96400ca8b2936965a7a6516da7c1177f432a3
 
-PODFILE CHECKSUM: 0cc4fc87bde05db09ccdfac31fbf8ddcf7fa5a52
+PODFILE CHECKSUM: a76c7383db2cac241cb342ac758cb5327ebc58ea
 
 COCOAPODS: 1.3.1
