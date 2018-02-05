@@ -47,7 +47,7 @@ export default connect(
         enabled: true,
       });
       rentalsRequest('live');
-      FCM.on(FCMEvent.Notification, async (notif) => {
+      this.notificationListener = FCM.on(FCMEvent.Notification, async () => {
         rentalsRequest('live');
       });
 
@@ -69,6 +69,9 @@ export default connect(
           locationUtils.checkStatus();
         })();
       }
+    },
+    componentWillUnmount() {
+      this.notificationListener.remove();
     }
   })(
     RentalsView
