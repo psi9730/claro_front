@@ -3,7 +3,7 @@
 import {Alert, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
-import FCM from 'react-native-fcm';
+import FCM, {FCMEvent} from 'react-native-fcm';
 
 import locationUtils from '../../utils/locationUtils';
 import actions from '../../redux/actions';
@@ -41,20 +41,26 @@ export default connect(
     }),
   )(lifecycle({
     componentDidMount() {
-      this.props.navigator.setDrawerEnabled({
+      const {navigator, rentalsRequest} = this.props;
+      navigator.setDrawerEnabled({
         side: 'left',
         enabled: true,
       });
-      this.props.rentalsRequest('live');
+      rentalsRequest('live');
+      this.notificationListener = FCM.on(FCMEvent.Notification, async () => {
+        rentalsRequest('live');
+      });
 
       FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
-      Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
-        return postPushToken(...tokens);
-      }).then((res) => {
-        console.log('postPushToken res: ', res);
-      }).catch((e) => {
-        console.log('postPushToken error: ', e);
-      });
+      setTimeout(() => {
+        Promise.all([FCM.getFCMToken(), FCM.getAPNSToken()]).then(tokens => {
+          return postPushToken(...tokens);
+        }).then((res) => {
+          console.log('postPushToken res: ', res);
+        }).catch((e) => {
+          console.log('postPushToken error: ', e);
+        });
+      }, 3000);
 
       if (Platform.OS === 'android') {
         (async () => {
@@ -65,6 +71,9 @@ export default connect(
           locationUtils.checkStatus();
         })();
       }
+    },
+    componentWillUnmount() {
+      this.notificationListener.remove();
     }
   })(
     RentalsView

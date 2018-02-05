@@ -3959,9 +3959,9 @@ react-native-device-info@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.13.0.tgz#81051eebd3db6959e4f1d2cb0ae8df74105040cf"
 
-react-native-fcm@^11.2.0:
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-11.2.0.tgz#2c1674ca14b1a94a5cc2298d0468271983d2b1e2"
+"react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz":
+  version "11.3.2"
+  resolved "https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz#40e7902c950a02d9293dd3cc0361ae265d64d3ec"
 
 react-native-locale-detector@^1.0.1:
   version "1.0.1"
