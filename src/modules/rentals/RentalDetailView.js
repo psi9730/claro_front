@@ -38,7 +38,7 @@ const Container = styled.View`
 `;
 
 const ScrollContainer = styled.ScrollView`
-  flex: 1 0 500px;
+  flex: 1 0 0;
   background-color: white;
   padding-left: 18px;
   padding-right: 18px;
