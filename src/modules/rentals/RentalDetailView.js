@@ -40,14 +40,17 @@ const Container = styled.View`
 const ScrollContainer = styled.ScrollView`
   flex: 1 0 500px;
   background-color: white;
-  padding-left: 18px;
-  padding-right: 18px;
 `;
 
 const SwiperContainer = styled.View`
   flex: 0 0 100px;
   display: flex;
   background-color: ${props => props.backgroundColor};
+`;
+
+const PaddingContainer = styled.View`
+  padding-left: 18px;
+  padding-right: 18px;
 `;
 
 const SwiperRow = styled.View`
@@ -176,7 +179,6 @@ const AirportText = styled.Text`
 const PurchaseSection = styled.View`
   display: flex;
   flex-flow: column;
-  margin: 0px -18px 0px;
   padding: 16px 18px;
   background-color: #414141;
 `;
@@ -402,50 +404,52 @@ class RentalDetailView extends Component<Props, State> {
         <Container>
           <ScrollContainer>
             {this.renderPurchases()}
-            <LabelText>
-              {t('rental_date')}
-            </LabelText>
-            <HView>
-              <DateText>
-                {m(rental.startDate)}
-              </DateText>
-              {(rental.orderDays > 0) ? (
-                <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
-              ) : null}
-              {(rental.orderHours > 0) ? (
-                <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
-              ) : null}
-            </HView>
-            <LabelText>
-              {t('rental_locations')}
-            </LabelText>
-            {locations.slice(0, 1).map(this.renderLocation)}
-            {(rental.flightNumber || !!arrivalTerminal) ? (
-              <AirportSection>
-                {rental.flightNumber ? (
-                  <VView>
-                    <AirportLabel>
-                      {t('flight_number')}
-                    </AirportLabel>
-                    <AirportText>
-                      {rental.flightNumber}
-                    </AirportText>
-                  </VView>
+            <PaddingContainer>
+              <LabelText>
+                {t('rental_date')}
+              </LabelText>
+              <HView>
+                <DateText>
+                  {m(rental.startDate)}
+                </DateText>
+                {(rental.orderDays > 0) ? (
+                  <DateText>&#40;{t('order_days', {days: rental.orderDays})}&#41;</DateText>
                 ) : null}
-                {!!arrivalTerminal ? (
-                  <TerminalVView>
-                    <AirportLabel>
-                      {t('meeting_point')}
-                    </AirportLabel>
-                    <AirportText>
-                      {t('arrival_terminal')} {arrivalTerminal}
-                    </AirportText>
-                  </TerminalVView>
+                {(rental.orderHours > 0) ? (
+                  <DateText>&#40;{t('order_hours', {hours: rental.orderHours})}&#41;</DateText>
                 ) : null}
-              </AirportSection>
-            ) : null}
-            {locations.slice(1).map(this.renderLocation)}
-            {this.renderCustomer()}
+              </HView>
+              <LabelText>
+                {t('rental_locations')}
+              </LabelText>
+              {locations.slice(0, 1).map(this.renderLocation)}
+              {(rental.flightNumber || !!arrivalTerminal) ? (
+                <AirportSection>
+                  {rental.flightNumber ? (
+                    <VView>
+                      <AirportLabel>
+                        {t('flight_number')}
+                      </AirportLabel>
+                      <AirportText>
+                        {rental.flightNumber}
+                      </AirportText>
+                    </VView>
+                  ) : null}
+                  {!!arrivalTerminal ? (
+                    <TerminalVView>
+                      <AirportLabel>
+                        {t('meeting_point')}
+                      </AirportLabel>
+                      <AirportText>
+                        {t('arrival_terminal')} {arrivalTerminal}
+                      </AirportText>
+                    </TerminalVView>
+                  ) : null}
+                </AirportSection>
+              ) : null}
+              {locations.slice(1).map(this.renderLocation)}
+              {this.renderCustomer()}
+            </PaddingContainer>
           </ScrollContainer>
           {this.renderSwipeButton()}
         </Container>
