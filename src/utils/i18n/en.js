@@ -33,5 +33,13 @@ export default {
     arrival_terminal: 'Terminal',
     meeting_point: 'Meeting point',
     luggage_count: 'Luggage count',
+    purchase: 'Additional Items',
+    wifi: 'Wi-fi',
+    language: 'Language',
+    charge: 'Charge',
+    suit: 'Uniform / Suit',
+    water: 'Snack & Water',
+    carseat: 'Babyseat',
+    picketing: 'Name card holding',
   },
 };
