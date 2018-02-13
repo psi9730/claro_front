@@ -57,9 +57,9 @@ const SwiperRow = styled.View`
 `;
 
 const LabelText = styled.Text`
-  font-size: 15px;
-  margin-top: 19px;
-  margin-bottom: 6px;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 7px;
   color: ${props => props.theme.labelColor};
 `;
 
@@ -173,6 +173,25 @@ const AirportText = styled.Text`
   margin-bottom: -2px;
 `;
 
+const PurchaseSection = styled.View`
+  display: flex;
+  flex-flow: column;
+  margin: 0px -18px 0px;
+  padding: 16px 18px;
+  background-color: #414141;
+`;
+
+const PurchaseTitle = styled.Text`
+  font-size: 17px;
+  color: ${props => props.theme.labelColor};
+  margin-bottom: 8px;
+`;
+
+const PurchaseData = styled.Text`
+  font-size: 22px;
+  color: #ffffff;
+`;
+
 const m = (dateTime) => moment(dateTime).format('YYYY-MM-DD HH:mm A');
 
 const RENTAL_STATUS_WAITPAY = 0;
@@ -182,6 +201,15 @@ const RENTAL_STATUS_ASSIGNED = 40;
 const RENTAL_STATUS_PICKUP = 50;
 const RENTAL_STATUS_INUSE = 60;
 const RENTAL_STATUS_FINISHED = 70;
+
+const PURCHASE_TYPE = {
+  100: 'picketing',
+  101: 'carseat',
+  102: 'wifi',
+  103: 'charge',
+  104: 'suit',
+  105: 'water',
+};
 
 class RentalDetailView extends Component<Props, State> {
   constructor(props: Props) {
@@ -286,6 +314,26 @@ class RentalDetailView extends Component<Props, State> {
     })
   }
 
+  renderPurchases() {
+    const {t, rental} = this.props;
+    if (_.isEmpty(rental.purchases)){
+      return null;
+    }
+    let purchases = _.map(rental.purchases, p => p && p.product && t(PURCHASE_TYPE[p.product.type]));
+    purchases = _.compact(purchases);
+
+    return (
+      <PurchaseSection>
+        <PurchaseTitle>
+          {t('purchase')}
+        </PurchaseTitle>
+        <PurchaseData>
+          {_.join(purchases, ', ')}
+        </PurchaseData>
+      </PurchaseSection>
+    );
+  }
+
   renderSwipeButton() {
     const {t, rental} = this.props;
 
@@ -353,6 +401,7 @@ class RentalDetailView extends Component<Props, State> {
       <ThemeProvider theme={easi6Theme}>
         <Container>
           <ScrollContainer>
+            {this.renderPurchases()}
             <LabelText>
               {t('rental_date')}
             </LabelText>
