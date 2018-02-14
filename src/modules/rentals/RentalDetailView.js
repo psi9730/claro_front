@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Text, View, Button, TouchableOpacity, Image} from 'react-native';
+import {Text, View, Button, TouchableOpacity, Image, RefreshControl} from 'react-native';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import _ from 'lodash';
@@ -24,6 +24,7 @@ type Props = {
   loading: boolean,
   openMap: Function,
   openPhone: Function,
+  onRefreshCalled: Function,
   statusChange: Function,
 };
 
@@ -388,7 +389,7 @@ class RentalDetailView extends Component<Props, State> {
   }
 
   render() {
-    const {t, rental} = this.props;
+    const {t, rental, loading, onRefreshCalled} = this.props;
 
     if (!rental) return null;
 
@@ -402,7 +403,14 @@ class RentalDetailView extends Component<Props, State> {
     return (
       <ThemeProvider theme={easi6Theme}>
         <Container>
-          <ScrollContainer>
+          <ScrollContainer
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={onRefreshCalled}
+              />
+            }
+          >
             {this.renderPurchases()}
             <PaddingContainer>
               <LabelText>

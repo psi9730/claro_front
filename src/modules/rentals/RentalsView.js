@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Text, TouchableOpacity, View, ScrollView, RefreshControl, Dimensions} from 'react-native';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import _ from 'lodash';
@@ -28,7 +28,7 @@ const Container = styled.View`
 
 const EmptyContainer = styled.View`
   background-color: white;
-  flex: 1;
+  height: ${props => props.height}
   align-items: center;
   justify-content: center;
 `;
@@ -129,13 +129,26 @@ class RentalsView extends Component<Props> {
       ...rental,
     }));
 
+    var {height} = Dimensions.get('window');
     if(_.isEmpty(rentals)){
       return (
-        <EmptyContainer>
-          <EmptyText>
-            {t('no_rentals')}
-          </EmptyText>
-        </EmptyContainer>
+        <View style={{flex: 1}}>
+          <ScrollView
+            style={{display: 'flex'}}
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={onRefreshCalled}
+              />
+            }
+          >
+            <EmptyContainer height={height - 100}>
+              <EmptyText>
+                {t('no_rentals')}
+              </EmptyText>
+            </EmptyContainer>
+          </ScrollView>
+        </View>
       )
     }
 

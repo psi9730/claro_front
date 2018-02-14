@@ -21,6 +21,9 @@ export default connect(
     withHandlers({
       openMap: () => openMapApp,
       openPhone: () => openPhoneApp,
+      onRefreshCalled: (props) => () => {
+        props.rentalDetailRequest(props.rentalNumber);
+      },
       statusChange: (props) => () => {
         const rental = props.rental;
         return props.rentalStatusChangeRequest(rental.rentalNumber, rental.status);
