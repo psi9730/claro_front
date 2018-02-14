@@ -3,7 +3,7 @@ import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
-import {LOGIN_SCREEN, PAST_RENTALS_SCREEN, PROFILE_SCREEN, RENTALS_SCREEN} from '../../../screens';
+import {LOGIN_SCREEN, PAST_RENTALS_SCREEN, PROFILE_SCREEN, RENTAL_DETAIL_SCREEN, RENTALS_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -55,6 +55,23 @@ export default function NavigationWrapper(WrappedComponent) {
     onNavigatorEvent(event) {
       if (event.type === 'DeepLink') {
         const link = event.link;
+        const payload = event.payload;
+        if (payload) {
+          switch (link) {
+            case RENTAL_DETAIL_SCREEN.screen:
+              if (payload.description === 'push' && payload.rn) {
+                this.props.navigator.popToRoot();
+                this.props.navigator.push({
+                  ...RENTAL_DETAIL_SCREEN,
+                  passProps: {
+                    rentalNumber: payload.rn,
+                  },
+                });
+              }
+              break;
+          }
+          return;
+        }
         let screenObj;
         switch (link) {
           case PROFILE_SCREEN.screen:

@@ -11,6 +11,7 @@ import './src/utils/i18n';
 import {registerScreens, startApp} from './screens';
 import {setConfiguration} from './src/utils/configuration';
 import {postPushToken} from './src/utils/api';
+import {pushNotifListener} from './src/utils/notifUtils';
 
 const isProd = process.env.NODE_ENV === 'production';
 let defaultHost = 'http://127.0.0.1:9100';
@@ -34,6 +35,7 @@ console.log('fcm event listener attach');
 // this shall be called regardless of app state: running, background or not running. Won't be called when app is killed by user in iOS
 FCM.on(FCMEvent.Notification, async (notif) => {
   console.log('FCMEvent.Notification', notif);
+  pushNotifListener(notif);
   // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
   if(notif.local_notification){
     //this is a local notification

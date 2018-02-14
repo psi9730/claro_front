@@ -33,5 +33,8 @@ export default {
     arrival_terminal: 'Terminal',
     meeting_point: 'Meeting point',
     luggage_count: 'Luggage count',
+    notification: 'Notification',
+    close: 'close',
+    move_to_order: 'move to detail screen',
   },
 };

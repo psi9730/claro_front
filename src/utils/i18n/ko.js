@@ -33,5 +33,8 @@ export default {
     arrival_terminal: '터미널',
     meeting_point: '만남 장소',
     luggage_count: '짐 수',
+    notification: '알림',
+    close: '닫기',
+    move_to_order: '예약 상세 내역으로 이동',
   },
 };
