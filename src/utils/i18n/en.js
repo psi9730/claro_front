@@ -41,5 +41,8 @@ export default {
     water: 'Snack & Water',
     carseat: 'Babyseat',
     picketing: 'Name card holding',
+    notification: 'Notification',
+    close: 'close',
+    move_to_order: 'move to detail screen',
   },
 };

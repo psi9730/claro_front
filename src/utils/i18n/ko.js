@@ -41,5 +41,8 @@ export default {
     water: '간식 및 물',
     carseat: '베이비시',
     picketing: '피케팅',
+    notification: '알림',
+    close: '닫기',
+    move_to_order: '예약 상세 내역으로 이동',
   },
 };
