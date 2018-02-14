@@ -103,11 +103,11 @@ class LoginView extends Component<Props, State> {
     }
   }
 
-  onPressFlag(){
+  onPressFlag() {
     this.refs.countryPicker.openModal();
   }
 
-  selectCountry(country){
+  selectCountry(country) {
     this.refs.phone.selectCountry(country.cca2.toLowerCase());
     this.setState({cca2: country.cca2})
   }
