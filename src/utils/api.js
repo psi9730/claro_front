@@ -1,3 +1,5 @@
+// @flow
+
 import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
 import {decamelizeKeys, camelizeKeys} from 'humps';
@@ -5,15 +7,14 @@ import {normalize} from 'normalizr';
 import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
+import EventEmitter from 'event-emitter';
 
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
-import {getDriverId, setAuthenticationToken} from './authentication';
+import {clearAuthenticationToken, getDriverId, setAuthenticationToken} from './authentication';
 import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
 import toast from '../utils/toast';
-
-const EventEmitter = require('event-emitter');
 
 const TIMEOUT = 6000;
 
@@ -22,7 +23,7 @@ const TIMEOUT = 6000;
  */
 export const errors = new EventEmitter();
 
-export async function postPushToken(fcmToken, apnsToken) {
+export async function postPushToken(fcmToken: ?string, apnsToken: ?string) {
   const body = {
     fcmToken,
     apnsToken,
@@ -36,7 +37,7 @@ export async function postPushToken(fcmToken, apnsToken) {
   }
 }
 
-export async function postGeo(locs) {
+export async function postGeo(locs: ?Array<Object>) {
   try {
     return await request('post', '/driver/geo', locs);
   } catch (e) {
@@ -50,7 +51,7 @@ export async function postGeo(locs) {
  * @param {Object} schema Schema that normalizing body
  * @returns {Promise} of response body
  */
-export async function get(path, schema) {
+export async function get(path: string, schema: any) {
   return bodyOf(request('get', path, null, schema));
 }
 
@@ -61,7 +62,7 @@ export async function get(path, schema) {
  * @param {Object} schema Schema that normalizing body
  * @returns {Promise}  of response body
  */
-export async function post(path, body, schema) {
+export async function post(path: string, body: ?{}, schema: any) {
   return bodyOf(request('post', path, body, schema));
 }
 
@@ -72,7 +73,7 @@ export async function post(path, body, schema) {
  * @param {Object} schema Schema that normalizing body
  * @returns {Promise}  of response body
  */
-export async function put(path, body, schema) {
+export async function put(path: string, body: ?{}, schema: any) {
   return bodyOf(request('put', path, body, schema));
 }
 
@@ -82,7 +83,7 @@ export async function put(path, body, schema) {
  * @param {Object} schema Schema that normalizing body
  * @returns {Promise}  of response body
  */
-export async function del(path, schema) {
+export async function del(path: string, schema: any) {
   return bodyOf(request('delete', path, null, schema));
 }
 
@@ -93,43 +94,54 @@ export async function del(path, schema) {
  * @param {Object} body Anything that you can pass to JSON.stringify
  */
 
-const REFRESH_TOKEN_REQUEST= 'API/REFRESH_TOKEN_REQUEST';
-const REFRESH_TOKEN_SUCCESS = 'API/REFRESH_TOKEN_SUCCESS';
-const REFRESH_TOKEN_FAILURE = 'API/REFRESH_TOKEN_FAILURE';
-
 let refreshingPromise = null;
+
+const TOKEN_URL = '/auth/driver_token';
+const REFRESH_TOKEN = 'refresh_token';
 
 async function refreshToken() {
   const token = await getAuthenticationToken();
-  const refreshToken = token.refreshToken;
+  const refreshToken = token && token.refreshToken;
 
-  if (!refreshToken) return false;
+  if (!refreshToken) return new Error();
 
   const body = {
     refreshToken,
-    grantType: 'refresh_token',
+    grantType: REFRESH_TOKEN,
   };
-  const newToken = await post('/auth/driver_token', body);
-  if (newToken) {
-    await setAuthenticationToken(newToken);
-    return true;
+  try {
+    const newToken = await post(TOKEN_URL, body);
+    if (newToken) {
+      await setAuthenticationToken(newToken);
+      return null;
+    }
+    return new Error();
+  } catch (e) {
+    return e;
   }
-  return false;
 }
 
-export async function request(method, path, body, schema) {
+export async function request(method: string, path: string, body: ?{}|Array<any>, schema: any) {
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
-      if (refreshingPromise === null) {
-        refreshingPromise = refreshToken();
-      }
-      if (await refreshingPromise) {
+      if (path === TOKEN_URL && body && body.grantType === REFRESH_TOKEN) {
+        throw new Error('incorrect_refresh_token');
+      } else if (path !== TOKEN_URL) {
+        if (refreshingPromise === null) {
+          refreshingPromise = refreshToken();
+        }
+        const refreshError = await refreshingPromise;
         refreshingPromise = null;
-        return request(method, path, body, schema);
+        if (refreshError === null) {
+          return request(method, path, body, schema);
+        } else {
+          await clearAuthenticationToken();
+          throw refreshError;
+        }
       }
     }
     // if error display error message
@@ -165,7 +177,7 @@ export async function request(method, path, body, schema) {
 /**
  * Takes a relative path and makes it a full URL to API server
  */
-export function url(path) {
+export function url(path: string) {
   const apiRoot = getConfiguration('API_ROOT');
   return path.indexOf('/') === 0
     ? apiRoot + path
@@ -175,25 +187,28 @@ export function url(path) {
 /**
  * Constructs and fires a HTTP request
  */
-async function sendRequest(method, path, body) {
-  // console.log('sendRequest', method, path, body);
 
+const APPLICATION_JSON_TYPE = 'application/json';
+const shouldContentTypeNull = (path) => _.includes(['/users/me/kyc_records'], path);
+
+async function sendRequest(method: string, path: string, body: ?{}|Array<any>) {
   try {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
-    const forceBasic = path === '/auth/driver_token';
+    const forceBasic = path === TOKEN_URL;
     const accessToken = token ? token.accessToken : null;
+    const forceJson = false;
+    const contentType = shouldContentTypeNull(path) ? null : APPLICATION_JSON_TYPE;
 
-    if(body && !accessToken) {
-      body = {...body, locale: deviceLocale}
+    if(body && !accessToken && _.isPlainObject(body)) {
+      let newBody = ((body: any): ?{});
+      body = {...newBody, locale: deviceLocale}
     }
 
-    const headers = await getRequestHeaders(body, accessToken, forceBasic);
+    const headers = await getRequestHeaders(accessToken, forceBasic, forceJson, contentType);
     const options = body
-      ? {method, headers, body: JSON.stringify(decamelizeKeys(body))}
+      ? {method, headers, body: contentType === APPLICATION_JSON_TYPE ? JSON.stringify(decamelizeKeys(body)): body}
       : {method, headers};
-
-    // console.log('in sendRequest', endpoint, 'options', options);
 
     return timeout(fetch(endpoint, options), TIMEOUT);
   } catch (e) {
@@ -212,7 +227,6 @@ async function handleResponse(path, schema, response) {
     if (body && schema) {
       body = normalize(body, schema);
     }
-    // console.log('handleResponse', response, body);
 
     return {
       status: response.status,
@@ -224,20 +238,22 @@ async function handleResponse(path, schema, response) {
   }
 }
 
-async function getRequestHeaders(body, token, forceBasic = false) {
-  let headers = body
-    ? {'Accept': 'application/json', 'Content-Type': 'application/json'}
-    : {'Accept': 'application/json'};
-
-  const driverId = await getDriverId();
-  if (driverId) {
-    _.assign(headers, {Driver: `Driver ${driverId}`});
+async function getRequestHeaders(token, forceBasic = false, forceJson = false, contentType = '') {
+  let headers = {'Accept': APPLICATION_JSON_TYPE};
+  if (!_.isEmpty(forceJson)) {
+    _.assign(headers, {'Content-Type': APPLICATION_JSON_TYPE});
+  } else if (contentType) {
+    _.assign(headers, {'Content-Type': contentType});
   }
 
   if (token && !forceBasic) {
     _.assign(headers, {Authorization: `Bearer ${token}`});
   } else {
     _.assign(headers, {Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='});
+  }
+  const driverId = await getDriverId();
+  if (driverId) {
+    _.assign(headers, {Driver: `Driver ${driverId}`});
   }
   return headers;
 }
@@ -262,7 +278,7 @@ async function getErrorMessageSafely(response) {
 
   } catch (e) {
     // Unreadable body, return whatever the server returned
-    return response._bodyInit;
+    return response.statusText;
   }
 }
 

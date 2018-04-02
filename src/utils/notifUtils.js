@@ -8,7 +8,7 @@ import i18next from 'i18next';
 
 import {RENTAL_DETAIL_SCREEN} from '../../screens';
 
-export const pushNotifListener = async (notif) => {
+export const pushNotifListener = (notif) => {
   let title;
   let body;
   if (notif.fcm) {

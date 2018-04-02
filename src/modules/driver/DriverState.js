@@ -102,7 +102,7 @@ function* requestUpdateLocale({locale}: {locale: string}) {
 }
 
 // Reducer
-export default function DriverStateReducer(state: DriverState = initialState, action = {}): DriverState {
+export default function DriverStateReducer(state: DriverState = initialState, action: Object = {}): DriverState {
   switch (action.type) {
     case DriverTypes.LOGIN_REQUEST:
     case DriverTypes.FETCH_ME_REQUEST:
