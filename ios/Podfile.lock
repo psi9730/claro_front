@@ -32,8 +32,8 @@ PODS:
   - Folly (2016.09.26.00):
     - boost-for-react-native
     - DoubleConversion
-    - GLog
-  - GLog (0.3.4)
+    - glog
+  - glog (0.3.4)
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
@@ -45,37 +45,39 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
-  - React (0.53.3):
-    - React/Core (= 0.53.3)
-  - React/Core (0.53.3):
-    - yoga (= 0.53.3.React)
-  - React/CxxBridge (0.53.3):
+  - React (0.54.4):
+    - React/Core (= 0.54.4)
+  - React/Core (0.54.4):
+    - yoga (= 0.54.4.React)
+  - React/CxxBridge (0.54.4):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.53.3):
+  - React/cxxreact (0.54.4):
     - boost-for-react-native (= 1.63.0)
     - Folly (= 2016.09.26.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.53.3):
+  - React/DevSupport (0.54.4):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.53.3)
-  - React/jschelpers (0.53.3):
+  - React/fishhook (0.54.4)
+  - React/jschelpers (0.54.4):
     - Folly (= 2016.09.26.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.53.3)
-  - React/PrivateDatabase (0.53.3)
-  - React/RCTBlob (0.53.3):
+  - React/jsinspector (0.54.4)
+  - React/PrivateDatabase (0.54.4)
+  - React/RCTBlob (0.54.4):
     - React/Core
-  - React/RCTWebSocket (0.53.3):
+  - React/RCTNetwork (0.54.4):
+    - React/Core
+  - React/RCTWebSocket (0.54.4):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - RNDeviceInfo (0.9.3):
     - React
-  - yoga (0.53.3.React)
+  - yoga (0.54.4.React)
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.1.0)
@@ -84,9 +86,10 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Firebase/Messaging
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
-  - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -95,8 +98,8 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec
   Folly:
     :podspec: ../node_modules/react-native/third-party-podspecs/Folly.podspec
-  GLog:
-    :podspec: ../node_modules/react-native/third-party-podspecs/GLog.podspec
+  glog:
+    :podspec: ../node_modules/react-native/third-party-podspecs/glog.podspec
   React:
     :path: ../node_modules/react-native
   RNDeviceInfo:
@@ -114,15 +117,15 @@ SPEC CHECKSUMS:
   FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseMessaging: db0e01c52ef7e1f42846431273558107d084ede4
-  Folly: 0e765a0b56a1bf180dcbd51ee178cd3a1e2ab986
-  GLog: ed471a3ad6ad53eefb343a530f15dad283e5ef51
+  Folly: 211775e49d8da0ca658aebc8eab89d642935755c
+  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  React: af66244a7d630be2aef03b4ddfe3570e4eff39fc
+  React: c237e42de9c70e5cac6eeb52b4cfd3a0910c1f00
   RNDeviceInfo: b375b3374cda3203d6d48cea8c07e46ba1169e26
   yoga: 55da126afc384965b96bff46652464373b330add
 
-PODFILE CHECKSUM: 4df734cb06f1b3750b3ff46f6198ad1bab2711c8
+PODFILE CHECKSUM: fd1c7bd9bf2988e917bfd53af79ec300dc87554e
 
 COCOAPODS: 1.4.0

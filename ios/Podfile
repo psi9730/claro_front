@@ -9,11 +9,12 @@ target 'easi6driver' do
   pod "yoga", :path => "#{react_native_path}/ReactCommon/yoga"
   pod "React", :path => react_native_path, :subspecs => [
     'CxxBridge',
+    'RCTNetwork',
     'DevSupport',
   ]
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
-  pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # Pods for easi6driver

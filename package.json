@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "flow-bin": "^0.63.0",
+    "flow-bin": "^0.65.0",
     "jest-expo": "23.0.0",
     "react-test-renderer": "16.0.0"
   },
@@ -38,10 +38,10 @@
     "moment": "^2.20.1",
     "normalizr": "^3.2.4",
     "qs": "^6.5.1",
-    "react": "^16.2.0",
+    "react": "^16.3.0-alpha.1",
     "react-autobind": "^1.0.6",
     "react-i18next": "^7.3.0",
-    "react-native": "^0.53.0",
+    "react-native": "^0.54.0",
     "react-native-country-picker-modal": "^0.5.1",
     "react-native-device-info": "^0.13.0",
     "react-native-fcm": "https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz",
