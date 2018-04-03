@@ -41,7 +41,7 @@
     "react": "^16.2.0",
     "react-autobind": "^1.0.6",
     "react-i18next": "^7.3.0",
-    "react-native": "^0.51.0",
+    "react-native": "^0.52.0",
     "react-native-country-picker-modal": "^0.5.1",
     "react-native-device-info": "^0.13.0",
     "react-native-fcm": "https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz",

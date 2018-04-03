@@ -22,27 +22,27 @@ PODS:
   - boost/shared_ptr-includes (1.59.0)
   - boost/string_algorithms-includes (1.59.0)
   - DoubleConversion (1.1.5)
-  - Firebase/Core (4.8.2):
-    - FirebaseAnalytics (= 4.0.9)
-    - FirebaseCore (= 4.0.14)
-  - Firebase/Messaging (4.8.2):
+  - Firebase/Core (4.11.0):
+    - FirebaseAnalytics (= 4.1.0)
+    - FirebaseCore (= 4.0.18)
+  - Firebase/Messaging (4.11.0):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.8)
-  - FirebaseAnalytics (4.0.9):
+    - FirebaseMessaging (= 2.1.1)
+  - FirebaseAnalytics (4.1.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseCore (4.0.14):
+  - FirebaseCore (4.0.18):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (2.0.8):
+  - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.8):
-    - FirebaseAnalytics (~> 4.0)
+  - FirebaseMessaging (2.1.1):
+    - FirebaseAnalytics (~> 4.1)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.1)
+    - Protobuf (~> 3.5)
   - Folly (2016.09.26.00):
     - boost
     - DoubleConversion
@@ -59,25 +59,37 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
-  - React (0.51.0):
-    - React/Core (= 0.51.0)
-  - React/Core (0.51.0):
-    - yoga (= 0.51.0.React)
-  - React/CxxBridge (0.51.0):
+  - React (0.52.3):
+    - React/Core (= 0.52.3)
+  - React/Core (0.52.3):
+    - yoga (= 0.52.3.React)
+  - React/CxxBridge (0.52.3):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.51.0):
+  - React/cxxreact (0.52.3):
     - boost
     - Folly (= 2016.09.26.00)
     - React/jschelpers
-  - React/jschelpers (0.51.0):
+    - React/jsinspector
+  - React/DevSupport (0.52.3):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.52.3)
+  - React/jschelpers (0.52.3):
     - Folly (= 2016.09.26.00)
     - React/PrivateDatabase
-  - React/PrivateDatabase (0.51.0)
+  - React/jsinspector (0.52.3)
+  - React/PrivateDatabase (0.52.3)
+  - React/RCTBlob (0.52.3):
+    - React/Core
+  - React/RCTWebSocket (0.52.3):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
   - RNDeviceInfo (0.9.3):
     - React
-  - yoga (0.51.0.React)
+  - yoga (0.52.3.React)
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.1.0)
@@ -88,6 +100,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
   - React/CxxBridge (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -110,20 +123,20 @@ SPEC CHECKSUMS:
   AppCenterReactNativeShared: 76f8034b52ce0a9edcdb67b98f85e9790c813318
   boost: 30a15ffb6d9aa4646dd3caffc960753f4cb4ca4e
   DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
-  Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
-  FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
-  FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
-  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
-  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
+  Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
+  FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
+  FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseMessaging: db0e01c52ef7e1f42846431273558107d084ede4
   Folly: b7255b29f1d693c375d642d0f04f0592181156d9
   GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  React: 541ba768b9855e10cdc76f55427a5cd0653ca806
+  React: 43e97926f429d846050880666de1809e22dd5cc5
   RNDeviceInfo: b375b3374cda3203d6d48cea8c07e46ba1169e26
-  yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
+  yoga: 55da126afc384965b96bff46652464373b330add
 
-PODFILE CHECKSUM: a76c7383db2cac241cb342ac758cb5327ebc58ea
+PODFILE CHECKSUM: 4df734cb06f1b3750b3ff46f6198ad1bab2711c8
 
 COCOAPODS: 1.4.0
