@@ -6,21 +6,7 @@ PODS:
     - AppCenter/Core
   - AppCenterReactNativeShared (1.1.0):
     - AppCenter/Core (= 1.1.0)
-  - boost (1.59.0):
-    - boost/graph-includes (= 1.59.0)
-    - boost/math-includes (= 1.59.0)
-    - boost/numeric-includes (= 1.59.0)
-    - boost/pointer_cast-includes (= 1.59.0)
-    - boost/preprocessor-includes (= 1.59.0)
-    - boost/shared_ptr-includes (= 1.59.0)
-    - boost/string_algorithms-includes (= 1.59.0)
-  - boost/graph-includes (1.59.0)
-  - boost/math-includes (1.59.0)
-  - boost/numeric-includes (1.59.0)
-  - boost/pointer_cast-includes (1.59.0)
-  - boost/preprocessor-includes (1.59.0)
-  - boost/shared_ptr-includes (1.59.0)
-  - boost/string_algorithms-includes (1.59.0)
+  - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.5)
   - Firebase/Core (4.11.0):
     - FirebaseAnalytics (= 4.1.0)
@@ -44,7 +30,7 @@ PODS:
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.5)
   - Folly (2016.09.26.00):
-    - boost
+    - boost-for-react-native
     - DoubleConversion
     - GLog
   - GLog (0.3.4)
@@ -59,37 +45,37 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
-  - React (0.52.3):
-    - React/Core (= 0.52.3)
-  - React/Core (0.52.3):
-    - yoga (= 0.52.3.React)
-  - React/CxxBridge (0.52.3):
+  - React (0.53.3):
+    - React/Core (= 0.53.3)
+  - React/Core (0.53.3):
+    - yoga (= 0.53.3.React)
+  - React/CxxBridge (0.53.3):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.52.3):
-    - boost
+  - React/cxxreact (0.53.3):
+    - boost-for-react-native (= 1.63.0)
     - Folly (= 2016.09.26.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.52.3):
+  - React/DevSupport (0.53.3):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.52.3)
-  - React/jschelpers (0.52.3):
+  - React/fishhook (0.53.3)
+  - React/jschelpers (0.53.3):
     - Folly (= 2016.09.26.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.52.3)
-  - React/PrivateDatabase (0.52.3)
-  - React/RCTBlob (0.52.3):
+  - React/jsinspector (0.53.3)
+  - React/PrivateDatabase (0.53.3)
+  - React/RCTBlob (0.53.3):
     - React/Core
-  - React/RCTWebSocket (0.52.3):
+  - React/RCTWebSocket (0.53.3):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - RNDeviceInfo (0.9.3):
     - React
-  - yoga (0.52.3.React)
+  - yoga (0.53.3.React)
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.1.0)
@@ -121,19 +107,19 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppCenter: 97c88c10f83719de514aa7f186766f289012f074
   AppCenterReactNativeShared: 76f8034b52ce0a9edcdb67b98f85e9790c813318
-  boost: 30a15ffb6d9aa4646dd3caffc960753f4cb4ca4e
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseMessaging: db0e01c52ef7e1f42846431273558107d084ede4
-  Folly: b7255b29f1d693c375d642d0f04f0592181156d9
-  GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
+  Folly: 0e765a0b56a1bf180dcbd51ee178cd3a1e2ab986
+  GLog: ed471a3ad6ad53eefb343a530f15dad283e5ef51
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  React: 43e97926f429d846050880666de1809e22dd5cc5
+  React: af66244a7d630be2aef03b4ddfe3570e4eff39fc
   RNDeviceInfo: b375b3374cda3203d6d48cea8c07e46ba1169e26
   yoga: 55da126afc384965b96bff46652464373b330add
 
