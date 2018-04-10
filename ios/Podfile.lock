@@ -1,11 +1,11 @@
 PODS:
-  - AppCenter/Analytics (1.1.0):
+  - AppCenter/Analytics (1.4.0):
     - AppCenter/Core
-  - AppCenter/Core (1.1.0)
-  - AppCenter/Crashes (1.1.0):
+  - AppCenter/Core (1.4.0)
+  - AppCenter/Crashes (1.4.0):
     - AppCenter/Core
-  - AppCenterReactNativeShared (1.1.0):
-    - AppCenter/Core (= 1.1.0)
+  - AppCenterReactNativeShared (1.3.0):
+    - AppCenter/Core (= 1.4.0)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.5)
   - Firebase/Core (4.11.0):
@@ -17,10 +17,10 @@ PODS:
   - FirebaseAnalytics (4.1.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.18):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
   - FirebaseMessaging (2.1.1):
@@ -37,7 +37,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -80,9 +80,9 @@ PODS:
   - yoga (0.55.1.React)
 
 DEPENDENCIES:
-  - AppCenter/Analytics (~> 1.1.0)
-  - AppCenter/Crashes (~> 1.1.0)
-  - AppCenterReactNativeShared (~> 1.1.0)
+  - AppCenter/Analytics (~> 1.4.0)
+  - AppCenter/Crashes (~> 1.4.0)
+  - AppCenterReactNativeShared (~> 1.3.0)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Firebase/Messaging
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -93,23 +93,37 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AppCenter
+    - AppCenterReactNativeShared
+    - boost-for-react-native
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleToolboxForMac
+    - nanopb
+    - Protobuf
+
 EXTERNAL SOURCES:
   DoubleConversion:
-    :podspec: ../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   Folly:
-    :podspec: ../node_modules/react-native/third-party-podspecs/Folly.podspec
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
-    :podspec: ../node_modules/react-native/third-party-podspecs/glog.podspec
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
-    :path: ../node_modules/react-native
+    :path: "../node_modules/react-native"
   RNDeviceInfo:
-    :path: ../node_modules/react-native-device-info
+    :path: "../node_modules/react-native-device-info"
   yoga:
-    :path: ../node_modules/react-native/ReactCommon/yoga
+    :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AppCenter: 97c88c10f83719de514aa7f186766f289012f074
-  AppCenterReactNativeShared: 76f8034b52ce0a9edcdb67b98f85e9790c813318
+  AppCenter: 2f5890b60944971b8c3767269a9d693205a91fef
+  AppCenterReactNativeShared: 784f42fbb8f12c9bc587527a650c48d8f001295f
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
@@ -126,6 +140,6 @@ SPEC CHECKSUMS:
   RNDeviceInfo: b375b3374cda3203d6d48cea8c07e46ba1169e26
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: c3f5929f4df847243a1c68d9558f3a6f67dac143
+PODFILE CHECKSUM: 531ac366e16b20e1c72ff6c4c334dcd8c97cefae
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
