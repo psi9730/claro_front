@@ -4414,9 +4414,9 @@ react-native-device-info@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.13.0.tgz#81051eebd3db6959e4f1d2cb0ae8df74105040cf"
 
-"react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz":
-  version "11.3.2"
-  resolved "https://github.com/easi6/react-native-fcm/archive/v11.3.2.tar.gz#40e7902c950a02d9293dd3cc0361ae265d64d3ec"
+"react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz":
+  version "14.1.3"
+  resolved "https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz#d26db1f2b7d87429432e83aa815d5bba48f6d57d"
 
 react-native-locale-detector@^1.0.1:
   version "1.0.1"
@@ -4432,9 +4432,9 @@ react-native-navigation@^1.1.436:
   dependencies:
     lodash "4.x.x"
 
-react-native-phone-input@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/react-native-phone-input/-/react-native-phone-input-0.1.10.tgz#8caaad50991d8867687bad16631284bac8462e9e"
+react-native-phone-input@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-phone-input/-/react-native-phone-input-0.2.1.tgz#ac6852a1ea37d8d58ff83ded52d18d7b6303e667"
   dependencies:
     google-libphonenumber "^2.0.9"
     lodash "^4.17.4"
@@ -4446,9 +4446,9 @@ react-native-root-siblings@^3.0.0:
   dependencies:
     static-container "^1.0.0"
 
-react-native-root-toast@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-3.0.0.tgz#93292a5c743abbf0f46843dcfc8c89c6344bab50"
+react-native-root-toast@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-3.0.1.tgz#ad0a37c46bc72971a229c7784df25147004e5538"
   dependencies:
     prop-types "^15.5.10"
     react-native-root-siblings "^3.0.0"
