@@ -45,39 +45,39 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
-  - React (0.54.4):
-    - React/Core (= 0.54.4)
-  - React/Core (0.54.4):
-    - yoga (= 0.54.4.React)
-  - React/CxxBridge (0.54.4):
+  - React (0.55.1):
+    - React/Core (= 0.55.1)
+  - React/Core (0.55.1):
+    - yoga (= 0.55.1.React)
+  - React/CxxBridge (0.55.1):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.54.4):
+  - React/cxxreact (0.55.1):
     - boost-for-react-native (= 1.63.0)
     - Folly (= 2016.09.26.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.54.4):
+  - React/DevSupport (0.55.1):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.54.4)
-  - React/jschelpers (0.54.4):
+  - React/fishhook (0.55.1)
+  - React/jschelpers (0.55.1):
     - Folly (= 2016.09.26.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.54.4)
-  - React/PrivateDatabase (0.54.4)
-  - React/RCTBlob (0.54.4):
+  - React/jsinspector (0.55.1)
+  - React/PrivateDatabase (0.55.1)
+  - React/RCTBlob (0.55.1):
     - React/Core
-  - React/RCTNetwork (0.54.4):
+  - React/RCTNetwork (0.55.1):
     - React/Core
-  - React/RCTWebSocket (0.54.4):
+  - React/RCTWebSocket (0.55.1):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - RNDeviceInfo (0.9.3):
     - React
-  - yoga (0.54.4.React)
+  - yoga (0.55.1.React)
 
 DEPENDENCIES:
   - AppCenter/Analytics (~> 1.1.0)
@@ -111,7 +111,7 @@ SPEC CHECKSUMS:
   AppCenter: 97c88c10f83719de514aa7f186766f289012f074
   AppCenterReactNativeShared: 76f8034b52ce0a9edcdb67b98f85e9790c813318
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
@@ -122,10 +122,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  React: c237e42de9c70e5cac6eeb52b4cfd3a0910c1f00
+  React: 35618ff86985ccc5a8a17d3ca0dd76fd47e0c690
   RNDeviceInfo: b375b3374cda3203d6d48cea8c07e46ba1169e26
-  yoga: 55da126afc384965b96bff46652464373b330add
+  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: fd1c7bd9bf2988e917bfd53af79ec300dc87554e
+PODFILE CHECKSUM: c3f5929f4df847243a1c68d9558f3a6f67dac143
 
 COCOAPODS: 1.4.0

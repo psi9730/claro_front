@@ -74,3 +74,6 @@ buck-out/
 
 
 easi6driver.xcworkspace
+
+# Bundle artifact
+*.jsbundle
