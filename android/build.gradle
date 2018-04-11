@@ -28,7 +28,11 @@ allprojects {
 
 ext {
     compileSdkVersion = 27
-    buildToolsVersion = "27.0.2"
+    buildToolsVersion = "27.0.3"
+    targetSdkVersion    = 22
+    supportLibVersion   = "27.1.1"
+    googlePlayServicesVersion = "12.0.1"
+    androidMapsUtilsVersion = "0.5+"
 }
 
 subprojects { subproject ->
@@ -47,7 +51,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '27.0.2'
+                details.useVersion '27.1.1'
             }
         }
     }

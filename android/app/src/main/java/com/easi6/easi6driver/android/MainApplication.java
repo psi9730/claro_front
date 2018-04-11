@@ -14,6 +14,7 @@ import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyti
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.reactnativenavigation.NavigationApplication;
+import com.airbnb.android.react.maps.MapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,8 @@ public class MainApplication extends NavigationApplication implements ReactAppli
         new FIRMessagingPackage(),
         new BackgroundGeolocationPackage(),
         new RNSendIntentPackage(),
-        new ReactNativeI18n()
+        new ReactNativeI18n(),
+        new MapsPackage()
       );
     }
   };
@@ -66,7 +68,8 @@ public class MainApplication extends NavigationApplication implements ReactAppli
       new FIRMessagingPackage(),
       new BackgroundGeolocationPackage(),
       new RNSendIntentPackage(),
-      new ReactNativeI18n()
+      new ReactNativeI18n(),
+      new MapsPackage()
     );
   }
 

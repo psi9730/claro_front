@@ -6,12 +6,24 @@ target 'easi6driver' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
+  rn_maps_path = '../node_modules/react-native-maps'
   react_native_path = "../node_modules/react-native"
+
   pod "yoga", :path => "#{react_native_path}/ReactCommon/yoga"
   pod "React", :path => react_native_path, :subspecs => [
+    'Core',
     'CxxBridge',
-    'RCTNetwork',
     'DevSupport',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket',
   ]
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
@@ -19,11 +31,22 @@ target 'easi6driver' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # Pods for easi6driver
+
+  # AppCenter
   pod 'AppCenter/Crashes', '~> 1.4.0'
   pod 'AppCenter/Analytics', '~> 1.4.0'
   pod 'AppCenterReactNativeShared', '~> 1.3.0'
+
+  # Firebase
   pod 'Firebase/Messaging'
 
+  # react-native-maps
+  pod 'react-native-maps', path: rn_maps_path
+  pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
+  pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
+  pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
+
+  # react-native-device-info
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'easi6driverTests' do

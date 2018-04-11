@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {FlatList, Text, TouchableOpacity, View, ScrollView, RefreshControl, Dimensions} from 'react-native';
+import {Dimensions, FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import _ from 'lodash';
@@ -129,7 +129,7 @@ class RentalsView extends Component<Props> {
       ...rental,
     }));
 
-    var {height} = Dimensions.get('window');
+    const {height} = Dimensions.get('window');
     if(_.isEmpty(rentals)){
       return (
         <View style={{flex: 1}}>

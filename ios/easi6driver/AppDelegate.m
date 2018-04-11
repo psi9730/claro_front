@@ -17,6 +17,7 @@
 #import <React/RCTRootView.h>
 
 #import "RNFIRMessaging.h"
+@import GoogleMaps; //add this line if you want to use Google Maps
 
 @implementation AppDelegate
 
@@ -30,7 +31,10 @@
 
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];  // Initialize AppCenter analytics
 
-  [AppCenterReactNative register];  // Initialize AppCenter 
+  [AppCenterReactNative register];  // Initialize AppCenter
+  
+  [GMSServices provideAPIKey:@"AIzaSyA2SP37h4aqz5rV1INZ2nEmuqYH3ndKkoo"]; // add this line using the api key obtained from Google Console
+
 
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
