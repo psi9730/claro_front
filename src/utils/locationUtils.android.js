@@ -23,6 +23,7 @@ export const configure = (driverId: any) => {
     fastestInterval: 7000,
     activitiesInterval: 10000,
     stopOnStillActivity: false,
+    startForeground: false,
     activityType: 'AutomotiveNavigation',
     url: url('/driver/geo'),
     httpHeaders: {
