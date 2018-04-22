@@ -12,11 +12,13 @@
 파일을 열어서 
 
 `
-     compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v4:+'
+    compile 'com.google.android.gms:play-services-location:+'
 `
 ->
 `
-     compile 'com.android.support:support-v4:27.1.1(supportLibVersion)'
+    compile 'com.android.support:support-v4:27.1.1'
+    compile 'com.google.android.gms:play-services-location:12.0.1'
 `
 
 맞춰주기
