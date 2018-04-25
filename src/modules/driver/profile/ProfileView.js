@@ -16,7 +16,7 @@ import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
 import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
-import easi6Theme from '../../../utils/easi6Theme';
+import easi6Theme from '../../../utils/ClaroTheme';
 
 
 type State = {
@@ -154,7 +154,7 @@ class ProfileView extends Component<Props, State> {
                 width: '70%',
               }}
               textStyle={{
-                width: '100%',
+                widths: '100%',
                 fontSize: 20,
                 height: 40,
                 alignSelf: 'baseline',

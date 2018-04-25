@@ -16,7 +16,7 @@ import {pushNotifListener} from './src/utils/notifUtils';
 const isProd = process.env.NODE_ENV === 'production';
 let defaultHost = 'http://127.0.0.1:9100';
 if (Platform.OS === 'ios') {
-  defaultHost = 'http://10.0.1.8:9100';
+  defaultHost = 'http://192.168.1.65:9100';
 }
 let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {

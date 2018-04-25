@@ -55,6 +55,7 @@ export async function get(path: string, schema: any) {
   return bodyOf(request('get', path, null, schema));
 }
 
+
 /**
  * POST JSON to a path relative to API root url
  * @param {String} path Relative path to the configured API endpoint
@@ -96,7 +97,7 @@ export async function del(path: string, schema: any) {
 
 let refreshingPromise = null;
 
-const TOKEN_URL = '/auth/driver_token';
+const TOKEN_URL = 'access_token';
 const REFRESH_TOKEN = 'refresh_token';
 
 async function refreshToken() {

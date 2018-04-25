@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import {Navigation} from 'react-native-navigation';
 
-import easi6Theme from '../../utils/easi6Theme';
+import easi6Theme from '../../utils/ClaroTheme';
 import {PROFILE_SCREEN} from '../../../screens';
 
 type Props = {

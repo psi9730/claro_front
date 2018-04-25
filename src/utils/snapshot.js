@@ -1,4 +1,4 @@
-import AsyncStorage from './easi6Storage';
+import AsyncStorage from './ClaroStorage';
 const STATE_STORAGE_KEY = 'Easi6ForDriverAppState:Latest';
 
 export async function resetSnapshot() {

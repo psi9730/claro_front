@@ -2,12 +2,10 @@
 
 import {all} from 'redux-saga/effects';
 import {LoginSaga} from '../modules/driver/DriverState';
-import {RentalsSaga} from '../modules/rentals/RentalsState';
-
+import {RegisterDeviceSaga} from '../modules/registerdevice/RegisterDeviceSaga';
 function* mySaga(): any {
   yield all([
-    ...LoginSaga,
-    ...RentalsSaga,
+    ...RegisterDeviceSaga,
   ]);
 }
 

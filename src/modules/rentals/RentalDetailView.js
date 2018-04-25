@@ -10,7 +10,7 @@ import autoBind from 'react-autobind';
 import Swiper from 'react-native-swiper';
 
 import {preferredLocale} from '../../utils/i18n';
-import easi6Theme from '../../utils/easi6Theme';
+import easi6Theme from '../../utils/ClaroTheme';
 import type {RentalType, LocationInfoType} from './RentalsState';
 
 import PickupImage from '../../assets/images/pickup.png';

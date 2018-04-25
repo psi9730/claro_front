@@ -1,6 +1,6 @@
-import AsyncStorage from './easi6Storage';
+import AsyncStorage from './ClaroStorage';
 
-const AUTHENTICATION_STORAGE_KEY = 'DriverState:Authentication';
+const AUTHENTICATION_STORAGE_KEY = 'accessToken';
 
 export async function getAuthenticationToken() {
   try {

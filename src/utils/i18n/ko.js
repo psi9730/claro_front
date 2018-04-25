@@ -2,6 +2,7 @@ export default {
   translations: {
     cover_text: '드라이버',
     login_phone: '전화번호',
+    login_username: '아이디',
     login_password: '비밀번호',
     login_submit: '로그인',
     open_map: '지도 열기',
@@ -24,6 +25,8 @@ export default {
     profile_name_en: '영문 이름',
     profile_phone: '연락처',
     done: '완료',
+    enter_your_id: 'ID을 입력해주세요',
+    enter_your_SN: 'S/N을 입력해주세요',
     enter_your_phone: '전화번호를 입력하세요',
     enter_your_password: '비밀번호를 입력하세요',
     no_rentals: '예약 내역이 없습니다.',

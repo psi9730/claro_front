@@ -49,6 +49,8 @@ target 'easi6driver' do
   # react-native-device-info
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'easi6driverTests' do
     inherit! :search_paths
     # Pods for testing

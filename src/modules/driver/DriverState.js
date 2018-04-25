@@ -3,7 +3,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {createActions} from 'reduxsauce';
 
-import Storage from '../../utils/easi6Storage';
+import Storage from '../../utils/ClaroStorage';
 import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {actionsGenerator} from '../../redux/reducerUtils';

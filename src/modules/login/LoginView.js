@@ -7,14 +7,13 @@ import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
 import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
-import easi6Theme from '../../../utils/ClaroTheme';
+import ClaroTheme from '../../../utils/claroTheme';
 import toast from '../../../utils/toast';
 import easi6Logo from '../../../assets/images/easi-6.png';
 
 type State = {
   username: string,
   password: string,
-  cca: string,
 };
 
 type Props = {
@@ -22,6 +21,15 @@ type Props = {
   loading: boolean,
   onLoginPressed: (username: string, password: string) => void,
 };
+const UsernameInput = styled.TextInput`
+  width: 70%;
+  margin-bottom: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+`;
 
 const PasswordInput = styled.TextInput`
   width: 70%;
@@ -62,7 +70,6 @@ const GrayLine = styled.View`
 class LoginView extends Component<Props, State> {
   state = {
     username: '',
-    cca2: 'kr',
     password: '',
   };
   constructor(props) {
@@ -82,9 +89,6 @@ class LoginView extends Component<Props, State> {
     this.setState({username});
   }
 
-  onSelectCountry(iso2) {
-    this.setState({iso2});
-  }
 
   onChangePassword(password) {
     this.setState({password});
@@ -92,22 +96,13 @@ class LoginView extends Component<Props, State> {
 
   onLoginPressed() {
     if(!this.state.username){
-      toast(this.props.t('enter_your_phone'),'error');
+      toast(this.props.t('enter_your_id'),'error');
     } else if(!this.state.password){
       toast(this.props.t('enter_your_password'),'error');
     } else {
       Keyboard.dismiss();
       this.props.onLoginPressed(this.state.username, this.state.password);
     }
-  }
-
-  onPressFlag() {
-    this.refs.countryPicker.openModal();
-  }
-
-  selectCountry(country) {
-    this.refs.phone.selectCountry(country.cca2.toLowerCase());
-    this.setState({cca2: country.cca2})
   }
 
   static dismissKeyboard() {
@@ -118,7 +113,7 @@ class LoginView extends Component<Props, State> {
     const {t, loading} = this.props;
 
     return (
-      <ThemeProvider theme={easi6Theme}>
+      <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={LoginView.dismissKeyboard}
         >
@@ -136,32 +131,12 @@ class LoginView extends Component<Props, State> {
                 {t('cover_text')}
               </CoverText>
             </CoverView>
-            <PhoneInput
-              ref='phone'
-              textProps={{placeholder: t('login_phone')}}
-              onChangePhoneNumber={this.onChangeUsername}
-              onSelectCountry={this.onSelectCountry}
-              initialCountry='kr'
-              onPressFlag={this.onPressFlag}
-              style={{
-                width: '70%',
-              }}
-              textStyle={{
-                width: '100%',
-                fontSize: 20,
-                height: 40,
-                alignSelf: 'baseline',
-              }}
+            <UsernameInput
+              placeholder={t('login_username')}
+              onChangeText={this.onChangeUsername}
+              value={this.state.username}
             />
-            <CountryPicker
-              ref='countryPicker'
-              onChange={this.selectCountry}
-              translation='eng'
-              cca2={this.state.cca2}
-              filterable
-            >
               <View />
-            </CountryPicker>
             <GrayLine/>
             <PasswordInput
               underlineColorAndroid="transparent"
@@ -183,7 +158,7 @@ class LoginView extends Component<Props, State> {
               <Button
                 title={t('login_submit')}
                 onPress={this.onLoginPressed}
-                color={easi6Theme.mainColor}
+                color={ClaroTheme.mainColor}
                 disabled={loading}
               />
             </View>

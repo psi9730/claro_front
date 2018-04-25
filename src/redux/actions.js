@@ -1,14 +1,8 @@
-// @flow
-
-import {DriverActions, DriverTypes} from '../modules/driver/DriverState';
-import {RentalActions, RentalTypes} from '../modules/rentals/RentalsState';
-
+import {DeviceActions, DeviceTypes} from '../modules/registerdevice/RegitserDeviceState';
 export {
-  DriverTypes,
-  RentalTypes,
+  DeviceTypes,
 }
 
 export default actions = {
-  ...DriverActions,
-  ...RentalActions,
+  ...DeviceActions,
 };
