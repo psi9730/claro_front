@@ -20,7 +20,7 @@ if (Platform.OS === 'ios') {
 }
 let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {
-  apiRoot = 'https://vendor.pyeongchangcarservice.com';
+  apiRoot = 'https://backend.vendor.easi6.com';
 }
 
 setConfiguration('API_ROOT', apiRoot);

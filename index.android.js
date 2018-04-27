@@ -15,12 +15,13 @@ import {pushNotifListener} from './src/utils/notifUtils';
 
 const isProd = process.env.NODE_ENV === 'production';
 let defaultHost = 'http://127.0.0.1:9100';
+// let defaultHost = 'https://itest-backend.vendor.easi6.com';
 if (Platform.OS === 'ios') {
   defaultHost = 'http://10.0.1.8:9100';
 }
 let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {
-  apiRoot = 'https://vendor.pyeongchangcarservice.com';
+  apiRoot = 'https://backend.vendor.easi6.com';
 }
 
 setConfiguration('API_ROOT', apiRoot);
