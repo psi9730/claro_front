@@ -2,7 +2,6 @@ import {DeviceActions, DeviceTypes} from '../modules/registerdevice/RegitserDevi
 export {
   DeviceTypes,
 }
-
 export default actions = {
   ...DeviceActions,
 };

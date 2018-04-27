@@ -15,16 +15,15 @@ import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import BarcodeScanView from '../barcodescan/BarcodeScanView';
 import createLogger, { LEVEL } from '../../../utils/ClaroLogger';
 import { Icon } from 'react-native-elements'
+import {RENTAL_DETAIL_SCREEN} from '../../../../screens';
 
 const logger = createLogger(LEVEL.VERBOSE);
 
 type Props = {
-  homeAp: {
     ssid: ?string,
     password: ?string,
     ip: ?string,
-  },
-  sendWifiInfo: Function,
+    sendWifiInfoRequest: Function,
 };
 
 type State = {
@@ -56,6 +55,11 @@ const WifiSetUpText = styled.Text`
 
 
 class WifiSetUpView extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
   state: State = {
     secure: true,
   };
@@ -67,15 +71,17 @@ class WifiSetUpView extends Component<Props, State> {
       return;
     }
     Keyboard.dismiss();
-    this.props.sendWifiInfo(
-      this.props.homeAp.ssid,
-      this.props.homeAp.password,
+    this.props.sendWifiInfoRequest(
+      this.props.ssid,
+      this.props.password,
     );
   }
 
   goRemote() {
     Keyboard.dismiss();
-    this.props.navigator.post('Remote');
+    this.props.navigator.push({
+      ...REMOTE_SCREEN,
+    });
   }
 
   toggleSecure() {
@@ -95,8 +101,8 @@ class WifiSetUpView extends Component<Props, State> {
         >
         <Container>
             <WifiSetUpText>공유기 설정</WifiSetUpText>
-              <WifiSetUPInput placeholder="Wifi AP name" value={this.props.homeAp.ssid} onChangeText={ssid => this.setState({ssid})} />
-              <WifiSetUpInput placeholder="Password" value={this.props.homeAp.password} onChangeText={password => this.setState({password})} secureTextEntry={this.state.secure} />
+              <WifiSetUPInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.setState({ssid})} />
+              <WifiSetUpInput placeholder="Password" value={this.props.password} onChangeText={password => this.setState({password})} secureTextEntry={this.state.secure} />
               <Icon active name={this.state.secure ? 'eye' : 'eye-with-line'} onPress={() => this.toggleSecure()} />
             {/* <Button
               light

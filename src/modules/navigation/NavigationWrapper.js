@@ -3,7 +3,7 @@ import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
-import {LOGIN_SCREEN, PAST_RENTALS_SCREEN, PROFILE_SCREEN, RENTAL_DETAIL_SCREEN, RENTALS_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -15,7 +15,6 @@ export default function NavigationWrapper(WrappedComponent) {
   class WrappingComponent extends Component {
     constructor(props) {
       super(props);
-
       const {navigator} = props;
       navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
       autoBind(this);
@@ -55,36 +54,16 @@ export default function NavigationWrapper(WrappedComponent) {
     onNavigatorEvent(event) {
       if (event.type === 'DeepLink') {
         const link = event.link;
-        const payload = event.payload;
-        if (payload) {
-          switch (link) {
-            case RENTAL_DETAIL_SCREEN.screen:
-              if (payload.description === 'push' && payload.rn) {
-                this.props.navigator.popToRoot();
-                this.props.navigator.push({
-                  ...RENTAL_DETAIL_SCREEN,
-                  passProps: {
-                    rentalNumber: payload.rn,
-                  },
-                });
-              }
-              break;
-          }
-          return;
-        }
         let screenObj;
         switch (link) {
-          case PROFILE_SCREEN.screen:
-            screenObj = {...PROFILE_SCREEN};
+          case SERIAL_NUMBER_SCREEN.screen:
+            screenObj = {...SERIAL_NUMBER_SCREEN};
             break;
-          case RENTALS_SCREEN.screen:
-            screenObj = {...RENTALS_SCREEN};
+          case WIFI_SET_UP_SCREEN.screen:
+            screenObj = {...WIFI_SET_UP_SCREEN};
             break;
-          case PAST_RENTALS_SCREEN.screen:
-            screenObj = {...PAST_RENTALS_SCREEN};
-            break;
-          case LOGIN_SCREEN.screen:
-            screenObj = {...LOGIN_SCREEN};
+          case BARCODE_SCAN_SCREEN.screen:
+            screenObj = {...BARCODE_SCAN_SCREEN};
             break;
         }
         this.props.navigator.resetTo(screenObj);

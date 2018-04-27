@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import Constants from '../constants/constants';
 import { makeCommonHeader, parseBufferData } from '../utils/ClaroBuffer';
-import Storage, { KEYS } from '../utils/ClaroStorage';
 
 const { TCP_HOST_NAME, TCP_PORT_NUMBER } = Constants;
 

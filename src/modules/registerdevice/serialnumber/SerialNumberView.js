@@ -12,7 +12,7 @@ import toast from '../../../utils/toast';
 import { Keyboard } from 'react-native';
 import { TCP_REQUEST_SUCCESS } from '../../../middleware/tcpapi';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
-
+import {LOGIN_SCREEN, BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 type Props = {
   barcode: ?string,
   sendSerialNumberRequest: Function,
@@ -49,6 +49,11 @@ const SerialNumberText = styled.Text`
 `;
 
 class SerialNumberView extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
   state: State = {
     secure: true,
     isFan: false,
@@ -61,7 +66,9 @@ class SerialNumberView extends Component<Props, State> {
       this.props.restoreDevice(deviceInfo);
       this.props.restoreSerial(serialNumber);
       if (serialNumber) {
-        this.props.navigator.post('Remote');
+        this.props.navigator.push({
+          ...WIFI_SET_UP_SCREEN,
+        });
       }
     })();
   }
@@ -70,7 +77,9 @@ class SerialNumberView extends Component<Props, State> {
 
   goBarcodeScan() {
     Keyboard.dismiss();
-    this.props.navigator.post('BarcodeScan');
+    this.props.navigator.push({
+      ...BARCODE_SCAN_SCREEN,
+    })
   }
 
   sendSerialAndServerInfo() {
@@ -79,12 +88,12 @@ class SerialNumberView extends Component<Props, State> {
       toast(this.props.t('enter_your_S/N'),'error');
       return;
     }
-    this.props.sendSerialNumberRequest(this.props.barcode);
-    (async () => {
+    this.props.sendSerialNumberRequest(this.props.barcode).then(()=>{ (
+      async () => {
       let key;
       key = KEYS.serialNumber;
       await Storage.setItem(key, this.props.barcode);
-    })();
+    })();}).catch();
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -133,7 +142,9 @@ class SerialNumberView extends Component<Props, State> {
               style={{ marginTop: 20 }}
               onPress={() => {
                 Keyboard.dismiss();
-                this.props.navigator.post('WifiSetup');
+                this.props.navigator.push({
+                  ...WIFI_SET_UP_SCREEN,
+                });
               }}
               color={ClaroTheme.mainColor}
             >
@@ -144,7 +155,9 @@ class SerialNumberView extends Component<Props, State> {
               style={{ marginTop: 20 }}
               onPress={() => {
                 Keyboard.dismiss();
-                this.props.navigator.post('Remote');
+                this.props.navigator.push({
+                  ...REMOTE_SCREEN,
+                })
               }}
             >
               <SerialNumberText>Remote 화면으로 바로 이동 (테스트용)</SerialNumberText>

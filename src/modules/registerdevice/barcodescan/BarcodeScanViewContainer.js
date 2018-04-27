@@ -17,13 +17,10 @@ export default connect(
     }),
     withHandlers({
       updateBarcode: (props) => (barcode) => {
-        props.updateBarcode(barcode.data).then(() => {
+        props.updateBarcode(barcode.data);
+
           props.navigator.pop({animated:true, animationType: 'fade'});
-        }).catch((err) => {
-          console.log('err', err);
-        });
-      }
-    }),
+    }}),
   )(
     BarcodeScanView
   )

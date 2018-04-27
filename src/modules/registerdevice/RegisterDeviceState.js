@@ -41,6 +41,8 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     restoreSerialNumber: ['barcode'],
     sendSerialNumberRequest: ['barcode'],
     sendWifiInfoRequest: ['ssid','password'],
+    sendAPRequest: [],
+    updateBarcode: ['barcode'],
   })
 );
 
@@ -55,6 +57,12 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
       return {
         ...state,
         loading: false,
+      }
+
+    case DeviceTypes.UPDATE_BARCODE:
+      return{
+        ...state,
+        barcode:action.barcode,
       }
     case DeviceTypes.SEND_SERIAL_NUMBER_SUCCESS:
       return {
@@ -80,6 +88,7 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         loading: false,
         barcode: action.barcode,
       };
+
     case DeviceTypes.SEND_AP_FAILURE:
     case DeviceTypes.SEND_WIFI_INFO_FAILURE:
     case DeviceTypes.LOGIN_FAILURE:

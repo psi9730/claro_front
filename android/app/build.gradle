@@ -166,7 +166,10 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-camera')
+    compile (project(':react-native-camera')) {
+        exclude group: "com.android.support"
+        exclude group: "com.google.android.gms"
+    }
     implementation project(':appcenter-crashes')
     implementation project(':appcenter-analytics')
     implementation project(':appcenter')

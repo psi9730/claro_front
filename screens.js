@@ -7,11 +7,9 @@ import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
-import LoginScreen from './src/modules/driver/login/LoginViewContainer';
-import RentalsScreen from './src/modules/rentals/RentalsViewContainer';
-import PastRentalsScreen from './src/modules/rentals/PastRentalsViewContainer';
-import RentalDetailScreen from './src/modules/rentals/RentalDetailViewContainer';
-import ProfileScreen from './src/modules/driver/profile/ProfileViewContainer';
+import BarcodeScanScreen from './src/modules/reigsterdevice/barcodescan/BarcodeScanViewContainer';
+import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
+import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
 
@@ -24,40 +22,33 @@ const burgerBtn = {
 const t = i18n.getFixedT();
 
 export const DRAWER_SCREEN = {
-  screen: 'easi6driver.DrawerScreen',
+  screen: 'claro.DrawerScreen',
 };
 export const LOGIN_SCREEN = {
-  screen: 'easi6driver.LoginScreen',
+  screen: 'claro.LoginScreen',
   title: t('title_login'),
   navigatorStyle: {},
   navigatorButtons: {},
 };
-export const RENTALS_SCREEN = {
-  screen: 'easi6driver.RentalsScreen',
-  title: t('title_rentals'),
+export const BARCODE_SCAN_SCREEN = {
+  screen: 'claro.BarcodeScreen',
+  title: t('title_barcode_scan'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
   },
 };
-export const PAST_RENTALS_SCREEN = {
-  screen: 'easi6driver.PastRentalsScreen',
-  title: t('title_past_rentals'),
+export const SERIAL_NUMBER_SCREEN = {
+  screen: 'claro.SerialNumberScreen',
+  title: t('title_serial_number'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
   },
 };
-export const RENTAL_DETAIL_SCREEN = {
-  screen: 'easi6driver.RentalDetailScreen',
-  title: t('title_rental'),
-  navigatorStyle: {
-  },
-  navigatorButtons: {},
-};
-export const PROFILE_SCREEN = {
-  screen: 'easi6driver.ProfileScreen',
-  title: t('title_profile'),
+export const WIFI_SET_UP_SCREEN = {
+  screen: 'claro.WifiSetUpScreen',
+  title: t('title_wifi_set_up'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -66,21 +57,19 @@ export const PROFILE_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
-  Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
-  Navigation.registerComponent(RENTALS_SCREEN.screen, () => NavigationWrapper(RentalsScreen), store, Provider);
-  Navigation.registerComponent(PAST_RENTALS_SCREEN.screen, () => NavigationWrapper(PastRentalsScreen), store, Provider);
-  Navigation.registerComponent(RENTAL_DETAIL_SCREEN.screen, () => RentalDetailScreen, store, Provider);
-  Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
-  Navigation.registerComponent(PROFILE_SCREEN.screen, () => NavigationWrapper(ProfileScreen), store, Provider);
+  Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
+  Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
+  Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
 }
 
 export function startApp() {
   (async () => {
     const token = await getAuthenticationToken();
-    let firstScreen = {...LOGIN_SCREEN};
+    let firstScreen = {...SERIAL_NUMBER_SCREEN};
 
     if (token && token.accessToken) {
-      firstScreen = {...RENTALS_SCREEN};
+      firstScreen = {...SERIAL_NUMBER_SCREEN};
     }
 
     Navigation.startSingleScreenApp({

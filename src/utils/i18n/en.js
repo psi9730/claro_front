@@ -13,6 +13,10 @@ export default {
     title_rentals: 'Reservation List',
     title_past_rentals: 'Past Reservations',
     title_profile: 'Edit Profile',
+    title_wifi_set_up: 'Wifi Set Up',
+    title_barcode_scan: 'Barcode Scan',
+    title_serial_number: 'Serial Number',
+
     menu_logout: 'Logout',
     menu_rentals: 'Reservation List',
     menu_past_rentals: 'Past Reservations',

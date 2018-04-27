@@ -6,29 +6,55 @@ import {get, post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
-function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}) {
-  const body = {
-    ssid,
-    password,
-  };
+import Constants from '../../constants/constants';
+import Storage, { KEYS } from '../../utils/ClaroStorage';
+const { API_ROOT } = Constants;
+
+function* requestSendWifiInfo({ssid, password, bssid=null, wepKeyIndex=null}: {ssid: string, password: string}) {
   try {
-    const res = yield call(post, '/driver/me/update', body);
-    yield put(DeviceActions.editProfileSuccess(me));
-  } catch (e) {
-    yield put(DeviceActions.editProfileFailure(e));
+    const res = yield call(callApi, 0x0300, makeBody(int16Buffer(ssid.length),
+      strBuffer(ssid),
+      int16Buffer(password == null ? 0: password.length),
+      password == null? Buffer.alloc(0): strBuffer(password),
+      int16Buffer(wepKeyIndex), makeBssidBuffer(bssid)));
+    if(res.dataType === 0x0301){
+      Storage.setItem(KEYS.wifi, 1);
+      yield put(DeviceActions.sendWifiInfoSuccess());
+    }
+    else {
+      yield put(DeviceActions.sendWifiInfoFailure());
+    }
+  } catch (error) {
+    yield put(DeviceActions.sendWifiInfoFailure(error));
   }
 }
 
 function* requestSendAP() {
-  const body = {
-    ssid,
-    password,
-  };
+  const urls = [
+    `${API_ROOT}/devices/get_command`,
+  ]
+  const bufContentArr = [];
+  _.forEach(urls, (url) => {
+    bufContentArr.push(int16Buffer(url.length));
+    bufContentArr.push(strBuffer(url));
+});
+
   try {
-    const res = yield call(post, '/driver/me/update', body);
-    yield put(DeviceActions.editProfileSuccess(me));
-  } catch (e) {
-    yield put(DeviceActions.editProfileFailure(e));
+    const res = yield call(callApi, 0x0200,
+      makeBody(
+      int16Buffer(urls.length),
+      ...bufContentArr,
+    ));
+
+    if(res.dataType === 0x0201){
+      Storage.setItem(KEYS.ap, 1);
+      yield put(DeviceActions.sendAPSuccess());
+    }
+    else {
+      yield put(DeviceActions.sendAPFailure());
+    }
+  } catch (error) {
+    yield put(DeviceActions.sendAPFailure(error));
   }
 }
 
@@ -40,29 +66,28 @@ function* requestLogin({username, password}: {username: string, password: string
   };
 
   try {
-    const token = yield call(post, '/auth/driver_token', body);
-
+    const token = yield call(post, '/auth/device_token', body);
     yield setAuthenticationToken(token);
-
-    yield put(DriverActions.loginSuccess(token));
+    yield put(DeviceActions.loginSuccess(token));
   } catch (e) {
-    yield put(DriverActions.loginFailure(e));
+    yield put(DeviceActions.loginFailure(e));
   }
 }
 
-function* requestSendSerialNumber({barcode}: {ssid: string, password: string}) {
+function* requestSendSerialNumber({barcode}: {barcode: string}) {
   try {
-    const res = yield call(callapi, 0x0100, makeBody(strBuffer(serailNumber,32)));
-    yield put(DeviceActions.sendSerialNumberSuccess());
+    const res = yield call(callapi, 0x0100, makeBody(strBuffer(barcode,32)));
+    if(res.dataType === 0x0101){
+      Storage.setItem(KEYS.deviceInfo, res);
+      yield put(DeviceActions.sendSerialNumberSuccess(res));
+    }
+    else {
+      yield put(DeviceActions.sendSerailNumberFailure());
+    }
   } catch (e) {
     yield put(DeviceActions.sendSerialNumberFailure(e));
   }
 }
-
-
-
-
-
 
 export const RegitserDeviceSaga = [
   takeLatest(Devicetypes.LOGIN_REQUEST, requestLogin),

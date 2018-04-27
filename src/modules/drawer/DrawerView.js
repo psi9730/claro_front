@@ -116,20 +116,6 @@ class DrawerView extends Component<Props> {
           {this.renderDriver()}
           <Menus>
             <MenuButton
-              onPress={this.props.goToRentals}
-            >
-              <MenuText>
-                {t('menu_rentals')}
-              </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.goToPastRentals}
-            >
-              <MenuText>
-                {t('menu_past_rentals')}
-              </MenuText>
-            </MenuButton>
-            <MenuButton
               onPress={this.props.logout}
             >
               <MenuText>
