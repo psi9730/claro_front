@@ -50,6 +50,7 @@ export const parseBufferData = (data: Buffer) => {
     origin = origin.slice(0, length);
   }
   if (dataType === 0x0101) {
+    console.log("dataType is 0x0101");
     const deviceCode = origin.readUInt16LE(20);
     const deviceType = origin.readUInt16LE(22);
     const deviceName = origin.toString('utf8', 24, 40);

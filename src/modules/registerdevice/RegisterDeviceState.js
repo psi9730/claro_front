@@ -34,6 +34,8 @@ const initialState = {
 export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
   actionsGenerator({
     loginRequest: ['username', 'password'],
+    tcpRequestSuccess: ['payload'],
+    tcpRequestFailure: ['error'],
     restoreDevice: ['deviceInfo'],
     restoreSerialNumber: ['barcode'],
     sendSerialNumberRequest: ['barcode'],
@@ -61,6 +63,7 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         barcode:action.barcode,
       }
     case DeviceTypes.SEND_SERIAL_NUMBER_SUCCESS:
+      console.log("SUCCESS SEND SERIAL");
       return {
         ...state,
         loading: false,
@@ -77,19 +80,27 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         ...state,
         loading:false,
         deviceInfo: action.deviceInfo,
-      }
+      };
     case DeviceTypes.RESTORE_SERIAL_NUMBER:
       return {
         ...state,
         loading: false,
         barcode: action.barcode,
       };
+    case DeviceTypes.TCP_REQUEST_FAILURE:
+      return {
+        ...state,
+      };
+    case DeviceTypes.TCP_REQUEST_SUCCESS:
+      return {
+        ...state,
+      };
     case DeviceTypes.SEND_AP_SUCCESS:
     case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
       return {
         ...state,
         loading: false,
-      }
+      };
     case DeviceTypes.SEND_AP_FAILURE:
     case DeviceTypes.SEND_WIFI_INFO_FAILURE:
     case DeviceTypes.LOGIN_FAILURE:

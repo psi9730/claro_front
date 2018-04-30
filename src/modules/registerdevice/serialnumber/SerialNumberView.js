@@ -12,14 +12,14 @@ import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../../screens';
 type Props = {
-  barcode: ?string,
   sendSerialNumberRequest: Function,
-  restoreSerial: Function,
+  restoreSerialNumber: Function,
   restoreDevice: Function,
-  registerDevice: Function,
+  barcode: String,
 };
 
 type State = {
+  serialNumber: ?string,
   secure: boolean,
 };
 const SNInput= styled.TextInput`
@@ -50,19 +50,27 @@ class SerialNumberView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      secure: true,
+      serialNumber: this.props.barcode,
+      isFan: false,
+    }
   }
 
-  state: State = {
-    secure: true,
-    isFan: false,
-  };
+  componentWillReceiveProps(){
+    this.setState({
+      serialNumber: this.props.barcode,
+    })
+  }
+
 
   componentWillMount() {
     (async () => {
       const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.props.restoreDevice(deviceInfo);
-      this.props.restoreSerial(serialNumber);
+      this.props.restoreSerialNumber(serialNumber);
+      this.setState({serialNumber: this.props.barcode});
       if (serialNumber) {
         this.props.navigator.push({
           ...WIFI_SET_UP_SCREEN,
@@ -82,15 +90,24 @@ class SerialNumberView extends Component<Props, State> {
 
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
-    if (this.props.barcode == null || this.props.barcode === '') {
-      toast(this.props.t('enter_your_S/N'),'error');
+    console.log(this.state.serialNumber);
+    if (this.state.serialNumber == null || this.state.serialNumber === '') {
+      toast(this.props.t('enter_your_SN'),'error');
       return;
     }
-    this.props.sendSerialNumberRequest(this.props.barcode).then(()=>{ (
+    this.props.sendSerialNumberRequest(this.state.serialNumber).then(()=> {
+
+      console.log("SerialNumber completed");
+      (
       async () => {
       let key;
+      console.log("send is completed");
       key = KEYS.serialNumber;
-      await Storage.setItem(key, this.props.barcode);
+      console.log(this.state.serialNumber);
+      await Storage.setItem(key, this.state.serialNumber);
+        this.props.navigator.push({
+          ...WIFI_SET_UP_SCREEN,
+        });
     })();}).catch();
   }
   static dismissKeyboard() {
@@ -117,7 +134,7 @@ class SerialNumberView extends Component<Props, State> {
             <SNInput
               placeholder="Enter S/N yourself"
               value={this.props.barcode}
-              onChangeText={barcode => this.setState({barcode})}
+              onChangeText={barcode => {this.setState({serialNumber: barcode})}}
             />
             <Button
               title={'바코드 스캐너로 입력'}

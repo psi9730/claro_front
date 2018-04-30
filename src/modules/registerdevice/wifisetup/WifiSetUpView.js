@@ -10,6 +10,7 @@ import toast from '../../../utils/toast';
 import easi6Logo from '../../../assets/images/easi-6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
+import BarcodeScanView from '../barcodescan/BarcodeScanView';
 //import {REMOTE_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
@@ -93,9 +94,9 @@ class WifiSetUpView extends Component<Props, State> {
         >
         <Container>
             <WifiSetUpText>공유기 설정</WifiSetUpText>
-              <WifiSetUPInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.setState({ssid})} />
+              <WifiSetUpInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.setState({ssid})} />
               <WifiSetUpInput placeholder="Password" value={this.props.password} onChangeText={password => this.setState({password})} secureTextEntry={this.state.secure} />
-              <Icon active name={this.state.secure ? 'eye' : 'eye-with-line'} onPress={() => this.toggleSecure()} />
+              <Icon active name={this.state.secure ? 'visibility' : 'visibility-off'} onPress={() => this.toggleSecure()} />
             {/* <Button
               light
               style={{ marginBottom: 20 }}
@@ -103,12 +104,11 @@ class WifiSetUpView extends Component<Props, State> {
             >
               <Text>접속한 AP정보 가져오기(가정 공유기에 연결된 상태에서 누르는 용도)</Text>
             </Button> */}
-            <Button>
+            <Button
               style={{ marginBottom: 20 }}
               onPress={() => this.sendWifi()}
-            >
-              <WifiSetUpText>위에 입력한 AP정보를 모듈로 보내기</WifiSetUpText>
-            </Button>
+              title="위에 입력한 AP정보를 모듈로 보내기"
+            />
             <Text>
               (tcp data type 0x0300 전송에 성공하고 0x0301전송받는것에 성공하면 리모콘 화면으로 자동으로 이동)
             </Text>
@@ -116,12 +116,13 @@ class WifiSetUpView extends Component<Props, State> {
               light
               style={{ marginBottom: 20 }}
               onPress={() => this.goRemote()}
-            >
-              <Text>리모콘 화면으로 가기</Text>
-            </Button>
+              title="리모콘 화면으로 가기"
+            />
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
     );
   }
 }
+
+export default  WifiSetUpView;

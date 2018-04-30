@@ -1,4 +1,4 @@
-import { call, fork, put, takeLatest } from 'redux-saga/effects'
+import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
@@ -8,20 +8,18 @@ import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';
 const { API_ROOT } = Constants;
 
-function* requestSendWifiInfo({ssid, password, bssid=null, wepKeyIndex=null}: {ssid: string, password: string}) {
+function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}) {
   try {
-    const res = yield call(callApi, 0x0300, makeBody(int16Buffer(ssid.length),
+    yield call(callApi, 0x0300, makeBody(int16Buffer(ssid.length),
       strBuffer(ssid),
       int16Buffer(password == null ? 0: password.length),
       password == null? Buffer.alloc(0): strBuffer(password),
-      int16Buffer(wepKeyIndex), makeBssidBuffer(bssid)));
-    if(res.dataType === 0x0301){
-      Storage.setItem(KEYS.wifi, 1);
-      yield put(DeviceActions.sendWifiInfoSuccess());
-    }
-    else {
-      yield put(DeviceActions.sendWifiInfoFailure());
-    }
+      int16Buffer(''), makeBssidBuffer('')));
+    const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
+    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
+      yield put(DeviceActions.sendWifiInfoSuccess(action.payload));
+    else
+      yield put(DeviceActions.sendWifiInfoFailure(action.error));
   } catch (error) {
     yield put(DeviceActions.sendWifiInfoFailure(error));
   }
@@ -38,19 +36,16 @@ function* requestSendAP() {
 });
 
   try {
-    const res = yield call(callApi, 0x0200,
+    yield call(callApi, 0x0200,
       makeBody(
       int16Buffer(urls.length),
       ...bufContentArr,
     ));
-
-    if(res.dataType === 0x0201){
-      Storage.setItem(KEYS.ap, 1);
-      yield put(DeviceActions.sendAPSuccess());
-    }
-    else {
-      yield put(DeviceActions.sendAPFailure());
-    }
+    const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
+    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
+      yield put(DeviceActions.sendAPSuccess(action.payload));
+    else
+      yield put(DeviceActions.sendAPFailure(action.error));
   } catch (error) {
     yield put(DeviceActions.sendAPFailure(error));
   }
@@ -74,18 +69,18 @@ function* requestLogin({username, password}: {username: string, password: string
 
 function* requestSendSerialNumber({barcode}: {barcode: string}) {
   try {
-    const res = yield call(callapi, 0x0100, makeBody(strBuffer(barcode,32)));
-    if(res.dataType === 0x0101){
-      Storage.setItem(KEYS.deviceInfo, res);
-      yield put(DeviceActions.sendSerialNumberSuccess(res));
-    }
-    else {
-      yield put(DeviceActions.sendSerailNumberFailure());
-    }
+    console.log(makeBody(strBuffer(barcode,32)));
+    yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
+    const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
+    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
+      yield put(DeviceActions.sendSerialNumberSuccess(action.payload));
+    else
+      yield put(DeviceActions.sendSerialNumberFailure(action.error));
   } catch (e) {
     yield put(DeviceActions.sendSerialNumberFailure(e));
   }
 }
+
 
 export const RegisterDeviceSaga = [
   takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
