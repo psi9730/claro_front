@@ -14,7 +14,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "flow": "flow"
+    "flow": "flow",
+    "postinstall": "rn-nodeify --install stream,process,util --hack"
   },
   "jest": {
     "preset": "jest-expo"
@@ -36,6 +37,7 @@
     "i18next": "^11.1.1",
     "i18next-react-native-language-detector": "^1.0.2",
     "lodash": "^4.17.5",
+    "loglevel": "^1.6.1",
     "moment": "^2.20.1",
     "normalizr": "^3.2.4",
     "qs": "^6.5.1",
@@ -43,7 +45,7 @@
     "react-autobind": "^1.0.6",
     "react-i18next": "^7.5.1",
     "react-native": "^0.55.3",
-    "react-native-camera": "^1.1.1",
+    "react-native-camera": "^0.10.0",
     "react-native-country-picker-modal": "^0.5.1",
     "react-native-device-info": "^0.21.5",
     "react-native-elements": "^0.19.1",
@@ -56,7 +58,10 @@
     "react-native-root-toast": "^3.0.1",
     "react-native-send-intent": "https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz",
     "react-native-swiper": "^1.5.13",
+    "react-native-tcp": "^3.3.0",
+    "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",
+    "readable-stream": "1.0.33",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
@@ -68,6 +73,23 @@
     "reduxsauce": "https://github.com/easi6/reduxsauce/archive/v0.8.1.tar.gz",
     "reselect": "^3.0.1",
     "standard-http-error": "^2.0.1",
+    "stream-browserify": "^1.0.0",
     "styled-components": "^3.2.5"
+  },
+  "react-native": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   }
 }

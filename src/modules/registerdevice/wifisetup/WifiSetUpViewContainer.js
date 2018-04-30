@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import actions from '../../redux/actions';
+import actions from '../../../redux/actions';
 import WifiSetUpView from './WifiSetUpView';
-import i18n from '../../utils/i18n/index';
+import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps} from 'recompose';
-import {RENTALS_SCREEN} from '../../../screens';
+import {RENTALS_SCREEN} from '../../../../screens';
 
 export default connect(
   state => ({

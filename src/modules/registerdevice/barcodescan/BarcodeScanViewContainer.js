@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
-import actions from '../../redux/actions';
+import actions from '../../../redux/actions';
 import BarcodeScanView from './BarcodeScanView';
-import i18n from '../../utils/i18n/index';
+import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps} from 'recompose';
 
@@ -18,7 +18,6 @@ export default connect(
     withHandlers({
       updateBarcode: (props) => (barcode) => {
         props.updateBarcode(barcode.data);
-
           props.navigator.pop({animated:true, animationType: 'fade'});
     }}),
   )(

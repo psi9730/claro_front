@@ -33,9 +33,9 @@ target 'easi6driver' do
   # Pods for easi6driver
 
   # AppCenter
-  pod 'AppCenter/Crashes', '~> 1.4.0'
-  pod 'AppCenter/Analytics', '~> 1.4.0'
-  pod 'AppCenterReactNativeShared', '~> 1.3.0'
+  pod 'AppCenter/Crashes', '~> 1.5.0'
+  pod 'AppCenter/Analytics', '~> 1.5.0'
+  pod 'AppCenterReactNativeShared', '~> 1.4.0'
 
   # Firebase
   pod 'Firebase/Messaging'
@@ -50,6 +50,8 @@ target 'easi6driver' do
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'easi6driverTests' do
     inherit! :search_paths

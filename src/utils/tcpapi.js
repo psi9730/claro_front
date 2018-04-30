@@ -1,13 +1,12 @@
-
 import net from 'react-native-tcp';
 import _ from 'lodash';
 
 import Constants from '../constants/constants';
-import { makeCommonHeader, parseBufferData } from '../utils/ClaroBuffer';
+import { makeCommonHeader, parseBufferData } from './ClaroBuffer';
 
 const { TCP_HOST_NAME, TCP_PORT_NUMBER } = Constants;
 
-export async const callApi: Function = (dataType: number, body) => {
+export const callApi: Function = async (dataType: number, body) => {
   try {
     const client = net.connect({ port: TCP_PORT_NUMBER, host: TCP_HOST_NAME }, () => {
       const header = makeCommonHeader(dataType, body.length);

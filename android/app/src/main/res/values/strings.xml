@@ -4,4 +4,6 @@
     <string name="app_name">easi6 driver</string>
     <string name="account_type">com.easi6.easi6driver.android.account</string>
     <string name="content_authority">com.easi6.easi6driver.authority</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true">ALWAYS_SEND</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true">ALWAYS_SEND</string>
 </resources>

@@ -4,11 +4,7 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {createActions} from 'reduxsauce';
 
 import Storage from '../../utils/ClaroStorage';
-import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
-import {get, post} from '../../utils/api';
 import {actionsGenerator} from '../../redux/reducerUtils';
-import {deviceLocale} from '../../utils/i18n';
-import {DriverTypes} from '../driver/DriverState';
 
 type DeviceState = {
   loading: boolean,
@@ -17,7 +13,7 @@ type DeviceState = {
     ssid: string,
     ip: string,
     password: string,
-  }
+  },
   deviceInfo: string,
 }
 
@@ -29,7 +25,8 @@ const initialState = {
     ssid: "",
     ip: "",
     password: "",
-  }
+  },
+  deviceInfo: "",
 };
 
 // Action Creators
@@ -52,11 +49,10 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
     case DeviceTypes.SEND_SERIAL_NUMBER_REQUEST:             //send serial number
     case DeviceTypes.LOGIN_REQUEST:
     case DeviceTypes.SEND_AP_REQUEST:
-    case DeviceTypes.SEND_AP_SUCCESS:
-    case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
+    case DeviceTypes.SEND_WIFI_INFO_REQUEST:
       return {
         ...state,
-        loading: false,
+        loading: true,
       }
 
     case DeviceTypes.UPDATE_BARCODE:
@@ -88,7 +84,12 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         loading: false,
         barcode: action.barcode,
       };
-
+    case DeviceTypes.SEND_AP_SUCCESS:
+    case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
     case DeviceTypes.SEND_AP_FAILURE:
     case DeviceTypes.SEND_WIFI_INFO_FAILURE:
     case DeviceTypes.LOGIN_FAILURE:

@@ -1,13 +1,22 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components/native';
 import Camera from 'react-native-camera';
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import {
+  Button,
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
 import autoBind from 'react-autobind';
 
-import { updateBarcode } from '../../../actions/index';
-import type { navigation } from '../../../utils/Types';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 
@@ -54,7 +63,7 @@ class BarcodeScanView extends Component<Props, State> {
   };
 
   onBarcodeRead(e) {
-        this.props.updateBarcode(e)
+    this.props.updateBarcode(e)
   }
   static dismissKeyboard() {
     Keyboard.dismiss();

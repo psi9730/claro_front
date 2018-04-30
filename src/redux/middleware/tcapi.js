@@ -1,12 +1,12 @@
 /* @flow */
-
+/*
 import net from 'react-native-tcp';
 import _ from 'lodash';
 
-import Constants from '../constants/constants';
-import { makeCommonHeader, parseBufferData } from '../utils/ClaroBuffer.js';
-import Storage, { KEYS } from '../utils/ClaroStorage';
-import createLogger, { LEVEL } from '../utils/ClaroLogger';
+import Constants from '../../constants/constants';
+import { makeCommonHeader, parseBufferData } from '../../utils/ClaroBuffer.js';
+import Storage, { KEYS } from '../../utils/ClaroStorage';
+import createLogger, { LEVEL } from '../../utils/ClaroLogger';
 
 const logger = createLogger(LEVEL.VERBOSE);
 
@@ -105,3 +105,4 @@ export default (store: any) => (next: (action: Object) => void) => (action: any)
     dataType,
   }));
 };
+*/

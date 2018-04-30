@@ -1,3 +1,4 @@
+/*
 import { apiMiddleware, isRSAA, RSAA, CALL_API } from 'redux-api-middleware';
 import { normalize } from 'normalizr';
 
@@ -22,7 +23,7 @@ const defaultConfig = {
   clearRefreshTokenPromise: () => ({
     type: CLEAR_REFRESH_TOKEN_PROMISE,
   }),
-}; // TODO implement
+};
 
 const requestNewAccessToken = ({
                                  store, next,
@@ -150,3 +151,4 @@ export default function tokenAPIMiddleware(config = {}) {
     });
   };
 }
+*/

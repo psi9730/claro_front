@@ -8,17 +8,9 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import easi6Logo from '../../../assets/images/easi-6.png';
-import toast from '../../../utils/toast';
-import { Keyboard } from 'react-native';
-import { TCP_REQUEST_SUCCESS } from '../../../middleware/tcpapi';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
-import BarcodeScanView from '../barcodescan/BarcodeScanView';
-import createLogger, { LEVEL } from '../../../utils/ClaroLogger';
 import { Icon } from 'react-native-elements'
-import {RENTAL_DETAIL_SCREEN} from '../../../../screens';
-
-const logger = createLogger(LEVEL.VERBOSE);
-
+//import {REMOTE_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
     password: ?string,
@@ -79,9 +71,9 @@ class WifiSetUpView extends Component<Props, State> {
 
   goRemote() {
     Keyboard.dismiss();
-    this.props.navigator.push({
+   /* this.props.navigator.push({
       ...REMOTE_SCREEN,
-    });
+    });*/
   }
 
   toggleSecure() {

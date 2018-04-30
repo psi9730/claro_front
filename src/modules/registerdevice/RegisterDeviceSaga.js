@@ -1,7 +1,5 @@
 import { call, fork, put, takeLatest } from 'redux-saga/effects'
-import { Actions, Types } from './reducer'
-import Storage from '../../utils/ClaroStorage';
-import {getAuthenticationToken, setAuthenticationToken} from '../../utils/authentication';
+import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
@@ -89,9 +87,9 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
   }
 }
 
-export const RegitserDeviceSaga = [
-  takeLatest(Devicetypes.LOGIN_REQUEST, requestLogin),
-  takeLatest(Devicetypes.SEND_AP_REQUEST, requestSendAP),
+export const RegisterDeviceSaga = [
+  takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
+  takeLatest(DeviceTypes.SEND_AP_REQUEST, requestSendAP),
   takeLatest(DeviceTypes.SEND_SERIAL_NUMBER_REQUEST, requestSendSerialNumber),
   takeLatest(DeviceTypes.SEND_WIFI_INFO_REQUEST, requestSendWifiInfo),
 ];

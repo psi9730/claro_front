@@ -7,7 +7,7 @@ import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
-import BarcodeScanScreen from './src/modules/reigsterdevice/barcodescan/BarcodeScanViewContainer';
+import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
@@ -24,12 +24,14 @@ const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
   screen: 'claro.DrawerScreen',
 };
+/*
 export const LOGIN_SCREEN = {
   screen: 'claro.LoginScreen',
   title: t('title_login'),
   navigatorStyle: {},
   navigatorButtons: {},
-};
+};*/
+
 export const BARCODE_SCAN_SCREEN = {
   screen: 'claro.BarcodeScreen',
   title: t('title_barcode_scan'),

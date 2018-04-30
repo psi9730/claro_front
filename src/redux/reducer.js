@@ -1,9 +1,6 @@
 import {combineReducers} from 'redux';
-
-import DriverStateReducer from '../modules/driver/DriverState';
-import RentalsStateReducer from '../modules/rentals/RentalsState';
 // ## Generator Reducer Imports
-import RegisterDeviceReducer from '../modules/registerdevice/regitserDeviceState'
+import RegisterDeviceReducer from '../modules/registerdevice/RegisterDeviceState'
 
 const rootReducer = combineReducers({
   // Counter sample app state. This can be removed in a live application

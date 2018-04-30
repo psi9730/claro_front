@@ -1,9 +1,6 @@
 /* @flow */
 
 import _ from 'lodash';
-import createLogger, { LEVEL } from './ClaroLogger';
-
-const logger = createLogger(LEVEL.VERBOSE);
 
 export const strBuffer = (value: string, length: ?number): Buffer => {
   const body: Buffer = Buffer.alloc(length != null ? length : value.length);
@@ -34,7 +31,6 @@ export const makeBssidBuffer = (bssid: ?string): Buffer => {
   try {
     return Buffer.concat(_.map(_.split(bssid, ':'), hexStr => Buffer.from(_.padStart(hexStr, 2, '0'), 'hex')));
   } catch (e) {
-    logger.warn(e);
     return makeBody(reservedBuffer(6));
   }
 };
@@ -51,7 +47,6 @@ export const parseBufferData = (data: Buffer) => {
   const length = origin.readUInt32LE(0);
   const dataType = origin.readUInt16LE(8);
   if (length !== data.length - 4) {
-    logger.warn('length is wrong');
     origin = origin.slice(0, length);
   }
   if (dataType === 0x0101) {

@@ -9,10 +9,8 @@ import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
-import { Keyboard } from 'react-native';
-import { TCP_REQUEST_SUCCESS } from '../../../middleware/tcpapi';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
-import {LOGIN_SCREEN, BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../../screens';
 type Props = {
   barcode: ?string,
   sendSerialNumberRequest: Function,
@@ -122,23 +120,22 @@ class SerialNumberView extends Component<Props, State> {
               onChangeText={barcode => this.setState({barcode})}
             />
             <Button
+              title={'바코드 스캐너로 입력'}
               style={{ marginBottom: 20 }}
               light
               onPress={() => this.goBarcodeScan()}
-            >
-              <Text>바코드 스캐너로 입력</Text>
-            </Button>
+            />
             <Button
+              title={'모듈로 시리얼 서버정보 전송'}
               onPress={() => this.sendSerialAndServerInfo()}
-              color={ClaroTheme.mainColor}>
-              <SerialNumberText> 모듈로 시리얼 서버정보 전송 </SerialNumberText>
-            </Button>
+              color={ClaroTheme.mainColor} />
             <SerialNumberText>
               (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
               0x0101, 0x0201까지 성공적으로 전송받으면
               WifiSetup 화면으로 자동으로 이동)
             </SerialNumberText>
             <Button
+              title={'WifiSetup 화면으로 이동 (테스트용)'}
               style={{ marginTop: 20 }}
               onPress={() => {
                 Keyboard.dismiss();
@@ -147,10 +144,9 @@ class SerialNumberView extends Component<Props, State> {
                 });
               }}
               color={ClaroTheme.mainColor}
-            >
-              <SerialNumberText>WifiSetup 화면으로 이동 (테스트용)</SerialNumberText>
-            </Button>
+            />
             <Button
+              title={'Remote 화면으로 바로 이동 (테스트용)'}
               light
               style={{ marginTop: 20 }}
               onPress={() => {
@@ -159,12 +155,12 @@ class SerialNumberView extends Component<Props, State> {
                   ...REMOTE_SCREEN,
                 })
               }}
-            >
-              <SerialNumberText>Remote 화면으로 바로 이동 (테스트용)</SerialNumberText>
-            </Button>
+            />
         </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
     );
   }
 }
+
+export default SerialNumberView;

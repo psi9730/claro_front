@@ -3,7 +3,9 @@ package com.easi6.easi6driver.android;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
-import org.reactnative.camera.RNCameraPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.peel.react.TcpSocketsModule;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -32,7 +34,9 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-        new RNCameraPackage(),
+        new RCTCameraPackage(),
+        new VectorIconsPackage(),
+        new TcpSocketsModule(),
         new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
         new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
         new AppCenterReactNativePackage(MainApplication.this),
@@ -67,7 +71,9 @@ public class MainApplication extends NavigationApplication implements ReactAppli
       new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
       new AppCenterReactNativePackage(MainApplication.this),
       new RNDeviceInfo(),
-      new RNCameraPackage(),
+      new VectorIconsPackage(),
+      new TcpSocketsModule(),
+      new RCTCameraPackage(),
       new FIRMessagingPackage(),
       new BackgroundGeolocationPackage(),
       new RNSendIntentPackage(),
