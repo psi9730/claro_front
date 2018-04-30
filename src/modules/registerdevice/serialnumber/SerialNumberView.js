@@ -52,16 +52,10 @@ class SerialNumberView extends Component<Props, State> {
     autoBind(this);
     this.state = {
       secure: true,
-      serialNumber: this.props.barcode,
       isFan: false,
     }
   }
 
-  componentWillReceiveProps(){
-    this.setState({
-      serialNumber: this.props.barcode,
-    })
-  }
 
 
   componentWillMount() {
@@ -70,7 +64,6 @@ class SerialNumberView extends Component<Props, State> {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.props.restoreDevice(deviceInfo);
       this.props.restoreSerialNumber(serialNumber);
-      this.setState({serialNumber: this.props.barcode});
       if (serialNumber) {
         this.props.navigator.push({
           ...WIFI_SET_UP_SCREEN,
@@ -90,12 +83,11 @@ class SerialNumberView extends Component<Props, State> {
 
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
-    console.log(this.state.serialNumber);
-    if (this.state.serialNumber == null || this.state.serialNumber === '') {
+    if (this.props.barcode == null || this.props.barcode === '') {
       toast(this.props.t('enter_your_SN'),'error');
       return;
     }
-    this.props.sendSerialNumberRequest(this.state.serialNumber).then(()=> {
+    this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
 
       console.log("SerialNumber completed");
       (
@@ -103,8 +95,7 @@ class SerialNumberView extends Component<Props, State> {
       let key;
       console.log("send is completed");
       key = KEYS.serialNumber;
-      console.log(this.state.serialNumber);
-      await Storage.setItem(key, this.state.serialNumber);
+      await Storage.setItem(key, this.props.barcode);
         this.props.navigator.push({
           ...WIFI_SET_UP_SCREEN,
         });
@@ -134,7 +125,7 @@ class SerialNumberView extends Component<Props, State> {
             <SNInput
               placeholder="Enter S/N yourself"
               value={this.props.barcode}
-              onChangeText={barcode => {this.setState({serialNumber: barcode})}}
+              onChangeText={barcode => {this.props.updateBarcode(barcode)}}
             />
             <Button
               title={'바코드 스캐너로 입력'}

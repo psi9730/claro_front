@@ -11,6 +11,7 @@ import easi6Logo from '../../../assets/images/easi-6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import BarcodeScanView from '../barcodescan/BarcodeScanView';
+import {WIFI_SET_UP_SCREEN} from '../../../../screens';
 //import {REMOTE_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
@@ -51,12 +52,30 @@ class WifiSetUpView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      secure: true,
+      ssid_state: this.props.ssid,
+      password_state: this.props.password,
+    };
+  }
+  props: Props;
+
+  componentWillReceiveProps(){
+    this.setState({
+      ssid_state: this.props.ssid,
+      password_state: this.props.password,
+    })
   }
 
-  state: State = {
-    secure: true,
-  };
-  props: Props;
+  componentWillMount() {
+    (async () => {
+      const ssid = await Storage.getItem(KEYS.ssid);
+      const password = await Storage.getItem(KEYS.password);
+      this.props.restoreWifiInfo(ssid, password);
+      this.setState({ ssid_state: this.props.ssid,
+        password_state: this.props.password,});
+    })();
+  }
 
   sendWifi() {
     if (this.props.ssid == null || this.props.ssid === '') {
@@ -67,7 +86,21 @@ class WifiSetUpView extends Component<Props, State> {
     this.props.sendWifiInfoRequest(
       this.props.ssid,
       this.props.password,
-    );
+    ).then(()=> {
+
+      console.log("SerialNumber completed");
+      (
+        async () => {
+          let key;
+          console.log("send is completed");
+          key = KEYS.ssid;
+          key2 = KEYS.password;
+          await Storage.setItem(key, this.state.ssid_state);
+          await Storage.setItem(key2, this.state.password_state);
+          this.props.navigator.push({
+            ...WIFI_SET_UP_SCREEN,
+          });
+        })();}).catch();
   }
 
   goRemote() {
@@ -94,8 +127,8 @@ class WifiSetUpView extends Component<Props, State> {
         >
         <Container>
             <WifiSetUpText>공유기 설정</WifiSetUpText>
-              <WifiSetUpInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.setState({ssid})} />
-              <WifiSetUpInput placeholder="Password" value={this.props.password} onChangeText={password => this.setState({password})} secureTextEntry={this.state.secure} />
+              <WifiSetUpInput placeholder="Wifi AP name" value={this.state.ssid_state} onChangeText={ssid_state => this.setState({ssid_state:ssid_state})} />
+              <WifiSetUpInput placeholder="Password" value={this.state.password_state} onChangeText={password_state => this.setState({password_state})} secureTextEntry={this.state.secure} />
               <Icon active name={this.state.secure ? 'visibility' : 'visibility-off'} onPress={() => this.toggleSecure()} />
             {/* <Button
               light

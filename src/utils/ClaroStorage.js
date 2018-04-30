@@ -8,6 +8,8 @@ export const KEYS = {
   deviceInfo: 'deviceInfo',
   serialNumber: 'serialNumber',
   refreshToken: 'refreshToken',
+  ssid: 'ssid',
+  password: 'password',
   accessToken: 'accessToken',
   login: 'login',
   wifi: 'wifi',
