@@ -3,7 +3,10 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import {
+  Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
+  TouchableWithoutFeedback
+} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
@@ -82,6 +85,10 @@ class SerialNumberView extends Component<Props, State> {
     })
   }
 
+  showToastForResponse() {
+   toast("기기 등록 완료");
+  }
+
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
     if (this.props.barcode == null || this.props.barcode === '') {
@@ -92,10 +99,12 @@ class SerialNumberView extends Component<Props, State> {
 
       console.log("SerialNumber completed");
       this.props.sendApRequest().then().catch( ()=> { console.log("claro can't receive AP")});
+
       (
       async () => {
       let key;
-      console.log("send is completed");
+      this.showToastForResponse();
+      console.log("show toast");
       key = KEYS.serialNumber;
       await Storage.setItem(key, this.props.barcode);
     })();}).catch();

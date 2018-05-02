@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import {Button, Image, Keyboard, Toast, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
-import easi6Logo from '../../../assets/images/easi-6.png';
+import easi6Logo from '../../../assets/images/easi_6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
-import BarcodeScanView from '../barcodescan/BarcodeScanView';
 import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
-//import {REMOTE_SCREEN} from '../../../../screens';
+import {REMOTE_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
     password: ?string,
@@ -69,6 +68,9 @@ class WifiSetUpView extends Component<Props, State> {
       this.props.restoreWifiInfo(ssid, password);
     })();
   }
+  showToastForResponse() {
+    toast("wifi 등록완료");
+  }
 
   sendWifi() {
     if (this.props.ssid == null || this.props.ssid === '') {
@@ -92,6 +94,7 @@ class WifiSetUpView extends Component<Props, State> {
           console.log("store ssid "+Storage.getItem(KEYS.ssid));
           await Storage.setItem(key2, this.props.password);
           console.log("store password "+Storage.getItem(KEYS.ssid));
+          this.showToastForResponse();
           this.props.navigator.push({
             ...SERIAL_NUMBER_SCREEN,
           });
@@ -100,9 +103,9 @@ class WifiSetUpView extends Component<Props, State> {
 
   goRemote() {
     Keyboard.dismiss();
-   /* this.props.navigator.push({
+   this.props.navigator.push({
       ...REMOTE_SCREEN,
-    });*/
+    });
   }
 
   toggleSecure() {

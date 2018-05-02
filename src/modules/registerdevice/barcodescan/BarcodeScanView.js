@@ -77,18 +77,23 @@ class BarcodeScanView extends Component<Props, State> {
   props: Props;
 
   render() {
+    console.log('this.state', this.state);
+
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={BarcodeScanView.dismissKeyboard}
         >
-        <Container >
-          <BarcodeText>Barcode Scan</BarcodeText>
+        <Container style={{display: 'flex', backgroundColor: 'black'}}>
+          {/*<BarcodeText style={{backgroundColor: 'blue'}}>Barcode Scan</BarcodeText>*/}
           <Camera
             ref={(cam) => {
               this.camera = cam;
             }}
             style={{
+              backgroundColor: 'red',
+              width: '100%',
+              height: '100%',
               flex: 1,
               justifyContent: 'flex-end',
               alignItems: 'center',

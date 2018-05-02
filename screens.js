@@ -10,12 +10,19 @@ import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
+import RemoteScreen from './src/modules/remote/remoteViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
-
+import easi_6 from './src/assets/images/easi_6.png';
 const burgerBtn = {
   id: 'toggleDrawer',
   icon: burgerIcn,
+  disableIconTint: true,
+};
+
+const home = {
+  id: 'gotoHome',
+  icon: easi_6,
   disableIconTint: true,
 };
 
@@ -40,6 +47,7 @@ export const BARCODE_SCAN_SCREEN = {
     leftButtons: [burgerBtn],
   },
 };
+
 export const SERIAL_NUMBER_SCREEN = {
   screen: 'claro.SerialNumberScreen',
   title: t('title_serial_number'),
@@ -57,12 +65,24 @@ export const WIFI_SET_UP_SCREEN = {
   },
 };
 
+export const REMOTE_SCREEN = {
+  screen: 'claro.RemoteScreen',
+  title: t('title_remote_screen'),
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+    rightButton: [home],
+  },
+};
+
+
 // register all screens of the app (including internal ones)
 export function registerScreens() {
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
+  Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
 }
 
 export function startApp() {

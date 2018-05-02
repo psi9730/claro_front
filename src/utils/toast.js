@@ -11,5 +11,14 @@ export default toast = (message, type, options) => {
         backgroundColor: 'red',
         ...(options ? options : {}),
       });
+      break;
+    default:
+      Toast.show(message, {
+        shadow: true,
+        animation: false,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: 'red',
+      })
   }
 };

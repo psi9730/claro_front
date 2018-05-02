@@ -19,7 +19,8 @@ export default connect(
       updateBarcode: (props) => (barcode) => {
         props.updateBarcode(barcode.data);
           props.navigator.pop({animated:true, animationType: 'fade'});
-    }}),
+    }
+    }),
   )(
     BarcodeScanView
   )

@@ -14,6 +14,10 @@ export const KEYS = {
   login: 'login',
   wifi: 'wifi',
   ap: 'ap',
+  sterilizing: 'sterilizing',
+  AI: 'AI',
+  power: 'power',
+  airCleaning: 'airCleaning',
 };
 
 const getItem = async (key: string) => {

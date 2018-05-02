@@ -3,7 +3,7 @@ import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
-import {WIFI_SET_UP_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -73,6 +73,9 @@ export default function NavigationWrapper(WrappedComponent) {
             side: 'left',
             animated: true,
           });
+        }
+        else if(event.id === 'gotoHome') {
+          this.props.navigator.resetTo(...REMOTE_SCREEN)
         }
       }
     }

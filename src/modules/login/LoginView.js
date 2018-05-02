@@ -9,7 +9,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/claroTheme';
 import toast from '../../../utils/toast';
-import easi6Logo from '../../../assets/images/easi-6.png';
+import easi6Logo from '../../../assets/images/easi_6.png';
 
 type State = {
   username: string,

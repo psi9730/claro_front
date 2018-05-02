@@ -16,7 +16,7 @@ export default {
     title_wifi_set_up: 'Wifi Set Up',
     title_barcode_scan: 'Barcode Scan',
     title_serial_number: 'Serial Number',
-
+    title_remote_screen: 'Remote Controller',
     menu_logout: 'Logout',
     menu_rentals: 'Reservation List',
     menu_past_rentals: 'Past Reservations',
@@ -52,5 +52,12 @@ export default {
     notification: 'Notification',
     close: 'close',
     move_to_order: 'move to detail screen',
+    indoorAirInfo:'Indoor Air Info',
+    totalAirClean:'Total Air Clean',
+    fineDust:'Fine Dust',
+    ultraFineDust:'Ultra Fine Dust',
+    GAS_VOCs:'GAS/VOCs',
+    outsideAirInfo:'Outside Air Info',
+
   },
 };
