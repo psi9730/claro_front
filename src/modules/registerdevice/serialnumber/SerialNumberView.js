@@ -62,9 +62,10 @@ class SerialNumberView extends Component<Props, State> {
     (async () => {
       const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
+      const ap = await Storage.getItem(KEYS.ap);
       this.props.restoreDevice(deviceInfo);
       this.props.restoreSerialNumber(serialNumber);
-      if (serialNumber) {
+      if (ap===2) {
         this.props.navigator.push({
           ...WIFI_SET_UP_SCREEN,
         });
@@ -90,15 +91,13 @@ class SerialNumberView extends Component<Props, State> {
     this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
 
       console.log("SerialNumber completed");
+      this.props.sendApRequest().then().catch( ()=> { console.log("claro can't receive AP")});
       (
       async () => {
       let key;
       console.log("send is completed");
       key = KEYS.serialNumber;
       await Storage.setItem(key, this.props.barcode);
-        this.props.navigator.push({
-          ...WIFI_SET_UP_SCREEN,
-        });
     })();}).catch();
   }
   static dismissKeyboard() {

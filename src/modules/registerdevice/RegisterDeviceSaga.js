@@ -6,6 +6,7 @@ import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';
+import _ from 'lodash';
 const { API_ROOT } = Constants;
 
 function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}) {
@@ -18,8 +19,6 @@ function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
       yield put(DeviceActions.sendWifiInfoSuccess(action.payload));
-    else
-      yield put(DeviceActions.sendWifiInfoFailure(action.error));
   } catch (error) {
     yield put(DeviceActions.sendWifiInfoFailure(error));
   }
@@ -28,7 +27,7 @@ function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}
 function* requestSendAP() {
   const urls = [
     `${API_ROOT}/devices/get_command`,
-  ]
+  ];
   const bufContentArr = [];
   _.forEach(urls, (url) => {
     bufContentArr.push(int16Buffer(url.length));
@@ -43,11 +42,11 @@ function* requestSendAP() {
     ));
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
-      yield put(DeviceActions.sendAPSuccess(action.payload));
+      yield put(DeviceActions.sendApSuccess(action.payload));
     else
-      yield put(DeviceActions.sendAPFailure(action.error));
+      yield put(DeviceActions.sendApFailure(action.error));
   } catch (error) {
-    yield put(DeviceActions.sendAPFailure(error));
+    yield put(DeviceActions.sendApFailure(error));
   }
 }
 

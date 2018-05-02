@@ -23,18 +23,25 @@ export const callApi: Function = async (dataType: number, body) => {
     client.on('data', (data) => {
       client.destroy();
       const response = parseBufferData(data);
-      console.log("response",response);
-      store.dispatch({
-        type: DeviceTypes.TCP_REQUEST_SUCCESS,
-        payload: response
-      });
       if(response.dataType === 0x0101){
+        store.dispatch({
+          type: DeviceTypes.TCP_REQUEST_SUCCESS,
+          payload: response
+        });
         Storage.setItem(KEYS.deviceInfo, response);
       }
-      if(response.dataType === 0x0301){
+      else if(response.dataType === 0x0301){
+        store.dispatch({
+          type: DeviceTypes.TCP_REQUEST_SUCCESS,
+          payload: response
+        });
         Storage.setItem(KEYS.wifi, 1);
       }
-      if(response.dataType === 0x0201){
+      else if(response.dataType === 0x0201){
+        store.dispatch({
+          type: DeviceTypes.TCP_REQUEST_SUCCESS,
+          payload: response
+        });
         Storage.setItem(KEYS.ap, 1);
       }
       else {

@@ -11,13 +11,18 @@ import easi6Logo from '../../../assets/images/easi-6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import BarcodeScanView from '../barcodescan/BarcodeScanView';
-import {WIFI_SET_UP_SCREEN} from '../../../../screens';
+import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
 //import {REMOTE_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
     password: ?string,
     ip: ?string,
     sendWifiInfoRequest: Function,
+    updateWifiSsid: Function,
+    updateWifiPassword: Function,
+    restoreWifiInfo: Function,
+    navigator: ?Function,
+    sendApRequest: Function,
 };
 
 type State = {
@@ -54,26 +59,14 @@ class WifiSetUpView extends Component<Props, State> {
     autoBind(this);
     this.state = {
       secure: true,
-      ssid_state: this.props.ssid,
-      password_state: this.props.password,
     };
   }
   props: Props;
-
-  componentWillReceiveProps(){
-    this.setState({
-      ssid_state: this.props.ssid,
-      password_state: this.props.password,
-    })
-  }
-
   componentWillMount() {
     (async () => {
       const ssid = await Storage.getItem(KEYS.ssid);
       const password = await Storage.getItem(KEYS.password);
       this.props.restoreWifiInfo(ssid, password);
-      this.setState({ ssid_state: this.props.ssid,
-        password_state: this.props.password,});
     })();
   }
 
@@ -87,18 +80,20 @@ class WifiSetUpView extends Component<Props, State> {
       this.props.ssid,
       this.props.password,
     ).then(()=> {
-
       console.log("SerialNumber completed");
       (
         async () => {
           let key;
-          console.log("send is completed");
           key = KEYS.ssid;
-          key2 = KEYS.password;
-          await Storage.setItem(key, this.state.ssid_state);
-          await Storage.setItem(key2, this.state.password_state);
+          let key2 = KEYS.password;
+          console.log(this.props.ssid+" ssid is");
+          console.log(this.props.password+" password is");
+          await Storage.setItem(key, this.props.ssid);
+          console.log("store ssid "+Storage.getItem(KEYS.ssid));
+          await Storage.setItem(key2, this.props.password);
+          console.log("store password "+Storage.getItem(KEYS.ssid));
           this.props.navigator.push({
-            ...WIFI_SET_UP_SCREEN,
+            ...SERIAL_NUMBER_SCREEN,
           });
         })();}).catch();
   }
@@ -127,8 +122,8 @@ class WifiSetUpView extends Component<Props, State> {
         >
         <Container>
             <WifiSetUpText>공유기 설정</WifiSetUpText>
-              <WifiSetUpInput placeholder="Wifi AP name" value={this.state.ssid_state} onChangeText={ssid_state => this.setState({ssid_state:ssid_state})} />
-              <WifiSetUpInput placeholder="Password" value={this.state.password_state} onChangeText={password_state => this.setState({password_state})} secureTextEntry={this.state.secure} />
+              <WifiSetUpInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.props.updateWifiSsid(ssid)} />
+              <WifiSetUpInput placeholder="Password" value={this.props.password} onChangeText={password => this.props.updateWifiPassword(password)} secureTextEntry={this.state.secure} />
               <Icon active name={this.state.secure ? 'visibility' : 'visibility-off'} onPress={() => this.toggleSecure()} />
             {/* <Button
               light
@@ -140,7 +135,7 @@ class WifiSetUpView extends Component<Props, State> {
             <Button
               style={{ marginBottom: 20 }}
               onPress={() => this.sendWifi()}
-              title="위에 입력한 AP정보를 모듈로 보내기"
+              title="위에 입력한 WIFI정보를 모듈로 보내기"
             />
             <Text>
               (tcp data type 0x0300 전송에 성공하고 0x0301전송받는것에 성공하면 리모콘 화면으로 자동으로 이동)

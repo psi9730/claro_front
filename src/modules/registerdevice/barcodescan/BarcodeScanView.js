@@ -19,6 +19,7 @@ import autoBind from 'react-autobind';
 
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
+import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
 
 type Props = {
   updateBarcode: Function,
@@ -63,7 +64,10 @@ class BarcodeScanView extends Component<Props, State> {
   };
 
   onBarcodeRead(e) {
-    this.props.updateBarcode(e)
+    this.props.updateBarcode(e);
+    this.props.navigator.push({
+      ...SERIAL_NUMBER_SCREEN,
+    });
   }
   static dismissKeyboard() {
     Keyboard.dismiss();

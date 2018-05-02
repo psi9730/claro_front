@@ -41,7 +41,7 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     restoreWifiInfo: ['ssid','password'],
     sendSerialNumberRequest: ['barcode'],
     sendWifiInfoRequest: ['ssid','password'],
-    sendAPRequest: [],
+    sendApRequest: [],
     updateWifiSsid:['ssid'],
     updateWifiPassword:['password'],
     updateBarcode: ['barcode'],
@@ -71,13 +71,17 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         return {
           ...state,
           home: {
+            ...state.home,
             ssid: action.ssid
           },
         };
     case DeviceTypes.UPDATE_WIFI_PASSWORD:
       return {
         ...state,
-        password: action.password,
+        home:{
+          ...state.home,
+          password: action.password
+        },
       };
     case DeviceTypes.UPDATE_BARCODE:
       return{
