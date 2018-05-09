@@ -3,7 +3,6 @@ import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
-import {callApi} from '../../utils/api'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';
@@ -84,7 +83,10 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
 
 function* requestRegisterDevice({barcode}: {barcode: string}) {
   try {
-    yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
+    const body = {
+      barcode,
+    };
+    const token = yield call(post, `${API_ROOT}/devices/register`, body);
     yield put(DeviceActions.registerDeviceSuccess());
   } catch (e) {
     yield put(DeviceActions.registerDeviceFailure(e));

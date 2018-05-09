@@ -32,50 +32,43 @@ export default connect(
     withState('airCleaningColor', 'setAirCleaning', 'black'),
     withHandlers({
       togglePower_: (props) => (power) => {
-        console.log("ToGGLE POWERR");
-        props.togglePower(power);
+        props.togglePowerRequest(power).then(()=>{
         if (power === 0)
           props.setPower('black');
         else if (power=== 1) {
           props.setPower('blue');
-          console.log("MAKE BLUE");
-        }
+        }}). catch(()=> { console.log("claro can't toggle Power");});
       },
       toggleAI_: (props) => (AI) => {
-        props.toggleAI(AI);
+        props.toggleAIRequest(AI).then(()=>{
         if (AI === 0)
           props.setAI('black');
         else if (AI === 1)
           props.setAI('green');
         else if (AI === 2)
           props.setAI('blue');
-      },
+      }).catch(()=>{console.log("claro can't toggle AI")})},
       toggleSterilizing_: (props) => (sterilizing) => {
-        console.log(sterilizing,"sterilizing");
-        props.toggleSterilizing(sterilizing);
+        props.toggleSterilizingRequest(sterilizing).then(()=>{
         if (sterilizing === 0) {
           props.setSterilizing('black');
-          console.log("black");
         }
         else if (sterilizing === 1) {
           props.setSterilizing('green');
-          console.log("green");
         }
         else if (sterilizing === 2)
           props.setSterilizing('blue');
-      },
+      }).catch(()=>{console.log("claro can't toggle Sterilizing")})},
       toggleAirCleaning_: (props) => (airCleaning) => {
-        props.toggleAirCleaning(airCleaning);
-        console.log(airCleaning,"airCleaning");
+        props.toggleAirCleaningRequest(airCleaning).then(()=>{
         if (airCleaning === 0)
           props.setAirCleaning('black');
         else if (airCleaning === 1)
           props.setAirCleaning('green');
         else if (airCleaning === 2)
           props.setAirCleaning('blue');
-      },
+      }).catch(()=>{console.log("claro can't toggle AirCleaning")})},
     }),
-
   )(
     RemoteView
   )
