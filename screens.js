@@ -23,11 +23,10 @@ const burgerBtn = {
 const home = {
   id: 'gotoHome',
   icon: easi_6,
-  disableIconTint: true,
+  disabled: true,
 };
 
 const t = i18n.getFixedT();
-
 export const DRAWER_SCREEN = {
   screen: 'claro.DrawerScreen',
 };
@@ -45,6 +44,7 @@ export const BARCODE_SCAN_SCREEN = {
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
+    rightButtons: [home],
   },
 };
 
@@ -71,7 +71,6 @@ export const REMOTE_SCREEN = {
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
-    rightButton: [home],
   },
 };
 

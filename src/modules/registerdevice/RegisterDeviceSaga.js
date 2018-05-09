@@ -3,6 +3,7 @@ import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
+import {callApi} from '../../utils/api'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';
@@ -81,9 +82,20 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
 }
 
 
+function* requestRegisterDevice({barcode}: {barcode: string}) {
+  try {
+    yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
+    yield put(DeviceActions.registerDeviceSuccess());
+  } catch (e) {
+    yield put(DeviceActions.registerDeviceFailure(e));
+  }
+}
+
+
 export const RegisterDeviceSaga = [
   takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(DeviceTypes.SEND_AP_REQUEST, requestSendAP),
   takeLatest(DeviceTypes.SEND_SERIAL_NUMBER_REQUEST, requestSendSerialNumber),
   takeLatest(DeviceTypes.SEND_WIFI_INFO_REQUEST, requestSendWifiInfo),
+  takeLatest(DeviceTypes.REGISTER_DEVICE_REQUEST, requestRegisterDevice),
 ];

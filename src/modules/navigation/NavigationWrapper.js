@@ -64,17 +64,20 @@ export default function NavigationWrapper(WrappedComponent) {
             break;
           case BARCODE_SCAN_SCREEN.screen:
             screenObj = {...BARCODE_SCAN_SCREEN};
+          case REMOTE_SCREEN.screen:
+            screenObj = {...REMOTE_SCREEN};
             break;
         }
         this.props.navigator.resetTo(screenObj);
       } else if (event.type === 'NavBarButtonPress') {
+        console.log("Button is pressed");
         if (event.id === 'toggleDrawer') {
           this.props.navigator.toggleDrawer({
             side: 'left',
             animated: true,
           });
         }
-        else if(event.id === 'gotoHome') {
+        if(event.id === 'gotoHome') {
           this.props.navigator.resetTo(...REMOTE_SCREEN)
         }
       }

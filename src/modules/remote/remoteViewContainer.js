@@ -31,14 +31,17 @@ export default connect(
     withState('sterilizingColor', 'setSterilizing', 'black'),
     withState('airCleaningColor', 'setAirCleaning', 'black'),
     withHandlers({
-      togglePower: (props) => (power) => {
+      togglePower_: (props) => (power) => {
+        console.log("ToGGLE POWERR");
         props.togglePower(power);
         if (power === 0)
           props.setPower('black');
-        else if (power=== 1)
+        else if (power=== 1) {
           props.setPower('blue');
+          console.log("MAKE BLUE");
+        }
       },
-      toggleAI: (props) => (AI) => {
+      toggleAI_: (props) => (AI) => {
         props.toggleAI(AI);
         if (AI === 0)
           props.setAI('black');
@@ -47,7 +50,8 @@ export default connect(
         else if (AI === 2)
           props.setAI('blue');
       },
-      toggleSterilizing: (props) => (sterilizing) => {
+      toggleSterilizing_: (props) => (sterilizing) => {
+        console.log(sterilizing,"sterilizing");
         props.toggleSterilizing(sterilizing);
         if (sterilizing === 0) {
           props.setSterilizing('black');
@@ -60,8 +64,9 @@ export default connect(
         else if (sterilizing === 2)
           props.setSterilizing('blue');
       },
-      toggleAirCleaning: (props) => (airCleaning) => {
+      toggleAirCleaning_: (props) => (airCleaning) => {
         props.toggleAirCleaning(airCleaning);
+        console.log(airCleaning,"airCleaning");
         if (airCleaning === 0)
           props.setAirCleaning('black');
         else if (airCleaning === 1)

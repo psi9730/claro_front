@@ -3,7 +3,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {createActions} from 'reduxsauce';
 
-import Storage from '../../utils/ClaroStorage';
+import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
 
 type RemoteState = {
@@ -38,21 +38,33 @@ export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
 export default function RemoteReducer(state: RemoteState = initialState, action: Object = {}): RemoteState {
   switch (action.type) {
     case RemoteTypes.TOGGLE_POWER:             //send serial number
-      return {
+      (async() => {
+        await Storage.setItem(KEYS.power, action.payload);
+      })();
+            return {
         ...state,
         power: action.payload,
       };
     case RemoteTypes.TOGGLE_A_I:
+      (async() => {
+        await Storage.setItem(KEYS.AI, action.payload);
+      })();
       return {
         ...state,
         AI: action.payload,
       };
     case RemoteTypes.TOGGLE_STERILIZING:
+      (async() => {
+        await Storage.setItem(KEYS.sterilizing, action.payload);
+      })();
       return {
         ...state,
         sterilizing: action.payload,
       };
     case RemoteTypes.TOGGLE_AIR_CLEANING:
+      (async() => {
+        await Storage.setItem(KEYS.airCleaning, action.payload);
+      })();
       return {
         ...state,
         airCleaning: action.payload,
