@@ -63,9 +63,14 @@ class FilterView extends Component<Props, State> {
     this.props.filterTimeReset();
     this.setResetVisible(!this.state.resetVisible)
   }
-
+  componentWillReceiveProps(){
+    this.setState({progress: 0},()=>
+      setTimeout((function() {
+        this.setState({ progress: this.state.progress + this.props.filterUsingTime})
+      }).bind(this), 1000))
+  }
   componentWillMount(){
-    this.setState({progress: 0},
+    this.setState({progress: 0},()=>
     setTimeout((function() {
       this.setState({ progress: this.state.progress + this.props.filterUsingTime})
     }).bind(this), 1000))
@@ -120,7 +125,7 @@ class FilterView extends Component<Props, State> {
             </Modal>
             <Button
               title={'필터 구매하기'}
-              onPress={() => Linking.openURL(this.state.url).catch(err => console.error('An error occurred', err))}
+              onPress={() => Linking.openURL(this.props.url).catch(err => console.error('An error occurred', err))}
               color={ClaroTheme.mainColor} />
             <Button
               title={'필터 교체 방법'}

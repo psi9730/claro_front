@@ -47,10 +47,17 @@ class Panel extends Component<Props>{
       animation   : new Animated.Value()
     };
   }
+  componentDidMount() {
+
+    setTimeout((function () {
+      if(this.state.expanded===true)
+        this.toggle();
+    }).bind(this), 2000)
+  }
+
   toggle(){
     let initialValue = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
       finalValue = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
-    console.log(this.state.expanded);
     this.setState({
       expanded : !this.state.expanded,
     }, () => {
@@ -71,19 +78,11 @@ class Panel extends Component<Props>{
     console.log("calculate maxheight",event.nativeEvent.layout.height)
     this.setState({
       maxHeight   : event.nativeEvent.layout.height
-    },()=>{if(this.state.first===true){
-      console.log("i toggle");
-      this.toggle();
-      console.log(this.state);
-      this.setState({
-        first: !this.state.first,
-      })
-    }});
-
-  }
+    })
+    };
 
   _setMinHeight(event){
-    console.log("calculate maxheight",event.nativeEvent.layout.height)
+    console.log("calculate minheight",event.nativeEvent.layout.height)
     this.setState({
       minHeight   : event.nativeEvent.layout.height
     });
