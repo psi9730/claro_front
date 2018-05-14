@@ -17,8 +17,9 @@ function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}
       password == null? Buffer.alloc(0): strBuffer(password),
       int16Buffer(''), makeBssidBuffer('')));
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
-    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
+    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
       yield put(DeviceActions.sendWifiInfoSuccess(action.payload));
+    }
   } catch (error) {
     yield put(DeviceActions.sendWifiInfoFailure(error));
   }
@@ -71,8 +72,10 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
     console.log(makeBody(strBuffer(barcode,32)));
     yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
-    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS)
+    if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
       yield put(DeviceActions.sendSerialNumberSuccess(action.payload));
+      yield put(DeviceActions.registerDeviceRequest(barcode));
+    }
     else
       yield put(DeviceActions.sendSerialNumberFailure(action.error));
   } catch (e) {
@@ -86,7 +89,10 @@ function* requestRegisterDevice({barcode}: {barcode: string}) {
     const body = {
       barcode,
     };
-    const token = yield call(post, `${API_ROOT}/devices/register`, body);
+    console.log(body);
+    console.log(`${API_ROOT}/devices/register`);
+    yield call(post, `${API_ROOT}/devices/register`, body);
+    console.log("error in register");
     yield put(DeviceActions.registerDeviceSuccess());
   } catch (e) {
     yield put(DeviceActions.registerDeviceFailure(e));

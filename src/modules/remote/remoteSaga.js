@@ -1,7 +1,7 @@
 import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
-import {RemoteActions, RemoteTypes} from './remoteState';
+import {RemoteTypes, RemoteActions} from './remoteState';
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';

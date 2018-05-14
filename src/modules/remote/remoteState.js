@@ -5,26 +5,27 @@ import {createActions} from 'reduxsauce';
 
 import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
-type RemoteTypes = {
-  TOGGLE_POWER_REQUEST: any,
-  TOGGLE_STERILIZING_REQUEST: any,
-  TOGGLE_A_I_REQUEST: any,
-  TOGGLE_AIR_CLEANING_REQUEST: any,
-}
+
 type RemoteState = {
+  filterMaxTime: number,
+  filterUsingTime: number,
   loading: boolean,
   power: number,
   AI: number,
   sterilizing: number,
   airCleaning: number,
+  url: string,
 }
 
 // Initial state
 const initialState = {
+  filterMaxTime: 1024,
+  filterUsingTime: 10,
   loading: false,
   power: 0,
   AI: 0,
   sterilizing: 0,
+  url: 'https://www.google.com/',
   airCleaning: 0,
 };
 
@@ -36,6 +37,7 @@ export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
     toggleAIRequest: ['AI'],
     toggleSterilizingRequest: ['sterilizing'],
     toggleAirCleaningRequest: ['air'],
+    filterTimeReset:[],
   })
 );
 
@@ -46,10 +48,11 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
     case RemoteTypes.TOGGLE_STERILIZING_REQUEST:
     case RemoteTypes.TOGGLE_A_I_REQUEST:
     case RemoteTypes.TOGGLE_AIR_CLEANING_REQUEST://send serial number
+    case RemoteTypes.FILTER_TIME_RESET:
       return {
         ...state,
-        loading: true,
-      }
+        filterUsingTime: 0,
+      };
 
     case RemoteTypes.TOGGLE_POWER_SUCCESS:
       (async() => {

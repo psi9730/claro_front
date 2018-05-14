@@ -7,6 +7,7 @@ import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
+import FilterScreen from './src/modules/filter/FilterViewContainer';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
@@ -23,7 +24,6 @@ const burgerBtn = {
 const home = {
   id: 'gotoHome',
   icon: easi_6,
-  disabled: true,
 };
 
 const t = i18n.getFixedT();
@@ -44,7 +44,6 @@ export const BARCODE_SCAN_SCREEN = {
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
-    rightButtons: [home],
   },
 };
 
@@ -74,9 +73,18 @@ export const REMOTE_SCREEN = {
   },
 };
 
+export const FILTER_SCREEN = {
+  screen: 'claro.FilterScreen',
+  title: t('title_filter_screen'),
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(FILTER_SCREEN.screen, () => NavigationWrapper(FilterScreen), store, Provider);
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);

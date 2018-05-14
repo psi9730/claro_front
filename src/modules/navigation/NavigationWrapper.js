@@ -3,7 +3,7 @@ import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
-import {WIFI_SET_UP_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -64,21 +64,26 @@ export default function NavigationWrapper(WrappedComponent) {
             break;
           case BARCODE_SCAN_SCREEN.screen:
             screenObj = {...BARCODE_SCAN_SCREEN};
+            break;
           case REMOTE_SCREEN.screen:
             screenObj = {...REMOTE_SCREEN};
             break;
+          case FILTER_SCREEN.screen:
+            screenObj = {...FILTER_SCREEN};
         }
         this.props.navigator.resetTo(screenObj);
       } else if (event.type === 'NavBarButtonPress') {
         console.log("Button is pressed");
         if (event.id === 'toggleDrawer') {
           this.props.navigator.toggleDrawer({
-            side: 'left',
             animated: true,
+            side: 'left',
           });
         }
         if(event.id === 'gotoHome') {
-          this.props.navigator.resetTo(...REMOTE_SCREEN)
+          console.log("gotoHOME");
+          const screenObj = {...REMOTE_SCREEN};
+          this.props.navigator.resetTo(screenObj)
         }
       }
     }

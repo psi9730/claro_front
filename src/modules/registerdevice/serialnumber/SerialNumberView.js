@@ -18,6 +18,7 @@ type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
   restoreDevice: Function,
+  registerDeviceRequest: Function,
   barcode: String,
 };
 
@@ -98,9 +99,7 @@ class SerialNumberView extends Component<Props, State> {
     this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
 
       console.log("SerialNumber completed");
-      this.props.sendApRequest().then(()=>{
-        this.props.registerDevice(this.props.barcode);
-      }).catch( ()=> { console.log("claro can't receive AP")});
+      this.props.sendApRequest();
       (
       async () => {
       let key;

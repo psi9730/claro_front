@@ -3,6 +3,7 @@ package com.easi6.easi6driver.android;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
@@ -34,6 +35,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new SvgPackage(),
         new RCTCameraPackage(),
         new VectorIconsPackage(),
         new TcpSocketsModule(),

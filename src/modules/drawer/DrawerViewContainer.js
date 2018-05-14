@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
-import {LOGIN_SCREEN, PROFILE_SCREEN} from '../../../screens';
+import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, FILTER_SCREEN} from '../../../screens';
 import actions from '../../redux/actions';
 
 const hideDrawer = (props) => {
@@ -18,7 +18,7 @@ const hideDrawer = (props) => {
 
 export default connect(
   state => ({
-    me: _.get(state, ['driver', 'me']),
+    //me: _.get(state, ['user', 'me']),
   }),
   actions,
 )(
@@ -27,9 +27,24 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      goToProfile: (props) => () => {
+     /* goToProfile: (props) => () => {
         hideDrawer(props);
         props.navigator.handleDeepLink({link: PROFILE_SCREEN.screen});
+      },*/
+      hideDrawerView: (props) => () => {
+        hideDrawer(props);
+      },
+      goToRemote: (props) => () => {
+        hideDrawer(props);
+        props.navigator.handleDeepLink({link: REMOTE_SCREEN.screen});
+      },
+      goToRegisterDevice: (props) => () => {
+        hideDrawer(props);
+        props.navigator.handleDeepLink({link: SERIAL_NUMBER_SCREEN.screen})
+      },
+      goToFilter: (props) => () => {
+        hideDrawer(props);
+        props.navigator.handleDeepLink({link: FILTER_SCREEN.screen})
       },
       logout: (props) => () => {
         (async () => {

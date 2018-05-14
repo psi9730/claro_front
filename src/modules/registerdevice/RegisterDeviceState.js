@@ -36,7 +36,7 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     loginRequest: ['username', 'password'],
     tcpRequestSuccess: ['payload'],
     tcpRequestFailure: ['error'],
-    registerDevice: ['barcode'],
+    registerDeviceRequest: ['barcode'],
     restoreDevice: ['deviceInfo'],
     restoreSerialNumber: ['barcode'],
     restoreWifiInfo: ['ssid','password'],

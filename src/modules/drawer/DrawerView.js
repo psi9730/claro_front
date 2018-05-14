@@ -1,25 +1,23 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View,} from 'react-native';
+import {Button, Image, StyleSheet, Text, TextInput, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity, View,} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import {Navigation} from 'react-native-navigation';
-
-import easi6Theme from '../../utils/ClaroTheme';
-import {PROFILE_SCREEN} from '../../../screens';
+import Claro6Theme from '../../utils/ClaroTheme';
+import Panel from './panel';
+import SerialNumberView from '../registerdevice/serialnumber/SerialNumberView';  // Step 1
 
 type Props = {
   t: Function,
   me: ?{
     name: string,
-    nameEn: ?string,
-    phone: string,
   },
-  goToProfile: () => void,
-  goToRentals: () => void,
-  goToPastRentals: () => void,
+  goToRegisterDevice: Function,
+  goToRemote: Function,
+  goToFilter: Function,
   logout: () => void,
 };
 
@@ -29,8 +27,8 @@ const Container = styled.View`
   flex-flow: column;
   background-color: ${props => props.theme.mainBgColor};
 `;
-const DriverContainer = styled.View`
-  flex: 0 0 270px;
+const DrawerContainer = styled.View`
+  flex: 0 0 120px;
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.mainBgColor};
@@ -55,18 +53,18 @@ const MenuText = styled.Text`
   font-size: 20px;
 `;
 
-const DriverText = styled.Text`
+const DrawerText = styled.Text`
   margin-top: 5px;
   font-size: 18px;
 `;
 
-const ProfileButton = styled.TouchableOpacity`
+const SubButton = styled.TouchableOpacity`
   flex: 0 0 60px;
   background-color: ${props => props.theme.mainBgColor};
   justify-content: center;
   align-items: center;
 `;
-const ProfileText = styled.Text`
+const SubText = styled.Text`
   color: ${props => props.theme.mainColor};
   font-size: 14px;
 `;
@@ -74,47 +72,112 @@ const ProfileText = styled.Text`
 class DrawerView extends Component<Props> {
   constructor(props: Object) {
     super(props);
-
     autoBind(this);
   }
+  renderUser() {
+    //const {me, t} = this.props;
 
-  renderDriver() {
-    const {me, t} = this.props;
-
-    if (!me) return null;
+    //if (!me) return null;
 
     return (
-      <DriverContainer>
-        <DriverText>
-          {me.name}
-        </DriverText>
-        {me.nameEn ? (
-          <DriverText>
-            {me.nameEn}
-          </DriverText>
-        ) : null}
-        <DriverText>
-          {me.phone}
-        </DriverText>
-        <ProfileButton
-          onPress={this.props.goToProfile}
+      <DrawerContainer>
+        <DrawerText>
+          Claro
+        </DrawerText>
+        <SubButton
+          onPress={this.props.goToRemote}
         >
-          <ProfileText>
-            {t('title_profile')}
-          </ProfileText>
-        </ProfileButton>
-      </DriverContainer>
+          <SubText>
+            {this.props.t('title_profile')}
+          </SubText>
+        </SubButton>
+      </DrawerContainer>
     );
   }
 
   render() {
     const {t} = this.props;
-
     return (
-      <ThemeProvider theme={easi6Theme}>
+      <ThemeProvider theme={Claro6Theme}>
+        <TouchableWithoutFeedback
+          onPress={this.props.hideDrawerView}
+        >
         <Container>
-          {this.renderDriver()}
-          <Menus>
+          {this.renderUser()}
+          <Panel title="Main">
+            <MenuButton
+              onPress={this.props.goToRemote}
+            >
+              <MenuText>
+                {t('product_control')}
+              </MenuText>
+            </MenuButton>
+          </Panel>
+          <Panel title="My Claro">
+            <MenuButton
+              onPress={this.props.goToRegisterDevice}
+            >
+              <MenuText>
+                제품선택
+              </MenuText>
+            </MenuButton>
+            <MenuButton
+              onPress={this.props.goToFilter}
+            >
+              <MenuText>
+                필터관리
+              </MenuText>
+            </MenuButton>
+            <MenuButton
+              onPress={this.props.goToRegisterDevice}
+            >
+              <MenuText>
+                제품등록
+              </MenuText>
+            </MenuButton>
+          </Panel>
+          <Panel title="내 정보">
+            <MenuButton
+              onPress={this.props.goToRegisterDevice}
+            >
+              <MenuText>
+                내 정보 관리
+              </MenuText>
+            </MenuButton>
+            <MenuButton
+              onPress={this.props.goToRegisterDevice}
+            >
+              <MenuText>
+                LOGIN/OUT
+              </MenuText>
+            </MenuButton>
+            <MenuButton
+              onPress={this.props.goToRegisterDevice}
+            >
+              <MenuText>
+                설정
+              </MenuText>
+            </MenuButton>
+          </Panel>
+        </Container>
+        </TouchableWithoutFeedback>
+      </ThemeProvider>
+    );
+  }
+}
+
+export default DrawerView;
+
+
+/*<Menus>
+            <Select defaultValue={""}
+            <MenuButton
+              onPress={()=>(console.log("logOut"))}
+            >
+              <MenuText>
+                {t('menu_logout')}
+              </MenuText>
+            </MenuButton>
             <MenuButton
               onPress={this.props.logout}
             >
@@ -123,11 +186,4 @@ class DrawerView extends Component<Props> {
               </MenuText>
             </MenuButton>
           </Menus>
-
-        </Container>
-      </ThemeProvider>
-    );
-  }
-}
-
-export default DrawerView;
+          */

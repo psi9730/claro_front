@@ -53,6 +53,8 @@ target 'easi6driver' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'easi6driverTests' do
     inherit! :search_paths
     # Pods for testing
