@@ -27,7 +27,7 @@ function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}
 
 function* requestSendAP() {
   const urls = [
-    `${API_ROOT}/devices/get_command`,
+    `${API_ROOT}/devices/get_command/`,
   ];
   const bufContentArr = [];
   _.forEach(urls, (url) => {
@@ -87,12 +87,13 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
 function* requestRegisterDevice({barcode}: {barcode: string}) {
   try {
     const body = {
-      barcode,
+      "serial_number": barcode,
+      "latitude": 12,
+      "longitude": 90
     };
     console.log(body);
-    console.log(`${API_ROOT}/devices/register`);
-    yield call(post, `${API_ROOT}/devices/register`, body);
-    console.log("error in register");
+    console.log(`${API_ROOT}/devices/register/`);
+    yield call(post, `${API_ROOT}/devices/register/`, body);
     yield put(DeviceActions.registerDeviceSuccess());
   } catch (e) {
     yield put(DeviceActions.registerDeviceFailure(e));

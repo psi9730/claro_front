@@ -20,7 +20,7 @@ type RemoteState = {
 // Initial state
 const initialState = {
   filterMaxTime: 1024,
-  filterUsingTime: 10,
+  filterUsingTime: 600,
   loading: false,
   power: 0,
   AI: 0,

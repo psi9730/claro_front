@@ -126,6 +126,7 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
+    console.log(response,"response");
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
@@ -150,6 +151,7 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
     // `fetch` promises resolve even if HTTP status indicates failure. Reroute
     // promise flow control to interpret error responses as failures
     if (status >= 400) {
+      console.log("error in 400>=");
       const message = await getErrorMessageSafely(response);
       toast(message, 'error');
       const error = new HttpError(status, message);

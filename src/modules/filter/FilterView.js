@@ -10,11 +10,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import { ProgressCircle }  from 'react-native-svg-charts'
-
-import toast from '../../utils/toast';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import {BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import * as Progress from 'react-native-progress';
 type Props = {
   filterMaxTime: number,
   filterUsingTime: number,
@@ -48,6 +44,7 @@ class FilterView extends Component<Props, State> {
     this.state = {
       modalVisible: false,
       resetVisible: false,
+      progress:0,
     }
     console.log(this.state.modalVisible, "modalVibislbe")
     console.log(this.state.resetVisible, "modalReset")
@@ -67,7 +64,11 @@ class FilterView extends Component<Props, State> {
     this.setResetVisible(!this.state.resetVisible)
   }
 
-  componentWillMount() {
+  componentWillMount(){
+    this.setState({progress: 0},
+    setTimeout((function() {
+      this.setState({ progress: this.state.progress + this.props.filterUsingTime})
+    }).bind(this), 1000))
   }
   props: Props;
 
@@ -77,12 +78,14 @@ class FilterView extends Component<Props, State> {
 
 
   render() {
+
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={FilterView.dismissKeyboard}
         >
           <Container >
+            <Progress.Circle size={100} progress={ this.state.progress/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${progress1}%`)}}/>
             <Button
               title={'필터 사용시간 초기화'}
               style={{ marginBottom: 20 }}
