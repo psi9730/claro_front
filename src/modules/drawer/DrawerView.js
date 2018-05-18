@@ -1,13 +1,14 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, StyleSheet, Text, TextInput, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity, View,} from 'react-native';
+import {Button,  Linking, WebView, Image, StyleSheet, Text, TextInput, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity, View,} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import {Navigation} from 'react-native-navigation';
 import Claro6Theme from '../../utils/ClaroTheme';
 import Panel from './panel';
+import Panel2 from './panel2';
 import SerialNumberView from '../registerdevice/serialnumber/SerialNumberView';  // Step 1
 
 type Props = {
@@ -159,6 +160,8 @@ class DrawerView extends Component<Props> {
               </MenuText>
             </MenuButton>
           </Panel>
+          <Panel2 title="홈페이지">
+          </Panel2>
         </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

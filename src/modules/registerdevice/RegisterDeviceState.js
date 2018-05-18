@@ -126,6 +126,7 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
     case DeviceTypes.SEND_AP_SUCCESS:
     case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
     case DeviceTypes.REGISTER_DEVICE_SUCCESS:
+      console.log(action.payload,"registersuccess payload");
       return {
         ...state,
         loading: false,

@@ -14,6 +14,7 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../../screens';
+import {DeviceActions} from '../RegisterDeviceState';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -97,7 +98,7 @@ class SerialNumberView extends Component<Props, State> {
       return;
     }
     this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
-
+      this.props.registerDeviceRequest(this.props.barcode).catch(e => console.log('register device error'));
       console.log("SerialNumber completed");
       this.props.sendApRequest();
       (
@@ -107,7 +108,7 @@ class SerialNumberView extends Component<Props, State> {
       console.log("show toast");
       key = KEYS.serialNumber;
       await Storage.setItem(key, this.props.barcode);
-    })();}).catch();
+    })();}).catch((e)=>console.log(e));
   }
   static dismissKeyboard() {
     Keyboard.dismiss();

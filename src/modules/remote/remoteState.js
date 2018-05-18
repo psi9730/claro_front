@@ -33,10 +33,10 @@ const initialState = {
 
 export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
   actionsGenerator({
-    togglePowerRequest: ['power'],
-    toggleAIRequest: ['AI'],
-    toggleSterilizingRequest: ['sterilizing'],
-    toggleAirCleaningRequest: ['air'],
+    togglePowerRequest: ['power','serial_number'],
+    toggleAIRequest: ['AI','serial_number'],
+    toggleSterilizingRequest: ['sterilizing','serial_number'],
+    toggleAirCleaningRequest: ['air','serial_number'],
     filterTimeReset:[],
   })
 );
@@ -48,46 +48,51 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
     case RemoteTypes.TOGGLE_STERILIZING_REQUEST:
     case RemoteTypes.TOGGLE_A_I_REQUEST:
     case RemoteTypes.TOGGLE_AIR_CLEANING_REQUEST://send serial number
+      return {
+        ...state,
+        loading:true,
+      }
     case RemoteTypes.FILTER_TIME_RESET:
       return {
         ...state,
         filterUsingTime: 0,
+        loading:true,
       };
 
     case RemoteTypes.TOGGLE_POWER_SUCCESS:
       (async() => {
-        await Storage.setItem(KEYS.power, action.power);
+        await Storage.setItem(KEYS.power, action.payload);
       })();
             return {
               ...state,
-              power: action.power,
+              power: action.payload,
               loading:false,
       };
     case RemoteTypes.TOGGLE_A_I_SUCCESS:
       (async() => {
-        await Storage.setItem(KEYS.AI, action.AI);
+        await Storage.setItem(KEYS.AI, action.payload);
       })();
       return {
         ...state,
-        AI: action.AI,
+        AI: action.payload,
         loading:false,
       };
     case RemoteTypes.TOGGLE_STERILIZING_SUCCESS:
       (async() => {
-        await Storage.setItem(KEYS.sterilizing, action.sterilizing);
+        await Storage.setItem(KEYS.sterilizing, action.payload);
       })();
       return {
         ...state,
-        sterilizing: action.sterilizing,
+        sterilizing: action.payload,
         loading:false,
       };
     case RemoteTypes.TOGGLE_AIR_CLEANING_SUCCESS:
       (async() => {
-        await Storage.setItem(KEYS.airCleaning, action.air);
+        await Storage.setItem(KEYS.airCleaning, action.payload);
       })();
       return {
         ...state,
-        airCleaning: action.air,
+        airCleaning: action.payload,
         loading:false,
       };
     case RemoteTypes.TOGGLE_POWER_FAILURE:
@@ -97,6 +102,7 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
       return {
         ...state,
         loading:false,
+        error: action.error,
       }
     default:
       console.log(state);

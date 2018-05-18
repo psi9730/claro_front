@@ -1,12 +1,11 @@
 import {connect} from 'react-redux';
-import actions from '../../redux/actions';
-import RemoteView from './remoteView';
-import i18n from '../../utils/i18n/index';
+import actions from '../../../redux/actions';
+import RemoteBarView from './remoteBarView';
+import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps, withState} from 'recompose';
-
-import {KEYS} from '../../utils/ClaroStorage';
-import Storage from '../../utils/ClaroStorage';
+import {KEYS} from '../../../utils/ClaroStorage';
+import Storage from '../../../utils/ClaroStorage';
 /*type withState = (
   stateName: string,
   stateUpdaterName: string,
@@ -34,43 +33,43 @@ export default connect(
     withHandlers({
       togglePower_: (props) => (power,serialNumber) => {
         props.togglePowerRequest(power,serialNumber).then(()=>{
-        if (power === 0)
-          props.setPower('black');
-        else if (power=== 1) {
-          props.setPower('blue');
-        }}). catch(()=> { console.log("claro can't toggle Power");});
+          if (power === 0)
+            props.setPower('black');
+          else if (power=== 1) {
+            props.setPower('blue');
+          }}). catch(()=> { console.log("claro can't toggle Power");});
       },
       toggleAI_: (props) => (AI,serialNumber) => {
         props.toggleAIRequest(AI,serialNumber).then(()=>{
-        if (AI === 0)
-          props.setAI('black');
-        else if (AI === 1)
-          props.setAI('green');
-        else if (AI === 2)
-          props.setAI('blue');
-      }).catch(()=>{console.log("claro can't toggle AI")})},
+          if (AI === 0)
+            props.setAI('black');
+          else if (AI === 1)
+            props.setAI('green');
+          else if (AI === 2)
+            props.setAI('blue');
+        }).catch(()=>{console.log("claro can't toggle AI")})},
       toggleSterilizing_: (props) => (sterilizing,serialNumber) => {
         props.toggleSterilizingRequest(sterilizing,serialNumber).then(()=>{
-        if (sterilizing === 0) {
-          props.setSterilizing('black');
-        }
-        else if (sterilizing === 1) {
-          props.setSterilizing('green');
-        }
-        else if (sterilizing === 2)
-          props.setSterilizing('blue');
-      }).catch(()=>{console.log("claro can't toggle Sterilizing")})},
+          if (sterilizing === 0) {
+            props.setSterilizing('black');
+          }
+          else if (sterilizing === 1) {
+            props.setSterilizing('green');
+          }
+          else if (sterilizing === 2)
+            props.setSterilizing('blue');
+        }).catch(()=>{console.log("claro can't toggle Sterilizing")})},
       toggleAirCleaning_: (props) => (airCleaning,serialNumber) => {
         props.toggleAirCleaningRequest(airCleaning,serialNumber).then(()=>{
-        if (airCleaning === 0)
-          props.setAirCleaning('black');
-        else if (airCleaning === 1)
-          props.setAirCleaning('green');
-        else if (airCleaning === 2)
-          props.setAirCleaning('blue');
-      }).catch(()=>{console.log("claro can't toggle AirCleaning")})},
+          if (airCleaning === 0)
+            props.setAirCleaning('black');
+          else if (airCleaning === 1)
+            props.setAirCleaning('green');
+          else if (airCleaning === 2)
+            props.setAirCleaning('blue');
+        }).catch(()=>{console.log("claro can't toggle AirCleaning")})},
     }),
   )(
-    RemoteView
+    RemoteBarView
   )
 );

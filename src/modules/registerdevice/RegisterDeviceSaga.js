@@ -74,7 +74,7 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
       yield put(DeviceActions.sendSerialNumberSuccess(action.payload));
-      yield put(DeviceActions.registerDeviceRequest(barcode));
+      // yield put(DeviceActions.registerDeviceRequest(barcode));
     }
     else
       yield put(DeviceActions.sendSerialNumberFailure(action.error));
@@ -93,7 +93,7 @@ function* requestRegisterDevice({barcode}: {barcode: string}) {
     };
     console.log(body);
     console.log(`${API_ROOT}/devices/register/`);
-    yield call(post, `${API_ROOT}/devices/register/`, body);
+    yield call(post, `/devices/register/`, body, null);
     yield put(DeviceActions.registerDeviceSuccess());
   } catch (e) {
     yield put(DeviceActions.registerDeviceFailure(e));

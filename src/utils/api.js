@@ -159,7 +159,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
       // emit events on error channel, one for status-specific errors and other for all errors
       errors.emit(status.toString(), {path, message: error.message});
       errors.emit('*', {path, message: error.message}, status);
-
       throw error;
     }
 
@@ -197,7 +196,9 @@ const shouldContentTypeNull = (path) => _.includes(['/users/me/kyc_records'], pa
 async function sendRequest(method: string, path: string, body: ?{}|Array<any>) {
   try {
     const endpoint = url(path);
+    console.log("sendRequest");
     const token = await getAuthenticationToken();
+    console.log(token,"token");
     const forceBasic = path === TOKEN_URL;
     const accessToken = token ? token.accessToken : null;
     const forceJson = false;
@@ -280,6 +281,7 @@ async function getErrorMessageSafely(response) {
     return body;
 
   } catch (e) {
+    console.log(response.statusText,"statusText");
     // Unreadable body, return whatever the server returned
     return response.statusText;
   }

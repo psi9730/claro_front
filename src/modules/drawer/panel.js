@@ -3,6 +3,7 @@ import {StyleSheet,Text,View,Image,TouchableHighlight,Animated} from 'react-nati
 import up from '../../assets/images/Arrowhead-01-128.png'
 import down from '../../assets/images/Arrowhead-Down-01-128.png'
 import autoBind from 'react-autobind';
+import {Platform} from 'react-native';
 var styles = StyleSheet.create({
   container   : {
     backgroundColor: '#fff',
@@ -48,24 +49,16 @@ class Panel extends Component<Props>{
     };
   }
   componentDidMount() {
-
-    setTimeout((function () {
-      if(this.state.expanded===true)
-        this.toggle();
-    }).bind(this), 2000)
   }
-
   toggle(){
     let initialValue = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
       finalValue = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
     this.setState({
       expanded : !this.state.expanded,
     }, () => {
-      console.log(this.state.expanded);
+      console.log(this.state.expanded,this.state.title,this.state.maxHeight,this.state.minHeight,'change expanded')
     });
     this.state.animation.setValue(initialValue);
-    console.log(initialValue,"initialValue");
-    console.log(finalValue,"finalValue");
     Animated.spring(
       this.state.animation,
       {
@@ -75,24 +68,68 @@ class Panel extends Component<Props>{
   }
 
   _setMaxHeight(event){
-    console.log("calculate maxheight",event.nativeEvent.layout.height)
-    this.setState({
+    console.log("calcultae maxheight",event.nativeEvent.layout.height,this.state.title);
+    if(Platform.OS==='android'){
+      this.setState({
+        maxHeight: event.nativeEvent.layout.height
+      })
+    }
+    else if (event.nativeEvent.layout.height){
+      this.setState({
       maxHeight   : event.nativeEvent.layout.height
-    })
-    };
+    },()=> {
+      if (this.state.minHeight && this.state.first && this.state.maxHeight && Platform.OS==='ios') {
+        console.log(this.state.minHeight,"minHeight!!",this.state.title);
+        console.log(this.state.first,"first!!");
+        console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
+
+        if (this.state.expanded === true) {
+          this.toggle();
+          this.setState({first: false});
+        }
+      }
+    }
+  )}}
 
   _setMinHeight(event){
-    console.log("calculate minheight",event.nativeEvent.layout.height)
-    this.setState({
-      minHeight   : event.nativeEvent.layout.height
-    });
+    console.log("calculate minheight",event.nativeEvent.layout.height,this.state.title)
+    if(Platform.OS==='android') {
+      this.setState({
+        minHeight: event.nativeEvent.layout.height
+      }, ()=> setTimeout((function() {
+        if (this.state.minHeight && this.state.first && this.state.maxHeight) {
+          console.log(this.state.minHeight,"minHeight!!",this.state.title);
+          console.log(this.state.first,"first!!");
+          console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
+          if (this.state.expanded === true) {
+            this.toggle();
+            this.setState({first: false});
+          }
+        }
+      }).bind(this), 3000));
+    }
+    else if (event.nativeEvent.layout.height){
+      this.setState({
+          minHeight   : event.nativeEvent.layout.height
+        },()=> {
+          if (this.state.minHeight && this.state.first && this.state.maxHeight && Platform.OS==='ios') {
+            console.log(this.state.minHeight,"minHeight!!",this.state.title);
+            console.log(this.state.first,"first!!");
+            console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
+
+            if (this.state.expanded === true) {
+              this.toggle();
+              this.setState({first: false});
+            }
+          }
+        }
+      )}
   }
 
   render(){
     let icon = this.icons['down'];
 
     if(this.state.expanded){
-      console.log(this.state.expanded);
       icon = this.icons['up'];
     }
 

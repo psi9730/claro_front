@@ -3,7 +3,7 @@ import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
 
-import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -58,6 +58,9 @@ export default function NavigationWrapper(WrappedComponent) {
         switch (link) {
           case SERIAL_NUMBER_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
+            break;
+          case REMOTE_DETAIL_SCREEN.screen:
+            screenObj = {...REMOTE_DETAIL_SCREEN};
             break;
           case WIFI_SET_UP_SCREEN.screen:
             screenObj = {...WIFI_SET_UP_SCREEN};

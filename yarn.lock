@@ -4589,10 +4589,6 @@ react-native-device-info@^0.21.5:
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.21.5.tgz#99478a2d68182e012297f2d63f2bd1b788106dee"
 
-react-native-draggable-view@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-draggable-view/-/react-native-draggable-view-0.0.4.tgz#e8d407eeb7a5da9fe89f03385b4662a3666557ad"
-
 react-native-dropdown@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown/-/react-native-dropdown-0.0.6.tgz#f4b899b4082c4823340c7377fbe73bc01399148d"

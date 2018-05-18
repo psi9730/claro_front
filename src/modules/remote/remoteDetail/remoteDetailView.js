@@ -12,16 +12,17 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   View
 } from 'react-native';
 import autoBind from 'react-autobind';
-import RemoteBarView from '../remote/remoteBar/remoteBarViewContainer';
-import toast from '../../utils/toast';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
+import toast from '../../../utils/toast';
+import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
-import Plus from '../../assets/images/plus.png'
+import ClaroTheme from '../../../utils/ClaroTheme';
+import minus from '../../../assets/images/minus.png'
+import {REMOTE_SCREEN} from '../../../../screens';
 // import {SERIAL_NUMBER_SCREEN} from '../../../screens';
 
 type Props = {
@@ -41,31 +42,36 @@ type Props = {
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
-  flex: 1;
+  height: 100%
+  display:flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: white;
-  padding: 15px;
-  padding-bottom: 5px;
-`;
-const TextView = styled.View`
-    flex-grow:1;
-    flex-shrink:0;
-    flex-basis: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  background-color: white;
 `;
-const NavView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 45px;
+const FunctionContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: blue;
 `;
 
-const RemoteText = styled.Text`
-  font-size: 15px;
-  color: #909090;
+const TextContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color:red;
+`;
+
+const TextView = styled.Text`
+
 `;
 
 const GrayLineContainer = styled.View`
@@ -89,12 +95,12 @@ const GrayLine = styled.View`
 const IconView = styled.View`
     flex-grow:0;
     flex-shrink:0;
-    flex-basis: 30px;
+    flex-basis: 70px;
+    margin:20px;
 `;
 
-class RemoteView extends Component<Props, State> {
+class RemoteDetailView extends Component<Props, State> {
   constructor(props) {
-    console.log("Constructor is implemented");
     super(props);
     autoBind(this);
     (async() => {
@@ -103,19 +109,15 @@ class RemoteView extends Component<Props, State> {
       const power = await Storage.getItem(KEYS.power);
       const airCleaning = await Storage.getItem(KEYS.airCleaning);
       if (sterilizing==null) {
-        console.log("!!!");
         await Storage.setItem(KEYS.sterilizing, 0);
       }
       if (AI==null) {
-        console.log("!!!!");
         await Storage.setItem(KEYS.AI, 0);
       }
       if (power==null) {
-        console.log("!!!!!");
         await Storage.setItem(KEYS.power, 0);
       }
       if (airCleaning==null) {
-        console.log("!!!!!!");
         await Storage.setItem(KEYS.airCleaning, 0);
       }
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
@@ -133,9 +135,8 @@ class RemoteView extends Component<Props, State> {
   }
   state: State = {
   };
-
+  props: Props;
   componentWillMount() {
-    console.log("componentWillMount is implemented");
     (async() => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.setState({serialNumber: serialNumber});
@@ -176,7 +177,6 @@ class RemoteView extends Component<Props, State> {
   }
 
   toggleSterilizing(){
-    console.log("Sterilizing");
     console.log(this.props.sterilizing);
     console.log(this.props.sterilizingColor);
     if(this.props.power===0){
@@ -197,7 +197,6 @@ class RemoteView extends Component<Props, State> {
   }
 
   toggleAirCleaning(){
-    console.log("AirCleaning");
     if(this.props.power===0){
       toast("Power is Off");
     }
@@ -215,7 +214,6 @@ class RemoteView extends Component<Props, State> {
   }
 
   togglePower(){
-    console.log("POWER");
     if(this.props.power === 0){
       this.props.togglePower_(1, this.state.serialNumber);
       this.props.toggleAI_(1, this.state.serialNumber);
@@ -227,51 +225,74 @@ class RemoteView extends Component<Props, State> {
       this.props.togglePower_(0, this.state.serialNumber);
     }
   }
-
-
+  goBack(){
+    this.props.navigator.pop();
+  }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
 
-  props: Props;
 
   render() {
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
-          onPress={RemoteView.dismissKeyboard}
+          onPress={RemoteDetailView.dismissKeyboard}
         >
           <Container>
-            <TextView>
-              <RemoteText> {this.props.t('indoorAirInfo')} </RemoteText>
-              <RemoteText> {this.props.t('totalAirClean')}</RemoteText>
-              <RemoteText> {this.props.t('fineDust')}</RemoteText>
-              <RemoteText> {this.props.t('ultraFineDust')}</RemoteText>
-              <RemoteText> {this.props.t('GAS_VOCs')}</RemoteText>
-              <RemoteText> {this.props.t('outsideAirInfo')} </RemoteText>
-              <RemoteText> 금천구 가산동 </RemoteText>
-              <RemoteText> 미세먼지PM10: 138ug/m' </RemoteText>
-              <RemoteText> 오존: 0.035 ppm </RemoteText>
-              <RemoteText> 이산화질소: 0.016 ppm </RemoteText>
-              <RemoteText> 일산화탄소: 0.3 ppm </RemoteText>
-              <RemoteText> 아황산가스: 0.004 ppm </RemoteText>
-            </TextView>
             <GrayLineContainer>
               <GrayLine/>
               <IconView>
                 <TouchableHighlight
-                  onPress={()=> this.goToRemoteView()}>
+                  onPress={()=> this.goBack()}>
                   <Image
                     style={{width: 30, height: 30}}
-                    source={Plus}
+                    source={minus}
                   />
                 </TouchableHighlight>
               </IconView>
               <GrayLine/>
             </GrayLineContainer>
-            <NavView>
-              <RemoteBarView />
-            </NavView>
+            <FunctionContainer>
+              <IconView>
+              <Icon type='SimpleLineIcons' size={40} color = {this.props.powerColor} name='power' onPress={() => this.togglePower()}/>
+              </IconView>
+              <TextContainer>
+                <TextView> 본체 전원: ON</TextView>
+                <TextView> 네트워크:Connected</TextView>
+              </TextContainer>
+            </FunctionContainer>
+            <FunctionContainer>
+              <IconView>
+              <Icon type='entypo'  size={40} color = {this.props.AIColor} name= 'air' onPress={() => this.toggleAI()}/>
+              </IconView>
+              <TextContainer>
+                <TextView> AI 모드: ON</TextView>
+                <TextView> 미세먼지 오염도(PM10): 좋음</TextView>
+                <TextView> 초미세먼지 오염도(PM2.5): 좋음</TextView>
+                <TextView> VOCs 오염도: 좋음</TextView>
+              </TextContainer>
+            </FunctionContainer>
+            <FunctionContainer>
+              <IconView>
+              <Icon type='entypo'  size={40}  color = {this.props.sterilizingColor} name='bug' onPress={() => this.toggleSterilizing()}/>
+              </IconView>
+              <TextContainer>
+                <TextView> 살균모드: OFF</TextView>
+                <TextView> VOCs 공기질: 오염</TextView>
+              </TextContainer>
+            </FunctionContainer>
+            <FunctionContainer>
+              <IconView>
+              <Icon type='entypo'  size={40} color = {this.props.airCleaningColor} name='leaf' onPress={() => this.toggleAirCleaning()}/>
+              </IconView>
+              <TextContainer>
+                <TextView> 공기 청정 모드: OFF</TextView>
+                <TextView> 미세먼지 오염도(PM10): 좋음</TextView>
+                <TextView> 초미세먼지 오염도(PM2.5): 좋음</TextView>
+              </TextContainer>
+            </FunctionContainer>
+
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
@@ -279,4 +300,4 @@ class RemoteView extends Component<Props, State> {
   }
 }
 
-export default  RemoteView
+export default  RemoteDetailView

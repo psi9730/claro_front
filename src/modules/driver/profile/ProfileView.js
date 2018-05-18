@@ -34,7 +34,7 @@ type Props = {
 const Container = styled.View`
   flex: 1;
   padding: 15px;
-  padding-bottom: 35px;
+  padding-bottom:
   background-color: white;
 `;
 

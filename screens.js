@@ -2,7 +2,7 @@
 
 import {Navigation} from 'react-native-navigation';
 import {Provider} from 'react-redux';
-
+import Storage, {KEYS} from './src/utils/ClaroStorage';
 import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
@@ -12,6 +12,7 @@ import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeS
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import RemoteScreen from './src/modules/remote/remoteViewContainer';
+import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
 import easi_6 from './src/assets/images/easi_6.png';
@@ -73,6 +74,15 @@ export const REMOTE_SCREEN = {
   },
 };
 
+export const REMOTE_DETAIL_SCREEN = {
+  screen: 'claro.RemoteDetailScreen',
+  title: t('title_remote_screen'),
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+
 export const FILTER_SCREEN = {
   screen: 'claro.FilterScreen',
   title: t('title_filter_screen'),
@@ -90,10 +100,15 @@ export function registerScreens() {
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
+  Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => NavigationWrapper(RemoteDetailScreen), store, Provider);
 }
 
 export function startApp() {
   (async () => {
+    await Storage.setItem(KEYS.accessToken, "okok");
+    await Storage.setItem(KEYS.refreshToken, "ookook");
+    const accessToke= Storage.getItem(KEYS.accessToken);
+    console.log(accessToke,"accToken");
     const token = await getAuthenticationToken();
     let firstScreen = {...SERIAL_NUMBER_SCREEN};
 
