@@ -11,7 +11,7 @@ import FilterScreen from './src/modules/filter/FilterViewContainer';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
-import RemoteScreen from './src/modules/remote/remoteViewContainer';
+import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
@@ -107,8 +107,8 @@ export function startApp() {
   (async () => {
     await Storage.setItem(KEYS.accessToken, "okok");
     await Storage.setItem(KEYS.refreshToken, "ookook");
-    const accessToke= Storage.getItem(KEYS.accessToken);
-    console.log(accessToke,"accToken");
+    const accessToken = await Storage.getItem(KEYS.accessToken);
+    console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
     let firstScreen = {...SERIAL_NUMBER_SCREEN};
 
@@ -117,6 +117,9 @@ export function startApp() {
     }
 
     Navigation.startSingleScreenApp({
+      appStyle: {
+        keepStyleAcrossPush: false
+      },
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN},

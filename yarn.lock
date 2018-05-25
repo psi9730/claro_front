@@ -4568,6 +4568,16 @@ react-is@^16.3.1:
   version "16.3.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.1.tgz#ee66e6d8283224a83b3030e110056798488359ba"
 
+react-native-bottom-drawer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-bottom-drawer/-/react-native-bottom-drawer-1.0.2.tgz#e687ba15aeaac60c15735da381f60dcbd72bb81d"
+
+react-native-bottom-sheet-behavior@1.0.0-beta.8:
+  version "1.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/react-native-bottom-sheet-behavior/-/react-native-bottom-sheet-behavior-1.0.0-beta.8.tgz#ad13a2d676a07db7a645d1a31bc34818951dde4d"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-camera@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-0.10.0.tgz#5d973c9a8aab95f68aede395ba310eae0c3cecdd"
@@ -4589,6 +4599,10 @@ react-native-device-info@^0.21.5:
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.21.5.tgz#99478a2d68182e012297f2d63f2bd1b788106dee"
 
+react-native-draggable-view@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-view/-/react-native-draggable-view-0.0.4.tgz#e8d407eeb7a5da9fe89f03385b4662a3666557ad"
+
 react-native-dropdown@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown/-/react-native-dropdown-0.0.6.tgz#f4b899b4082c4823340c7377fbe73bc01399148d"
@@ -4605,6 +4619,10 @@ react-native-elements@^0.19.1:
 "react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz":
   version "14.1.3"
   resolved "https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz#d26db1f2b7d87429432e83aa815d5bba48f6d57d"
+
+react-native-interactable@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-0.1.10.tgz#65b9a68f6a84ba1c0e2ad5478b1f22ffb29c0526"
 
 react-native-locale-detector@^1.0.1:
   version "1.0.1"

@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  StatusBar,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import RemoteHeader from '../remote/remoteBar/remoteBarViewContainer'

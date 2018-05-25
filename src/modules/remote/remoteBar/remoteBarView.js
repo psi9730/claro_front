@@ -42,7 +42,7 @@ type Props = {
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
-  height: 100%
+  flex: 1;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -219,10 +219,10 @@ class RemoteBarView extends Component<Props, State> {
           >
           <Container>
             <IconView >
-              <Icon type='SimpleLineIcons' size={40} color = {this.props.powerColor} name='power' onPress={() => this.togglePower()}/>
-              <Icon type='entypo'  size={40} color = {this.props.AIColor} name= 'air' onPress={() => this.toggleAI()}/>
-              <Icon type='entypo'  size={40}  color = {this.props.sterilizingColor} name='bug' onPress={() => this.toggleSterilizing()}/>
-              <Icon type='entypo'  size={40} color = {this.props.airCleaningColor} name='leaf' onPress={() => this.toggleAirCleaning()}/>
+              <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
+              <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' onPress={() => this.toggleAI()}/>
+              <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' onPress={() => this.toggleSterilizing()}/>
+              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' onPress={() => this.toggleAirCleaning()}/>
             </IconView>
           </Container>
         </TouchableWithoutFeedback>

@@ -3,7 +3,7 @@ import actions from '../../../redux/actions';
 import RemoteBarView from './remoteBarView';
 import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps, withState} from 'recompose';
+import {compose, lifecycle, withHandlers, withProps, withState} from 'recompose';
 import {KEYS} from '../../../utils/ClaroStorage';
 import Storage from '../../../utils/ClaroStorage';
 /*type withState = (

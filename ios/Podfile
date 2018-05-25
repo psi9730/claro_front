@@ -55,6 +55,8 @@ target 'easi6driver' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'Interactable', :path => '../node_modules/react-native-interactable'
+
   target 'easi6driverTests' do
     inherit! :search_paths
     # Pods for testing

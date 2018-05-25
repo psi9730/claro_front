@@ -77,6 +77,10 @@ class WifiSetUpView extends Component<Props, State> {
       toast(this.props.t('enter_your_ssid'),'error');
       return;
     }
+    if (this.props.password == null || this.props.password === '') {
+      toast(this.props.t('enter_your_password'),'error');
+      return;
+    }
     Keyboard.dismiss();
     this.props.sendWifiInfoRequest(
       this.props.ssid,

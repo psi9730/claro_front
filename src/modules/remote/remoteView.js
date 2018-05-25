@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   View
 } from 'react-native';
 import autoBind from 'react-autobind';
@@ -22,8 +23,8 @@ import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import Plus from '../../assets/images/plus.png'
+import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 // import {SERIAL_NUMBER_SCREEN} from '../../../screens';
-
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -45,18 +46,66 @@ const Container = styled.KeyboardAvoidingView`
   flex-direction: column;
   justify-content: center;
   background-color: white;
-  padding: 15px;
   padding-bottom: 5px;
 `;
 const TextView = styled.View`
     flex-grow:1;
-    flex-shrink:0;
+    flex-shrink:2;
     flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+const OutAirView = styled.View`
+    flex-grow:2;
+    flex-shrink:1;
+    flex-basis: auto;
+    padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+const StatusView = styled.View`
+    flex-grow:1;
+    flex-shrink:2;
+    flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+`;
+const FunctionContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    padding: 5px;
+    flex-direction: row;
+    justify-content: flex-start;
+`;
+
+const TextContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+`;
+const TextLeftContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: flex-end;
+    align-items: center;
+`;
+
 const NavView = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -79,10 +128,10 @@ const GrayLineContainer = styled.View`
     align-items:center;
 `;
 const GrayLine = styled.View`
-    flex-grow:5;
-    flex-shrink:1;
+    flex-grow:0;
+    flex-shrink:0;
     flex-basis: auto;
-    height: 4px; 
+    height: 2px; 
     background-color: gray;
 `;
 
@@ -92,142 +141,41 @@ const IconView = styled.View`
     flex-basis: 30px;
 `;
 
+
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     console.log("Constructor is implemented");
     super(props);
     autoBind(this);
-    (async() => {
-      const sterilizing = await Storage.getItem(KEYS.sterilizing);
-      const AI = await Storage.getItem(KEYS.AI);
-      const power = await Storage.getItem(KEYS.power);
-      const airCleaning = await Storage.getItem(KEYS.airCleaning);
-      if (sterilizing==null) {
-        console.log("!!!");
-        await Storage.setItem(KEYS.sterilizing, 0);
-      }
-      if (AI==null) {
-        console.log("!!!!");
-        await Storage.setItem(KEYS.AI, 0);
-      }
-      if (power==null) {
-        console.log("!!!!!");
-        await Storage.setItem(KEYS.power, 0);
-      }
-      if (airCleaning==null) {
-        console.log("!!!!!!");
-        await Storage.setItem(KEYS.airCleaning, 0);
-      }
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      this.setState({serialNumber: serialNumber});
-      const sterilizing_ = await Storage.getItem(KEYS.sterilizing);
-      const AI_ = await Storage.getItem(KEYS.AI);
-      const power_ = await Storage.getItem(KEYS.power);
-      const airCleaning_ = await Storage.getItem(KEYS.airCleaning);
-      console.log("this.state.serialNumber",this.state.serialNumber);
-      this.props.toggleSterilizing_(sterilizing_, this.state.serialNumber);
-      this.props.toggleAI_(AI_, this.state.serialNumber);
-      this.props.togglePower_(power_, this.state.serialNumber);
-      this.props.toggleAirCleaning_(airCleaning_, this.state.serialNumber);
-    })();
   }
   state: State = {
   };
 
   componentWillMount() {
-    console.log("componentWillMount is implemented");
-    (async() => {
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      this.setState({serialNumber: serialNumber});
-      const sterilizing = await Storage.getItem(KEYS.sterilizing);
-      const AI = await Storage.getItem(KEYS.AI);
-      const power = await Storage.getItem(KEYS.power);
-      const airCleaning = await Storage.getItem(KEYS.airCleaning);
-      this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
-      this.props.toggleAI_(AI, this.state.serialNumber);
-      this.props.togglePower_(power, this.state.serialNumber);
-      this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
-    })();
-    //get indoor, outside Air Info
+    this.props.navigator.setStyle({
+      navBarBackgroundColor: 'steelblue',
+      statusBarTextColorScheme: 'light',
+      navBarNoBorder: true,
+      navBarTextColor: 'white',
+      statusBarColor: 'steelblue',
+    });
   }
+  componentWillReceiveProps(nextProps){
+    this.props.navigator.setStyle({
+      navBarBackgroundColor: 'steelblue',
+      statusBarTextColorScheme: 'light',
+      navBarNoBorder: true,
+      statusBarColor: 'steelblue',
+      navBarTextColor: 'white',
 
-  turnOffSterilizing(){
-    this.props.toggleSterilizing_(0, this.state.serialNumber);
+    });
   }
-  turnOffAirCleaning(){
-    this.props.toggleAirCleaning_(0, this.state.serialNumber);
+  goToRemoteView(){
+    console.log("Plus Button is pressed");
+    this.props.navigator.push({
+      ...REMOTE_DETAIL_SCREEN,
+    });
   }
-  turnOffAI(){
-    this.props.toggleAI_(0, this.state.serialNumber);
-  }
-  toggleAI() {
-    if(this.props.power===0){
-      toast("Power is Off");
-    }
-    else if (this.props.AI === 0) {    //turn off state
-      console.log("AI is 0");
-      this.props.toggleAI_(1, this.state.serialNumber);
-      this.turnOffSterilizing();
-      this.turnOffAirCleaning();
-    }
-    else if (this.props.AI === 1) { //turn on state
-      this.props.toggleAI_(0, this.state.serialNumber);
-    }
-  }
-
-  toggleSterilizing(){
-    console.log("Sterilizing");
-    console.log(this.props.sterilizing);
-    console.log(this.props.sterilizingColor);
-    if(this.props.power===0){
-      toast("Power is Off");
-    }
-    else if (this.props.sterilizing === 0){
-      console.log("sterilizing is 0");
-      this.turnOffAI();
-      this.turnOffAirCleaning();
-      this.props.toggleSterilizing_(1, this.state.serialNumber);
-    }
-    else if(this.props.sterilizing === 1){
-      this.props.toggleSterilizing_(2, this.state.serialNumber);
-    }
-    else if(this.props.sterilizing === 2){
-      this.props.toggleSterilizing_(0, this.state.serialNumber);
-    }
-  }
-
-  toggleAirCleaning(){
-    console.log("AirCleaning");
-    if(this.props.power===0){
-      toast("Power is Off");
-    }
-    else if (this.props.airCleaning === 0){
-      this.turnOffAI();
-      this.turnOffSterilizing();
-      this.props.toggleAirCleaning_(1, this.state.serialNumber);
-    }
-    else if(this.props.airCleaning === 1){
-      this.props.toggleAirCleaning_(2, this.state.serialNumber);
-    }
-    else if(this.props.airCleaning === 2){
-      this.props.toggleAirCleaning_(0, this.state.serialNumber);
-    }
-  }
-
-  togglePower(){
-    console.log("POWER");
-    if(this.props.power === 0){
-      this.props.togglePower_(1, this.state.serialNumber);
-      this.props.toggleAI_(1, this.state.serialNumber);
-    }
-    else if(this.props.power === 1){
-      this.turnOffAI();
-      this.turnOffAirCleaning();
-      this.turnOffSterilizing();
-      this.props.togglePower_(0, this.state.serialNumber);
-    }
-  }
-
 
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -236,26 +184,77 @@ class RemoteView extends Component<Props, State> {
   props: Props;
 
   render() {
+    this.props.navigator.setStyle({
+      statusBarTextColorScheme: 'light',
+      navBarBackgroundColor: 'steelblue',
+      statusBarTextColorSchemeSingleScreen: 'light',
+      navBarNoBorder: true,
+      topBarElevationShadowEnabled: false,
+      navBarTextColor: 'white',
+      statusBarColor: 'steelblue',
+      navBarButtonColor: 'white',
+      navBarSubtitleColor: 'white',
+      navBarLeftButtonColor: 'white', // Change color of left nav bar button
+    });
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={RemoteView.dismissKeyboard}
         >
           <Container>
+            <StatusView style={{backgroundColor : 'steelblue'}}>
+              <FunctionContainer style={{justifyContent: 'flex-end'}}>
+              <TextContainer style={{padding: 30 }}><Text style={{fontSize:40, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>좋음</Text><Text  style={{color: 'white'}}>통합공기청정도</Text></TextContainer>
+                <TextLeftContainer style={{padding: 30 }}><Text style={{color: 'white'}}>완전깨끗</Text></TextLeftContainer>
+              </FunctionContainer>
+            </StatusView>
             <TextView>
-              <RemoteText> {this.props.t('indoorAirInfo')} </RemoteText>
-              <RemoteText> {this.props.t('totalAirClean')}</RemoteText>
-              <RemoteText> {this.props.t('fineDust')}</RemoteText>
-              <RemoteText> {this.props.t('ultraFineDust')}</RemoteText>
-              <RemoteText> {this.props.t('GAS_VOCs')}</RemoteText>
-              <RemoteText> {this.props.t('outsideAirInfo')} </RemoteText>
-              <RemoteText> 금천구 가산동 </RemoteText>
-              <RemoteText> 미세먼지PM10: 138ug/m' </RemoteText>
-              <RemoteText> 오존: 0.035 ppm </RemoteText>
-              <RemoteText> 이산화질소: 0.016 ppm </RemoteText>
-              <RemoteText> 일산화탄소: 0.3 ppm </RemoteText>
-              <RemoteText> 아황산가스: 0.004 ppm </RemoteText>
-            </TextView>
+            <FunctionContainer>
+              <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>
+              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text>
+                <Text>ug/m3</Text></TextLeftContainer>
+            </FunctionContainer>
+            <FunctionContainer>
+              <TextContainer><Text>초미세먼지(PM 2.5)</Text></TextContainer>
+              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
+            </FunctionContainer>
+            <FunctionContainer>
+              <TextContainer><Text>GAS/VOCs</Text></TextContainer>
+              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
+            </FunctionContainer>
+          </TextView>
+            <GrayLine/>
+            <OutAirView>
+              <FunctionContainer style={{paddingBottom: 20}}>
+                <TextContainer><Text style={{fontSize:20, fontWeight: 'bold' }}>외부 공기 정보 </Text></TextContainer>
+                <TextLeftContainer><Text>금천구 가산</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>초미세먼지(PM 2.5)</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>오존</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.035 </Text><Text>ppm</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>이산화질소</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.016 </Text><Text>ppm</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>일산화탄소</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.3 </Text><Text>ppm</Text></TextLeftContainer>
+              </FunctionContainer>
+              <FunctionContainer>
+                <TextContainer><Text>이황상가스</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.004 </Text><Text>ppm</Text></TextLeftContainer>
+              </FunctionContainer>
+            </OutAirView>
+
             <GrayLineContainer>
               <GrayLine/>
               <IconView>

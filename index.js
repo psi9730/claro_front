@@ -12,11 +12,12 @@ import {registerScreens, startApp} from './screens';
 import {setConfiguration} from './src/utils/configuration';
 import {postPushToken} from './src/utils/api';
 import {pushNotifListener} from './src/utils/notifUtils';
-
+import Constants from './src/constants/constants';
+const {API_ROOT} = Constants
 const isProd = process.env.NODE_ENV === 'production';
-let defaultHost = 'http://192.168.1.57:3000';
+let defaultHost = API_ROOT;
 if (Platform.OS === 'ios') {
-  defaultHost = 'http://192.168.1.57:3000';
+  defaultHost = API_ROOT;
 }
 let apiRoot = process.env.API_ROOT || defaultHost;
 if (isProd) {

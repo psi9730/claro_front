@@ -21,6 +21,7 @@ import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
+import timer from '../../../assets/images/timer.png'
 import minus from '../../../assets/images/minus.png'
 import {REMOTE_SCREEN} from '../../../../screens';
 // import {SERIAL_NUMBER_SCREEN} from '../../../screens';
@@ -35,6 +36,10 @@ type Props = {
   AI: number,
   sterilizing: number,
   power: number,
+  powerColor: string,
+  AIColor: string,
+  sterilizingColor: string,
+  airCleaningColor: string,
   serialNumber: string,
   airCleaning: number,
 };
@@ -56,7 +61,6 @@ const FunctionContainer = styled.View`
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
-    background-color: blue;
 `;
 
 const TextContainer = styled.View`
@@ -67,11 +71,9 @@ const TextContainer = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color:red;
 `;
 
 const TextView = styled.Text`
-
 `;
 
 const GrayLineContainer = styled.View`
@@ -97,8 +99,15 @@ const IconView = styled.View`
     flex-shrink:0;
     flex-basis: 70px;
     margin:20px;
+    align-self: center;
 `;
 
+
+const IconView2 = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 30px;
+`;
 class RemoteDetailView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -212,7 +221,9 @@ class RemoteDetailView extends Component<Props, State> {
       this.props.toggleAirCleaning_(0, this.state.serialNumber);
     }
   }
+  toggleTimer(){
 
+  }
   togglePower(){
     if(this.props.power === 0){
       this.props.togglePower_(1, this.state.serialNumber);
@@ -232,7 +243,6 @@ class RemoteDetailView extends Component<Props, State> {
     Keyboard.dismiss();
   }
 
-
   render() {
     return (
       <ThemeProvider theme={ClaroTheme}>
@@ -240,59 +250,53 @@ class RemoteDetailView extends Component<Props, State> {
           onPress={RemoteDetailView.dismissKeyboard}
         >
           <Container>
-            <GrayLineContainer>
-              <GrayLine/>
-              <IconView>
-                <TouchableHighlight
-                  onPress={()=> this.goBack()}>
-                  <Image
-                    style={{width: 30, height: 30}}
-                    source={minus}
-                  />
-                </TouchableHighlight>
-              </IconView>
-              <GrayLine/>
-            </GrayLineContainer>
             <FunctionContainer>
               <IconView>
-              <Icon type='SimpleLineIcons' size={40} color = {this.props.powerColor} name='power' onPress={() => this.togglePower()}/>
+                <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
               </IconView>
               <TextContainer>
-                <TextView> 본체 전원: ON</TextView>
-                <TextView> 네트워크:Connected</TextView>
+                {this.props.power===0?
+                  (<Text style={{color : 'black'}}> 본체 전원: OFF </Text>) :
+                  (<Text style={{color : 'blue'}}> 본체 전원: ON </Text>)}
+                <TextView style={{color : this.props.powerColor}}> 네트워크:Connected</TextView>
               </TextContainer>
             </FunctionContainer>
             <FunctionContainer>
               <IconView>
-              <Icon type='entypo'  size={40} color = {this.props.AIColor} name= 'air' onPress={() => this.toggleAI()}/>
+                <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' onPress={() => this.toggleAI()}/>
               </IconView>
               <TextContainer>
-                <TextView> AI 모드: ON</TextView>
-                <TextView> 미세먼지 오염도(PM10): 좋음</TextView>
-                <TextView> 초미세먼지 오염도(PM2.5): 좋음</TextView>
-                <TextView> VOCs 오염도: 좋음</TextView>
+                {this.props.AI===0?
+                  (<TextView style={{color : 'black'}}> AI 모드: OFF </TextView>) :
+                  (<TextView style={{color : 'blue'}}> AI 모드: ON </TextView>)}
+                <TextView style={{color :this.props.AI===0 ? 'black' : 'blue'}}> 미세먼지 오염도(PM10): 좋음</TextView>
+                <TextView style={{color : this.props.AI===0 ? 'black' : 'blue'}}> 초미세먼지 오염도(PM2.5): 좋음</TextView>
+                <TextView style={{color : this.props.AI===0 ? 'black' : 'blue'}}> VOCs 오염도: 좋음</TextView>
               </TextContainer>
             </FunctionContainer>
             <FunctionContainer>
               <IconView>
-              <Icon type='entypo'  size={40}  color = {this.props.sterilizingColor} name='bug' onPress={() => this.toggleSterilizing()}/>
+                <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' onPress={() => this.toggleSterilizing()}/>
               </IconView>
               <TextContainer>
-                <TextView> 살균모드: OFF</TextView>
-                <TextView> VOCs 공기질: 오염</TextView>
+                {this.props.sterilizing===0?
+                  (<TextView style={{color : 'black'}}> 살균모드: OFF </TextView>) : (this.props.sterilizing===1 ? (<TextView style={{color : 'green'}}> 살균 모드: ON(약) </TextView>):(<TextView style={{color : 'blue'}}> 살균 모드: ON(강)</TextView>))
+                  }
+                <TextView style={{color : this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')}}> VOCs 공기질: 오염</TextView>
               </TextContainer>
             </FunctionContainer>
             <FunctionContainer>
-              <IconView>
-              <Icon type='entypo'  size={40} color = {this.props.airCleaningColor} name='leaf' onPress={() => this.toggleAirCleaning()}/>
-              </IconView>
-              <TextContainer>
-                <TextView> 공기 청정 모드: OFF</TextView>
-                <TextView> 미세먼지 오염도(PM10): 좋음</TextView>
-                <TextView> 초미세먼지 오염도(PM2.5): 좋음</TextView>
-              </TextContainer>
-            </FunctionContainer>
-
+            <IconView>
+              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' onPress={() => this.toggleAirCleaning()}/>
+            </IconView>
+            <TextContainer>
+              {this.props.airCleaning===0?
+                (<TextView style={{color : this.props.airCleaningColor}}> 공기 청정 모드: OFF </TextView>) : (this.props.airCleaning===1 ? (<TextView style={{color : this.props.airCleaningColor}}> 공기 청정 모드: ON(약) </TextView>):(<TextView> 공기 청정 모드: ON(강)</TextView>))
+              }
+              <TextView style={{color :this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}> 미세먼지 오염도(PM10): 좋음</TextView>
+              <TextView style={{color : this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')}}> 초미세먼지 오염도(PM2.5): 좋음</TextView>
+            </TextContainer>
+          </FunctionContainer>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
@@ -301,3 +305,21 @@ class RemoteDetailView extends Component<Props, State> {
 }
 
 export default  RemoteDetailView
+/*
+<FunctionContainer>
+<IconView>
+<TouchableHighlight
+onPress={() => this.toggleTimer()}
+underlayColor="#f1f1f1">
+  <Image
+style={{width: 40, height: 40}}
+source={timer}
+/>
+</TouchableHighlight>
+</IconView>
+<TextContainer>
+  <TextView> Timer: OFF</TextView>
+  <TextView> 꺼짐 예약 시간:</TextView>
+  <TextView> 켜짐 예약 시간:</TextView>
+</TextContainer>
+</FunctionContainer>*/
