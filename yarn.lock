@@ -4584,6 +4584,10 @@ react-native-camera@^0.10.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-chooser@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-chooser/-/react-native-chooser-1.7.0.tgz#f0cf5f19cec2677932450711dc81625541607714"
+
 react-native-country-picker-modal@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/react-native-country-picker-modal/-/react-native-country-picker-modal-0.5.1.tgz#44a2f2767a1573040f7452d1415de3ce75adbad3"
@@ -4671,6 +4675,10 @@ react-native-root-toast@^3.0.1:
   dependencies:
     prop-types "^15.5.10"
     react-native-root-siblings "^3.0.0"
+
+react-native-selectme@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-selectme/-/react-native-selectme-1.2.3.tgz#08b34a8603abf40c29e9d1ab14d79c6a939902ff"
 
 "react-native-send-intent@https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz":
   version "1.0.22"

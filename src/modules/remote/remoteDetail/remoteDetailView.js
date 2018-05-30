@@ -21,10 +21,6 @@ import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import timer from '../../../assets/images/timer.png'
-import minus from '../../../assets/images/minus.png'
-import {REMOTE_SCREEN} from '../../../../screens';
-// import {SERIAL_NUMBER_SCREEN} from '../../../screens';
 
 type Props = {
   restoreOutsideAirInfo: Function,
@@ -47,7 +43,8 @@ type Props = {
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
-  height: 100%
+ flex:1;
+ height:100%;
   display:flex;
   flex-direction: column;
   justify-content: space-around;
@@ -294,7 +291,7 @@ class RemoteDetailView extends Component<Props, State> {
                 (<TextView style={{color : this.props.airCleaningColor}}> 공기 청정 모드: OFF </TextView>) : (this.props.airCleaning===1 ? (<TextView style={{color : this.props.airCleaningColor}}> 공기 청정 모드: ON(약) </TextView>):(<TextView> 공기 청정 모드: ON(강)</TextView>))
               }
               <TextView style={{color :this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}> 미세먼지 오염도(PM10): 좋음</TextView>
-              <TextView style={{color : this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')}}> 초미세먼지 오염도(PM2.5): 좋음</TextView>
+              <TextView style={{color : this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}> 초미세먼지 오염도(PM2.5): 좋음</TextView>
             </TextContainer>
           </FunctionContainer>
           </Container>

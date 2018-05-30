@@ -32,7 +32,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class Panel2 extends Component<Props>{
+class Panel2 extends Component<Props>{  //panel for no have children
   constructor(props){
     super(props);
     autoBind(this);

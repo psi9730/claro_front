@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import RemoteBarView from '../remote/remoteBar/remoteBarViewContainer'
 import {Modal,
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
   TouchableWithoutFeedback, Linking, WebView, TouchableHighlight
@@ -11,7 +10,6 @@ import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import * as Progress from 'react-native-progress';
-import Plus from '../../assets/images/plus.png'
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 type Props = {
   filterMaxTime: number,
@@ -34,35 +32,6 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 5px;
 `;
 
-const NavView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 60px;
-`;
-const GrayLineContainer = styled.View`
-    display:flex;
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 25px;
-    height: 25px;
-    flex-direction: row;
-    justify-content:center;
-    align-items:center;
-`;
-const GrayLine = styled.View`
-    flex-grow:5;
-    flex-shrink:1;
-    flex-basis: auto;
-    height: 4px; 
-    background-color: gray;
-`;
-
-const IconView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 30px;
-`;
-
 const ButtonView = styled.View`
     flex-grow:1;
     flex-shrink:0;
@@ -71,10 +40,6 @@ const ButtonView = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-const FilterText = styled.Text`
-  font-size: 15px;
-  color: #909090;
 `;
 
 class FilterView extends Component<Props, State> {
@@ -112,12 +77,6 @@ class FilterView extends Component<Props, State> {
     setTimeout((function() {
       this.setState({ progress: this.state.progress + this.props.filterUsingTime})
     }).bind(this), 1000))
-  }
-  goToRemoteView(){
-    console.log("Plus Button is pressed");
-    this.props.navigator.push({
-      ...REMOTE_DETAIL_SCREEN,
-    });
   }
   props: Props;
 
@@ -201,22 +160,6 @@ class FilterView extends Component<Props, State> {
               </View>
             </Modal>
             </ButtonView>
-            <GrayLineContainer>
-              <GrayLine/>
-              <IconView>
-              <TouchableHighlight
-                onPress={()=> this.goToRemoteView()}>
-                <Image
-                  style={{width: 30, height: 30}}
-                  source={Plus}
-                />
-              </TouchableHighlight>
-              </IconView>
-              <GrayLine/>
-            </GrayLineContainer>
-            <NavView>
-            <RemoteBarView />
-            </NavView>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

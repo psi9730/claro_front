@@ -13,7 +13,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TouchableHighlight,
-  View
+  View,
+  Animated
 } from 'react-native';
 import autoBind from 'react-autobind';
 import toast from '../../../utils/toast';
@@ -21,9 +22,8 @@ import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import Plus from '../../../assets/images/plus.png'
-import {REMOTE_SCREEN, REMOTE_DETAIL_SCREEN} from '../../../../screens';
-// import {SERIAL_NUMBER_SCREEN} from '../../../screens';
+import up from '../../../assets/images/Arrowhead-01-128.png'
+import down from '../../../assets/images/Arrowhead-Down-01-128.png'
 
 type Props = {
   restoreOutsideAirInfo: Function,
@@ -37,16 +37,19 @@ type Props = {
   power: number,
   serialNumber: string,
   airCleaning: number,
+  height: number,
+  _deltaY: number,
 };
 
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
-  flex: 1;
+  height:100%;
+  flex:1;
   display:flex;
   flex-direction: column;
   justify-content: center;
-  background-color: white;
+  background-color: gray;
 `;
 const IconView = styled.View`
     flex-grow:1;
@@ -81,6 +84,10 @@ const GrayLine = styled.View`
 class RemoteBarView extends Component<Props, State> {
   constructor(props) {
     super(props);
+    this.icons = {
+      'up'    : up,
+      'down'  : down
+    };
     autoBind(this);
     (async() => {
       const sterilizing = await Storage.getItem(KEYS.sterilizing);
@@ -212,12 +219,18 @@ class RemoteBarView extends Component<Props, State> {
   props: Props;
 
   render() {
+    console.log("this.props.height",this.props.height);
+    console.log("this.props.delta",this.props._deltaY);
+    let icon = this.icons['up'];
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={RemoteBarView.dismissKeyboard}
           >
-          <Container>
+            <Container>
+            <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center',  transform: [
+                { rotate: this.props._deltaY }
+              ],}} />
             <IconView >
               <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
               <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' onPress={() => this.toggleAI()}/>

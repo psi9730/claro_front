@@ -5,11 +5,9 @@ import {Button,  Linking, WebView, Image, StyleSheet, Text, TextInput, Touchable
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
-import {Navigation} from 'react-native-navigation';
 import Claro6Theme from '../../utils/ClaroTheme';
 import Panel from './panel';
 import Panel2 from './panel2';
-import SerialNumberView from '../registerdevice/serialnumber/SerialNumberView';  // Step 1
 
 type Props = {
   t: Function,
@@ -116,10 +114,10 @@ class DrawerView extends Component<Props> {
           </Panel>
           <Panel title="My Claro">
             <MenuButton
-              onPress={this.props.goToRegisterDevice}
+              onPress={this.props.goToChoiceDevice}
             >
               <MenuText>
-                제품선택
+                기기선택
               </MenuText>
             </MenuButton>
             <MenuButton

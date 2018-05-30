@@ -1,8 +1,5 @@
 // @flow
-
-import {call, put, takeLatest} from 'redux-saga/effects';
 import {createActions} from 'reduxsauce';
-
 import Storage from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
 

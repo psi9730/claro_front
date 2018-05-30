@@ -1,8 +1,5 @@
 /* @flow */
-
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
-
 import {
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
   TouchableWithoutFeedback
@@ -14,7 +11,6 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN,REMOTE_SCREEN} from '../../../../screens';
-import {DeviceActions} from '../RegisterDeviceState';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,

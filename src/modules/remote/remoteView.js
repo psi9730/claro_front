@@ -13,18 +13,14 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TouchableHighlight,
-  View
+  View,
+  Platform,
 } from 'react-native';
 import autoBind from 'react-autobind';
-import RemoteBarView from '../remote/remoteBar/remoteBarViewContainer';
-import toast from '../../utils/toast';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
-import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import Plus from '../../assets/images/plus.png'
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
-// import {SERIAL_NUMBER_SCREEN} from '../../../screens';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -43,10 +39,11 @@ type State = {
 };
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
+  height:100%;
   flex-direction: column;
   justify-content: center;
   background-color: white;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
 `;
 const TextView = styled.View`
     flex-grow:1;
@@ -54,7 +51,7 @@ const TextView = styled.View`
     flex-basis: auto;
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 20px;
   justify-content: flex-start;
   align-items: flex-start;
 `;
@@ -62,7 +59,7 @@ const OutAirView = styled.View`
     flex-grow:2;
     flex-shrink:1;
     flex-basis: auto;
-    padding: 30px;
+    padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,7 +79,7 @@ const FunctionContainer = styled.View`
     flex-shrink:0;
     flex-basis: auto;
     display:flex;
-    padding: 5px;
+    padding: 3px;
     flex-direction: row;
     justify-content: flex-start;
 `;
@@ -152,23 +149,10 @@ class RemoteView extends Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.navigator.setStyle({
-      navBarBackgroundColor: 'steelblue',
-      statusBarTextColorScheme: 'light',
-      navBarNoBorder: true,
-      navBarTextColor: 'white',
-      statusBarColor: 'steelblue',
-    });
+
   }
   componentWillReceiveProps(nextProps){
-    this.props.navigator.setStyle({
-      navBarBackgroundColor: 'steelblue',
-      statusBarTextColorScheme: 'light',
-      navBarNoBorder: true,
-      statusBarColor: 'steelblue',
-      navBarTextColor: 'white',
 
-    });
   }
   goToRemoteView(){
     console.log("Plus Button is pressed");
@@ -184,6 +168,7 @@ class RemoteView extends Component<Props, State> {
   props: Props;
 
   render() {
+    if(Platform.OS==='android'){
     this.props.navigator.setStyle({
       statusBarTextColorScheme: 'light',
       navBarBackgroundColor: 'steelblue',
@@ -193,9 +178,17 @@ class RemoteView extends Component<Props, State> {
       navBarTextColor: 'white',
       statusBarColor: 'steelblue',
       navBarButtonColor: 'white',
-      navBarSubtitleColor: 'white',
-      navBarLeftButtonColor: 'white', // Change color of left nav bar button
-    });
+    });}
+    else {
+      this.props.navigator.setStyle({
+        statusBarTextColorScheme: 'light',
+        navBarButtonColor: 'white',
+        navBarTextColor: 'white',
+        navBarNoBorder: true,
+        statusBarColor: 'steelblue',
+        navBarBackgroundColor: 'steelblue',
+      });
+    }
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -254,23 +247,6 @@ class RemoteView extends Component<Props, State> {
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.004 </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
             </OutAirView>
-
-            <GrayLineContainer>
-              <GrayLine/>
-              <IconView>
-                <TouchableHighlight
-                  onPress={()=> this.goToRemoteView()}>
-                  <Image
-                    style={{width: 30, height: 30}}
-                    source={Plus}
-                  />
-                </TouchableHighlight>
-              </IconView>
-              <GrayLine/>
-            </GrayLineContainer>
-            <NavView>
-              <RemoteBarView />
-            </NavView>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

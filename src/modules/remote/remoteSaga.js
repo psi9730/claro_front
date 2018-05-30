@@ -2,10 +2,8 @@ import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {RemoteTypes, RemoteActions} from './remoteState';
-import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
 import Storage, { KEYS } from '../../utils/ClaroStorage';
-import _ from 'lodash';
 const { API_ROOT } = Constants;
 
 function* requestTogglePowerRequest({power, serial_number}: {power: number, serial_number: string}) {
@@ -105,11 +103,29 @@ function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterili
     yield put(RemoteActions.toggleSterilizingFailure(e));
   }
 }
+function* requestSetDeviceInfoRequest({serial_number}: {serial_number:string}) {
+  try {
+    const token = yield call(get, `/devices/status/${serial_number}`);
+    yield put(RemoteActions.setDeviceInfoSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.setDeviceInfoFailure(e));
+  }
+}
 
-
+function* requestGetDeviceInfoRequest({username}: {username:string}) {
+  try {
+      const token = yield call(get, `/devices/get_device_list/${username}`);
+      yield put(RemoteActions.getDeviceInfoSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.getDeviceInfoFailure(e));
+  }
+}
 export const RemoteSaga = [
   takeLatest(RemoteTypes.TOGGLE_POWER_REQUEST, requestTogglePowerRequest),
   takeLatest(RemoteTypes.TOGGLE_A_I_REQUEST, requestToggleAIRequest),
   takeLatest(RemoteTypes.TOGGLE_AIR_CLEANING_REQUEST, requestToggleAirRequest),
   takeLatest(RemoteTypes.TOGGLE_STERILIZING_REQUEST, requestToggleSterilizingRequest),
+  takeLatest(RemoteTypes.GET_DEVICE_INFO_REQUEST, requestGetDeviceInfoRequest),
+  takeLatest(RemoteTypes.SET_DEVICE_INFO_REQUEST, requestSetDeviceInfoRequest),
+
 ];

@@ -98,6 +98,7 @@ class WifiSetUpView extends Component<Props, State> {
           console.log("store ssid "+Storage.getItem(KEYS.ssid));
           await Storage.setItem(key2, this.props.password);
           console.log("store password "+Storage.getItem(KEYS.ssid));
+          await Storage.setItem(KEYS.wifi, 1);
           this.showToastForResponse();
           this.props.navigator.push({
             ...SERIAL_NUMBER_SCREEN,
@@ -107,9 +108,13 @@ class WifiSetUpView extends Component<Props, State> {
 
   goRemote() {
     Keyboard.dismiss();
-   this.props.navigator.push({
-      ...REMOTE_SCREEN,
-    });
+    (async() =>{
+      if(await Storage.getItem(KEYS.wifi)===1) {
+        this.props.navigator.push({
+          ...REMOTE_SCREEN,
+        });
+      }
+    })().catch((e)=>console.log(e));
   }
 
   toggleSecure() {

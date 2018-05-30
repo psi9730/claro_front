@@ -4,15 +4,9 @@ import RemoteView from './remoteView';
 import i18n from '../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps, withState} from 'recompose';
-
 import {KEYS} from '../../utils/ClaroStorage';
 import Storage from '../../utils/ClaroStorage';
-/*type withState = (
-  stateName: string,
-  stateUpdaterName: string,
-  initialState: any | (props: Object) => any
-) => HigherOrderComponent
-*/
+
 export default connect(
   state => ({
     power: _.get(state, ['remote', 'power']),

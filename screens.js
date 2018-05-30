@@ -7,11 +7,12 @@ import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
-import FilterScreen from './src/modules/filter/FilterViewContainer';
+import FilterScreen from './src/modules/filter/FilterDragView';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
+import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
@@ -19,7 +20,7 @@ import easi_6 from './src/assets/images/easi_6.png';
 const burgerBtn = {
   id: 'toggleDrawer',
   icon: burgerIcn,
-  disableIconTint: true,
+  disableIconTint: false,
 };
 
 const home = {
@@ -47,7 +48,14 @@ export const BARCODE_SCAN_SCREEN = {
     leftButtons: [burgerBtn],
   },
 };
-
+export const CHOICE_DEVICE_SCREEN = {
+  screen: 'claro.ChoiceDeviceScreen',
+  title: '기기선택',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
 export const SERIAL_NUMBER_SCREEN = {
   screen: 'claro.SerialNumberScreen',
   title: t('title_serial_number'),
@@ -68,7 +76,9 @@ export const WIFI_SET_UP_SCREEN = {
 export const REMOTE_SCREEN = {
   screen: 'claro.RemoteScreen',
   title: t('title_remote_screen'),
-  navigatorStyle: {},
+  navigatorStyle: {
+    navBarTextColor:'white',
+  },
   navigatorButtons: {
     leftButtons: [burgerBtn],
   },
@@ -101,6 +111,7 @@ export function registerScreens() {
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
   Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => NavigationWrapper(RemoteDetailScreen), store, Provider);
+  Navigation.registerComponent(CHOICE_DEVICE_SCREEN.screen, () => NavigationWrapper(ChoiceDeviceScreen), store, Provider);
 }
 
 export function startApp() {

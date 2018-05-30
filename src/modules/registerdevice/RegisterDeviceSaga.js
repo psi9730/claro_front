@@ -1,11 +1,10 @@
-import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
+import { call, take, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
-import {get, post} from '../../utils/api';
+import {post} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
 import Constants from '../../constants/constants';
-import Storage, { KEYS } from '../../utils/ClaroStorage';
 import _ from 'lodash';
 const { API_ROOT } = Constants;
 
@@ -74,7 +73,6 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
       yield put(DeviceActions.sendSerialNumberSuccess(action.payload));
-      // yield put(DeviceActions.registerDeviceRequest(barcode));
     }
     else
       yield put(DeviceActions.sendSerialNumberFailure(action.error));
