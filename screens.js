@@ -14,6 +14,8 @@ import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpVie
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
 import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
+import SignupScreen from './src/modules/login/SignupViewContainer';
+import LoginScreen from './src/modules/login/LoginViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
 import easi_6 from './src/assets/images/easi_6.png';
@@ -43,6 +45,21 @@ export const LOGIN_SCREEN = {
 export const BARCODE_SCAN_SCREEN = {
   screen: 'claro.BarcodeScreen',
   title: t('title_barcode_scan'),
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+export const SIGNUP_SCREEN = {
+  screen: 'claro.SignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+
+export const LOGIN_SCREEN = {
+  screen: 'claro.LoginScreen',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -112,6 +129,8 @@ export function registerScreens() {
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
   Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => NavigationWrapper(RemoteDetailScreen), store, Provider);
   Navigation.registerComponent(CHOICE_DEVICE_SCREEN.screen, () => NavigationWrapper(ChoiceDeviceScreen), store, Provider);
+  Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
+  Navigation.registerComponent(SIGNUP_SCREEN.screen, () => NavigationWrapper(SignupScreen), store, Provider);
 }
 
 export function startApp() {
@@ -121,7 +140,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...SERIAL_NUMBER_SCREEN};
+    let firstScreen = {...SIGNUP_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...SERIAL_NUMBER_SCREEN};
@@ -129,7 +148,9 @@ export function startApp() {
 
     Navigation.startSingleScreenApp({
       appStyle: {
-        keepStyleAcrossPush: false
+        keepStyleAcrossPush: false,
+        navBarButtonColor: 'black',
+        navBarNoBorder: true,
       },
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
@@ -138,7 +159,8 @@ export function startApp() {
           drawerShadow: true, // optional, add this if you want a side menu drawer shadow
           contentOverlayColor: 'rgba(0,0,0,0.25)', // optional, add this if you want a overlay color when drawer is open
           leftDrawerWidth: 50, // optional, add this if you want a define left drawer width (50=percent)
-          rightDrawerWidth: 50 // optional, add this if you want a define right drawer width (50=percent)
+          rightDrawerWidth: 50, // optional, add this if you want a define right drawer width (50=percent)
+          navBarButtonColor: 'black',
         },
         type: 'MMDrawer', // optional, iOS only, types: 'TheSideBar', 'MMDrawer' default: 'MMDrawer'
         animationType: 'door', //optional, iOS only, for MMDrawer: 'door', 'parallax', 'slide', 'slide-and-scale'

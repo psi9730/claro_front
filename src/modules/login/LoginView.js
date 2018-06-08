@@ -1,15 +1,19 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import PhoneInput from 'react-native-phone-input';
 import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../../utils/claroTheme';
-import toast from '../../../utils/toast';
-import easi6Logo from '../../../assets/images/easi_6.png';
+import ClaroTheme from '../../utils/ClaroTheme';
+import toast from '../../utils/toast';
+import easi6Logo from '../../assets/images/easi_6.png';
+import { CheckBox } from 'react-native-elements'
+import naver from '../../assets/images/naver.png'
+import facebook from '../../assets/images/facebook.png'
+import {RENTAL_DETAIL_SCREEN} from '../../../screens';
 
 type State = {
   username: string,
@@ -17,12 +21,12 @@ type State = {
 };
 
 type Props = {
-  t: Function,a
+  t: Function,
   loading: boolean,
   onLoginPressed: (username: string, password: string) => void,
 };
 const UsernameInput = styled.TextInput`
-  width: 70%;
+  width: 100%;
   margin-bottom: 20px;
   font-size: 20px;
   margin-top: 10px;
@@ -30,9 +34,33 @@ const UsernameInput = styled.TextInput`
   border-bottom-color: gray;
   border-bottom-width: 1px;
 `;
+const LoginText = styled.Text`
+  align-self: flex-start;
+  font-size: 15px;
+  color: gray;
+  margin-bottom: 18px;
+  margin-top:18px;
+  
+`;
+const ButtonText = styled.Text`
+  font-size: 15px;
+  color: white;
+`;
 
+const NavButton = styled.TouchableOpacity`
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: 40px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #00CC39;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
 const PasswordInput = styled.TextInput`
-  width: 70%;
+  width: 100%;
   margin-bottom: 20px;
   font-size: 20px;
   margin-top: 10px;
@@ -43,11 +71,24 @@ const PasswordInput = styled.TextInput`
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   background-color: white;
-  padding: 15px;
+  padding: 30px;
   padding-bottom: 35px;
+`;
+const ImageContainer = styled.View`
+    position: absolute;
+`;
+const TextLeftContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: center;
+    align-items: center;
 `;
 
 const CoverText = styled.Text`
@@ -75,14 +116,17 @@ class LoginView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state={
+      checked: false,
+    }
   }
 
   componentDidMount() {
-    this.props.navigator.setDrawerEnabled({
+/*    this.props.navigator.setDrawerEnabled({
       side: 'left',
       enabled: false,
     });
-    this.refs.phone.focus();
+  */
   }
 
   onChangeUsername(username) {
@@ -117,30 +161,22 @@ class LoginView extends Component<Props, State> {
         <TouchableWithoutFeedback
           onPress={LoginView.dismissKeyboard}
         >
-          <Container
-            keyboardVerticalOffset={0}
-            behavior='height'>
-            <CoverView>
-              <Image
-                style={{width: 60, height: 18}}
-                alt="logo image"
-                source={easi6Logo}
-              />
-              <CoverText>
-                &nbsp;&nbsp;
-                {t('cover_text')}
-              </CoverText>
-            </CoverView>
+          <Container>
+            <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+              로그인
+            </LoginText>
+            <LoginText>
+              아이디
+            </LoginText>
             <UsernameInput
-              placeholder={t('login_username')}
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />
-              <View />
-            <GrayLine/>
+            <LoginText>
+              비밀번호
+            </LoginText>
             <PasswordInput
               underlineColorAndroid="transparent"
-              placeholder={t('login_password')}
               autoCorrect={false}
               onChangeText={this.onChangePassword}
               value={this.state.password}
@@ -148,20 +184,55 @@ class LoginView extends Component<Props, State> {
               onSubmitEditing={this.onLoginPressed}
               blurOnSubmit
               secureTextEntry
+              style={{marginBottom: 5}}
             />
-            <View
-              style={{flexGrow: 3}}
+            <CheckBox
+              title='정보/이벤트 메일 수신에 동의합니다.'
+              containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
+              checked={this.state.checked}
+              uncheckedColor='black'
+              checkedColor='black'
+              onPress={() => this.setState({checked: !this.state.checked})}
             />
-            <View
-              style={{alignSelf: 'stretch'}}
+            <NavButton
+              style={{backgroundColor: 'white',borderWidth: 1 }}
+              onPress={()=> this.props.onLoginPressed()}
             >
-              <Button
-                title={t('login_submit')}
-                onPress={this.onLoginPressed}
-                color={ClaroTheme.mainColor}
-                disabled={loading}
-              />
-            </View>
+              <TextLeftContainer>
+                <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                  로그인
+                </ButtonText>
+              </TextLeftContainer>
+            </NavButton>
+            <NavButton
+              style={{backgroundColor: '#3A589B'}}
+              onPress={()=> this.props.navigator.push({
+                ...FACEBOOK_LOGIN_SCREEN,
+              })}
+            >
+              <ImageContainer>
+                <Image source={facebook} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+              </ImageContainer>
+              <TextLeftContainer>
+                <ButtonText style={{alignSelf: 'center'}}>
+                  페이스북으로 로그인
+                </ButtonText>
+              </TextLeftContainer>
+            </NavButton>
+            <NavButton
+              onPress={()=> this.props.navigator.push({
+                ...NAVER_LOGIN_SCREEN,
+              })}
+            >
+              <ImageContainer>
+              <Image source={naver} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+              </ImageContainer>
+              <TextLeftContainer>
+              <ButtonText style={{alignSelf: 'center'}}>
+                네이버로 로그인
+              </ButtonText>
+              </TextLeftContainer>
+            </NavButton>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

@@ -49,7 +49,7 @@
 		EC7E09232022B06600D6F432 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7E09252022B06600D6F432 /* InfoPlist.strings */; };
 		EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */; };
 		F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 481440DD12F04076BFF10E0B /* AppCenter-Config.plist */; };
-		F933BAD120BE3CDF009C56EF /* node_modules in Resources */ = {isa = PBXBuildFile; fileRef = F933BAA020BE3CDF009C56EF /* node_modules */; };
+	//	F933BAD120BE3CDF009C56EF /* node_modules in Resources */ = {isa = PBXBuildFile; fileRef = F933BAA020BE3CDF009C56EF /* node_modules */; };
 		F94BD4D220A941AF0012B27F /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94BD4CF20A941930012B27F /* libART.a */; };
 		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
 /* End PBXBuildFile section */
@@ -474,7 +474,7 @@
 		ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = easi6driver.entitlements; path = easi6driver/easi6driver.entitlements; sourceTree = "<group>"; };
 		F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		F2F2F146F9E8DCF82FEC5EA2 /* Pods-easi6driver-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F933BAA020BE3CDF009C56EF /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = node_modules; path = ../node_modules; sourceTree = "<group>"; };
+	//	F933BAA020BE3CDF009C56EF /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = node_modules; path = ../node_modules; sourceTree = "<group>"; };
 		F933BAD220BE3DE1009C56EF /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		F94BD4C920A941930012B27F /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		F97D7500EB52ACF8D0FD0173 /* Pods-easi6driver-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -707,7 +707,7 @@
 			isa = PBXGroup;
 			children = (
 				F933BAD220BE3DE1009C56EF /* RCTCamera.xcodeproj */,
-				F933BAA020BE3CDF009C56EF /* node_modules */,
+			//	F933BAA020BE3CDF009C56EF /* node_modules */,
 				F94BD4C920A941930012B27F /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -1427,7 +1427,7 @@
 				4F73033B9EF041F0A5B6D4DC /* MaterialCommunityIcons.ttf in Resources */,
 				14B10834ED0A4F3F9FDF31B2 /* MaterialIcons.ttf in Resources */,
 				378589C5DBD247108452EEE3 /* Octicons.ttf in Resources */,
-				F933BAD120BE3CDF009C56EF /* node_modules in Resources */,
+			//	F933BAD120BE3CDF009C56EF /* node_modules in Resources */,
 				870E13AB8B664F2683B18228 /* SimpleLineIcons.ttf in Resources */,
 				2E1C4C2643E24B7EBD2F9F69 /* Zocial.ttf in Resources */,
 			);

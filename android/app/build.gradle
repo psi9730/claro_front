@@ -166,7 +166,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-bottom-sheet-behavior')
     compile project(':react-native-interactable')
     compile project(':react-native-svg')
     compile project(':react-native-camera')

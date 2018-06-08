@@ -3,7 +3,6 @@ package com.easi6.easi6driver.android;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
-import com.bottomsheetbehavior.BottomSheetBehaviorPackage;
 import com.wix.interactable.Interactable;
 import com.horcrux.svg.SvgPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -37,7 +36,6 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-        new BottomSheetBehaviorPackage(),
         new Interactable(),
         new SvgPackage(),
         new RCTCameraPackage(),
@@ -73,11 +71,11 @@ public class MainApplication extends NavigationApplication implements ReactAppli
 
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
+      new MainReactPackage(),
       new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
       new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
       new AppCenterReactNativePackage(MainApplication.this),
       new RNDeviceInfo(),
-      new BottomSheetBehaviorPackage(),
       new Interactable(),
       new SvgPackage(),
       new VectorIconsPackage(),

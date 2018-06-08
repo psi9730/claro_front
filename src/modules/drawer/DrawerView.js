@@ -144,7 +144,7 @@ class DrawerView extends Component<Props> {
               </MenuText>
             </MenuButton>
             <MenuButton
-              onPress={this.props.goToRegisterDevice}
+              onPress={this.props.goToLogin}
             >
               <MenuText>
                 LOGIN/OUT
