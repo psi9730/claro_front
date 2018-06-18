@@ -4,8 +4,6 @@ import React, {Component} from 'react';
 import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import PhoneInput from 'react-native-phone-input';
-import CountryPicker from 'react-native-country-picker-modal';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import toast from '../../utils/toast';
@@ -27,7 +25,7 @@ type Props = {
 };
 const UsernameInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 20px;
   margin-top: 10px;
   padding-bottom: 4px;
@@ -38,8 +36,8 @@ const LoginText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
-  margin-top:18px;
+  margin-bottom: 10px;
+  margin-top:10px;
   
 `;
 const ButtonText = styled.Text`
@@ -61,9 +59,9 @@ const NavButton = styled.TouchableOpacity`
 `;
 const PasswordInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   font-size: 20px;
-  margin-top: 10px;
+  margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: gray;
   border-bottom-width: 1px;
@@ -73,10 +71,12 @@ const Container = styled.KeyboardAvoidingView`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content:center;
   align-items: center;
   background-color: white;
   padding: 30px;
   padding-bottom: 35px;
+  
 `;
 const ImageContainer = styled.View`
     position: absolute;
@@ -122,11 +122,10 @@ class LoginView extends Component<Props, State> {
   }
 
   componentDidMount() {
-/*    this.props.navigator.setDrawerEnabled({
+    this.props.navigator.setDrawerEnabled({
       side: 'left',
       enabled: false,
     });
-  */
   }
 
   onChangeUsername(username) {
@@ -145,7 +144,7 @@ class LoginView extends Component<Props, State> {
       toast(this.props.t('enter_your_password'),'error');
     } else {
       Keyboard.dismiss();
-      this.props.onLoginPressed(this.state.username, this.state.password);
+      this.props.onLoginPressed(this.state.username, this.state.password).catch((e)=>console.log(e));
     }
   }
 
@@ -162,17 +161,17 @@ class LoginView extends Component<Props, State> {
           onPress={LoginView.dismissKeyboard}
         >
           <Container>
-            <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+            <LoginText style={{fontSize: 25, marginBottom: 18, color: 'black', fontWeight:'bold'}}>
               로그인
             </LoginText>
-            <LoginText>
+            <LoginText style={{margin:10 }}>
               아이디
             </LoginText>
             <UsernameInput
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />
-            <LoginText>
+            <LoginText style={{margin:10}}>
               비밀번호
             </LoginText>
             <PasswordInput

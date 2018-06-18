@@ -9,7 +9,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import {REMOTE_DETAIL_SCREEN} from '../../../screens';
+import {REMOTE_DETAIL_SCREEN,ACCEPT_SIGNUP_SCREEN, LOGIN_SCREEN} from '../../../screens';
 import naver from '../../assets/images/naver.png'
 import facebook from '../../assets/images/facebook.png'
 type Props = {
@@ -123,7 +123,12 @@ class SignupView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.state = {
+      modal1Visible: false,
+      modal2Visible: false,
     }
+  }
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
   props: Props;
 
@@ -161,7 +166,7 @@ class SignupView extends Component<Props, State> {
             <NavButton
               style={{backgroundColor: 'white',borderWidth: 1 }}
               onPress={()=> this.props.navigator.push({
-                ...SIGNUP_SCREEN,
+                ...ACCEPT_SIGNUP_SCREEN,
               })}
             >
               <TextLeftContainer>
@@ -204,7 +209,7 @@ class SignupView extends Component<Props, State> {
                     flexBasis: 'auto',display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
             <LoginText style={  {textDecorationLine:'underline',   flexGrow:0, color:'black',alignSelf: 'center',
               flexShrink:0,
-              flexBasis: 'auto'}}>
+              flexBasis: 'auto'}}  onPress={()=>this.props.navigator.push({...LOGIN_SCREEN})}>
               로그인
             </LoginText>
             </View>

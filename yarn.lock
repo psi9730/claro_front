@@ -4604,12 +4604,6 @@ react-native-bottom-drawer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-bottom-drawer/-/react-native-bottom-drawer-1.0.2.tgz#e687ba15aeaac60c15735da381f60dcbd72bb81d"
 
-react-native-bottom-sheet-behavior@1.0.0-beta.8:
-  version "1.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/react-native-bottom-sheet-behavior/-/react-native-bottom-sheet-behavior-1.0.0-beta.8.tgz#ad13a2d676a07db7a645d1a31bc34818951dde4d"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-camera@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-0.10.0.tgz#5d973c9a8aab95f68aede395ba310eae0c3cecdd"
@@ -4667,6 +4661,10 @@ react-native-elements@^0.19.1:
     lodash.times "^4.3.2"
     opencollective "^1.0.3"
     prop-types "^15.5.8"
+
+react-native-exit-app@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-exit-app/-/react-native-exit-app-1.0.0.tgz#a2fbb121d902e6967cd8a365fe8453e5c4bc3172"
 
 "react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz":
   version "14.1.3"

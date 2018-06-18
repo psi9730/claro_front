@@ -18,11 +18,11 @@ export default connect(
     }),
     withHandlers({
       onLoginPressed: (props) => (username, password) => {
-       /*props.loginRequest(username, password).then(() => {
-          props.navigator.resetTo({...RENTALS_SCREEN});
-        }).catch((err) => {
-          console.log('err', err);
-        }); */
+        /*props.loginRequest(username, password).then(() => {
+           props.navigator.resetTo({...RENTALS_SCREEN});
+         }).catch((err) => {
+           console.log('err', err);
+         }); */
       }
     }),
   )(

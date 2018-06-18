@@ -16,8 +16,10 @@ import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceVi
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
+import AcceptSignupScreen from './src/modules/login/AcceptSignupViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
+import goBackIcn from './src/assets/images/goBack.png';
 import easi_6 from './src/assets/images/easi_6.png';
 const burgerBtn = {
   id: 'toggleDrawer',
@@ -25,10 +27,16 @@ const burgerBtn = {
   disableIconTint: false,
 };
 
-const home = {
-  id: 'gotoHome',
-  icon: easi_6,
+const goBack = {
+  id: 'goBack',
+  icon: goBackIcn,
 };
+
+const finish = {
+  id: 'finish',
+  icon: goBackIcn,
+};
+
 
 const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
@@ -50,11 +58,18 @@ export const BARCODE_SCAN_SCREEN = {
     leftButtons: [burgerBtn],
   },
 };
+export const ACCEPT_SIGNUP_SCREEN = {
+  screen: 'claro.AcceptSignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
 export const SIGNUP_SCREEN = {
   screen: 'claro.SignupScreen',
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [burgerBtn],
+    leftButtons: [finish],
   },
 };
 
@@ -62,7 +77,7 @@ export const LOGIN_SCREEN = {
   screen: 'claro.LoginScreen',
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [burgerBtn],
+    leftButtons: [goBack],
   },
 };
 export const CHOICE_DEVICE_SCREEN = {
@@ -122,6 +137,7 @@ export const FILTER_SCREEN = {
 // register all screens of the app (including internal ones)
 export function registerScreens() {
   Navigation.registerComponent(FILTER_SCREEN.screen, () => NavigationWrapper(FilterScreen), store, Provider);
+  Navigation.registerComponent(ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(AcceptSignupScreen), store, Provider);
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
@@ -148,9 +164,14 @@ export function startApp() {
 
     Navigation.startSingleScreenApp({
       appStyle: {
+        statusBarTextColorScheme: 'dark',
         keepStyleAcrossPush: false,
         navBarButtonColor: 'black',
         navBarNoBorder: true,
+        statusBarColor:'white',
+        navBarBackgroundColor: 'white',
+        navigationBarColor: 'black',
+        topBarElevationShadowEnabled: false,
       },
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app

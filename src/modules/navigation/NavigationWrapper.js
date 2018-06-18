@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import {AppState, Platform} from 'react-native';
 import hoistStatics from 'hoist-non-react-statics';
 import autoBind from 'react-autobind';
+import { Alert,
+  BackAndroid,
+} from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -65,6 +68,9 @@ export default function NavigationWrapper(WrappedComponent) {
           case LOGIN_SCREEN.screen:
             screenObj = {...LOGIN_SCREEN};
             break;
+          case ACCEPT_SIGNUP_SCREEN.screen:
+            screenObj = {...ACCEPT_SIGNUP_SCREEN};
+            break;
           case CHOICE_DEVICE_SCREEN.screen:
             screenObj = {...CHOICE_DEVICE_SCREEN};
             break;
@@ -91,6 +97,21 @@ export default function NavigationWrapper(WrappedComponent) {
             animated: true,
             side: 'left',
           });
+        }
+        else if(event.id === 'goBack')
+        {
+          this.props.navigator.pop();
+        }
+        else if(event.id === 'finish')
+        {
+            Alert.alert(
+              'Exit App',
+              'Do you want to exit?',
+              [
+                {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Yes', onPress: () => BackAndroid.exitApp()},
+              ],
+              { cancelable: false })
         }
         if(event.id === 'gotoHome') {
           console.log("gotoHOME");
