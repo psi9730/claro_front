@@ -102,17 +102,6 @@ export default function NavigationWrapper(WrappedComponent) {
         {
           this.props.navigator.pop();
         }
-        else if(event.id === 'finish')
-        {
-            Alert.alert(
-              'Exit App',
-              'Do you want to exit?',
-              [
-                {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'Yes', onPress: () => BackAndroid.exitApp()},
-              ],
-              { cancelable: false })
-        }
         if(event.id === 'gotoHome') {
           console.log("gotoHOME");
           const screenObj = {...REMOTE_SCREEN};

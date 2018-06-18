@@ -4662,10 +4662,6 @@ react-native-elements@^0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
-react-native-exit-app@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-exit-app/-/react-native-exit-app-1.0.0.tgz#a2fbb121d902e6967cd8a365fe8453e5c4bc3172"
-
 "react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz":
   version "14.1.3"
   resolved "https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz#d26db1f2b7d87429432e83aa815d5bba48f6d57d"
@@ -5479,7 +5475,7 @@ statuses@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
 
-stream-browserify@^1.0.0:
+stream-browserify@^1.0.1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-1.0.0.tgz#bf9b4abfb42b274d751479e44e0ff2656b6f1193"
   dependencies:

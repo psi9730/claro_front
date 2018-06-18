@@ -32,12 +32,6 @@ const goBack = {
   icon: goBackIcn,
 };
 
-const finish = {
-  id: 'finish',
-  icon: goBackIcn,
-};
-
-
 const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
   screen: 'claro.DrawerScreen',
@@ -69,7 +63,6 @@ export const SIGNUP_SCREEN = {
   screen: 'claro.SignupScreen',
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [finish],
   },
 };
 
