@@ -1,18 +1,11 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, Keyboard, StyleSheet, Modal, Text, TextInput,
-  ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
 import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
-import { CheckBox } from 'react-native-elements'
-import naver from '../../assets/images/naver.png'
-import facebook from '../../assets/images/facebook.png'
-import {CLARO_SIGNUP_SCREEN,PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN} from '../../../screens';
+import {RENTAL_DETAIL_SCREEN} from '../../../screens';
 type State = {
   username: string,
   password: string,
@@ -25,7 +18,7 @@ type Props = {
 };
 const UsernameInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 20px;
   margin-top: 10px;
   padding-bottom: 4px;
@@ -33,18 +26,16 @@ const UsernameInput = styled.TextInput`
   border-bottom-width: 1px;
 `;
 const LoginText = styled.Text`
-  flex-grow:0;
-  flex-shrink:0;
-  flex-basis: auto;
   align-self: flex-start;
   font-size: 15px;
-  color: black;
+  color: gray;
   margin-bottom: 10px;
   margin-top:10px;
   
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
+  color: white;
 `;
 
 const NavButton = styled.TouchableOpacity`
@@ -59,66 +50,59 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-const CheckBoxView = styled.View`
-  flex-grow:0;
-  flex-shrink:0;
-  flex-basis: auto;
+const PasswordInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 5px;
-  display:flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  margin-bottom: 8px;
+  font-size: 20px;
+  margin-top: 8px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
 `;
-const TextBoxView = styled.View`
-  flex-grow:0;
-  flex-shrink:0;
-  flex-basis: 40px;
-  width: 100%;
-  margin-bottom: 5px;
-  display:flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content:center;
   align-items: center;
   background-color: white;
-  padding: 30px;
-  padding-bottom: 35px;
+  
 `;
-
+const ImageContainer = styled.View`
+    position: absolute;
+`;
 const TextLeftContainer = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
+    flex-grow: 1;
+    flex-shrink: 1;
     flex-basis: auto;
     display:flex;
-    flex-direction: row;
+    flex-direction: row
     justify-content: center;
     align-items: center;
 `;
-const CheckBoxContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
+
+const CoverText = styled.Text`
+  font-size: 24px;
+  color: black;
+`;
+
+const CoverView = styled.View`
+  flex-grow: 2;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const GrayLine = styled.View`
+  flex-grow: 0; 
+  flex-shrink: 0; 
+  flex-basis: auto;
   height: 1px;
   width: 100%;
   background-color: gray;
 `;
 
-class AcceptSignupView extends Component<Props, State> {
+class TermOfUseView extends Component<Props, State> {
   state = {
     username: '',
     password: '',
@@ -127,53 +111,37 @@ class AcceptSignupView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.state={
-      checked1: false,
-      checked2: false,
-      checked3: false,
-      modal1Visible: false,
-      modal2Visible: false,
+      checked: false,
     }
   }
 
   componentDidMount() {
-    /*    this.props.navigator.setDrawerEnabled({
-          side: 'left',
-          enabled: false,
-        });
-      */
+    this.props.navigator.setDrawerEnabled({
+      side: 'left',
+      enabled: false,
+    });
   }
-  onChangeCheckBox1(){      //전체체크
-    if(this.state.checked1===false)
-      this.setState({
-        checked1: true,
-        checked2: true,
-        checked3: true,
-      })
-    else
-      this.setState({
-        checked1: false,
-        checked2: false,
-        checked3: false,
-      })
-  }
-  onChangeCheckBox2(){      //필수이용약관동의
-    this.setState({
-      checked2: !this.state.checked2
-    })
-  }
-  onChangeCheckBox3(){      //개인정보 수집 및 이용
-    this.setState({
-      checked3: !this.state.checked3
-    })
 
+  onChangeUsername(username) {
+    this.setState({username});
   }
-  goToClaroSignup(){
-    if(this.state.checked2===true && this.state.checked3===true)
-      this.props.navigator.push({
-        ...CLARO_SIGNUP_SCREEN,
-      })
 
+
+  onChangePassword(password) {
+    this.setState({password});
   }
+
+  onLoginPressed() {
+    if(!this.state.username){
+      toast(this.props.t('enter_your_id'),'error');
+    } else if(!this.state.password){
+      toast(this.props.t('enter_your_password'),'error');
+    } else {
+      Keyboard.dismiss();
+      this.props.onLoginPressed(this.state.username, this.state.password).catch((e)=>console.log(e));
+    }
+  }
+
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
@@ -182,43 +150,14 @@ class AcceptSignupView extends Component<Props, State> {
     const {t, loading} = this.props;
 
     return (
-          <Container>
-            <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
-              약관동의
-            </LoginText>
-            <CheckBox
-              title='클라로의 모든 약관을 확인하고 전체 동의합니다'
-              containerStyle={{backgroundColor: 'white', flex:0, width: '100%',borderColor:'white' }}
-              checked={this.state.checked1}
-              uncheckedColor='black'
-              checkedColor='black'
-              onPress={()=>this.onChangeCheckBox1()}
-            />
-            <GrayLine/>
-            <CheckBoxView
-            >
-              <CheckBoxContainer>
-                <CheckBox
-                  title='(필수) 이용약관 동의'
-                  containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
-                  checked={this.state.checked2}
-                  uncheckedColor='black'
-                  checkedColor='black'
-                  onPress={()=>this.onChangeCheckBox2()}
-                />
-              </CheckBoxContainer>
-              <TextLeftContainer>
-                <ButtonText style={{alignSelf: 'flex-end', textDecorationLine:'underline'}} onPress={()=>this.props.navigator.push({
-                  ...TERM_OF_USE_SCREEN,
-                })}>
-                  전체보기
-                </ButtonText>
-              </TextLeftContainer>
-            </CheckBoxView>
-            <View style={{flex:1, padding: 12, paddingBottom:0,paddingTop:0, borderWidth:1, borderColor:'gray'}}>
-              <ScrollView style={ {flexGrow:1, paddingTop:3}} contentContainerStyle={{flexGrow: 1}}>
-                <Text>{
-                  `
+      <Container>
+        <LoginText style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', padding: 30, fontSize: 25, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
+          개인정보 수집 및 이용
+        </LoginText>
+        <View style={{flex:1, alignSelf: 'flex-start', paddingBottom:35, paddingLeft: 30, paddingRight:30, display: 'flex', flexDirection:'column',justifyContent: 'flex-start',alignItems:'flex-start'}}>
+          <ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1, display:'flex',flexDirection:'column',justifyContent: 'flex-start', alignItems:'flex-start'}}>
+            <Text>{
+            `
 제1조(목적)
 표준약관 제10023호
 
@@ -435,61 +374,23 @@ class AcceptSignupView extends Component<Props, State> {
 부칙
 
 1. 이 약관은 년 월 일부터 적용됩니다.`}</Text>
-              </ScrollView>
-            </View>
-            <CheckBoxView
-            >
-              <CheckBoxContainer>
-                <CheckBox
-                  title='(필수) 개인정보 수집 및 이용'
-                  containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
-                  checked={this.state.checked3}
-                  uncheckedColor='black'
-                  checkedColor='black'
-                  onPress={()=>this.onChangeCheckBox3()}
-                />
-              </CheckBoxContainer>
-              <TextLeftContainer>
-                <ButtonText style={{alignSelf: 'flex-end', fontWeight:'bold',textDecorationLine:'underline'}} onPress={()=>  this.props.navigator.push({
-                  ...PERSONAL_INFO_SCREEN,
-                })} >
-                  전체보기
-                </ButtonText>
-              </TextLeftContainer>
-            </CheckBoxView>
-            <View style={{flex:1, alignSelf: 'stretch', padding: 12, paddingBottom:0,marginBottom:15, paddingTop:0, borderWidth:1, borderColor:'gray'}}>
-              <ScrollView style={ {flexGrow:1, paddingTop:3}} contentContainerStyle={{flexGrow: 1}}>
-               <Text>
-                 {`
-1. - 목적 : 이용자 식별 및 본인여부 확인
-- 항목 : 이름, 아이디, 비밀번호
-- 보유 및 이용기간 : 회원탈퇴 후 5일까지
-
-2. - 목적 : 민원 등 고객 고충처리
-- 항목 : 이메일, 휴대전화번호
-- 보유 및 이용기간 : 회원탈퇴 후 5일까지
-
-3. - 목적 : 만 14세 미만 아동 확인
-- 항목 : 법정 생년월일
-- 보유 및 이용기간 : 회원탈퇴 후 5일까지
-                 `}
-               </Text>
-              </ScrollView>
-            </View>
-            <NavButton
-              style={{alignSelf: 'center', backgroundColor: 'white',borderWidth: 1 }}
-              onPress={()=> this.goToClaroSignup()
-              }
-            >
-              <TextLeftContainer style={{flexGrow: 1, flexShrink: 1}}>
-                <ButtonText style={{alignSelf: 'center'}}>
-                  다음단계
-                </ButtonText>
-              </TextLeftContainer>
-            </NavButton>
-          </Container>
+          </ScrollView>
+        </View>
+      </Container>
     );
   }
 }
 
-export default AcceptSignupView;
+export default TermOfUseView;
+/*<ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1}}>
+  <Text>1. -목적: 이용자 식별 및 본인여부 확인</Text>
+  <Text>   -항목: 이름, 아이디, 비밀번호</Text>
+  <Text>   -보유 및 이용기간 : 회원탈퇴 후 5일까지</Text>
+  <Text> </Text>
+  <Text>2. -목적: 민원 등 고객 고충처리</Text>
+  <Text>   -항목: 이메일, 휴대전화번호</Text>
+  <Text>   -보유 및 이용기간 : 회원탈퇴 후 5일까지</Text>
+  <Text>3. -목적: 만 14세 미만 아동 확인</Text>
+  <Text>   -항목: 법적 생년월일</Text>
+  <Text>   -보유 및 이용기간 : 회원탈퇴 후 5일까지</Text>
+</ScrollView>*/

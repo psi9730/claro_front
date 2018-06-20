@@ -1,4 +1,5 @@
 // @flow
+
 import React, {Component} from 'react';
 import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
@@ -160,17 +161,18 @@ class LoginView extends Component<Props, State> {
           onPress={LoginView.dismissKeyboard}
         >
           <Container>
-            <LoginText style={{fontSize: 25, marginBottom: 18, color: 'black', fontWeight:'bold'}}>
+            <LoginText style={{fontSize: 25, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
               로그인
             </LoginText>
             <LoginText style={{margin:10 }}>
               아이디
             </LoginText>
             <UsernameInput
+              autoCapitalize='none'
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />
-            <LoginText style={{margin:10}}>
+            <LoginText style={{margin:10,backgroundColor:'white',}}>
               비밀번호
             </LoginText>
             <PasswordInput

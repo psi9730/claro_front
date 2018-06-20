@@ -16,7 +16,11 @@ import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceVi
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
+import ClaroSignupScreen from './src/modules/login/ClaroSignupViewContainer';
+import NaverSignupScreen from './src/modules/login/NaverSignupViewContainer';
 import AcceptSignupScreen from './src/modules/login/AcceptSignupViewContainer';
+import PersonalInfoScreen from './src/modules/login/PersonalInfoViewContainer';
+import TermOfUseScreen from './src/modules/login/TermOfUseViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
 import goBackIcn from './src/assets/images/goBack.png';
@@ -49,7 +53,28 @@ export const BARCODE_SCAN_SCREEN = {
   title: t('title_barcode_scan'),
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [burgerBtn],
+    leftButtons: [goBack],
+  },
+};
+export const TERM_OF_USE_SCREEN = {
+  screen: 'claro.TermOfUseScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const CLARO_SIGNUP_SCREEN = {
+  screen: 'claro.ClaroSignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const PERSONAL_INFO_SCREEN = {
+  screen: 'claro.PersonalInfoScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
   },
 };
 export const ACCEPT_SIGNUP_SCREEN = {
@@ -73,6 +98,14 @@ export const LOGIN_SCREEN = {
     leftButtons: [goBack],
   },
 };
+
+export const NAVER_SIGNUP_SCREEN = {
+  screen: 'claro.NaverSignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
 export const CHOICE_DEVICE_SCREEN = {
   screen: 'claro.ChoiceDeviceScreen',
   title: '기기선택',
@@ -86,7 +119,7 @@ export const SERIAL_NUMBER_SCREEN = {
   title: t('title_serial_number'),
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [burgerBtn],
+    leftButtons: [goBack],
   },
 };
 export const WIFI_SET_UP_SCREEN = {
@@ -127,8 +160,13 @@ export const FILTER_SCREEN = {
   },
 };
 
+
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(TERM_OF_USE_SCREEN.screen, () => NavigationWrapper(TermOfUseScreen), store, Provider);
+  Navigation.registerComponent(PERSONAL_INFO_SCREEN.screen, () => NavigationWrapper(PersonalInfoScreen), store, Provider);
+  Navigation.registerComponent(CLARO_SIGNUP_SCREEN.screen, () => NavigationWrapper(ClaroSignupScreen), store, Provider);
+  Navigation.registerComponent(NAVER_SIGNUP_SCREEN.screen, () => NavigationWrapper(NaverSignupScreen), store, Provider);
   Navigation.registerComponent(FILTER_SCREEN.screen, () => NavigationWrapper(FilterScreen), store, Provider);
   Navigation.registerComponent(ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(AcceptSignupScreen), store, Provider);
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
@@ -149,7 +187,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...SIGNUP_SCREEN};
+    let firstScreen = {...SERIAL_NUMBER_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...SERIAL_NUMBER_SCREEN};

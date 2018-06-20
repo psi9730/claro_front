@@ -9,7 +9,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import {REMOTE_DETAIL_SCREEN,ACCEPT_SIGNUP_SCREEN, LOGIN_SCREEN} from '../../../screens';
+import {REMOTE_DETAIL_SCREEN,ACCEPT_SIGNUP_SCREEN, NAVER_SIGNUP_SCREEN, LOGIN_SCREEN} from '../../../screens';
 import naver from '../../assets/images/naver.png'
 import facebook from '../../assets/images/facebook.png'
 type Props = {

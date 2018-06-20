@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import actions from '../../redux/actions';
-import naverSignupView from './naverSignupView';
+import NaverSignupView from './NaverSignupView';
 import i18n from '../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps} from 'recompose';
@@ -25,6 +25,6 @@ export default connect(
       }
     }),
   )(
-    naverSignupView
+    NaverSignupView
   )
 );

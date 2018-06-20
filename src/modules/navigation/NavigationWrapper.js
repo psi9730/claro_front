@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -61,6 +61,18 @@ export default function NavigationWrapper(WrappedComponent) {
         switch (link) {
           case SERIAL_NUMBER_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
+            break;
+          case TERM_OF_USE_SCREEN.screen:
+            screenObj = {...TERM_OF_USE_SCREEN};
+            break;
+          case PERSONAL_INFO_SCREEN.screen:
+            screenObj = {...PERSONAL_INFO_SCREEN};
+            break;
+          case NAVER_SIGNUP_SCREEN.screen:
+            screenObj = {...SERIAL_NUMBER_SCREEN};
+            break;
+          case CLARO_SIGNUP_SCREEN.screen:
+            screenObj = {...CLARO_SIGNUP_SCREEN};
             break;
           case SIGNUP_SCREEN.screen:
             screenObj = {...SIGNUP_SCREEN};
