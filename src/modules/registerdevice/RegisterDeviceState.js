@@ -33,7 +33,8 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     loginRequest: ['username', 'password'],
     tcpRequestSuccess: ['payload'],
     tcpRequestFailure: ['error'],
-    registerDeviceRequest: ['barcode'],
+    registerDeviceRequest: ['barcode','nickname'],
+    updateDeviceRequest: ['barcode','nickname'],
     restoreDevice: ['deviceInfo'],
     restoreSerialNumber: ['barcode'],
     restoreWifiInfo: ['ssid','password'],
@@ -43,6 +44,8 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     updateWifiSsid:['ssid'],
     updateWifiPassword:['password'],
     updateBarcode: ['barcode'],
+    updateNickname: ['nickname'],
+
   })
 );
 
@@ -54,10 +57,26 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
     case DeviceTypes.SEND_AP_REQUEST:
     case DeviceTypes.SEND_WIFI_INFO_REQUEST:
     case DeviceTypes.REGISTER_DEVICE_REQUEST:
+    case DeviceTypes.UPDATE_DEVICE_REQUEST:
       return {
         ...state,
         loading: true,
       };
+    case DeviceTypes.UPDATE_DEVICE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      }
+    case DeviceTypes.UPDATE_DEVICE_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      }
+    case DeviceTypes.UPDATE_NICKNAME:
+      return {
+        ...state,
+        nickname: action.nickname,
+      }
     case DeviceTypes.RESTORE_WIFI_INFO:
       return {
         ...state,

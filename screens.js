@@ -11,9 +11,13 @@ import FilterScreen from './src/modules/filter/FilterDragView';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
+import WifiMainScreen from './src/modules/registerdevice/wifisetup/WifiMainViewContainer';
+import WifiGuideScreen from './src/modules/registerdevice/wifisetup/WifiGuideViewContainer';
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
 import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
+import NicknameScreen from './src/modules/registerdevice/NicknameViewContainer';
+import RegisterCompleteScreen from './src/modules/registerdevice/RegisterCompleteViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
 import ClaroSignupScreen from './src/modules/login/ClaroSignupViewContainer';
@@ -24,10 +28,16 @@ import TermOfUseScreen from './src/modules/login/TermOfUseViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import burgerIcn from './src/assets/images/burger.png';
 import goBackIcn from './src/assets/images/goBack.png';
+import exitIcn from './src/assets/images/exit.png';
+import blankIcn from './src/assets/images/Blank.png';
 import easi_6 from './src/assets/images/easi_6.png';
 const burgerBtn = {
   id: 'toggleDrawer',
   icon: burgerIcn,
+  disableIconTint: false,
+};
+const blankBtn = {
+  icon: blankIcn,
   disableIconTint: false,
 };
 
@@ -35,6 +45,11 @@ const goBack = {
   id: 'goBack',
   icon: goBackIcn,
 };
+
+const exitBtn = {
+  id: 'goBack',
+  icon: exitIcn
+}
 
 const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
@@ -51,6 +66,27 @@ export const LOGIN_SCREEN = {
 export const BARCODE_SCAN_SCREEN = {
   screen: 'claro.BarcodeScreen',
   title: t('title_barcode_scan'),
+  navigatorStyle: {},
+  navigatorButtons: {
+
+  },
+};
+export const WIFI_GUIDE_SCREEN = {
+  screen: 'claro.TermOfUseScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const REGISTER_COMPLETE_SCREEN = {
+  screen: 'claro.RegisterCompleteScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const NICKNAME_SCREEN = {
+  screen: 'claro.NicknameScreen',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [goBack],
@@ -127,9 +163,17 @@ export const WIFI_SET_UP_SCREEN = {
   title: t('title_wifi_set_up'),
   navigatorStyle: {},
   navigatorButtons: {
-    leftButtons: [burgerBtn],
+    leftButtons: [goBack],
+  },
+}
+export const WIFI_MAIN_SCREEN = {
+  screen: 'claro.WifiMainScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
   },
 };
+
 
 export const REMOTE_SCREEN = {
   screen: 'claro.RemoteScreen',
@@ -164,6 +208,9 @@ export const FILTER_SCREEN = {
 // register all screens of the app (including internal ones)
 export function registerScreens() {
   Navigation.registerComponent(TERM_OF_USE_SCREEN.screen, () => NavigationWrapper(TermOfUseScreen), store, Provider);
+  Navigation.registerComponent(WIFI_GUIDE_SCREEN.screen, () => NavigationWrapper(WifiGuideScreen), store, Provider);
+  Navigation.registerComponent(NICKNAME_SCREEN.screen, () => NavigationWrapper(NicknameScreen), store, Provider);
+  Navigation.registerComponent(REGISTER_COMPLETE_SCREEN.screen, () => NavigationWrapper(RegisterCompleteScreen), store, Provider);
   Navigation.registerComponent(PERSONAL_INFO_SCREEN.screen, () => NavigationWrapper(PersonalInfoScreen), store, Provider);
   Navigation.registerComponent(CLARO_SIGNUP_SCREEN.screen, () => NavigationWrapper(ClaroSignupScreen), store, Provider);
   Navigation.registerComponent(NAVER_SIGNUP_SCREEN.screen, () => NavigationWrapper(NaverSignupScreen), store, Provider);
@@ -171,6 +218,7 @@ export function registerScreens() {
   Navigation.registerComponent(ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(AcceptSignupScreen), store, Provider);
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
+  Navigation.registerComponent(WIFI_MAIN_SCREEN.screen, () => NavigationWrapper(WifiMainScreen), store, Provider);
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);

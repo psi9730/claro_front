@@ -11,7 +11,7 @@ import easi6Logo from '../../../assets/images/easi_6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
-import {REMOTE_SCREEN} from '../../../../screens';
+import {REMOTE_SCREEN,NICKNAME_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
     password: ?string,
@@ -37,20 +37,131 @@ const WifiSetUpInput= styled.TextInput`
   border-bottom-width: 1px;
 `;
 
-const Container = styled.KeyboardAvoidingView`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  padding: 15px;
-  padding-bottom: 35px;
-`;
-
 const WifiSetUpText = styled.Text`
   font-size: 15px;
   color: #909090;
 `;
 
+const UsernameInput = styled.TextInput`
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+`;
+const TextsInput = styled.TextInput`
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 20px;
+  margin-top: 8px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+`;
+const TextsBoxInput = styled.TextInput`
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 20px;
+  border-top-width: 1px;
+  border-top-color: gray;
+  border-left-color: gray;
+  border-right-color: gray;
+  border-bottom-width: 2px;
+  border-bottom-color: blue;
+  borderLeftWidth: 1px;
+  borderRightWidth: 2px;
+  margin-top: 8px;
+  padding-bottom: 4px;
+  border-bottom-color: black;
+`;
+const TextsBoxContainer = styled.View`
+ width: 100%;
+  margin-bottom: 8px;
+  font-size: 20px;
+  borderTopWidth: 1px;
+  borderTopColor: gray;
+  borderLeftColor: gray;
+  borderRightColor: gray;
+  borderBottomWidth: 2px;
+  borderBottomColor: blue;
+  borderLeftWidth: 1px;
+  borderRightWidth: 1px;
+  margin-top: 8px;
+  padding-bottom: 4px;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+`
+const TitleText = styled.Text`
+  align-self: flex-start;
+  font-size: 15px;
+  color: gray;
+  margin-bottom: 18px;
+  margin-top:18px;
+  
+`;
+const IntroduceText = styled.Text`
+  align-self: flex-start;
+  font-size: 15px;
+  color: black;
+  margin-bottom: 5px;
+  margin-top:3px;
+  
+`;
+const ButtonText = styled.Text`
+  font-size: 15px;
+  color: white;
+`;
+
+const NavButton = styled.TouchableOpacity`
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: 40px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #00CC39;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const TextCenterContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: center;
+    align-items: center;
+`;
+
+
+const GrayLine = styled.View`
+  height: 1px;
+  width: 70%;
+  background-color: gray;
+`;
+const Container = styled.KeyboardAvoidingView`
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
+  padding: 30px;
+  padding-bottom: 5px;
+  
+`;
+
+const BottomButtonView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-end;
+    align-items: center;
+`;
 
 class WifiSetUpView extends Component<Props, State> {
   constructor(props) {
@@ -63,9 +174,9 @@ class WifiSetUpView extends Component<Props, State> {
   props: Props;
   componentWillMount() {
     (async () => {
-      const ssid = await Storage.getItem(KEYS.ssid);
-      const password = await Storage.getItem(KEYS.password);
-      this.props.restoreWifiInfo(ssid, password);
+      // const ssid = await Storage.getItem(KEYS.ssid);
+     //  const password = await Storage.getItem(KEYS.password);
+      // this.props.restoreWifiInfo(ssid, password);
     })();
   }
   showToastForResponse() {
@@ -101,29 +212,9 @@ class WifiSetUpView extends Component<Props, State> {
           await Storage.setItem(KEYS.wifi, 1);
           this.showToastForResponse();
           this.props.navigator.push({
-            ...SERIAL_NUMBER_SCREEN,
+            ...NICKNAME_SCREEN,
           });
         })();}).catch();
-  }
-
-  goRemote() {
-    Keyboard.dismiss();
-    (async() =>{
-      if(await Storage.getItem(KEYS.wifi)===1) {
-        this.props.navigator.push({
-          ...REMOTE_SCREEN,
-        });
-      }
-    })().catch((e)=>console.log(e));
-  }
-
-  toggleSecure() {
-    this.setState({
-      secure: !this.state.secure,
-    });
-  }
-  static dismissKeyboard() {
-    Keyboard.dismiss();
   }
 
   render() {
@@ -133,31 +224,51 @@ class WifiSetUpView extends Component<Props, State> {
           onPress={WifiSetUpView.dismissKeyboard}
         >
         <Container>
-            <WifiSetUpText>공유기 설정</WifiSetUpText>
-              <WifiSetUpInput placeholder="Wifi AP name" value={this.props.ssid} onChangeText={ssid => this.props.updateWifiSsid(ssid)} />
-              <WifiSetUpInput placeholder="Password" value={this.props.password} onChangeText={password => this.props.updateWifiPassword(password)} secureTextEntry={this.state.secure} />
-              <Icon active name={this.state.secure ? 'visibility' : 'visibility-off'} onPress={() => this.toggleSecure()} />
-            {/* <Button
-              light
-              style={{ marginBottom: 20 }}
-              onPress={() => this.props.getNf됻etworkInfo()}
-            >
-              <Text>접속한 AP정보 가져오기(가정 공유기에 연결된 상태에서 누르는 용도)</Text>
-            </Button> */}
-            <Button
-              style={{ marginBottom: 20 }}
-              onPress={() => this.sendWifi()}
-              title="위에 입력한 WIFI정보를 모듈로 보내기"
-            />
-            <Text>
-              (tcp data type 0x0300 전송에 성공하고 0x0301전송받는것에 성공하면 리모콘 화면으로 자동으로 이동)
-            </Text>
-            <Button
-              light
-              style={{ marginBottom: 20 }}
-              onPress={() => this.goRemote()}
-              title="리모콘 화면으로 가기"
-            />
+          <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+            연결할 인터넷 공유기의 SSID와 P/W를 입력해주세요.
+          </TitleText>
+          <IntroduceText style={  {textDecorationLine:'underline', marginBottom:30,  flexGrow:0, color:'black',alignSelf: 'flex-start',
+            flexShrink:0,
+            flexBasis: 'auto'}} >
+            SSID, P/W 확인방법
+          </IntroduceText>
+          <IntroduceText/>
+          <IntroduceText style={{color: 'gray'}}>
+            SSID
+          </IntroduceText>
+          <TextsBoxInput
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={(ssid)=>this.props.updateWifiSsid(ssid)}
+            value={this.props.ssid}
+            autoCapitalize='none'
+            style={{marginBottom: 25, fontSize: 18}}
+            blurOnSubmit={true}
+          />
+          <IntroduceText style={{color: 'gray'}}>
+            P/W
+          </IntroduceText>
+          <TextsBoxInput
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={(password)=>this.props.updateWifiPassword(password)}
+            value={this.props.barcode}
+            autoCapitalize='none'
+            style={{marginBottom: 25, fontSize: 18}}
+            blurOnSubmit={true}
+          />
+          <BottomButtonView>
+          <NavButton
+            style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+            onPress={()=> this.sendWifi()}
+          >
+            <TextCenterContainer>
+              <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                연결
+              </ButtonText>
+            </TextCenterContainer>
+          </NavButton>
+          </BottomButtonView>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

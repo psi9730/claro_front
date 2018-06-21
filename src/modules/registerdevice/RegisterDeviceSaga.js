@@ -1,6 +1,6 @@
 import { call, take, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
-import {post} from '../../utils/api';
+import {post,put as puts} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
@@ -82,10 +82,11 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
 }
 
 
-function* requestRegisterDevice({barcode}: {barcode: string}) {
+function* requestRegisterDevice({barcode,nickname}: {barcode: string,nickname: string}) {
   try {
     const body = {
       "serial_number": barcode,
+      "nickname": nickname,
       "latitude": 12,
       "longitude": 90
     };
@@ -97,6 +98,22 @@ function* requestRegisterDevice({barcode}: {barcode: string}) {
     yield put(DeviceActions.registerDeviceFailure(e));
   }
 }
+function* requestUpdateDevice({barcode,nickname}: {barcode: string,nickname: string}) {
+  try {
+    const body = {
+      "serial_number": barcode,
+      "nickname": nickname,
+      "latitude": 12,
+      "longitude": 90
+    };
+    console.log(body);
+    console.log(`${API_ROOT}/devices/register/`);
+    yield call(puts, `/devices/register/`, body, null);
+    yield put(DeviceActions.updateDeviceSuccess());
+  } catch (e) {
+    yield put(DeviceActions.updateDeviceFailure(e));
+  }
+}
 
 
 export const RegisterDeviceSaga = [
@@ -105,4 +122,5 @@ export const RegisterDeviceSaga = [
   takeLatest(DeviceTypes.SEND_SERIAL_NUMBER_REQUEST, requestSendSerialNumber),
   takeLatest(DeviceTypes.SEND_WIFI_INFO_REQUEST, requestSendWifiInfo),
   takeLatest(DeviceTypes.REGISTER_DEVICE_REQUEST, requestRegisterDevice),
+  takeLatest(DeviceTypes.UPDATE_DEVICE_REQUEST, requestUpdateDevice),
 ];

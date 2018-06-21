@@ -11,7 +11,7 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
-  BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN, REMOTE_SCREEN, LOGIN_SCREEN,WIFI_MAIN_SCREEN,
+  BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN, WIFI_GUIDE_SCREEN, REMOTE_SCREEN, LOGIN_SCREEN, WIFI_MAIN_SCREEN,
   ACCEPT_SIGNUP_SCREEN
 } from '../../../../screens';
 import SignupView from '../../login/SignupView';
@@ -86,7 +86,6 @@ const TitleText = styled.Text`
   margin-top:18px;
   
 `;
-
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
@@ -113,6 +112,15 @@ const NavButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
+const BottomButtonView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-end;
+    align-items: center;
+`;
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -138,18 +146,9 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 5px;
   
 `;
-const BottomButtonView = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: column
-    justify-content: flex-end;
-    align-items: center;
-`;
 
 
-class SerialNumberView extends Component<Props, State> {
+class WifiMainView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -174,8 +173,8 @@ class SerialNumberView extends Component<Props, State> {
       const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       const ap = await Storage.getItem(KEYS.ap);
-      //   this.props.restoreDevice(deviceInfo);
-      //  this.props.restoreSerialNumber(serialNumber);
+      this.props.restoreDevice(deviceInfo);
+      this.props.restoreSerialNumber(serialNumber);
       if (ap===2) {
         this.props.navigator.push({
           ...WIFI_SET_UP_SCREEN,
@@ -185,29 +184,22 @@ class SerialNumberView extends Component<Props, State> {
   }
 
   props: Props;
-
-  goBarcodeScan() {
+  goWifiSetUpView(){
     Keyboard.dismiss();
     this.props.navigator.push({
-      ...BARCODE_SCAN_SCREEN,
+      ...WIFI_SET_UP_SCREEN,
+    })
+  }
+  goWifiGuideView(){
+    Keyboard.dismiss();
+    this.props.navigator.push({
+      ...WIFI_GUIDE_SCREEN,
     })
   }
   showToastForResponse() {
-   toast("기기 등록 완료");
+    toast("기기 등록 완료");
   }
 
-  sendSerialAndServerInfo() {
-    Keyboard.dismiss();
-    if (this.props.barcode == null || this.props.barcode === '') {
-      toast(this.props.t('enter_your_SN'), 'error');
-      return;
-    }
-    else
-      this.props.navigator.push({
-        ...WIFI_MAIN_SCREEN,
-      })
-
-  }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
@@ -220,42 +212,22 @@ class SerialNumberView extends Component<Props, State> {
         >
           <Container>
             <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
-              제품등록
+              스마트폰의 Wi-Fi 설정을 CLARO_AP에 연결 해 주세요.
             </TitleText>
-            <IntroduceText>
-              {'CLARO APP을 사용 하시기 위해서는 제품을 등록하셔야 합니다.\n 제품 등록은 고객님의 제품 활용을 지원 하기 위해 꼭 필요한 단계입니다\n\n제품 뒷면의 S/N 번호를 직접 입력하시거나 스캔해 주세요\n'}
-            </IntroduceText>
-            <IntroduceText style={  {textDecorationLine:'underline', marginBottom:30,  flexGrow:0, color:'black',alignSelf: 'flex-start',
-              flexShrink:0,
-              flexBasis: 'auto'}} >
-              S/N 확인방법
-            </IntroduceText>
-            <NavButton
-              style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-              onPress={()=> this.goBarcodeScan()}
-            >
-              <TextCenterContainer>
-                <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                  바코드 스캐너로 입력
-                </ButtonText>
-              </TextCenterContainer>
-            </NavButton>
-            <IntroduceText>
-              S/N 직접입력
-            </IntroduceText>
-            <TextsBoxInput
-              underlineColorAndroid="transparent"
-              autoCorrect={false}
-              onChangeText={(barcode)=>this.props.updateBarcode(barcode)}
-              value={this.props.barcode}
-              autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 25}}
-              blurOnSubmit={true}
-            />
             <BottomButtonView>
             <NavButton
               style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-              onPress={()=> this.sendSerialAndServerInfo()}
+              onPress={()=> this.goWifiSetUpView()}
+            >
+              <TextCenterContainer>
+                <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                 Wifi 설정 바로가기
+                </ButtonText>
+              </TextCenterContainer>
+            </NavButton>
+            <NavButton
+              style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+              onPress={()=> this.goWifiGuideView()}
             >
               <TextCenterContainer>
                 <ButtonText style={{alignSelf: 'center', color:'black'}}>
@@ -264,14 +236,14 @@ class SerialNumberView extends Component<Props, State> {
               </TextCenterContainer>
             </NavButton>
             </BottomButtonView>
-        </Container>
+          </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
     );
   }
 }
 
-export default SerialNumberView;
+export default WifiMainView;
 
 /*   <SNInput
             placeholder="Enter S/N yourself"

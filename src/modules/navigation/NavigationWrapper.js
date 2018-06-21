@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -49,7 +49,6 @@ export default function NavigationWrapper(WrappedComponent) {
       }
       this.setState({appState: nextAppState});
     };
-
     render() {
       return <WrappedComponent {...this.props} />;
     }
@@ -62,11 +61,23 @@ export default function NavigationWrapper(WrappedComponent) {
           case SERIAL_NUMBER_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
             break;
+          case REGISTER_COMPLETE_SCREEN.screen:
+            screenObj = {...REGISTER_COMPLETE_SCREEN};
+            break;
+          case NICKNAME_SCREEN.screen:
+            screenObj = {...NICKNAME_SCREEN};
+            break;
+          case WIFI_MAIN_SCREEN.screen:
+            screenObj = {...WIFI_MAIN_SCREEN};
+            break;
           case TERM_OF_USE_SCREEN.screen:
             screenObj = {...TERM_OF_USE_SCREEN};
             break;
           case PERSONAL_INFO_SCREEN.screen:
             screenObj = {...PERSONAL_INFO_SCREEN};
+            break;
+          case WIFI_GUIDE_SCREEN.screen:
+            screenObj = {...WIFI_GUIDE_SCREEN};
             break;
           case NAVER_SIGNUP_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
