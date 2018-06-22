@@ -102,12 +102,12 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         },
       };
     case DeviceTypes.UPDATE_BARCODE:
+      console.log(action.barcode, "barcode");
       return{
         ...state,
         barcode:action.barcode,
       }
     case DeviceTypes.SEND_SERIAL_NUMBER_SUCCESS:
-      console.log("SUCCESS SEND SERIAL");
       return {
         ...state,
         loading: false,
@@ -142,7 +142,6 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
     case DeviceTypes.SEND_AP_SUCCESS:
     case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
     case DeviceTypes.REGISTER_DEVICE_SUCCESS:
-      console.log(action.payload,"registersuccess payload");
       return {
         ...state,
         loading: false,

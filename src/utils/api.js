@@ -41,6 +41,7 @@ export async function postGeo(locs: ?Array<Object>) {
   try {
     return await request('post', '/driver/geo', locs);
   } catch (e) {
+    console.log("Here is error");
     return false;
   }
 }
@@ -126,7 +127,7 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
-    console.log(response,"response");
+    console.log(response,"response by request",path);
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
@@ -153,7 +154,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
     if (status >= 400) {
       console.log("error in 400>=");
       const message = await getErrorMessageSafely(response);
-      toast(message, 'error');
       const error = new HttpError(status, message);
 
       // emit events on error channel, one for status-specific errors and other for all errors
@@ -196,14 +196,12 @@ const shouldContentTypeNull = (path) => _.includes(['/users/me/kyc_records'], pa
 async function sendRequest(method: string, path: string, body: ?{}|Array<any>) {
   try {
     const endpoint = url(path);
-    console.log("sendRequest");
     const token = await getAuthenticationToken();
     console.log(token,"token");
     const forceBasic = path === TOKEN_URL;
     const accessToken = token ? token.accessToken : null;
     const forceJson = false;
     const contentType = shouldContentTypeNull(path) ? null : APPLICATION_JSON_TYPE;
-
     if(body && !accessToken && _.isPlainObject(body)) {
       let newBody = ((body: any): ?{});
       body = {...newBody, locale: deviceLocale}
@@ -213,7 +211,6 @@ async function sendRequest(method: string, path: string, body: ?{}|Array<any>) {
     const options = body
       ? {method, headers, body: contentType === APPLICATION_JSON_TYPE ? JSON.stringify(decamelizeKeys(body)): body}
       : {method, headers};
-
     return timeout(fetch(endpoint, options), TIMEOUT);
   } catch (e) {
     throw new Error(e);

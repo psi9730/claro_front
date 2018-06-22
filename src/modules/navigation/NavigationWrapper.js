@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, WIFI_SOLUTION_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -56,10 +56,17 @@ export default function NavigationWrapper(WrappedComponent) {
     onNavigatorEvent(event) {
       if (event.type === 'DeepLink') {
         const link = event.link;
+        let back = false;
         let screenObj;
         switch (link) {
           case SERIAL_NUMBER_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
+            break;
+          case WIFI_SOLUTION_SCREEN.screen:
+            screenObj = {...WIFI_SOLUTION_SCREEN};
+            break;
+          case SERIAL_NUMBER_SOLUTION_SCREEN.screen:
+            screenObj = {...SERIAL_NUMBER_SOLUTION_SCREEN};
             break;
           case REGISTER_COMPLETE_SCREEN.screen:
             screenObj = {...REGISTER_COMPLETE_SCREEN};
@@ -111,8 +118,12 @@ export default function NavigationWrapper(WrappedComponent) {
             break;
           case FILTER_SCREEN.screen:
             screenObj = {...FILTER_SCREEN};
+          case 'back':
+            this.props.navigator.pop();
+            back = true;
+            break;
         }
-        this.props.navigator.resetTo(screenObj);
+        !back && this.props.navigator.resetTo(screenObj);
       } else if (event.type === 'NavBarButtonPress') {
         console.log("Button is pressed");
         if (event.id === 'toggleDrawer') {

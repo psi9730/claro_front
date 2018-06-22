@@ -144,6 +144,10 @@ class RemoteView extends Component<Props, State> {
     console.log("Constructor is implemented");
     super(props);
     autoBind(this);
+    this.props.navigator.setDrawerEnabled({
+      side: 'left',
+      enabled: true,
+    });
   }
   state: State = {
   };

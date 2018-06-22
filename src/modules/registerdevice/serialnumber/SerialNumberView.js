@@ -11,8 +11,7 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
-  BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN, REMOTE_SCREEN, LOGIN_SCREEN,WIFI_MAIN_SCREEN,
-  ACCEPT_SIGNUP_SCREEN
+  BARCODE_SCAN_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN,
 } from '../../../../screens';
 import SignupView from '../../login/SignupView';
 type Props = {
@@ -27,24 +26,7 @@ type State = {
   serialNumber: ?string,
   secure: boolean,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-const TextsInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
+
 const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
@@ -170,18 +152,6 @@ class SerialNumberView extends Component<Props, State> {
       side: 'left',
       enabled: false,
     });
-    (async () => {
-      const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      const ap = await Storage.getItem(KEYS.ap);
-      //   this.props.restoreDevice(deviceInfo);
-      //  this.props.restoreSerialNumber(serialNumber);
-      if (ap===2) {
-        this.props.navigator.push({
-          ...WIFI_SET_UP_SCREEN,
-        });
-      }
-    })();
   }
 
   props: Props;
@@ -202,11 +172,12 @@ class SerialNumberView extends Component<Props, State> {
       toast(this.props.t('enter_your_SN'), 'error');
       return;
     }
-    else
+    else {
+      console.log("this.props.barcode in serail",this.props.barcode);
       this.props.navigator.push({
         ...WIFI_MAIN_SCREEN,
       })
-
+    }
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -227,7 +198,9 @@ class SerialNumberView extends Component<Props, State> {
             </IntroduceText>
             <IntroduceText style={  {textDecorationLine:'underline', marginBottom:30,  flexGrow:0, color:'black',alignSelf: 'flex-start',
               flexShrink:0,
-              flexBasis: 'auto'}} >
+              flexBasis: 'auto'}} onPress={()=>this.props.navigator.push({
+                ...SERIAL_NUMBER_SOLUTION_SCREEN
+              })} >
               S/N 확인방법
             </IntroduceText>
             <NavButton

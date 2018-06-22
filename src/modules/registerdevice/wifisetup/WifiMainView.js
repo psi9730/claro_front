@@ -169,26 +169,32 @@ class WifiMainView extends Component<Props, State> {
       side: 'left',
       enabled: false,
     });
-    (async () => {
-      const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      const ap = await Storage.getItem(KEYS.ap);
-      this.props.restoreDevice(deviceInfo);
-      this.props.restoreSerialNumber(serialNumber);
-      if (ap===2) {
-        this.props.navigator.push({
-          ...WIFI_SET_UP_SCREEN,
-        });
-      }
-    })();
   }
 
   props: Props;
-  goWifiSetUpView(){
+  goWifiSetUpView() {
     Keyboard.dismiss();
-    this.props.navigator.push({
-      ...WIFI_SET_UP_SCREEN,
-    })
+    if (this.props.barcode == null || this.props.barcode === '') {
+      toast(this.props.t('enter_your_SN'), 'error');
+      return;
+    }
+    this.props.sendSerialNumberRequest(this.props.barcode).then(() => {
+      console.log("SerialNumber completed");
+      this.props.sendApRequest().catch();
+      (
+        async () => {
+          let key;
+          this.showToastForResponse();
+          console.log("show toast");
+          key = KEYS.serialNumber;
+          await Storage.setItem(key, this.props.barcode);
+        })();
+    }).then(() => this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(() => {
+      Keyboard.dismiss()
+      this.props.navigator.push({
+        ...WIFI_SET_UP_SCREEN,
+      })}).catch((e) => console.log(e))
+    ).catch(e => toast("Please turn on the Wifi", 'error'));
   }
   goWifiGuideView(){
     Keyboard.dismiss();

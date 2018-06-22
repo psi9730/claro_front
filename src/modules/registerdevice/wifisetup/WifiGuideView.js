@@ -156,6 +156,7 @@ class WifiGuideView extends Component<Props, State> {
     this.state = {
       secure: true,
       isFan: false,
+      isError: false,
     }
     this.props.navigator.setDrawerEnabled({
       side: 'left',
@@ -166,6 +167,7 @@ class WifiGuideView extends Component<Props, State> {
 
 
   componentWillMount() {
+    console.log("this barcode in GuideView",this.props.barcode)
     this.props.navigator.setDrawerEnabled({
       side: 'left',
       enabled: false,
@@ -183,21 +185,7 @@ class WifiGuideView extends Component<Props, State> {
       }
     })();*/
   }
-
   props: Props;
-  goWifiSetUpView(){
-    Keyboard.dismiss();
-    this.props.navigator.push({
-      ...WIFI_SET_UP_SCREEN,
-    })
-  }
-  goBarcodeScan() {
-    Keyboard.dismiss();
-    this.props.navigator.push({
-      ...BARCODE_SCAN_SCREEN,
-    })
-  }
-
   showToastForResponse() {
     toast("기기 등록 완료");
   }
@@ -210,7 +198,7 @@ class WifiGuideView extends Component<Props, State> {
     }
     this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
       console.log("SerialNumber completed");
-      this.props.sendApRequest();
+      this.props.sendApRequest().catch();
       (
         async () => {
           let key;
@@ -218,10 +206,12 @@ class WifiGuideView extends Component<Props, State> {
           console.log("show toast");
           key = KEYS.serialNumber;
           await Storage.setItem(key, this.props.barcode);
-        })();}).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).catch((e)=>console.log(e))).then(()=>{  Keyboard.dismiss();
+        })();}).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=>{  Keyboard.dismiss();
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
-      })}).catch( e=> toast("Please turn on the Wifi",'error'));
+      })}).catch( this.props.navigator.push({
+      ...WIFI_SET_UP_SCREEN,
+    }))).catch( e=> toast("Please turn on the Wifi",'error'));
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -242,7 +232,10 @@ class WifiGuideView extends Component<Props, State> {
             <GrayLine/>
             <TitleText style={{color: 'gray', alignSelf: 'center'}}>가이드 예시 이미지</TitleText>
             <Image source={WifiGuide} resizeMode='center' style={{alignSelf: 'center',flex:1}}/>
-            <TitleText style={{color: 'black', alignSelf: 'center'}}>본체의 전원버튼을 녹색이 깜빡일때까지 계속 누르십시오.</TitleText>
+            {!this.state.isError ? (
+                <TitleText style={{color: 'black', alignSelf: 'center'}}>본체의 전원버튼을 녹색이 깜빡일때까지 계속 누르십시오.</TitleText>)
+              : ( <TitleText style={{color: 'red', alignSelf: 'center'}}>본체의 전원버튼을 녹색이 깜빡일때까지 계속 누르시거나 S/N번호를 정확히 입력하셨는지 확인해주세요</TitleText>)
+            }
             <BottomButtonView>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}

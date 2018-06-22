@@ -5,6 +5,11 @@ import {Provider} from 'react-redux';
 import Storage, {KEYS} from './src/utils/ClaroStorage';
 import i18n from './src/utils/i18n';
 import store from './src/redux/store';
+import React, { Component } from 'react';
+import {
+  Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
+  TouchableWithoutFeedback, Platform
+} from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import FilterScreen from './src/modules/filter/FilterDragView';
@@ -12,6 +17,7 @@ import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeS
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import WifiMainScreen from './src/modules/registerdevice/wifisetup/WifiMainViewContainer';
+import WifiSolutionScreen from './src/modules/registerdevice/wifisetup/WifiSolutionViewContainer';
 import WifiGuideScreen from './src/modules/registerdevice/wifisetup/WifiGuideViewContainer';
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
 import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
@@ -26,6 +32,7 @@ import AcceptSignupScreen from './src/modules/login/AcceptSignupViewContainer';
 import PersonalInfoScreen from './src/modules/login/PersonalInfoViewContainer';
 import TermOfUseScreen from './src/modules/login/TermOfUseViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
+import SerialNumberSolutionScreen from './src/modules/registerdevice/serialnumber/SerialNumberSolutionViewContainer';
 import burgerIcn from './src/assets/images/burger.png';
 import goBackIcn from './src/assets/images/goBack.png';
 import exitIcn from './src/assets/images/exit.png';
@@ -43,13 +50,10 @@ const blankBtn = {
 
 const goBack = {
   id: 'goBack',
-  icon: goBackIcn,
-};
-
-const exitBtn = {
-  id: 'goBack',
-  icon: exitIcn
-}
+  icon: Platform.select({
+    ios: goBackIcn,
+    android: goBackIcn
+  })}
 
 const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
@@ -65,10 +69,21 @@ export const LOGIN_SCREEN = {
 
 export const BARCODE_SCAN_SCREEN = {
   screen: 'claro.BarcodeScreen',
-  title: t('title_barcode_scan'),
   navigatorStyle: {},
   navigatorButtons: {
 
+  },
+};
+export const WIFI_SOLUTION_SCREEN = {
+  screen: 'claro.WifiSolutionScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+  },
+};
+export const SERIAL_NUMBER_SOLUTION_SCREEN = {
+  screen: 'claro.SerialNumberSolutionScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
   },
 };
 export const WIFI_GUIDE_SCREEN = {
@@ -144,7 +159,6 @@ export const NAVER_SIGNUP_SCREEN = {
 };
 export const CHOICE_DEVICE_SCREEN = {
   screen: 'claro.ChoiceDeviceScreen',
-  title: '기기선택',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -152,7 +166,6 @@ export const CHOICE_DEVICE_SCREEN = {
 };
 export const SERIAL_NUMBER_SCREEN = {
   screen: 'claro.SerialNumberScreen',
-  title: t('title_serial_number'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [goBack],
@@ -160,7 +173,6 @@ export const SERIAL_NUMBER_SCREEN = {
 };
 export const WIFI_SET_UP_SCREEN = {
   screen: 'claro.WifiSetUpScreen',
-  title: t('title_wifi_set_up'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [goBack],
@@ -177,7 +189,6 @@ export const WIFI_MAIN_SCREEN = {
 
 export const REMOTE_SCREEN = {
   screen: 'claro.RemoteScreen',
-  title: t('title_remote_screen'),
   navigatorStyle: {
     navBarTextColor:'white',
   },
@@ -188,7 +199,6 @@ export const REMOTE_SCREEN = {
 
 export const REMOTE_DETAIL_SCREEN = {
   screen: 'claro.RemoteDetailScreen',
-  title: t('title_remote_screen'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -197,7 +207,6 @@ export const REMOTE_DETAIL_SCREEN = {
 
 export const FILTER_SCREEN = {
   screen: 'claro.FilterScreen',
-  title: t('title_filter_screen'),
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -207,6 +216,8 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(SERIAL_NUMBER_SOLUTION_SCREEN.screen, () => NavigationWrapper(SerialNumberSolutionScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_SCREEN.screen, () => NavigationWrapper(WifiSolutionScreen), store, Provider);
   Navigation.registerComponent(TERM_OF_USE_SCREEN.screen, () => NavigationWrapper(TermOfUseScreen), store, Provider);
   Navigation.registerComponent(WIFI_GUIDE_SCREEN.screen, () => NavigationWrapper(WifiGuideScreen), store, Provider);
   Navigation.registerComponent(NICKNAME_SCREEN.screen, () => NavigationWrapper(NicknameScreen), store, Provider);
@@ -230,8 +241,6 @@ export function registerScreens() {
 
 export function startApp() {
   (async () => {
-    await Storage.setItem(KEYS.accessToken, "okok");
-    await Storage.setItem(KEYS.refreshToken, "ookook");
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();

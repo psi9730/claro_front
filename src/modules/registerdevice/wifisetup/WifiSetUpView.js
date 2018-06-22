@@ -10,8 +10,8 @@ import toast from '../../../utils/toast';
 import easi6Logo from '../../../assets/images/easi_6.png';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
-import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
-import {REMOTE_SCREEN,NICKNAME_SCREEN} from '../../../../screens';
+import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../../screens';
+import {NICKNAME_SCREEN,WIFI_SOLUTION_SCREEN} from '../../../../screens';
 type Props = {
     ssid: ?string,
     password: ?string,
@@ -169,6 +169,7 @@ class WifiSetUpView extends Component<Props, State> {
     autoBind(this);
     this.state = {
       secure: true,
+      isError: false,
     };
   }
   props: Props;
@@ -211,10 +212,11 @@ class WifiSetUpView extends Component<Props, State> {
           console.log("store password "+Storage.getItem(KEYS.ssid));
           await Storage.setItem(KEYS.wifi, 1);
           this.showToastForResponse();
+          this.setState({isError:false});
           this.props.navigator.push({
             ...NICKNAME_SCREEN,
           });
-        })();}).catch();
+        })();}).catch((e)=>this.setState({isError:true}));
   }
 
   render() {
@@ -224,12 +226,19 @@ class WifiSetUpView extends Component<Props, State> {
           onPress={WifiSetUpView.dismissKeyboard}
         >
         <Container>
-          <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
-            연결할 인터넷 공유기의 SSID와 P/W를 입력해주세요.
-          </TitleText>
+          {!this.state.isError ? (<TitleText style = {{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+            {'연결할 인터넷 공유기의 SSID와 P/W를 입력해주세요.'}
+          </TitleText>) : (<View><TitleText style={{color:'red',fontSize: 25, fontWeight:'bold', marginBottom:8}} >
+            연결이 완료되지 않았습니다.
+            </TitleText>
+            <TitleText style={{marginTop: 4, fontSize: 25, color: 'black', fontWeight:'bold'}}> SSID와 P/W를 다시 입력 해주세요.</TitleText></View>)
+          }
+
           <IntroduceText style={  {textDecorationLine:'underline', marginBottom:30,  flexGrow:0, color:'black',alignSelf: 'flex-start',
             flexShrink:0,
-            flexBasis: 'auto'}} >
+            flexBasis: 'auto'}} onPress={()=>this.props.navigator.push({
+            ...WIFI_SOLUTION_SCREEN
+          })} >
             SSID, P/W 확인방법
           </IntroduceText>
           <IntroduceText/>
