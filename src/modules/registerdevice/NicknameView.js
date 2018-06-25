@@ -183,12 +183,13 @@ class NicknameView extends Component<Props, State> {
     Keyboard.dismiss();
     if(this.props.nickname==="") {
       this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> this.props.navigator.push({
+      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> Storage.setItem('nickname',this.props.deviceInfo.modelName)).
+        then(()=> this.props.navigator.push({
         ...REGISTER_COMPLETE_SCREEN,
       })).catch((e)=>console.log(e));
     }
     else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> this.props.navigator.push({
+      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> Storage.setItem('nickname',this.props.nickname)).then(()=> this.props.navigator.push({
         ...REGISTER_COMPLETE_SCREEN,
       })).catch((e)=>console.log(e))
     }

@@ -24,6 +24,7 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import up from '../../../assets/images/Arrowhead-01-128.png'
 import down from '../../../assets/images/Arrowhead-Down-01-128.png'
+import circle from '../../../assets/images/circle.png'
 
 type Props = {
   restoreOutsideAirInfo: Function,
@@ -52,6 +53,15 @@ const Container = styled.KeyboardAvoidingView`
   background-color: gray;
 `;
 const IconView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+const IconViewContainer = styled.View`
     flex-grow:1;
     flex-shrink:0;
     flex-basis: auto;
@@ -60,6 +70,13 @@ const IconView = styled.View`
     justify-content: space-around;
     align-items: center;
 `;
+const IconText = styled.Text`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis:auto;
+    fontSize: 10px;
+    color: gray;
+`
 const GrayLineContainer = styled.View`
     display:flex;
     flex-grow:0;
@@ -222,21 +239,36 @@ class RemoteBarView extends Component<Props, State> {
     console.log("this.props.height",this.props.height);
     console.log("this.props.delta",this.props._deltaY);
     let icon = this.icons['up'];
+
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={RemoteBarView.dismissKeyboard}
           >
             <Container>
-            <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center',  transform: [
-                { rotate: this.props._deltaY }
-              ],}} />
-            <IconView >
-              <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
-              <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' onPress={() => this.toggleAI()}/>
-              <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' onPress={() => this.toggleSterilizing()}/>
-              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' onPress={() => this.toggleAirCleaning()}/>
-            </IconView>
+            <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center'}} />
+            <IconViewContainer >
+              <TouchableOpacity onPress={() => this.togglePower()}>
+                <IconView>
+                  <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleAI()}>
+                <IconView>
+                  <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' />
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+                <IconView>
+                 <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' />
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+                <IconView>
+                  <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' />
+                </IconView>
+              </TouchableOpacity>
+            </IconViewContainer>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

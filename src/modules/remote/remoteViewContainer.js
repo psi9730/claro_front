@@ -13,6 +13,9 @@ export default connect(
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
     AI: _.get(state, ['remote', 'AI']),
+    date: _.get(state,['remote','date']),
+    backgroundColor: _.get(state,['remote','backgroundColor']),
+    location: _.get(state,['remote','location'])
   }),
   actions,
 )(

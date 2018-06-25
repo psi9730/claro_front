@@ -10,8 +10,6 @@ const { TCP_HOST_NAME, TCP_PORT_NUMBER } = Constants;
 
 export const callApi: Function = async (dataType: number, body) => {
   try {
-    console.log(dataType);
-    console.log(body);
     const client = net.connect({ port: TCP_PORT_NUMBER, host: TCP_HOST_NAME }, () => {
       const header = makeCommonHeader(dataType, body.length);
       const buf = Buffer.concat([header, body]);

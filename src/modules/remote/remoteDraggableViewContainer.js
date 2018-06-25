@@ -10,7 +10,9 @@ import Storage from '../../utils/ClaroStorage';
 
 export default connect(
   state => ({
-
+    date: _.get(state,['remote','date']),
+    backgroundColor: _.get(state,['remote','backgroundColor']),
+    location: _.get(state,['remote','location'])
   }),
   actions,
 )(

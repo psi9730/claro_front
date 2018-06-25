@@ -244,10 +244,10 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...SERIAL_NUMBER_SCREEN};
+    let firstScreen = {...REMOTE_SCREEN};
 
     if (token && token.accessToken) {
-      firstScreen = {...SERIAL_NUMBER_SCREEN};
+      firstScreen = {...REMOTE_SCREEN};
     }
 
     Navigation.startSingleScreenApp({

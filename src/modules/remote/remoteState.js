@@ -26,7 +26,10 @@ const initialState = {
   sterilizing: 0,
   url: 'https://www.google.com/',
   airCleaning: 0,
+  backgroundColor: 'steelblue',
   devices: [],
+  date: new Date(),
+  location: '금천구 가산동'
 };
 
 // Action Creators

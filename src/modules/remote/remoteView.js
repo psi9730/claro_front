@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {
   Button,
   Image,
+  ScrollView,
   Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
@@ -15,12 +16,18 @@ import {
   TouchableHighlight,
   View,
   Platform,
+  NativeModules,
 } from 'react-native';
 import autoBind from 'react-autobind';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
+import burgerIcn from '../../assets/images/burger.png';
+import circleIcn from '../../assets/images/circle.png';
+const { StatusBarManager } = NativeModules;
+import moment from 'moment';
+import dateformat from 'dateformat';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -41,37 +48,42 @@ const Container = styled.KeyboardAvoidingView`
   flex: 1;
   height:100%;
   flex-direction: column;
-  justify-content: center;
+  justify-content flex-start;
   background-color: white;
   padding-bottom: 3px;
 `;
 const TextView = styled.View`
-    flex-grow:1;
-    flex-shrink:2;
+    flex-grow:0;
+    flex-shrink:0;
     flex-basis: auto;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  paddingRight: 20px;
+  paddingLeft:20px;
+  paddingBottom:20px;
   justify-content: flex-start;
   align-items: flex-start;
 `;
 const OutAirView = styled.View`
-    flex-grow:2;
-    flex-shrink:1;
-    flex-basis: auto;
+    flex:1;
     padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
-const StatusView = styled.View`
+const OuterContainer = styled.View`
     flex-grow:1;
-    flex-shrink:2;
+    flex-shrink:1;
+    flex-basis: 230px;
+`;
+const StatusView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
     flex-basis: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: flex-end;
 `;
 const FunctionContainer = styled.View`
@@ -84,6 +96,20 @@ const FunctionContainer = styled.View`
     justify-content: flex-start;
 `;
 
+const InnerAirContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 40px;
+    display:flex;
+    padding: 3px;
+    paddingRight:0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    marginBottom:5px;
+    marginLeft:5px;
+    marginRight:0px;
+`;
+
 const TextContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -93,7 +119,55 @@ const TextContainer = styled.View`
     justify-content: center;
     align-items: flex-start;
 `;
+
+const ImageTextContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+`;
+const TextCenter = styled.Text`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    align-self: center;
+    font-size: 20;
+    color: white;
+    margin-bottom:10px;
+`;
+const OuterTextCenter = styled.Text`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    align-self: center;
+    font-size: 20;
+    color: black;
+    margin-bottom:10px;
+`;
+const OuterTextRight= styled.Text`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    align-self: flex-end;
+    font-size: 12px;
+    color: black;
+    margin-bottom:10px;
+    margin-right:10px;
+`;
 const TextLeftContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: flex-end;
+    align-items: center;
+    margin-right:10px;
+`;
+const DateLeftContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
     flex-basis: auto;
@@ -103,27 +177,6 @@ const TextLeftContainer = styled.View`
     align-items: center;
 `;
 
-const NavView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 45px;
-`;
-
-const RemoteText = styled.Text`
-  font-size: 15px;
-  color: #909090;
-`;
-
-const GrayLineContainer = styled.View`
-    display:flex;
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 25px;
-    height: 25px;
-    flex-direction: row;
-    justify-content:center;
-    align-items:center;
-`;
 const GrayLine = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -131,14 +184,26 @@ const GrayLine = styled.View`
     height: 2px; 
     background-color: gray;
 `;
+const DateText = styled.Text`
+    color : white;
+    font-size : 15px;
+`
 
 const IconView = styled.View`
     flex-grow:0;
     flex-shrink:0;
     flex-basis: 30px;
 `;
-
-
+const NavBar = styled.View`
+  display: flex;
+  flexDirection: row;
+  justifyContent: flex-end;
+  alignItems: center;
+`;
+const basicText = styled.View`
+  font-size: 15px;
+  color: white;
+`;
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     console.log("Constructor is implemented");
@@ -172,6 +237,8 @@ class RemoteView extends Component<Props, State> {
   props: Props;
 
   render() {
+    const Color = this.props.backgroundColor;
+    console.log(Color,"color");
     if(Platform.OS==='android'){
     this.props.navigator.setStyle({
       statusBarTextColorScheme: 'light',
@@ -180,7 +247,8 @@ class RemoteView extends Component<Props, State> {
       navBarNoBorder: true,
       topBarElevationShadowEnabled: false,
       navBarTextColor: 'white',
-      statusBarColor: 'steelblue',
+      statusBarColor: Color,
+      navBarHidden: true,
       navBarButtonColor: 'white',
     });}
     else {
@@ -189,42 +257,48 @@ class RemoteView extends Component<Props, State> {
         navBarButtonColor: 'white',
         navBarTextColor: 'white',
         navBarNoBorder: true,
-        statusBarColor: 'steelblue',
+        statusBarColor: Color,
+        navBarHidden: true,
         navBarBackgroundColor: 'steelblue',
       });
     }
+    var newDate = dateformat(this.props.date,'yyyy.mm.dd HH:MM');
     return (
-      <ThemeProvider theme={ClaroTheme}>
-        <TouchableWithoutFeedback
-          onPress={RemoteView.dismissKeyboard}
-        >
+            <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
           <Container>
-            <StatusView style={{backgroundColor : 'steelblue'}}>
-              <FunctionContainer style={{justifyContent: 'flex-end'}}>
-              <TextContainer style={{padding: 30 }}><Text style={{fontSize:40, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>좋음</Text><Text  style={{color: 'white'}}>통합공기청정도</Text></TextContainer>
-                <TextLeftContainer style={{padding: 30 }}><Text style={{color: 'white'}}>완전깨끗</Text></TextLeftContainer>
-              </FunctionContainer>
-            </StatusView>
-            <TextView>
-            <FunctionContainer>
-              <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>
-              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text>
-                <Text>ug/m3</Text></TextLeftContainer>
-            </FunctionContainer>
-            <FunctionContainer>
-              <TextContainer><Text>초미세먼지(PM 2.5)</Text></TextContainer>
-              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
-            </FunctionContainer>
-            <FunctionContainer>
-              <TextContainer><Text>GAS/VOCs</Text></TextContainer>
-              <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
-            </FunctionContainer>
+            <TextView style={{ backgroundColor : Color}}>
+                <TextCenter>
+                  실내 공기 정보
+                </TextCenter>
+                <InnerAirContainer style={{marginBottom:10}}>
+                  <TextContainer style={{backgroundColor: Color}}><Text style={{fontSize:15, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
+                  <TextLeftContainer style={{backgroundColor: Color }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>매우 나쁨</Text></TextLeftContainer>
+                </InnerAirContainer>
+              <InnerAirContainer style={{marginTop: 0, backgroundColor : 'white'}}>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >나쁨 </Text></TextLeftContainer>
+              </InnerAirContainer>
+              <InnerAirContainer style={{backgroundColor : 'white'}}>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>초미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >매우 나쁨</Text></TextLeftContainer>
+              </InnerAirContainer>
+              <InnerAirContainer style={{backgroundColor : 'white'}}>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
+              </InnerAirContainer>
           </TextView>
-            <GrayLine/>
-            <OutAirView>
-              <FunctionContainer style={{paddingBottom: 20}}>
-                <TextContainer><Text style={{fontSize:20, fontWeight: 'bold' }}>외부 공기 정보 </Text></TextContainer>
-                <TextLeftContainer><Text>금천구 가산</Text></TextLeftContainer>
+            <OuterContainer>
+              <ScrollView style={ {flexGrow:1}}>
+                <OutAirView>
+              <OuterTextRight>
+                {this.props.location}
+              </OuterTextRight>
+              <OuterTextCenter>
+                외부 공기 정보
+              </OuterTextCenter>
+              <FunctionContainer style={{paddingBottom: 10}}>
+                <TextContainer><Text style={{fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold', fontSize:25, color: Color}}>매우 나쁨</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>
@@ -250,10 +324,11 @@ class RemoteView extends Component<Props, State> {
                 <TextContainer><Text>이황상가스</Text></TextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.004 </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
-            </OutAirView>
+                </OutAirView>
+              </ScrollView>
+            </OuterContainer>
           </Container>
-        </TouchableWithoutFeedback>
-      </ThemeProvider>
+            </View>
     );
   }
 }

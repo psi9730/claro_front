@@ -39,14 +39,7 @@ const NavBar = styled.View`
   justifyContent: flex-end;
   alignItems: center;
 `;
-const IntroduceText = styled.Text`
-  align-self: flex-start;
-  font-size: 15px;
-  color: black;
-  margin-bottom: 5px;
-  margin-top:3px;
-  
-`;
+
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;

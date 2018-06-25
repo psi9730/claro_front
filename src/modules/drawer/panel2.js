@@ -66,8 +66,6 @@ class Panel2 extends Component<Props>{  //panel for no have children
       console.log(this.state.expanded);
     });
     this.state.animation.setValue(initialValue);
-    console.log(initialValue,"initialValue");
-    console.log(finalValue,"finalValue");
     Animated.spring(
       this.state.animation,
       {
@@ -77,14 +75,12 @@ class Panel2 extends Component<Props>{  //panel for no have children
   }
 
   _setMaxHeight(event){
-    console.log("calculate maxheight",event.nativeEvent.layout.height)
     this.setState({
       maxHeight   : event.nativeEvent.layout.height
     })
   };
 
   _setMinHeight(event){
-    console.log("calculate minheight",event.nativeEvent.layout.height)
     this.setState({
       minHeight   : event.nativeEvent.layout.height
     });

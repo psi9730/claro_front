@@ -68,7 +68,6 @@ class Panel extends Component<Props>{
   }
 
   _setMaxHeight(event){
-    console.log("calcultae maxheight",event.nativeEvent.layout.height,this.state.title);
     if(Platform.OS==='android'){
       this.setState({
         maxHeight: event.nativeEvent.layout.height
@@ -79,10 +78,6 @@ class Panel extends Component<Props>{
       maxHeight   : event.nativeEvent.layout.height
     },()=> {
       if (this.state.minHeight && this.state.first && this.state.maxHeight && Platform.OS==='ios') {
-        console.log(this.state.minHeight,"minHeight!!",this.state.title);
-        console.log(this.state.first,"first!!");
-        console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
-
         if (this.state.expanded === true) {
           this.toggle();
           this.setState({first: false});
@@ -92,15 +87,12 @@ class Panel extends Component<Props>{
   )}}
 
   _setMinHeight(event){
-    console.log("calculate minheight",event.nativeEvent.layout.height,this.state.title)
     if(Platform.OS==='android') {
       this.setState({
         minHeight: event.nativeEvent.layout.height
       }, ()=> setTimeout((function() {
         if (this.state.minHeight && this.state.first && this.state.maxHeight) {
-          console.log(this.state.minHeight,"minHeight!!",this.state.title);
           console.log(this.state.first,"first!!");
-          console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
           if (this.state.expanded === true) {
             this.toggle();
             this.setState({first: false});
@@ -113,10 +105,6 @@ class Panel extends Component<Props>{
           minHeight   : event.nativeEvent.layout.height
         },()=> {
           if (this.state.minHeight && this.state.first && this.state.maxHeight && Platform.OS==='ios') {
-            console.log(this.state.minHeight,"minHeight!!",this.state.title);
-            console.log(this.state.first,"first!!");
-            console.log(this.state.maxHeight,"maxHeight!!",this.state.title);
-
             if (this.state.expanded === true) {
               this.toggle();
               this.setState({first: false});

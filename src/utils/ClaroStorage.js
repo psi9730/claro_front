@@ -17,6 +17,7 @@ export const KEYS = {
   sterilizing: 'sterilizing',
   AI: 'AI',
   power: 'power',
+  nickname: 'nickname',
   airCleaning: 'airCleaning',
 };
 
