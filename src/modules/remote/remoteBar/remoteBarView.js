@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
   View,
+  Platform,
   Animated
 } from 'react-native';
 import autoBind from 'react-autobind';
@@ -24,8 +25,13 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import up from '../../../assets/images/Arrowhead-01-128.png'
 import down from '../../../assets/images/Arrowhead-Down-01-128.png'
-import circle from '../../../assets/images/circle.png'
-
+import circleIcn from '../../../assets/images/circle.png'
+import ElevatedView from 'react-native-elevated-view'
+import {BorderShadow} from 'react-native-shadow'
+import circleShadowIcn from '../../../assets/images/Circle-Shadow.jpg';
+import powerIcn from '../../../assets/images/powerIcn.png';
+import upIcn from '../../../assets/images/upIcn.png';
+import AIIcn from '../../../assets/images/AIIcn.png';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -45,12 +51,31 @@ type Props = {
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
-  height:100%;
   flex:1;
   display:flex;
   flex-direction: column;
   justify-content: center;
-  background-color: gray;
+  background-color: white;
+  elevation: 3;
+  shadow-color: #000;
+  shadow-opacity: 0.3;
+  shadow-radius: 20;
+`;
+const OuterContainer = styled.View`
+ height:100%;
+  flex:1;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  `;
+
+const IconText = styled.Text`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis:auto;
+    font-size: 10px;
+    color: gray;
 `;
 const IconView = styled.View`
     flex-grow:0;
@@ -70,28 +95,22 @@ const IconViewContainer = styled.View`
     justify-content: space-around;
     align-items: center;
 `;
-const IconText = styled.Text`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis:auto;
-    fontSize: 10px;
-    color: gray;
-`
 const GrayLineContainer = styled.View`
     display:flex;
     flex-grow:0;
     flex-shrink:0;
     flex-basis: 30px;
     height: 30px;
-    align-self: center; 
+    align-self: center;
 `;
 const GrayLine = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    width: 30%;
-    height: 4px; 
-    background-color: gray;
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 1px;
+    width: 100%;
+    background-color: black;
+    opacity:1;
+    top:  0px;
 `;
 
 
@@ -236,42 +255,82 @@ class RemoteBarView extends Component<Props, State> {
   props: Props;
 
   render() {
-    console.log("this.props.height",this.props.height);
     console.log("this.props.delta",this.props._deltaY);
     let icon = this.icons['up'];
-
+    const shadowOpt = {
+      color:"#000",
+      border:2,
+      height: 70,
+      width:100,
+      opacity:0.2,
+      side: 'top',
+    }
     return (
-      <ThemeProvider theme={ClaroTheme}>
-        <TouchableWithoutFeedback
-          onPress={RemoteBarView.dismissKeyboard}
-          >
-            <Container>
-            <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center'}} />
+      Platform.OS ==='ios' ?(
+            <Container style={{  shadowOffset: {width: 0, height: 2}}}>
+              <Image source={upIcn} style={{position: 'absolute',alignSelf: 'center', top:-15,height:40, width:60, resizeMode:'stretch'}} />
             <IconViewContainer >
               <TouchableOpacity onPress={() => this.togglePower()}>
                 <IconView>
-                  <Icon type='SimpleLineIcons' size={40} color = {this.props.power===0 ? 'black' : 'blue'} name='power' onPress={() => this.togglePower()}/>
+                  <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, tintColor: 'black', resizeMode:'stretch'}} />
+                  <IconText>전원</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleAI()}>
                 <IconView>
-                  <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' />
+                  <Image source={AIIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, tintColor: 'black', resizeMode:'stretch'}} />
+                  <IconText>AI</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleSterilizing()}>
                 <IconView>
                  <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' />
+                  <IconText>살균</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
                 <IconView>
                   <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' />
+                  <IconText>공기 청정</IconText>
                 </IconView>
               </TouchableOpacity>
             </IconViewContainer>
-          </Container>
-        </TouchableWithoutFeedback>
-      </ThemeProvider>
+          </Container>) :(
+        <Container >
+          <GrayLine style={{ opacity:0.1}}/>
+          <GrayLine style={{opacity:0.2}}/>
+          <GrayLine style={{opacity:0.3}}/>
+          <GrayLine style={{opacity:0.4}}/>
+          <GrayLine  style={{opacity:0.5}}/>
+        <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center'}} />
+        <IconViewContainer >
+          <TouchableOpacity onPress={() => this.togglePower()}>
+            <IconView>
+              <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,tintColor: 'black', resizeMode:'stretch'}} />
+              <IconText>전원</IconText>
+            </IconView>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.toggleAI()}>
+            <IconView>
+              <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' />
+              <IconText>AI</IconText>
+            </IconView>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+            <IconView>
+              <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' />
+              <IconText>살균</IconText>
+            </IconView>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+            <IconView>
+              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' />
+              <IconText>공기 청정</IconText>
+            </IconView>
+          </TouchableOpacity>
+        </IconViewContainer>
+        </Container>
+      )
     );
   }
 }

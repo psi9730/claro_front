@@ -26,7 +26,10 @@ import RemoteDetailView from '../remote/remoteDetail/remoteDetailViewContainer';
 import RemoteView from './remoteViewContainer';
 import Interactable from 'react-native-interactable';
 import burgerIcn from '../../assets/images/burger.png';
+import locationIcn from '../../assets/images/locationDot.png';
 import circleIcn from '../../assets/images/circle.png';
+import circleShadowIcn from '../../assets/images/Circle-Shadow.jpg';
+import ExtraDimensions from 'react-native-extra-dimensions-android';
 import dateformat from 'dateformat';
 const { StatusBarManager } = NativeModules;
 type Props = {
@@ -66,6 +69,10 @@ const DateText = styled.Text`
     color : white;
     font-size : 15px;
 `
+const Screen = {
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height
+}
 
 class RemoteDraggableView extends Component<Props, State> {
 
@@ -74,51 +81,46 @@ class RemoteDraggableView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.state = {
-      height: 70,
+      height: 200,
       first: true,
-      firstHeight: Dimensions.get('window').height,
+      firstHeight:Dimensions.get('window').height
     };
-    this._deltaY = new Animated.Value(Dimensions.get('window').height-70);
+    this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        navBarBackgroundColor: this.props.backgroundColor,
         statusBarTextColorSchemeSingleScreen: 'light',
-        navBarNoBorder: true,
         topBarElevationShadowEnabled: false,
-        navBarTextColor: 'white',
         statusBarColor: this.props.backgroundColor,
         navBarHidden: true,
-        navBarButtonColor: 'white',
       });}
     else {
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        navBarButtonColor: 'white',
-        navBarTextColor: 'white',
-        navBarNoBorder: true,
         statusBarColor: this.props.backgroundColor,
         navBarHidden: true,
-        navBarBackgroundColor: 'steelblue',
       });
-    }
+      console.log(this.deltaY,"deltaY1")
+      console.log(this.state,"state1");
+  }
   }
   componentDidUpdate(){
 
   }
   onDrawerSnap(event){
     if(event.nativeEvent.index===0){
+      console.log("gotoindex0");
       this.props.navigator.setStyle({
         statusBarColor: 'white',
         statusBarTextColorScheme: 'dark',
         statusBarTextColorSchemeSingleScreen: 'dark',
       })
-    } else{
+    } else if(event.nativeEvent.index===1){
       console.log("gotoindex1");
       this.props.navigator.setStyle({
-        statusBarTextColorScheme: 'white',
+        statusBarTextColorScheme: 'light',
         statusBarColor: this.props.backgroundColor,
-        statusBarTextColorSchemeSingleScreen: 'white',
+        statusBarTextColorSchemeSingleScreen: 'light',
       })
     }
   }
@@ -126,19 +128,11 @@ class RemoteDraggableView extends Component<Props, State> {
     console.log("onLayout");
       var {height} = event.nativeEvent.layout;
     console.log(height,"height is cal");
-    if(this.state.first===true && Platform.OS==='ios'){
-      this.setState({height: Dimensions.get('window').height});
-      console.log(Dimensions.get('window').height,"Dimension");
-      this.setState({first:false});
-      this.setState({firstHeight: Dimensions.get('window').height})
-    }
-    else {
+    if(Platform.OS==='android') {
       this.setState({height: height});
       this.setState({firstHeight: height})
-      console.log("calculate",height);
+      console.log("calculate", height);
     }
-    if(Platform.OS==='android')
-      this._deltaY = new Animated.Value(height-70)
   }
 
   static dismissKeyboard() {
@@ -199,39 +193,40 @@ class RemoteDraggableView extends Component<Props, State> {
           <RemoteView navigator={this.props.navigator}/>
           <View style={styles.blank}/>
         </View>
+        {Platform.OS==='android' ?(
         <View style={styles.panelContainer} pointerEvents={'box-none'}>
-          {this.state.height > 100 && <Animated.View
+         <Animated.View
             pointerEvents={'box-none'}
             style={[styles.panelContainer, {
               backgroundColor: 'black',
               opacity: this._deltaY.interpolate({
-                inputRange: [0, this.state.firstHeight-70],
+                inputRange: [0, this.state.firstHeight-100],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
               })
-            }]} />}
-          {this.state.height > 100 && <Interactable.View
+            }]} />
+          <Interactable.View
             ref={ref => {
               this.panel = ref;
             }}
             verticalOnly={true}
-            snapPoints={[{y: 0},{y: this.state.firstHeight-70}]}
+            snapPoints={[{y: 0},{y: this.state.firstHeight-100}]}
             boundaries={{top: 0}}
-            initialPosition={{y: this.state.firstHeight-70}}
+            initialPosition={{y: this.state.firstHeight-100}}
             animatedValueY={this._deltaY}
             onSnap={this.onDrawerSnap}>
             <View style={styles.panel}>
               <Animated.View style={[styles.bottomSheetHeader,{
                 height: this._deltaY.interpolate({
-                  inputRange: [0, this.state.firstHeight-70],
-                  outputRange: [0, 70],
+                  inputRange: [0, this.state.firstHeight-100],
+                  outputRange: [0, 100],
                   extrapolateRight: 'clamp'
                 })}]
               }
               >
                 <RemoteBarView
                                _deltaY={this._deltaY.interpolate({
-                  inputRange:[0, this.state.firstHeight-70], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                  inputRange:[0, this.state.firstHeight-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
                 })}
                 />
               </Animated.View>
@@ -239,8 +234,50 @@ class RemoteDraggableView extends Component<Props, State> {
                 <RemoteDetailView />
               </View>
             </View>
-          </Interactable.View>}
+          </Interactable.View>
         </View>
+          ) : (<View style={styles.panelContainer} pointerEvents={'box-none'}>
+          <Animated.View
+            pointerEvents={'box-none'}
+            style={[styles.panelContainer, {
+              backgroundColor: 'black',
+              opacity: this._deltaY.interpolate({
+                inputRange: [0, Screen.height-100],
+                outputRange: [0.5, 0],
+                extrapolateRight: 'clamp'
+              })
+            }]} />
+          <Interactable.View
+            ref={ref => {
+              this.panel = ref;
+            }}
+            verticalOnly={true}
+            snapPoints={[{y: 0},{y: Screen.height-100}]}
+            boundaries={{top: 0}}
+            initialPosition={{y: Screen.height-100}}
+            animatedValueY={this._deltaY}
+            onSnap={this.onDrawerSnap}>
+            <View style={styles.panel}>
+              <Animated.View style={{
+                height: this._deltaY.interpolate({
+                  inputRange: [0, Screen.height-100],
+                  outputRange: [0, 100],
+                  extrapolateRight: 'clamp'
+                })}
+              }
+              >
+                <RemoteBarView
+                  _deltaY={this._deltaY.interpolate({
+                    inputRange:[0,Screen.height-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                  })}
+                />
+              </Animated.View>
+              <View style={styles.bottomSheetContentIOS}>
+                <RemoteDetailView />
+              </View>
+            </View>
+          </Interactable.View>
+        </View>)}
       </View>
     )
   }
@@ -257,7 +294,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   panelContainer: {
-    height:'100%',
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -278,7 +314,7 @@ const styles = StyleSheet.create({
   blank: {
     flexGrow:0,
     flexShrink:0,
-    flexBasis: 70
+    flexBasis: 100
   },
   contentIOS: {
     flex:1,
@@ -297,6 +333,8 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     flexShrink: 0,
     flexBasis: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
   bottomSheetContent: {
     flex:1,

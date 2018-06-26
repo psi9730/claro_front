@@ -24,6 +24,7 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 import burgerIcn from '../../assets/images/burger.png';
+import locationIcn from '../../assets/images/locationDot.png';
 import circleIcn from '../../assets/images/circle.png';
 const { StatusBarManager } = NativeModules;
 import moment from 'moment';
@@ -59,8 +60,8 @@ const TextView = styled.View`
   display: flex;
   flex-direction: column;
   paddingRight: 20px;
-  paddingLeft:20px;
-  paddingBottom:20px;
+  paddingLeft: 20px;
+  paddingBottom: 20px;
   justify-content: flex-start;
   align-items: flex-start;
 `;
@@ -134,7 +135,7 @@ const TextCenter = styled.Text`
     flex-shrink:0;
     flex-basis: auto;
     align-self: center;
-    font-size: 20;
+    font-size: 20px;
     color: white;
     margin-bottom:10px;
 `;
@@ -143,7 +144,7 @@ const OuterTextCenter = styled.Text`
     flex-shrink:0;
     flex-basis: auto;
     align-self: center;
-    font-size: 20;
+    font-size: 20px;
     color: black;
     margin-bottom:10px;
 `;
@@ -151,16 +152,25 @@ const OuterTextRight= styled.Text`
     flex-grow:0;
     flex-shrink:0;
     flex-basis: auto;
-    align-self: flex-end;
     font-size: 12px;
-    color: black;
-    margin-bottom:10px;
-    margin-right:10px;
+    color: gray;
+    margin-right:5px;
 `;
 const TextLeftContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
     flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: flex-end;
+    align-items: center;
+    margin-right:10px;
+`;
+const LocationContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    align-self: flex-end;
     display:flex;
     flex-direction: row
     justify-content: flex-end;
@@ -238,7 +248,7 @@ class RemoteView extends Component<Props, State> {
 
   render() {
     const Color = this.props.backgroundColor;
-    console.log(Color,"color");
+    console.log(this.props.height,"height");
     if(Platform.OS==='android'){
     this.props.navigator.setStyle({
       statusBarTextColorScheme: 'light',
@@ -275,24 +285,27 @@ class RemoteView extends Component<Props, State> {
                   <TextLeftContainer style={{backgroundColor: Color }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>매우 나쁨</Text></TextLeftContainer>
                 </InnerAirContainer>
               <InnerAirContainer style={{marginTop: 0, backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >나쁨 </Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>초미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>초미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >매우 나쁨</Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: Color}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
               </InnerAirContainer>
           </TextView>
             <OuterContainer>
               <ScrollView style={ {flexGrow:1}}>
                 <OutAirView>
-              <OuterTextRight>
-                {this.props.location}
-              </OuterTextRight>
+                  <LocationContainer>
+                    <Image source={locationIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:15, width:10,marginRight:4,tintColor: 'gray', resizeMode:'stretch'}} />
+                    <OuterTextRight>
+                    {this.props.location}
+                    </OuterTextRight>
+                  </LocationContainer>
               <OuterTextCenter>
                 외부 공기 정보
               </OuterTextCenter>

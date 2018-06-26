@@ -2260,6 +2260,10 @@ dateformat@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
 
+dateformat@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
+
 debug@2.6.9, debug@^2.2.0, debug@^2.6.8:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -5793,6 +5797,14 @@ react-native-elements@^0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-elevated-view@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-elevated-view/-/react-native-elevated-view-0.0.6.tgz#560cc9ab16cfd5cb5ea821521558fc711e57e231"
+
+react-native-extra-dimensions-android@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/react-native-extra-dimensions-android/-/react-native-extra-dimensions-android-0.21.0.tgz#2992384a90df738cf678a452cadbf251052ce7bc"
+
 "react-native-fcm@https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz":
   version "14.1.3"
   resolved "https://github.com/easi6/react-native-fcm/archive/v14.1.3.tar.gz#d26db1f2b7d87429432e83aa815d5bba48f6d57d"
@@ -5874,6 +5886,10 @@ react-native-selectme@^1.2.3:
 "react-native-send-intent@https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz":
   version "1.0.22"
   resolved "https://github.com/gin1231/react-native-send-intent/archive/v1.0.22.tar.gz#26d41f60da05ed3d142cfd90e4dae486a7a0552d"
+
+react-native-shadow@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-shadow/-/react-native-shadow-1.2.2.tgz#08991cd14b71e32f2fc6363911c139d231949a66"
 
 react-native-svg@^6.3.1:
   version "6.3.1"
