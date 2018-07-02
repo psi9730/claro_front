@@ -29,7 +29,21 @@ const initialState = {
   backgroundColor: 'steelblue',
   devices: [],
   date: new Date(),
-  location: '금천구 가산동'
+  location: '금천구 가산동',
+  isTurnOnActive: false,
+  isTurnOffActive: false,
+  turnOnDay: {
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false,
+  },
+  turnOnHour: new Date(),
+  turnOffHour: 1,
+  sleep: 0,
 };
 
 // Action Creators
@@ -42,14 +56,63 @@ export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
     toggleAIRequest: ['AI','serial_number'],
     toggleSterilizingRequest: ['sterilizing','serial_number'],
     toggleAirCleaningRequest: ['air','serial_number'],
+    toggleSleepRequest: ['sleep','serial_number'],
     filterTimeReset:[],
+    setTurnOnDay: ['date'],
+    setTurnOnHour: ['hour'],
+    setTurnOffHour: ['hour'],
+    setTurnOffTimer: ['isActive'],
+    setTurnOnTimer: ['isActive'],
   })
 );
 
 // Reducer
 export default function RemoteReducer(state: RemoteState = initialState, action: Object = {}): RemoteState {
   switch (action.type) {
+    case RemoteTypes.SET_TURN_ON_DAY:
+      (async() => {
+        await Storage.setItem(KEYS.turnOnDay, action.date);
+      })();
+      return {
+
+        ...state,
+        turnOnDay: action.date,
+  }
+    case RemoteTypes.SET_TURN_ON_HOUR:
+      (async() => {
+        console.log(action.hour,'checkhour');
+        await Storage.setItem(KEYS.turnOnHour, action.hour);
+      })();
+      return {
+        ...state,
+        turnOnHour: action.hour,
+      }
+    case RemoteTypes.SET_TURN_OFF_HOUR:
+      (async() => {
+        await Storage.setItem(KEYS.turnOffHour, action.hour);
+      })();
+      return {
+        ...state,
+        turnOffHour: action.hour,
+      }
+    case RemoteTypes.SET_TURN_OFF_TIMER:
+      (async() => {
+        await Storage.setItem(KEYS.isTurnOffActive, action.isActive);
+      })();
+      return {
+        ...state,
+        isTurnOffActive: action.isActive,
+      }
+    case RemoteTypes.SET_TURN_ON_TIMER:
+      (async() => {
+        await Storage.setItem(KEYS.isTurnOnActive, action.isActive);
+      })();
+      return {
+        ...state,
+        isTurnOnActive: action.isActive,
+      }
     case RemoteTypes.TOGGLE_POWER_REQUEST:
+    case RemoteTypes.TOGGLE_SLEEP_REQUEST:
     case RemoteTypes.GET_DEVICE_INFO_REQUEST:
     case RemoteTypes.SET_DEVICE_INFO_REQUEST:
     case RemoteTypes.TOGGLE_STERILIZING_REQUEST:
@@ -64,6 +127,14 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         ...state,
         devices: action.payload,
       }
+    case RemoteTypes.TOGGLE_SLEEP_SUCCESS:
+      (async() => {
+          await Storage.setItem(KEYS.sleep,action.payload.sleep);
+      })();
+      return{
+        ...state,
+        sleep: action.payload.sleep,
+      };
     case RemoteTypes.SET_DEVICE_INFO_SUCCESS:
       (async() => {
         console.log(action.payload,"setDevice");

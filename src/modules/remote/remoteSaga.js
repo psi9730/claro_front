@@ -64,17 +64,31 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
       yield put(RemoteActions.toggleAirCleaningSuccess(air));
     }
     else if(air===2){
-        body = {
-          serial_number,
-          type: 6
-        };
-        const token = yield call(post, `/devices/add_command`, body);
-        yield put(RemoteActions.toggleAirCleaningSuccess(air));
+      body = {
+        serial_number,
+        type: 6
+      };
+      const token = yield call(post, `/devices/add_command`, body);
+      yield put(RemoteActions.toggleAirCleaningSuccess(air));
     }
   } catch (e) {
     yield put(RemoteActions.toggleAirCleaningFailure(e));
   }
 }
+function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, serial_number: string}) {
+  try {
+    let body;
+    body = {
+      serial_number,
+      type: 6
+    };
+    const token = yield call(post, `/devices/add_command`, body);
+    yield put(RemoteActions.toggleSleepSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.toggleSleepFailure(e));
+  }
+}
+
 function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterilizing: number, serial_number: string}) {
   try {
     let body;
@@ -122,6 +136,7 @@ function* requestGetDeviceInfoRequest({username}: {username:string}) {
 }
 export const RemoteSaga = [
   takeLatest(RemoteTypes.TOGGLE_POWER_REQUEST, requestTogglePowerRequest),
+  takeLatest(RemoteTypes.TOGGLE_SLEEP_REQUEST, requestToggleSleepRequest),
   takeLatest(RemoteTypes.TOGGLE_A_I_REQUEST, requestToggleAIRequest),
   takeLatest(RemoteTypes.TOGGLE_AIR_CLEANING_REQUEST, requestToggleAirRequest),
   takeLatest(RemoteTypes.TOGGLE_STERILIZING_REQUEST, requestToggleSterilizingRequest),

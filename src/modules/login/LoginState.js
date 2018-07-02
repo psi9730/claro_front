@@ -92,7 +92,6 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         error: action.error,
       }
     default:
-      console.log(state);
       return state;
   }
 }

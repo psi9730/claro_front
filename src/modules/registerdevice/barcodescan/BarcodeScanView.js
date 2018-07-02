@@ -20,7 +20,7 @@ import {
   NativeModules
 } from 'react-native';
 import autoBind from 'react-autobind';
-
+import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
@@ -78,6 +78,7 @@ class BarcodeScanView extends Component<Props, State> {
     super(props);
     this.camera = null;
     autoBind(this);
+    NavigationStyleWrapper(this.props.navigator,'light','transparent','transparent',true,true,'white','white')
   }
   state: State = {
     camera: {
@@ -104,26 +105,6 @@ class BarcodeScanView extends Component<Props, State> {
   props: Props;
 
   render() {
-    console.log('this.state', this.state);
-    if(Platform.OS==='android'){
-      this.props.navigator.setStyle({
-        statusBarTextColorScheme: 'light',
-        statusBarTextColorSchemeSingleScreen: 'light',
-        navBarHidden: true,
-        drawUnderNavBar: true,
-        drawUnderStatusBar: true,
-        statusBarColor: 'transparent'
-      });}
-    else {
-      this.props.navigator.setStyle({
-        statusBarTextColorScheme: 'light',
-        navBarHidden: true,
-        drawUnderNavBar: true,
-        drawUnderStatusBar: true,
-        statusBarColor: 'transparent'
-      });
-    }
-    let ScreenHeight = Dimensions.get("window").height;
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -159,8 +140,8 @@ class BarcodeScanView extends Component<Props, State> {
               <Image source={whiteExitIcn} resizeMode='stretch' style={{ height:20, width:20}}/>
             </TouchableHighlight>
           </View>
-      </TouchableWithoutFeedback>
-  </ThemeProvider>
+        </TouchableWithoutFeedback>
+      </ThemeProvider>
     );
   }
 }

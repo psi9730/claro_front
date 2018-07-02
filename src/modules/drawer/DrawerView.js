@@ -8,7 +8,9 @@ import {ThemeProvider} from 'styled-components';
 import Claro6Theme from '../../utils/ClaroTheme';
 import Panel from './panel';
 import Panel2 from './panel2';
-
+import Storage, {KEYS} from '../../utils/ClaroStorage';
+import {getAuthenticationToken} from '../../utils/authentication';
+import {REMOTE_SCREEN} from '../../../screens';
 type Props = {
   t: Function,
   me: ?{
@@ -19,79 +21,121 @@ type Props = {
   goToFilter: Function,
   logout: () => void,
 };
+const FunctionContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+`;
 
-const Container = styled.View`
-  flex: 1;
-  display: flex;
-  flex-flow: column;
-  background-color: ${props => props.theme.mainBgColor};
+const Container = styled.KeyboardAvoidingView`
+  flex:1;
+  height:100%;
+  margin:20px;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
 `;
-const DrawerContainer = styled.View`
-  flex: 0 0 120px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.mainBgColor};
-`;
-const Menus = styled.View`
-  flex: 1;
-  display: flex;
-  flex-flow: column;
-  border-top-color: ${props => props.theme.borderColor};
-  border-top-width: 1px;
-`;
-const MenuButton = styled.TouchableOpacity`
-  flex: 0 0 60px;
-  background-color: ${props => props.theme.mainBgColor};
-  justify-content: center;
-  align-items: center;
-  border-bottom-color: ${props => props.theme.borderColor};
-  border-bottom-width: 1px;
-`;
+const GrayText = styled.Text`
+  font-size: 15px;
+  color: gray;
+  margin-top:20px;
+  margin-bottom:20px;
+`
 const MenuText = styled.Text`
-  color: ${props => props.theme.mainColor};
+  font-weight: bold;
+  margin-bottom: 20px;
   font-size: 20px;
 `;
-
-const DrawerText = styled.Text`
-  margin-top: 5px;
-  font-size: 18px;
+const RowText = styled.Text`
+  font-weight: bold;
+  font-size: 20px;
+`;
+const DeviceText = styled.Text`
+  font-weight: bold;
+  color: blue;
+  margin-bottom: 8px;
+`;
+const GrayLine = styled.View`
+  height: 1px;
+  background-color: gray;
+  align-self:stretch;
 `;
 
-const SubButton = styled.TouchableOpacity`
-  flex: 0 0 60px;
-  background-color: ${props => props.theme.mainBgColor};
-  justify-content: center;
+const RowContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row;
+    marginBottom:15px;
+    marginRight:0px;
+`;
+const TextRightView = styled.View`
+    flex-grow:1;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: flex-end;
+    align-items: center;
+`;
+const TextLeftView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+`;
+const BottomButtonView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-end;
+    align-items: center;
+`;
+const NavButton = styled.TouchableOpacity`
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: 40px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #00CC39;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 `;
-const SubText = styled.Text`
-  color: ${props => props.theme.mainColor};
-  font-size: 14px;
+const TextCenterContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: center;
+    align-items: center;
 `;
-
+const ButtonText = styled.Text`
+  font-size: 15px;
+  color: white;
+`;
 class DrawerView extends Component<Props> {
   constructor(props: Object) {
     super(props);
     autoBind(this);
-  }
-  renderUser() {
-    //const {me, t} = this.props;
-
-    //if (!me) return null;
-
-    return (
-      <DrawerContainer>
-        <DrawerText>
-          Claro
-        </DrawerText>
-        <SubButton
-          onPress={this.props.goToRemote}
-        >
-          <SubText>
-            {this.props.t('title_profile')}
-          </SubText>
-        </SubButton>
-      </DrawerContainer>
-    );
+    (async () => {
+        const nickname = await Storage.getItem(KEYS.nickname);
+        const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
+        const modelName= deviceInfo.modelName;
+      }
+    )();
   }
 
   render() {
@@ -102,64 +146,73 @@ class DrawerView extends Component<Props> {
           onPress={this.props.hideDrawerView}
         >
         <Container>
-          {this.renderUser()}
-          <Panel title="Main">
-            <MenuButton
-              onPress={this.props.goToRemote}
-            >
+          <FunctionContainer>
+            <GrayText>Main</GrayText>
+            <TouchableOpacity onPress={() => this.props.goToRemote()}>
               <MenuText>
-                {t('product_control')}
+                제품제어
               </MenuText>
-            </MenuButton>
-          </Panel>
-          <Panel title="My Claro">
-            <MenuButton
-              onPress={this.props.goToChoiceDevice}
-            >
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
               <MenuText>
-                기기선택
+                공기질 관리
               </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.goToFilter}
-            >
+            </TouchableOpacity>
+            <GrayLine/>
+          </FunctionContainer>
+          <FunctionContainer>
+            <GrayText>My CLARO</GrayText>
+              <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
+                <RowContainer>
+                  <TextLeftView>
+                    <RowText>
+                      제품 관리
+                    </RowText>
+                  </TextLeftView>
+                  <TextRightView>
+                    <RowText style={{color: 'blue', fontSize:15}}>
+                      거실 (CLARO 3)
+                    </RowText>
+                  </TextRightView>
+                </RowContainer>
+              </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.goToFilter()}>
               <MenuText>
                 필터관리
               </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.goToRegisterDevice}
-            >
-              <MenuText>
-                제품등록
-              </MenuText>
-            </MenuButton>
-          </Panel>
-          <Panel title="내 정보">
-            <MenuButton
-              onPress={this.props.goToRegisterDevice}
-            >
+            </TouchableOpacity>
+            <GrayLine/>
+          </FunctionContainer>
+          <FunctionContainer>
+            <GrayText>내 정보</GrayText>
+            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
               <MenuText>
                 내 정보 관리
               </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.goToLogin}
-            >
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.goToLogin()}>
               <MenuText>
-                LOGIN/OUT
+                로그아웃
               </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.goToRegisterDevice}
-            >
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
               <MenuText>
                 설정
               </MenuText>
-            </MenuButton>
-          </Panel>
-          <Panel2 title="홈페이지">
-          </Panel2>
+            </TouchableOpacity>
+            </FunctionContainer>
+          <BottomButtonView>
+            <NavButton
+              style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+              onPress={() => Linking.openURL("http://www.google.com").catch(err => console.error('An error occurred', err))}
+            >
+              <TextCenterContainer>
+                <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                  홈페이지
+                </ButtonText>
+              </TextCenterContainer>
+            </NavButton>
+          </BottomButtonView>
         </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

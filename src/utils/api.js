@@ -197,7 +197,6 @@ async function sendRequest(method: string, path: string, body: ?{}|Array<any>) {
   try {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
-    console.log(token,"token");
     const forceBasic = path === TOKEN_URL;
     const accessToken = token ? token.accessToken : null;
     const forceJson = false;

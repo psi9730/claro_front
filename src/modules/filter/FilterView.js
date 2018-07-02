@@ -42,6 +42,38 @@ const ButtonView = styled.View`
   align-items: center;
 `;
 
+const ButtonText = styled.Text`
+  font-size: 15px;
+  color: white;
+`;
+
+const NavButton = styled.TouchableOpacity`
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: 40px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #00CC39;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const ImageContainer = styled.View`
+    position: absolute;
+`;
+
+const TextLeftContainer = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: center;
+    align-items: center;
+`;
+
 class FilterView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -127,6 +159,20 @@ class FilterView extends Component<Props, State> {
                 </View>
               </View>
             </Modal>
+              <NavButton
+                onPress={()=> this.props.navigator.push({
+                  ...NAVER_LOGIN_SCREEN,
+                })}
+              >
+                <ImageContainer>
+                  <Image source={naver} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+                </ImageContainer>
+                <TextLeftContainer>
+                  <ButtonText style={{alignSelf: 'center'}}>
+                    네이버로 로그인
+                  </ButtonText>
+                </TextLeftContainer>
+              </NavButton>
             <Button
               title={'필터 구매하기'}
               onPress={() => Linking.openURL(this.props.url).catch(err => console.error('An error occurred', err))}

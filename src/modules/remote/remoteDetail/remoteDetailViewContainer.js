@@ -12,7 +12,10 @@ export default connect(
     power: _.get(state, ['remote', 'power']),
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
+    isTurnOnActive: _.get(state, ['remote', 'isTurnOnActive']),
+    isTurnOffActive: _.get(state, ['remote', 'isTurnOffActive']),
     AI: _.get(state, ['remote', 'AI']),
+    sleep: _.get(state, ['remote', 'sleep']),
   }),
   actions,
 )(

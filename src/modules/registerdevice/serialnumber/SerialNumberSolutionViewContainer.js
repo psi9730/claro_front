@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import actions from '../../../redux/actions';
-import SerialNumberSolutionView from './SerialNumberSolutionView';
+import SerialNumberSolutionView from './SerialNumberSolutionView2';
 import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps} from 'recompose';

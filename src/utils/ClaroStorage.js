@@ -19,6 +19,11 @@ export const KEYS = {
   power: 'power',
   nickname: 'nickname',
   airCleaning: 'airCleaning',
+  isTurnOnActive: 'isTurnOnActive',
+  isTurnOffActive: 'isTurnOffActive',
+  turnOnDay: 'turnOnDay',
+  turnOnHour: 'turnOnHour',
+  turnOffHour: 'turnOffHour',
 };
 
 const getItem = async (key: string) => {

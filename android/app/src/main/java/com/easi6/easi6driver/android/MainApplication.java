@@ -3,6 +3,7 @@ package com.easi6.easi6driver.android;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
+import com.zyu.ReactNativeWheelPickerPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.wix.interactable.Interactable;
 import com.horcrux.svg.SvgPackage;
@@ -37,6 +38,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new ReactNativeWheelPickerPackage(),
         new ExtraDimensionsPackage(),
         new Interactable(),
         new SvgPackage(),
@@ -74,6 +76,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
       new MainReactPackage(),
+      new ReactNativeWheelPickerPackage(),
       new ExtraDimensionsPackage(),
       new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
       new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),

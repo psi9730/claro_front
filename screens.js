@@ -22,6 +22,7 @@ import WifiGuideScreen from './src/modules/registerdevice/wifisetup/WifiGuideVie
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
 import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
 import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
+import TimerScreen from './src/modules/remote/timer/timerViewContainer';
 import NicknameScreen from './src/modules/registerdevice/NicknameViewContainer';
 import RegisterCompleteScreen from './src/modules/registerdevice/RegisterCompleteViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
@@ -87,7 +88,14 @@ export const SERIAL_NUMBER_SOLUTION_SCREEN = {
   },
 };
 export const WIFI_GUIDE_SCREEN = {
-  screen: 'claro.TermOfUseScreen',
+  screen: 'claro.WifiGuideScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const TIMER_SCREEN = {
+  screen: 'claro.TimerScreen',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [goBack],
@@ -216,6 +224,7 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(TIMER_SCREEN.screen, () => NavigationWrapper(TimerScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SOLUTION_SCREEN.screen, () => NavigationWrapper(SerialNumberSolutionScreen), store, Provider);
   Navigation.registerComponent(WIFI_SOLUTION_SCREEN.screen, () => NavigationWrapper(WifiSolutionScreen), store, Provider);
   Navigation.registerComponent(TERM_OF_USE_SCREEN.screen, () => NavigationWrapper(TermOfUseScreen), store, Provider);
@@ -267,7 +276,7 @@ export function startApp() {
         style: { // ( iOS only )
           drawerShadow: true, // optional, add this if you want a side menu drawer shadow
           contentOverlayColor: 'rgba(0,0,0,0.25)', // optional, add this if you want a overlay color when drawer is open
-          leftDrawerWidth: 50, // optional, add this if you want a define left drawer width (50=percent)
+          leftDrawerWidth: 80, // optional, add this if you want a define left drawer width (50=percent)
           rightDrawerWidth: 50, // optional, add this if you want a define right drawer width (50=percent)
           navBarButtonColor: 'black',
         },

@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, WIFI_SOLUTION_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, WIFI_SOLUTION_SCREEN, TIMER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -77,6 +77,9 @@ export default function NavigationWrapper(WrappedComponent) {
           case WIFI_MAIN_SCREEN.screen:
             screenObj = {...WIFI_MAIN_SCREEN};
             break;
+          case TIMER_SCREEN.screen:
+            screenObj = {...TIMER_SCREEN};
+            break;
           case TERM_OF_USE_SCREEN.screen:
             screenObj = {...TERM_OF_USE_SCREEN};
             break;
@@ -118,6 +121,7 @@ export default function NavigationWrapper(WrappedComponent) {
             break;
           case FILTER_SCREEN.screen:
             screenObj = {...FILTER_SCREEN};
+            break;
           case 'back':
             this.props.navigator.pop();
             back = true;

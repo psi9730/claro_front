@@ -68,11 +68,11 @@ const DateLeftContainer = styled.View`
 const DateText = styled.Text`
     color : white;
     font-size : 15px;
-`
+`;
 const Screen = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height
-}
+};
 
 class RemoteDraggableView extends Component<Props, State> {
 
@@ -273,7 +273,7 @@ class RemoteDraggableView extends Component<Props, State> {
                 />
               </Animated.View>
               <View style={styles.bottomSheetContentIOS}>
-                <RemoteDetailView />
+                <RemoteDetailView navigator={this.props.navigator}/>
               </View>
             </View>
           </Interactable.View>
