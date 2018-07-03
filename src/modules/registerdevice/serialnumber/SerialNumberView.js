@@ -120,6 +120,7 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 5px;
   
 `;
+
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;

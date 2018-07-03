@@ -107,6 +107,15 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 5px;
   padding-Top:10px;
 `;
+const TopTextContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
 
 class TimerView extends Component<Props, State> {
   constructor(props) {
@@ -140,6 +149,11 @@ class TimerView extends Component<Props, State> {
     }
     )();
   }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.turnOnDay !== this.props.turnOnDay)
+      return true;
+    else return true;
+  }
 
   props: Props;
   setDay(date){
@@ -151,6 +165,7 @@ class TimerView extends Component<Props, State> {
       turnOnDay = _.update(this.props.turnOnDay,date,()=>{return true;})
     console.log(turnOnDay,'turnonDay');
     this.props.setTurnOnDay(turnOnDay);
+    this.forceUpdate()
   }
   setHour(hour){
     console.log(hour,'hour');
@@ -177,6 +192,7 @@ class TimerView extends Component<Props, State> {
           onPress={TimerView.dismissKeyboard}
         >
           <Container>
+            <TopTextContainer>타이머</TopTextContainer>
             <RemoteContainer><TextLeftView ><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
               <TextRightView>
                 <ToggleSwitch
@@ -292,7 +308,6 @@ class TimerView extends Component<Props, State> {
               date={newDate}
               onDateChange={this.setHour}
               mode={"time"}
-
             />) : (null)}
             {this.props.isTurnOnActive && Platform.OS==='android' ?   (<DatePicker
               onValueChange={value => this.setHour(value)}
@@ -364,7 +379,7 @@ class TimerView extends Component<Props, State> {
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("thursday")}>
-                  { _.get(this.props.turnOnDay,'thursday')?
+                  { _.get(this.props.turnOnDay,'thursday')===true?
                     <Image source={thursdayIcnBlue} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -385,7 +400,7 @@ class TimerView extends Component<Props, State> {
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("friday")}>
-                  {  _.get(this.props.turnOnDay,'friday') ?
+                  {  _.get(this.props.turnOnDay,'friday')===true?
                     <Image source={fridayIcnBlue} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -406,7 +421,7 @@ class TimerView extends Component<Props, State> {
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("saturday")}>
-                  {  _.get(this.props.turnOnDay,'saturday') ?
+                  {  _.get(this.props.turnOnDay,'saturday')===true ?
                     <Image source={saturdayIcnBlue} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -427,7 +442,7 @@ class TimerView extends Component<Props, State> {
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("sunday")}>
-                  {  _.get(this.props.turnOnDay,'sunday') ?
+                  {  _.get(this.props.turnOnDay,'sunday') ===true?
                     <Image source={sundayIcnBlue} style={{
                       flexGrow: 0,
                       flexShrink: 0,

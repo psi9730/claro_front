@@ -20,9 +20,7 @@ function* requestTogglePowerRequest({power, serial_number}: {power: number, seri
       serial_number,
         type:1
       };
-    console.log("power!!", body);
     const token = yield call(post, `/devices/add_command`, body);
-    console.log("token",token);
     yield put(RemoteActions.togglePowerSuccess(power));
   } catch (e) {
     yield put(RemoteActions.togglePowerFailure(e));
@@ -78,12 +76,18 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
 function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, serial_number: string}) {
   try {
     let body;
+    if(sleep===1)
     body = {
       serial_number,
       type: 6
     };
-    const token = yield call(post, `/devices/add_command`, body);
-    yield put(RemoteActions.toggleSleepSuccess(token));
+    else
+      body = {                //non-sleep mode
+        serial_number,
+        type: 7
+      };
+    yield call(post, `/devices/add_command`, body);
+    yield put(RemoteActions.toggleSleepSuccess(sleep));
   } catch (e) {
     yield put(RemoteActions.toggleSleepFailure(e));
   }

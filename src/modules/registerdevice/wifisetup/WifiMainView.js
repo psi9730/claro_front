@@ -189,7 +189,7 @@ class WifiMainView extends Component<Props, State> {
           key = KEYS.serialNumber;
           await Storage.setItem(key, this.props.barcode);
         })();
-    }).then(() => this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(() => {
+    }).then(() => this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(() => {
       Keyboard.dismiss()
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,

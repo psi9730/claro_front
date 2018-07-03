@@ -41,7 +41,6 @@ export async function postGeo(locs: ?Array<Object>) {
   try {
     return await request('post', '/driver/geo', locs);
   } catch (e) {
-    console.log("Here is error");
     return false;
   }
 }
@@ -127,7 +126,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
-    console.log(response,"response by request",path);
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
@@ -152,7 +150,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
     // `fetch` promises resolve even if HTTP status indicates failure. Reroute
     // promise flow control to interpret error responses as failures
     if (status >= 400) {
-      console.log("error in 400>=");
       const message = await getErrorMessageSafely(response);
       const error = new HttpError(status, message);
 
@@ -277,7 +274,6 @@ async function getErrorMessageSafely(response) {
     return body;
 
   } catch (e) {
-    console.log(response.statusText,"statusText");
     // Unreadable body, return whatever the server returned
     return response.statusText;
   }

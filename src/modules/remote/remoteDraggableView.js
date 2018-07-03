@@ -26,9 +26,6 @@ import RemoteDetailView from '../remote/remoteDetail/remoteDetailViewContainer';
 import RemoteView from './remoteViewContainer';
 import Interactable from 'react-native-interactable';
 import burgerIcn from '../../assets/images/burger.png';
-import locationIcn from '../../assets/images/locationDot.png';
-import circleIcn from '../../assets/images/circle.png';
-import circleShadowIcn from '../../assets/images/Circle-Shadow.jpg';
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import dateformat from 'dateformat';
 const { StatusBarManager } = NativeModules;
@@ -86,6 +83,8 @@ class RemoteDraggableView extends Component<Props, State> {
       firstHeight:Dimensions.get('window').height
     };
     this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
+  }
+  componentWillMount(){
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
@@ -102,7 +101,7 @@ class RemoteDraggableView extends Component<Props, State> {
       });
       console.log(this.deltaY,"deltaY1")
       console.log(this.state,"state1");
-  }
+    }
   }
   componentDidUpdate(){
 

@@ -33,7 +33,7 @@ const FunctionContainer = styled.View`
 const Container = styled.KeyboardAvoidingView`
   flex:1;
   height:100%;
-  margin:20px;
+  margin:28px;
   display:flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -130,10 +130,19 @@ class DrawerView extends Component<Props> {
   constructor(props: Object) {
     super(props);
     autoBind(this);
+    this.state={
+      nickname: '',
+      modelName: '',
+    }
+  }
+  componentWillMount(){
     (async () => {
         const nickname = await Storage.getItem(KEYS.nickname);
         const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
         const modelName= deviceInfo.modelName;
+        console.log(nickname,'nickname');
+        console.log(modelName,'modelName');
+        this.setState({nickname: nickname, modelName: modelName})
       }
     )();
   }
@@ -171,7 +180,7 @@ class DrawerView extends Component<Props> {
                   </TextLeftView>
                   <TextRightView>
                     <RowText style={{color: 'blue', fontSize:15}}>
-                      거실 (CLARO 3)
+                    {this.state.nickname}  {this.state.modelName}
                     </RowText>
                   </TextRightView>
                 </RowContainer>

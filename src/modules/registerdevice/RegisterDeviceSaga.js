@@ -1,6 +1,6 @@
 import { call, take, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
-import {post,put as puts} from '../../utils/api';
+import {post,get, del, put as puts} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
@@ -82,13 +82,14 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
 }
 
 
-function* requestRegisterDevice({barcode,nickname}: {barcode: string,nickname: string}) {
+function* requestRegisterDevice({barcode,nickname,deviceInfo}: {barcode: string,nickname: string,deviceInfo:any}) {
   try {
     const body = {
       "serial_number": barcode,
       "nickname": nickname,
       "latitude": 12,
-      "longitude": 90
+      "longitude": 90,
+      "device_info": JSON.stringify(deviceInfo)
     };
     console.log(body);
     console.log(`${API_ROOT}/devices/register/`);
@@ -109,15 +110,45 @@ function* requestUpdateDevice({barcode,nickname}: {barcode: string,nickname: str
     console.log(body);
     console.log(`${API_ROOT}/devices/register/`);
     yield call(puts, `/devices/register/`, body, null);
-    yield put(DeviceActions.updateDeviceSuccess());
+    yield put(DeviceActions.updateDeviceSuccess(nickname));
   } catch (e) {
     yield put(DeviceActions.updateDeviceFailure(e));
   }
 }
-
-
+function* requestIsActive({isActive}: {isActive:boolean}) {
+  try {
+    const body ={
+      isActivePush: isActive
+      }
+    ;
+    //yield call(puts, `/devices/register/`, body, null);
+    yield put(DeviceActions.isActiveSuccess(isActive));
+  } catch (e) {
+    yield put(DeviceActions.isActiveFailure(e));
+  }
+}
+function* requestDeleteDevice({serialNumber}: {serialNumber:string}) {
+  try {
+    const token = yield call(del, `/devices/register/${serialNumber}`);
+    yield put(DeviceActions.deleteDeviceSuccess(token));
+  } catch (e) {
+    yield put(DeviceActions.deleteDeviceFailure(e));
+  }
+}
+function* requestGetDevices() {
+  try {
+    const username= "sss";
+    const token = yield call(get, `/devices/get_device_list/${username}`);
+    yield put(DeviceActions.getDevicesSuccess(token));
+  } catch (e) {
+    yield put(DeviceActions.getDevicesFailure(e));
+  }
+}
 export const RegisterDeviceSaga = [
   takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
+  takeLatest(DeviceTypes.DELETE_DEVICE_REQUEST, requestDeleteDevice),
+  takeLatest(DeviceTypes.GET_DEVICES_REQUEST, requestGetDevices),
+  takeLatest(DeviceTypes.IS_ACTIVE_REQUEST, requestIsActive),
   takeLatest(DeviceTypes.SEND_AP_REQUEST, requestSendAP),
   takeLatest(DeviceTypes.SEND_SERIAL_NUMBER_REQUEST, requestSendSerialNumber),
   takeLatest(DeviceTypes.SEND_WIFI_INFO_REQUEST, requestSendWifiInfo),

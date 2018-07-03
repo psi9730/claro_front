@@ -1,16 +1,20 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import {Modal,
+import {
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
   TouchableWithoutFeedback, Linking, WebView, TouchableHighlight
 } from 'react-native';
+import Modal from 'react-native-modal';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import * as Progress from 'react-native-progress';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
+import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
+import exitIcnRed from '../../assets/images/exitIcnRed.png';
+import NavigationStyleWrapper from '../../utils/NavigationStyleWrapper';
 type Props = {
   filterMaxTime: number,
   filterUsingTime: number,
@@ -44,16 +48,21 @@ const ButtonView = styled.View`
 
 const ButtonText = styled.Text`
   font-size: 15px;
-  color: white;
+`;
+
+const TitleText = styled.Text`
+  font-size: 21px;
+  font-weight: bold;
 `;
 
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
+  border-width: 1;
   flex-basis: 40px;
   width: 100%;
-  margin-bottom: 5px;
-  background-color: #00CC39;
+  margin-bottom: 8px;
+  background-color: white;
   display:flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -72,6 +81,71 @@ const TextLeftContainer = styled.View`
     flex-direction: row
     justify-content: center;
     align-items: center;
+`;
+const BottomButtonView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-end;
+    align-items: center;
+`;
+const BottomButtonRowView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: space-around;
+    align-items: center;
+`;
+const TopTextContainer = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+const ModalView2= styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis:auto;
+    border-radius:30;
+    border-width: 1;
+    border-color: white;
+    width:90%;
+    display:flex;
+    flex-direction:column;
+    background-color:white;
+`;
+const ModalContainer = styled.View`
+    flex-grow:3;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: center;
+    align-items: center;
+`;
+const ModalView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 180px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+const GrayLine = styled.View`
+  flex-grow: 0; 
+  flex-shrink: 0; 
+  flex-basis: auto;
+  height: 1px;
+  width: 100%;
+  background-color: gray;
 `;
 
 class FilterView extends Component<Props, State> {
@@ -105,6 +179,7 @@ class FilterView extends Component<Props, State> {
       }).bind(this), 1000))
   }
   componentWillMount(){
+    NavigationStyleWrapper(this.props.navigator,'dark','white','white',false,false)
     this.setState({progress: 0},()=>
     setTimeout((function() {
       this.setState({ progress: this.state.progress + this.props.filterUsingTime})
@@ -118,94 +193,92 @@ class FilterView extends Component<Props, State> {
 
 
   render() {
-
+    NavigationStyleWrapper(this.props.navigator,'dark','white','white',false,false)
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={FilterView.dismissKeyboard}
         >
           <Container >
+            <TopTextContainer>
+              <TitleText> 필터 관리</TitleText>
+            </TopTextContainer>
             <ButtonView>
-            <Progress.Circle size={100} progress={ this.state.progress/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${progress1}%`)}}/>
-            <Button
-              title={'필터 사용시간 초기화'}
-              style={{ marginBottom: 20 }}
-              light
-              onPress={() => this.setResetVisible(!this.state.resetVisible)}
-              color={ClaroTheme.mainColor}
-            />
+              <Progress.Circle size={100} progress={ this.state.progress/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${progress1}%`)}}/>
+            </ButtonView>
             <Modal
-              animationType="slide"
-              transparent={false}
-              visible={this.state.resetVisible}
-              onRequestClose={() => {
-                alert('Modal has been closed.');
-              }}>
-              <View style={{marginTop: 22}}>
-                <View>
-                  <Text>필터 사용시간을 초기화 하시겠습니까?</Text>
-                  <Button title={'OK'}  style={{ marginBottom: 20 }}
-                          light
-                          onPress={() => this.filterTimeReset()}/>
-                  <Button title={'NO'}  style={{ marginBottom: 20 }}
-                          light
-                          onPress={() => this.setResetVisible(!this.state.resetVisible)}/>
-                  <TouchableHighlight
-                    onPress={() => {
-                      this.setResetVisible(!this.state.resetVisible);
-                    }}>
-                    <Text>Hide Modal</Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </Modal>
-              <NavButton
-                onPress={()=> this.props.navigator.push({
-                  ...NAVER_LOGIN_SCREEN,
-                })}
+              isVisible={this.state.resetVisible}
+              onBackdropPress={() => this.setResetVisible(!this.state.resetVisible)}
               >
-                <ImageContainer>
-                  <Image source={naver} resizeMode='center' style={{height:30, width:30, margin:10}}/>
-                </ImageContainer>
+              <ModalView style={{marginTop: 22}}>
+                <ModalView2>
+                  <ModalContainer>
+                    <Text>필터 사용시간을 초기화 하시겠습니까?</Text>
+                  </ModalContainer>
+                    <GrayLine/>
+                    <BottomButtonRowView>
+                      <TouchableHighlight onPress={()=> this.filterTimeReset()} >
+                        <Image source={circleIcnBlue} resizeMode='stretch' style={{height:25, width:25}}/>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={()=> this.setResetVisible(!this.state.resetVisible)} >
+                        <Image source={exitIcnRed} resizeMode='stretch' style={{height:25, width:25}}/>
+                      </TouchableHighlight>
+                    </BottomButtonRowView>
+                </ModalView2>
+              </ModalView>
+            </Modal>
+              <BottomButtonView>
+              <NavButton
+                onPress={()=> this.setResetVisible(!this.state.resetVisible)}
+              >
                 <TextLeftContainer>
                   <ButtonText style={{alignSelf: 'center'}}>
-                    네이버로 로그인
+                    필터 사용시간 초기화
                   </ButtonText>
                 </TextLeftContainer>
               </NavButton>
-            <Button
-              title={'필터 구매하기'}
-              onPress={() => Linking.openURL(this.props.url).catch(err => console.error('An error occurred', err))}
-              color={ClaroTheme.mainColor} />
-            <Button
-              title={'필터 교체 방법'}
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible)
-              }}
-              color={ClaroTheme.mainColor}
-            />
-            <Modal
-              animationType="slide"
-              transparent={false}
-              visible={this.state.modalVisible}
-              onRequestClose={() => {
-                alert('Modal has been closed.');
-              }}>
-              <View style={{marginTop: 22}}>
-                <View>
-                  <Text>this is way to change filter</Text>
-                  <TouchableHighlight
-                    onPress={() => {
-                      this.setModalVisible(!this.state.modalVisible);
-                      console.log(this.state.modalVisible);
-                    }}>
-                    <Text>Hide Modal</Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </Modal>
-            </ButtonView>
+              <NavButton
+                onPress={() => Linking.openURL(this.props.url).catch(err => console.error('An error occurred', err))}
+              >
+                <TextLeftContainer>
+                  <ButtonText style={{alignSelf: 'center'}}>
+                    필터 구매하기
+                  </ButtonText>
+                </TextLeftContainer>
+              </NavButton>
+              <NavButton
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible)
+                }}
+              >
+                <TextLeftContainer>
+                  <ButtonText style={{alignSelf: 'center'}}>
+                    필터 교체 방법
+                  </ButtonText>
+                </TextLeftContainer>
+              </NavButton>
+                <Modal
+                  isVisible={this.state.modalVisible}
+                  onBackdropPress={() => this.setModalVisible(!this.state.modalVisible)}
+                >
+                  <ModalView style={{marginTop: 22}}>
+                    <ModalView2>
+                      <ModalContainer>
+                        <Text>필터 사용시간을 초기화 하시겠습니까?</Text>
+                      </ModalContainer>
+                      <GrayLine/>
+                      <BottomButtonRowView>
+                        <TouchableHighlight onPress={()=> this.filterTimeReset()} >
+                          <Image source={circleIcnBlue} resizeMode='stretch' style={{height:25, width:25}}/>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={()=> this.setModalVisible(!this.state.modalVisible)} >
+                          <Image source={exitIcnRed} resizeMode='stretch' style={{height:25, width:25}}/>
+                        </TouchableHighlight>
+                      </BottomButtonRowView>
+                    </ModalView2>
+                  </ModalView>
+                </Modal>
+              </BottomButtonView>
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>

@@ -20,6 +20,7 @@ const setNavStyle = (navigator, scheme, statusBarColor, navBarColor, navBarHidde
         navBarTextColor: navBarTextColor,
         navBarNoBorder: true,
         statusBarColor: statusBarColor,
+        navBarBackgroundColor: navBarColor,
         navBarHidden: navBarHidden,
         drawUnderNavBar: navBarHidden,
         drawUnderStatusBar: statusBarHidden,

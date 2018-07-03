@@ -5867,6 +5867,13 @@ react-native-modal@^5.4.0:
     prop-types "^15.6.1"
     react-native-animatable "^1.2.4"
 
+react-native-modal@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-6.1.0.tgz#cc63946bd62cebfb8e531aa125796e26f5acd9c3"
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-animatable "^1.2.4"
+
 react-native-navigation@^1.1.440:
   version "1.1.440"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.440.tgz#61b6f836b5bdd78c5de6dd7f4d05067f88a7ce1d"

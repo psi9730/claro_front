@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
-import FilterScreen from './src/modules/filter/FilterDragView';
+import FilterScreen from './src/modules/filter/FilterViewContainer';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
@@ -25,6 +25,8 @@ import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailVi
 import TimerScreen from './src/modules/remote/timer/timerViewContainer';
 import NicknameScreen from './src/modules/registerdevice/NicknameViewContainer';
 import RegisterCompleteScreen from './src/modules/registerdevice/RegisterCompleteViewContainer';
+import DeviceSelectScreen from './src/modules/registerdevice/deviceSelect/deviceSelectViewContainer';
+import DeviceInfoScreen from './src/modules/registerdevice/deviceInfo/deviceInfoViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
 import ClaroSignupScreen from './src/modules/login/ClaroSignupViewContainer';
@@ -193,6 +195,23 @@ export const WIFI_MAIN_SCREEN = {
     leftButtons: [goBack],
   },
 };
+export const DEVICE_SELECT_SCREEN = {
+  screen: 'claro.DeviceSelectScreen',
+  navigatorStyle: {
+  },
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+
+export const DEVICE_INFO_SCREEN = {
+  screen: 'claro.DeviceInfoScreen',
+  navigatorStyle: {
+  },
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
 
 
 export const REMOTE_SCREEN = {
@@ -224,6 +243,8 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(DEVICE_INFO_SCREEN.screen, () => NavigationWrapper(DeviceInfoScreen), store, Provider);
+  Navigation.registerComponent(DEVICE_SELECT_SCREEN.screen, () => NavigationWrapper(DeviceSelectScreen), store, Provider);
   Navigation.registerComponent(TIMER_SCREEN.screen, () => NavigationWrapper(TimerScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SOLUTION_SCREEN.screen, () => NavigationWrapper(SerialNumberSolutionScreen), store, Provider);
   Navigation.registerComponent(WIFI_SOLUTION_SCREEN.screen, () => NavigationWrapper(WifiSolutionScreen), store, Provider);
@@ -253,7 +274,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...REMOTE_SCREEN};
+    let firstScreen = {...FILTER_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...REMOTE_SCREEN};
@@ -274,7 +295,7 @@ export function startApp() {
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN},
         style: { // ( iOS only )
-          drawerShadow: true, // optional, add this if you want a side menu drawer shadow
+          drawerShadow: false, // optional, add this if you want a side menu drawer shadow
           contentOverlayColor: 'rgba(0,0,0,0.25)', // optional, add this if you want a overlay color when drawer is open
           leftDrawerWidth: 80, // optional, add this if you want a define left drawer width (50=percent)
           rightDrawerWidth: 50, // optional, add this if you want a define right drawer width (50=percent)

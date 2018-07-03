@@ -73,8 +73,8 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
       (async() => {
         await Storage.setItem(KEYS.turnOnDay, action.date);
       })();
-      return {
 
+      return {
         ...state,
         turnOnDay: action.date,
   }
@@ -129,15 +129,15 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
       }
     case RemoteTypes.TOGGLE_SLEEP_SUCCESS:
       (async() => {
-          await Storage.setItem(KEYS.sleep,action.payload.sleep);
+          await Storage.setItem(KEYS.sleep,action.payload);
+          console.log(action.payload,'sleep');
       })();
       return{
         ...state,
-        sleep: action.payload.sleep,
+        sleep: action.payload,
       };
     case RemoteTypes.SET_DEVICE_INFO_SUCCESS:
       (async() => {
-        console.log(action.payload,"setDevice");
         await Storage.setItem(KEYS.serialNumber,action.payload.serialNumber);
         await Storage.setItem(KEYS.power, action.payload.power);
         if(action.payload.mode===0) {
@@ -262,6 +262,7 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         airCleaning: action.payload,
         loading:false,
       };
+    case RemoteTypes.TOGGLE_SLEEP_FAILURE:
     case RemoteTypes.TOGGLE_POWER_FAILURE:
     case RemoteTypes.TOGGLE_A_I_FAILURE:
     case RemoteTypes.TOGGLE_STERILIZING_FAILURE:
@@ -272,7 +273,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         error: action.error,
       }
     default:
-      console.log(state);
       return state;
   }
 }

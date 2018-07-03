@@ -23,7 +23,9 @@ export const KEYS = {
   isTurnOffActive: 'isTurnOffActive',
   turnOnDay: 'turnOnDay',
   turnOnHour: 'turnOnHour',
+  sleep:'sleep',
   turnOffHour: 'turnOffHour',
+  isActivePush:'isActivePush',
 };
 
 const getItem = async (key: string) => {

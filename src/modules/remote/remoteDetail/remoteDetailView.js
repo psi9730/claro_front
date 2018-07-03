@@ -39,6 +39,7 @@ type Props = {
   toggleAI_: Function,
   toggleSterilizing_: Function,
   toggleAirCleaning_: Function,
+  toggleSleepRequest: Function,
   AI: number,
   sterilizing: number,
   power: number,
@@ -48,6 +49,7 @@ type Props = {
   airCleaningColor: string,
   serialNumber: string,
   airCleaning: number,
+  sleep:number,
 };
 
 type State = {
@@ -219,8 +221,6 @@ class RemoteDetailView extends Component<Props, State> {
       const AI_ = await Storage.getItem(KEYS.AI);
       const power_ = await Storage.getItem(KEYS.power);
       const airCleaning_ = await Storage.getItem(KEYS.airCleaning);
-      console.log("this.state.serialNumber",this.state.serialNumber);
-
       this.props.toggleSterilizing_(sterilizing_, this.state.serialNumber);
       this.props.toggleAI_(AI_, this.state.serialNumber);
       this.props.togglePower_(power_, this.state.serialNumber);
@@ -236,12 +236,20 @@ class RemoteDetailView extends Component<Props, State> {
       this.setState({serialNumber: serialNumber});
       const sterilizing = await Storage.getItem(KEYS.sterilizing);
       const AI = await Storage.getItem(KEYS.AI);
+      const sleep = await Storage.getItem(KEYS.sleep);
+      console.log(sleep,'sleep2');
       const power = await Storage.getItem(KEYS.power);
       const airCleaning = await Storage.getItem(KEYS.airCleaning);
       this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
       this.props.toggleAI_(AI, this.state.serialNumber);
       this.props.togglePower_(power, this.state.serialNumber);
       this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
+      this.props.toggleSleepRequest(sleep, this.state.serialNumber);
+
+      const isTurnOnActive = await Storage.getItem(KEYS.isTurnOnActive);
+      const isTurnOffActive = await Storage.getItem(KEYS.isTurnOffActive);
+      isTurnOnActive && this.props.setTurnOnTimer(isTurnOnActive);
+      isTurnOffActive && this.props.setTurnOffTimer(isTurnOffActive);
     })();
     //get indoor, outside Air Info
   }
@@ -265,13 +273,10 @@ class RemoteDetailView extends Component<Props, State> {
     if(this.props.power===0){
       toast("Power is Off");
     }
-    else if (this.props.sleep === 0) {    //turn off state
-      console.log("AI is 0");
-      this.props.toggleSleepRequest(1, this.state.serialNumber).catch();
-    }
-    else if (this.props.AI === 1) { //turn on state
+    else if (this.props.sleep === 1) { //turn on state
       this.props.toggleSleepRequest(0, this.state.serialNumber).catch();
-    }
+    } else
+      this.props.toggleSleepRequest(1, this.state.serialNumber).catch();
   }
   toggleAI() {
     if(this.props.power===0){
@@ -333,6 +338,7 @@ class RemoteDetailView extends Component<Props, State> {
       this.turnOffAI();
       this.turnOffAirCleaning();
       this.turnOffSterilizing();
+      this.props.toggleSleepRequest(0,this.state.serialNumber);
       this.props.togglePower_(0, this.state.serialNumber);
     }
   }
@@ -473,14 +479,14 @@ class RemoteDetailView extends Component<Props, State> {
                   </RemoteContainer>)
                   : (this.props.sterilizing===1 ? (
                     <RemoteContainer>
-                      <TextLeftView style={{color : 'green'}}>
+                      <TextLeftView >
                         <RemoteText  style={{color : 'green'}}>살균 모드:</RemoteText>
                       </TextLeftView>
                       <TextRightView>
                         <RemoteText>ON(약)</RemoteText>
                       </TextRightView>
                     </RemoteContainer>):(
-                      <RemoteContainer style={{color : 'blue'}}>
+                      <RemoteContainer >
                         <TextLeftView>
                           <RemoteText  style={{color : 'blue'}} >살균 모드:</RemoteText>
                         </TextLeftView>
@@ -522,9 +528,9 @@ class RemoteDetailView extends Component<Props, State> {
             <GrayLine style={{margin:0}}/>
           <BottomFunctionContainer>
             <TouchableOpacity onPress={() => this.toggleSleep()}>
-              { this.props.sleep===0?
+              { this.props.sleep===1?
                 <IconView2>
-                  <Image source={sleepIcn} style={{
+                  <Image source={sleepIcnBlue} style={{
                     flexGrow: 0,
                     flexShrink: 0,
                     flexBasis: 'auto',
@@ -535,7 +541,7 @@ class RemoteDetailView extends Component<Props, State> {
                   }}/>
                   <IconText style={{color: 'black'}}>취침모드</IconText>
                 </IconView2>:<IconView2>
-                  <Image source={sleepIcnBlue} style={{
+                  <Image source={sleepIcn} style={{
                     flexGrow: 0,
                     flexShrink: 0,
                     flexBasis: 'auto',
@@ -551,7 +557,7 @@ class RemoteDetailView extends Component<Props, State> {
             <TouchableOpacity onPress={() => this.toggleTimer()}>
               { this.props.isTurnOnActive===true || this.props.isTurnOffActive===true ?
                 <IconView2>
-                  <Image source={timerIcn} style={{
+                  <Image source={timerIcnBlue} style={{
                     flexGrow: 0,
                     flexShrink: 0,
                     flexBasis: 'auto',
@@ -562,7 +568,7 @@ class RemoteDetailView extends Component<Props, State> {
                   }}/>
                   <IconText style={{color: 'black'}}>타이머</IconText>
                 </IconView2>:<IconView2>
-                  <Image source={timerIcnBlue} style={{
+                  <Image source={timerIcn} style={{
                     flexGrow: 0,
                     flexShrink: 0,
                     flexBasis: 'auto',

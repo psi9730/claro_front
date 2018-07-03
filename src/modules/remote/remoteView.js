@@ -230,6 +230,7 @@ class RemoteView extends Component<Props, State> {
   componentWillMount() {
 
   }
+
   componentWillReceiveProps(nextProps){
 
   }

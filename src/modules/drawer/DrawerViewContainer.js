@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
-import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, SIGNUP_SCREEN, CHOICE_DEVICE_SCREEN, LOGIN_SCREEN, FILTER_SCREEN} from '../../../screens';
+import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, SIGNUP_SCREEN, CHOICE_DEVICE_SCREEN, DEVICE_SELECT_SCREEN, LOGIN_SCREEN, FILTER_SCREEN} from '../../../screens';
 import actions from '../../redux/actions';
 
 const hideDrawer = (props) => {
@@ -18,7 +18,9 @@ const hideDrawer = (props) => {
 
 export default connect(
   state => ({
-    //me: _.get(state, ['user', 'me']),
+    barcode: _.get(state, ['registerDevice', 'barcode']),
+    deviceInfo:_.get(state, ['registerDevice','deviceInfo']),
+    nickname: _.get(state,['registerDevice','deviceInfo'])
   }),
   actions,
 )(
@@ -44,7 +46,7 @@ export default connect(
       },
       goToChoiceDevice: (props) => () => {
         hideDrawer(props);
-        props.navigator.handleDeepLink({link: CHOICE_DEVICE_SCREEN.screen})
+        props.navigator.handleDeepLink({link: DEVICE_SELECT_SCREEN.screen})
       },
       goToFilter: (props) => () => {
         hideDrawer(props);

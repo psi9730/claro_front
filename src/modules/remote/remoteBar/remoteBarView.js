@@ -31,6 +31,7 @@ import {BorderShadow} from 'react-native-shadow'
 import circleShadowIcn from '../../../assets/images/Circle-Shadow.jpg';
 import powerIcn from '../../../assets/images/powerIcn.png';
 import powerIcnGreen from '../../../assets/images/powerIcnGreen.png';
+import AIIcnBlue from '../../../assets/images/AIIcnBlue.png';
 import upIcn from '../../../assets/images/upIcn.png';
 import AIIcn from '../../../assets/images/AIIcn.png';
 type Props = {
@@ -279,7 +280,7 @@ class RemoteBarView extends Component<Props, State> {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleAI()}>
                 <IconView>
-                  <Image source={AIIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, tintColor: 'black', resizeMode:'stretch'}} />
+                  {this.props.AI===0 ?  <Image source={AIIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} /> :  <Image source={AIIcnBlue} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} />}
                   <IconText>AI</IconText>
                 </IconView>
               </TouchableOpacity>
