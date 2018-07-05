@@ -13,8 +13,11 @@ import {
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import FilterScreen from './src/modules/filter/FilterViewContainer';
+import DeviceAddScreen from './src/modules/registerdevice/deviceAdd/deviceAddViewContainer';
 import BarcodeScanScreen from './src/modules/registerdevice/barcodescan/BarcodeScanViewContainer';
 import SerialNumberScreen from './src/modules/registerdevice/serialnumber/SerialNumberViewContainer';
+import WifiSolutionTempScreen from './src/modules/registerdevice/WifisetupTemp/WifiSolutionTempViewContainer';
+import WifiSetUpTempScreen from './src/modules/registerdevice/WifisetupTemp/WifiSetUpTempViewContainer';
 import WifiSetUpScreen from './src/modules/registerdevice/wifisetup/WifiSetUpViewContainer';
 import WifiMainScreen from './src/modules/registerdevice/wifisetup/WifiMainViewContainer';
 import WifiSolutionScreen from './src/modules/registerdevice/wifisetup/WifiSolutionViewContainer';
@@ -25,6 +28,7 @@ import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailVi
 import TimerScreen from './src/modules/remote/timer/timerViewContainer';
 import NicknameScreen from './src/modules/registerdevice/NicknameViewContainer';
 import RegisterCompleteScreen from './src/modules/registerdevice/RegisterCompleteViewContainer';
+import RegisterCompleteTempScreen from './src/modules/registerdevice/WifisetupTemp/RegisterCompleteTempViewContainer';
 import DeviceSelectScreen from './src/modules/registerdevice/deviceSelect/deviceSelectViewContainer';
 import DeviceInfoScreen from './src/modules/registerdevice/deviceInfo/deviceInfoViewContainer';
 import SignupScreen from './src/modules/login/SignupViewContainer';
@@ -81,6 +85,27 @@ export const WIFI_SOLUTION_SCREEN = {
   screen: 'claro.WifiSolutionScreen',
   navigatorStyle: {},
   navigatorButtons: {
+  },
+};
+export const WIFI_SET_UP_TEMP_SCREEN = {
+  screen: 'claro.WifiSetUpTempScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+export const WIFI_SOLUTION_TEMP_SCREEN = {
+  screen: 'claro.WifiSolutionTempScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const REGISTER_COMPLETE_TEMP_SCREEN = {
+  screen: 'claro.RegisterCompleteTempScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
   },
 };
 export const SERIAL_NUMBER_SOLUTION_SCREEN = {
@@ -200,7 +225,7 @@ export const DEVICE_SELECT_SCREEN = {
   navigatorStyle: {
   },
   navigatorButtons: {
-    leftButtons: [goBack],
+    leftButtons: [burgerBtn],
   },
 };
 
@@ -210,6 +235,14 @@ export const DEVICE_INFO_SCREEN = {
   },
   navigatorButtons: {
     leftButtons: [goBack],
+  },
+};
+export const DEVICE_ADD_SCREEN = {
+  screen: 'claro.DeviceAddScreen',
+  navigatorStyle: {
+  },
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
   },
 };
 
@@ -243,7 +276,11 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SET_UP_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSetUpTempScreen), store, Provider);
+  Navigation.registerComponent(REGISTER_COMPLETE_TEMP_SCREEN.screen, () => NavigationWrapper(RegisterCompleteTempScreen), store, Provider);
   Navigation.registerComponent(DEVICE_INFO_SCREEN.screen, () => NavigationWrapper(DeviceInfoScreen), store, Provider);
+  Navigation.registerComponent(DEVICE_ADD_SCREEN.screen, () => NavigationWrapper(DeviceAddScreen), store, Provider);
   Navigation.registerComponent(DEVICE_SELECT_SCREEN.screen, () => NavigationWrapper(DeviceSelectScreen), store, Provider);
   Navigation.registerComponent(TIMER_SCREEN.screen, () => NavigationWrapper(TimerScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SOLUTION_SCREEN.screen, () => NavigationWrapper(SerialNumberSolutionScreen), store, Provider);
@@ -274,7 +311,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...FILTER_SCREEN};
+    let firstScreen = {...SERIAL_NUMBER_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...REMOTE_SCREEN};

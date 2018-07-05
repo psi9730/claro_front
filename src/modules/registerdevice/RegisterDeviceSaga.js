@@ -144,6 +144,7 @@ function* requestGetDevices() {
     yield put(DeviceActions.getDevicesFailure(e));
   }
 }
+
 export const RegisterDeviceSaga = [
   takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(DeviceTypes.DELETE_DEVICE_REQUEST, requestDeleteDevice),

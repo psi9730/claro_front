@@ -8,21 +8,14 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import {
-  REGISTER_COMPLETE_SCREEN,
-} from '../../../../screens';
 import Barcode from '../../../../src/assets/images/barcode.jpg'
 import exitIcn from '../../../../src/assets/images/exit.png';
 const { StatusBarManager } = NativeModules;
 type Props = {
-  sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
   restoreDevice: Function,
   registerDeviceRequest: Function,
-  updateNickname: Function,
   barcode: String,
-  deviceInfo: any,
-  nickname: String,
 };
 
 type State = {
@@ -30,12 +23,14 @@ type State = {
   secure: boolean,
 };
 
+
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
+  
 `;
 
 const NavBar = styled.View`
@@ -43,14 +38,6 @@ const NavBar = styled.View`
   flexDirection: row;
   justifyContent: flex-end;
   alignItems: center;
-`;
-const IntroduceText = styled.Text`
-  align-self: flex-start;
-  font-size: 15px;
-  color: black;
-  margin-bottom: 5px;
-  margin-top:3px;
-  
 `;
 
 const Container = styled.KeyboardAvoidingView`
@@ -63,45 +50,33 @@ const Container = styled.KeyboardAvoidingView`
   
 `;
 
-
-
-
-class SerialNumberSolutionView extends Component<Props, State> {
+const IntroduceText = styled.Text`
+  align-self: flex-start;
+  font-size: 15px;
+  color: black;
+  margin-bottom: 5px;
+  margin-top:3px;
+  
+`;
+class WifiSolutionTempView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
     this.state = {
       secure: true,
-      isFan: false,
     }
-
+    this.props.navigator.setDrawerEnabled({
+      side: 'left',
+      enabled: false,
+    });
   }
 
 
 
   componentWillMount() {
-
   }
 
   props: Props;
-
-  updateNickname(nickname) {
-    this.props.updateNickname(nickname);
-  }
-  goRegisterCompleteScreen(){
-    Keyboard.dismiss();
-    if(this.props.nickname==="") {
-      this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e));
-    }
-    else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e))
-    }
-  }
 
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -114,7 +89,7 @@ class SerialNumberSolutionView extends Component<Props, State> {
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
-          onPress={SerialNumberSolutionView.dismissKeyboard}
+          onPress={WifiSolutionTempView.dismissKeyboard}
         >
           { Platform.OS==='android' ?(
             <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
@@ -172,4 +147,47 @@ class SerialNumberSolutionView extends Component<Props, State> {
   }
 }
 
-export default SerialNumberSolutionView;
+export default WifiSolutionTempView;
+
+/*   <SNInput
+            placeholder="Enter S/N yourself"
+            value={this.props.barcode}
+            onChangeText={barcode => {this.props.updateBarcode(barcode)}}
+          />
+            <Button
+              title={'바코드 스캐너로 입력'}
+              style={{ marginBottom: 20 }}
+              light
+              onPress={() => this.goBarcodeScan()}
+            />
+            <Button
+              title={'모듈로 시리얼 서버정보 전송'}
+              onPress={() => this.sendSerialAndServerInfo()}
+              color={ClaroTheme.mainColor} />
+            <SerialNumberText>
+              (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
+              0x0101, 0x0201까지 성공적으로 전송받으면
+              WifiSetup 화면으로 자동으로 이동)
+            </SerialNumberText>
+            <Button
+              title={'WifiSetup 화면으로 이동 (테스트용)'}
+              style={{ marginTop: 20 }}
+              onPress={() => {
+                Keyboard.dismiss();
+                this.props.navigator.push({
+                  ...WIFI_SET_UP_SCREEN,
+                });
+              }}
+              color={ClaroTheme.mainColor}
+            />
+            <Button
+              title={'Remote 화면으로 바로 이동 (테스트용)'}
+              light
+              style={{ marginTop: 20 }}
+              onPress={() => {
+                Keyboard.dismiss();
+                this.props.navigator.push({
+                  ...REMOTE_SCREEN,
+                })
+              }}
+            />*/

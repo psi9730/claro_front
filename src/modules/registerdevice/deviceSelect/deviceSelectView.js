@@ -14,7 +14,7 @@ import _ from 'lodash';
 import infoIcnBlue from '../../../assets/images/infoIcnBlue.png';
 import checkIcn from '../../../assets/images/checkIcn.png';
 import ToggleSwitch from 'toggle-switch-react-native'
-import {DEVICE_INFO_SCREEN} from '../../../../screens';
+import {DEVICE_INFO_SCREEN,DEVICE_ADD_SCREEN} from '../../../../screens';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -36,6 +36,15 @@ type Props = {
   getDevicesRequest: Function,
   isActive: boolean,
   devices: any,
+  power: number,
+  sterilizing: number,
+  airCleaning: number,
+  AI: number,
+  isTurnOnActive: boolean,
+  isTurnOffActive: boolean,
+  turnOnDay: any,
+  turnOnHour: Date,
+  turnOffHour: number,
 };
 
 type State = {
@@ -161,24 +170,78 @@ class DeviceSelectView extends Component<Props, State> {
 
 
   componentWillMount() {
-    this.props.getDevicesRequest().catch((e)=>console.log(e));
-    (async() => {
+    console.log('this will mount repeatedly');
+    this.props.getDevicesRequest().then(()=> (async() => {
         const isTurnOnActive = await Storage.getItem(KEYS.isActivePush);
         isTurnOnActive && this.props.isActiveRequest(isTurnOnActive);
       }
-    )();
+    )()).catch((e)=>console.log(e));
   }
+    shallowEqual(objA: mixed, objB: mixed): boolean {
+    if (objA === objB) {
+      return true;
+    }
+
+    if (typeof objA !== 'object' || objA === null ||
+      typeof objB !== 'object' || objB === null) {
+      return false;
+    }
+
+    var keysA = Object.keys(objA);
+    var keysB = Object.keys(objB);
+
+    if (keysA.length !== keysB.length) {
+      console.log('keysA',keysA,'keysB',keysB);
+      return false;
+    }
+
+    // Test for A's keys different from B.
+    var bHasOwnProperty = hasOwnProperty.bind(objB);
+    for (var i = 0; i < keysA.length; i++) {
+      if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+        console.log('keysA', objA[keysA[i]],'keysB',objB[keysA[i]]);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  shallowCompare(instance, nextProps, nextState) {
+    return (
+      !this.shallowEqual(instance.props, nextProps) ||
+      !this.shallowEqual(instance.state, nextState)
+    );
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, 'nextProps');
+    console.log(nextState,'nextState');
+  return this.shallowCompare(this, nextProps, nextState);
+  }
+
   props: Props;
   goToDetail(index){
       this.props.navigator.push({
         ...DEVICE_INFO_SCREEN,
       passProps: {deviceIndex:index}})
   }
+  goToDeviceAddScreen(){
+    (async() => {
+      await Storage.setItem(KEYS.serialNumber,this.props.barcode);
+      await Storage.setItem(KEYS.nickname,this.props.nickname);
+      await Storage.setItem(KEYS.deviceInfo,this.props.deviceInfo);
+    })();
+    this.props.navigator.push({
+      ...DEVICE_ADD_SCREEN,
+    })
+  };
+
   pushToggle(active){
     this.props.isActiveRequest(active).catch();
   }
   setControlDevice(device){
-    //this.props.setControlDevice(device.serial_number,device.device_info,device.nickname,this.props.isActivePush)
+      this.props.setControlDeviceRequest(this.props.barcode, this.props.power,this.props.sterilizing,this.props.airCleaning,this.props.AI,this.props.sleepMode,this.props.isTurnOnActive, this.props.isTurnOffActive, this.props.turnOnDay,this.props.turnOffHour,this.props.turnOnHour).then(()=>this.props.getControlDeviceRequest(device.serialNumber).then(()=> (async() => {await Storage.setItem(KEYS.serialNumber, this.props.barcode);
+      })()).catch()).catch();
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -222,9 +285,15 @@ class DeviceSelectView extends Component<Props, State> {
                           }}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.setControlDevice(device)}>
-                          <RemoteText
-                            style={{color: 'black', fontWeight: 'bold'}}>{device.nickname} {device.deviceInfo.modelName}
-                          </RemoteText>
+                          {
+                            device.deviceInfo &&
+                            <RemoteText
+                              style={{
+                                color: 'black',
+                                fontWeight: 'bold'
+                              }}>{device.nickname} {device.deviceInfo.modelName}
+                            </RemoteText>
+                          }
                         </TouchableOpacity>
                       </TextLeftView>
                       <TextRightView> {device.serialNumber === this.props.barcode && <Image
@@ -247,11 +316,11 @@ class DeviceSelectView extends Component<Props, State> {
             <BottomButtonContainer>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-                onPress={()=> this.goRemoteScreen()}
+                onPress={()=> this.goToDeviceAddScreen()}
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    다음
+                    제품 추가 등록
                   </ButtonText>
                 </TextCenterContainer>
               </NavButton>

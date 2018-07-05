@@ -27,57 +27,7 @@ type State = {
   serialNumber: ?string,
   secure: boolean,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-const TextsInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-const TextsBoxInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
-  border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: black;
-`;
-const TextsBoxContainer = styled.View`
- width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  borderTopWidth: 1px;
-  borderTopColor: gray;
-  borderLeftColor: gray;
-  borderRightColor: gray;
-  borderBottomWidth: 2px;
-  borderBottomColor: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 1px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`
+
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
@@ -86,14 +36,7 @@ const TitleText = styled.Text`
   margin-top:18px;
   
 `;
-const IntroduceText = styled.Text`
-  align-self: flex-start;
-  font-size: 15px;
-  color: black;
-  margin-bottom: 5px;
-  margin-top:3px;
-  
-`;
+
 const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
@@ -132,11 +75,6 @@ const TextCenterContainer = styled.View`
 `;
 
 
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -156,19 +94,13 @@ class WifiMainView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
 
 
   componentWillMount() {
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
   props: Props;
@@ -190,7 +122,7 @@ class WifiMainView extends Component<Props, State> {
           await Storage.setItem(key, this.props.barcode);
         })();
     }).then(() => this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(() => {
-      Keyboard.dismiss()
+      Keyboard.dismiss();
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
       })}).catch((e) => console.log(e))

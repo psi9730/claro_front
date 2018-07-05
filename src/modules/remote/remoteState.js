@@ -3,6 +3,7 @@
 import {createActions} from 'reduxsauce';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
+import {DeviceTypes} from '../registerdevice/RegisterDeviceState';
 
 type RemoteState = {
   filterMaxTime: number,
@@ -43,7 +44,7 @@ const initialState = {
   },
   turnOnHour: new Date(),
   turnOffHour: 1,
-  sleep: 0,
+  sleepMode: 0,
 };
 
 // Action Creators
@@ -63,6 +64,9 @@ export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
     setTurnOffHour: ['hour'],
     setTurnOffTimer: ['isActive'],
     setTurnOnTimer: ['isActive'],
+    setControlDeviceRequest: ['serialNumber','power','sterilizing','airCleaning','AI','sleepMode','isTurnOnActive','isTurnOffActive','turnOnDay','turnOffHour', 'turnOnHour'],
+    setControlDevice2Request:['serialNumber','power','sterilizing','airCleaning','AI','sleepMode','isTurnOnActive','isTurnOffActive','turnOnDay','turnOffHour', 'turnOnHour'],
+    getControlDeviceRequest: ['serialNumber'],
   })
 );
 
@@ -117,6 +121,9 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
     case RemoteTypes.SET_DEVICE_INFO_REQUEST:
     case RemoteTypes.TOGGLE_STERILIZING_REQUEST:
     case RemoteTypes.TOGGLE_A_I_REQUEST:
+    case RemoteTypes.SET_CONTROL_DEVICE_REQUEST:
+    case RemoteTypes.SET_CONTROL_DEVICE2_REQUEST:
+    case RemoteTypes.GET_CONTROL_DEVICE_REQUEST:
     case RemoteTypes.TOGGLE_AIR_CLEANING_REQUEST://send serial number
       return {
         ...state,
@@ -128,13 +135,9 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         devices: action.payload,
       }
     case RemoteTypes.TOGGLE_SLEEP_SUCCESS:
-      (async() => {
-          await Storage.setItem(KEYS.sleep,action.payload);
-          console.log(action.payload,'sleep');
-      })();
       return{
         ...state,
-        sleep: action.payload,
+        sleepMode: action.payload,
       };
     case RemoteTypes.SET_DEVICE_INFO_SUCCESS:
       (async() => {
@@ -219,6 +222,67 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         ...state,
         loading:false,
       }
+    case RemoteTypes.SET_CONTROL_DEVICE2_SUCCESS:
+      return {
+        ...state,
+        barcode: action.payload.serialNumber,
+        power: action.payload.power,
+        sterilizing: action.payload.sterilizing,
+        airCleaning: action.payload.airCleaning,
+        AI: action.payload.AI,
+        isTurnOnActive: action.payload.isTurnOnActive,
+        isTurnOffActive: action.payload.isTurnOffActive,
+        turnOnDay: action.payload.turnOnDay,
+        turnOffHour: action.payload.turnOffHour,
+        turnOnHour: action.payload.turnOnHour,
+        sleepMode: action.payload.sleepMode,
+        loading: false,
+      };
+
+    case RemoteTypes.SET_CONTROL_DEVICE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case RemoteTypes.GET_CONTROL_DEVICE_SUCCESS:
+      if(action.payload.status==null)
+        return {
+          ...state,
+          isChangeDevice: true,
+          loading: false,
+        };
+      else {
+        const status = JSON.parse(action.payload.status);
+        (async() => {
+          await Storage.setItem(KEYS.serialNumber,status.serial_number);
+          await Storage.setItem(KEYS.power, status.power);
+          await Storage.setItem(KEYS.sterilizing, status.sterilizing);
+          await Storage.setItem(KEYS.airCleaning, status.air_cleaning);
+          await Storage.setItem(KEYS.AI,  status.a_i);
+          await Storage.setItem(KEYS.sleepMode, status.sleep_mode);
+          await Storage.setItem(KEYS.isTurnOnActive, status.is_turn_on_active);
+          await Storage.setItem(KEYS.isTurnOffActive, status.is_turn_off_active);
+          await Storage.setItem(KEYS.turnOnDay,  status.turn_on_day);
+          await Storage.setItem(KEYS.turnOffHour, status.turn_off_hour);
+          await Storage.setItem(KEYS.turnOnHour, status.turn_on_hour);
+        })();
+        return {
+          ...state,
+          barcode: status.serial_number,
+          power: status.power,
+          sterilizing: status.sterilizing,
+          airCleaning: status.air_cleaning,
+          AI: status.a_i,
+          sleepMode: status.sleep_mode,
+          isTurnOnActive: status.is_turn_on_active,
+          isTurnOffActive: status.is_turn_off_active,
+          turnOnDay: status.turn_on_day,
+          turnOffHour: status.turn_off_hour,
+          turnOnHour: status.turn_on_hour,
+          loading: false,
+          isChangeDevice: true,
+        };
+      }
     case RemoteTypes.FILTER_TIME_RESET:
       return {
         ...state,
@@ -262,6 +326,9 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         airCleaning: action.payload,
         loading:false,
       };
+    case RemoteTypes.GET_CONTROL_DEVICE_FAILURE:
+    case RemoteTypes.SET_CONTROL_DEVICE2_FAILURE:
+    case RemoteTypes.SET_CONTROL_DEVICE_FAILURE:
     case RemoteTypes.TOGGLE_SLEEP_FAILURE:
     case RemoteTypes.TOGGLE_POWER_FAILURE:
     case RemoteTypes.TOGGLE_A_I_FAILURE:

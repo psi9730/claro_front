@@ -20,7 +20,7 @@ export default connect(
   state => ({
     barcode: _.get(state, ['registerDevice', 'barcode']),
     deviceInfo:_.get(state, ['registerDevice','deviceInfo']),
-    nickname: _.get(state,['registerDevice','deviceInfo'])
+    nickname: _.get(state,['registerDevice','nickname'])
   }),
   actions,
 )(
@@ -46,6 +46,7 @@ export default connect(
       },
       goToChoiceDevice: (props) => () => {
         hideDrawer(props);
+        console.log("I go to device Select")
         props.navigator.handleDeepLink({link: DEVICE_SELECT_SCREEN.screen})
       },
       goToFilter: (props) => () => {

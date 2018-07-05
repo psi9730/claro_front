@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, DEVICE_SELECT_SCREEN, DEVICE_INFO_SCREEN, WIFI_SOLUTION_SCREEN, TIMER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, DEVICE_SELECT_SCREEN, WIFI_SET_UP_TEMP_SCREEN, DEVICE_ADD_SCREEN, DEVICE_INFO_SCREEN, WIFI_SOLUTION_SCREEN, TIMER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -62,8 +62,14 @@ export default function NavigationWrapper(WrappedComponent) {
           case SERIAL_NUMBER_SCREEN.screen:
             screenObj = {...SERIAL_NUMBER_SCREEN};
             break;
+          case WIFI_SET_UP_TEMP_SCREEN.screen:
+            screenObj = {...WIFI_SET_UP_TEMP_SCREEN};
+            break;
           case DEVICE_SELECT_SCREEN.screen:
             screenObj = {...DEVICE_SELECT_SCREEN};
+            break;
+          case DEVICE_ADD_SCREEN.screen:
+            screenObj = {...DEVICE_ADD_SCREEN};
             break;
           case DEVICE_INFO_SCREEN.screen:
             screenObj = {...DEVICE_INFO_SCREEN};
@@ -135,7 +141,7 @@ export default function NavigationWrapper(WrappedComponent) {
         }
         !back && this.props.navigator.resetTo(screenObj);
       } else if (event.type === 'NavBarButtonPress') {
-        console.log("Button is pressed");
+        console.log("Button is pressed",event.id);
         if (event.id === 'toggleDrawer') {
           this.props.navigator.toggleDrawer({
             animated: true,

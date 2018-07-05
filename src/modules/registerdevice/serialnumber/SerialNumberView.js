@@ -188,7 +188,7 @@ class SerialNumberView extends Component<Props, State> {
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
-          onPress={SignupView.dismissKeyboard}
+          onPress={SerialNumberView.dismissKeyboard}
         >
           <Container>
             <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>

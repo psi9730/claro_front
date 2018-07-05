@@ -18,13 +18,18 @@ type DeviceState = {
 const initialState = {
   loading: false,
   barcode: "",
+  nickname: "",
   home: {
     ssid: "",
     ip: "",
     password: "",
+    ssidTemp: "",
+    ipTemp: "",
+    passwordTemp: "",
   },
   deviceInfo: "",
   isActivePush: true,
+  isChangeDevice: false,
 };
 
 // Action Creators
@@ -37,7 +42,9 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     tcpRequestFailure: ['error'],
     registerDeviceRequest: ['barcode','nickname','deviceInfo'],
     updateDeviceRequest: ['barcode','nickname'],
+    updateDeviceTemp: ['barcode','nickname','deviceInfo'],
     restoreDevice: ['deviceInfo'],
+    restoreDeviceInfo: ['barcode','nickname','deviceInfo'],
     restoreSerialNumber: ['barcode'],
     restoreWifiInfo: ['ssid','password'],
     sendSerialNumberRequest: ['barcode'],
@@ -45,11 +52,13 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     sendApRequest: [],
     getDevicesRequest:[],
     deleteDeviceRequest:['serialNumber'],
+    updateNicknameTemp: ['nickname'],
     updateWifiSsid:['ssid'],
     updateWifiPassword:['password'],
+    updateWifiSsidTemp:['ssid'],
+    updateWifiPasswordTemp:['password'],
     updateBarcode: ['barcode'],
     updateNickname: ['nickname'],
-
   })
 );
 
@@ -67,9 +76,10 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
       return {
         ...state,
         loading: true,
-      };
+      }
     case DeviceTypes.GET_DEVICES_SUCCESS:
-      const devices =  _.forEach(action.payload, (value)=> _.update(value, 'deviceInfo', (device_info) => { return JSON.parse(device_info)}))
+      const first_devices =  _.forEach(action.payload, (value)=> _.update(value, 'deviceInfo', (device_info) => { return JSON.parse(device_info)}))
+      const devices =  _.forEach(first_devices, (value)=> _.update(value, 'status', (status) => { return JSON.parse(status)}))
       console.log(devices,'devices');
       return{
         ...state,
@@ -87,6 +97,28 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
       return {
         ...state,
         nickname: action.payload,
+        loading: false,
+      };
+    case DeviceTypes.UPDATE_NICKNAME_TEMP:
+      return {
+        ...state,
+        nicknameTemp: action.nickname,
+        loading: false,
+      };
+    case DeviceTypes.UPDATE_DEVICE_TEMP:
+      return {
+        ...state,
+        barcodeTemp: action.barcode,
+        nicknameTemp: action.nickname,
+        deviceInfoTemp: action.deviceInfo,
+        loading: false,
+      };
+    case DeviceTypes.RESTORE_DEVICE_INFO:
+      return {
+        ...state,
+        barcode: action.barcode,
+        nickname: action.nickname,
+        deviceInfo: action.deviceInfo,
         loading: false,
       };
     case DeviceTypes.DELETE_DEVICE_SUCCESS:
@@ -128,8 +160,23 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
           password: action.password
         },
       };
+    case DeviceTypes.UPDATE_WIFI_SSID_TEMP:
+      return {
+        ...state,
+        home: {
+          ...state.home,
+          ssidTemp: action.ssid
+        },
+      };
+    case DeviceTypes.UPDATE_WIFI_PASSWORD_TEMP:
+      return {
+        ...state,
+        home:{
+          ...state.home,
+          passwordTemp: action.password
+        },
+      };
     case DeviceTypes.UPDATE_BARCODE:
-      console.log(action.barcode, "barcode");
       return{
         ...state,
         barcode:action.barcode,
@@ -166,6 +213,10 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
       return {
         ...state,
       };
+    case DeviceTypes.GET_CONTROL_DEVICE_SUCCESS:
+      return {
+
+      }
     case DeviceTypes.SEND_AP_SUCCESS:
     case DeviceTypes.SEND_WIFI_INFO_SUCCESS:
     case DeviceTypes.REGISTER_DEVICE_SUCCESS:
@@ -173,6 +224,9 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         ...state,
         loading: false,
       };
+    case DeviceTypes.SET_CONTROL_DEVICE2_FAILURE:
+    case DeviceTypes.SET_CONTROL_DEVICE_FAILURE:
+    case DeviceTypes.GET_CONTROL_DEVICE_FAILURE:
     case DeviceTypes.DELETE_DEVICE_FAILURE:
     case DeviceTypes.SEND_AP_FAILURE:
     case DeviceTypes.GET_DEVICES_FAILURE:

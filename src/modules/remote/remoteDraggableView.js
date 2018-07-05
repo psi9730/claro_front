@@ -28,6 +28,7 @@ import Interactable from 'react-native-interactable';
 import burgerIcn from '../../assets/images/burger.png';
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import dateformat from 'dateformat';
+import Storage, {KEYS} from '../../utils/ClaroStorage';
 const { StatusBarManager } = NativeModules;
 type Props = {
   useState: Function,
@@ -82,9 +83,13 @@ class RemoteDraggableView extends Component<Props, State> {
       first: true,
       firstHeight:Dimensions.get('window').height
     };
-    this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
   }
   componentWillMount(){
+    this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
+    (async () => {
+      const serialNumber = await Storage.getItem(KEYS.serialNumber);
+      this.props.getControlDeviceRequest(serialNumber).catch();
+    })();
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
@@ -103,8 +108,44 @@ class RemoteDraggableView extends Component<Props, State> {
       console.log(this.state,"state1");
     }
   }
-  componentDidUpdate(){
+  shallowEqual(objA: mixed, objB: mixed): boolean {
+    if (objA === objB) {
+      return true;
+    }
 
+    if (typeof objA !== 'object' || objA === null ||
+      typeof objB !== 'object' || objB === null) {
+      return false;
+    }
+
+    var keysA = Object.keys(objA);
+    var keysB = Object.keys(objB);
+
+    if (keysA.length !== keysB.length) {
+      console.log('keysA',keysA,'keysB',keysB);
+      return false;
+    }
+
+    // Test for A's keys different from B.
+    var bHasOwnProperty = hasOwnProperty.bind(objB);
+    for (var i = 0; i < keysA.length; i++) {
+      if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+        console.log('keysA', objA[keysA[i]],'keysB',objB[keysA[i]]);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  shallowCompare(instance, nextProps, nextState) {
+    return (
+      !this.shallowEqual(instance.props, nextProps) ||
+      !this.shallowEqual(instance.state, nextState)
+    );
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.shallowCompare(this, nextProps, nextState);
   }
   onDrawerSnap(event){
     if(event.nativeEvent.index===0){
@@ -141,7 +182,6 @@ class RemoteDraggableView extends Component<Props, State> {
   render() {
     var newDate = dateformat(this.props.date,'yyyy.mm.dd HH:MM');
     const Color = this.props.backgroundColor;
-    console.log(Color,"color");
     return (
       <View style={styles.IOSContainer} onLayout={(event) => {
         {this.onLayout(event)}

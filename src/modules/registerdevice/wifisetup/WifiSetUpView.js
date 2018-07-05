@@ -174,11 +174,6 @@ class WifiSetUpView extends Component<Props, State> {
   }
   props: Props;
   componentWillMount() {
-    (async () => {
-      // const ssid = await Storage.getItem(KEYS.ssid);
-     //  const password = await Storage.getItem(KEYS.password);
-      // this.props.restoreWifiInfo(ssid, password);
-    })();
   }
   showToastForResponse() {
     toast("wifi 등록완료");
@@ -204,12 +199,8 @@ class WifiSetUpView extends Component<Props, State> {
           let key;
           key = KEYS.ssid;
           let key2 = KEYS.password;
-          console.log(this.props.ssid+" ssid is");
-          console.log(this.props.password+" password is");
           await Storage.setItem(key, this.props.ssid);
-          console.log("store ssid "+Storage.getItem(KEYS.ssid));
           await Storage.setItem(key2, this.props.password);
-          console.log("store password "+Storage.getItem(KEYS.ssid));
           await Storage.setItem(KEYS.wifi, 1);
           this.showToastForResponse();
           this.setState({isError:false});
@@ -261,7 +252,7 @@ class WifiSetUpView extends Component<Props, State> {
             underlineColorAndroid="transparent"
             autoCorrect={false}
             onChangeText={(password)=>this.props.updateWifiPassword(password)}
-            value={this.props.barcode}
+            value={this.props.password}
             autoCapitalize='none'
             style={{marginBottom: 25, fontSize: 18}}
             blurOnSubmit={true}

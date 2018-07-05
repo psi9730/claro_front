@@ -7,21 +7,18 @@ import {
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
+import ClaroTheme from '../../../utils/ClaroTheme';
+import toast from '../../../utils/toast';
+import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
- REGISTER_COMPLETE_SCREEN,
-} from '../../../screens';
+  WIFI_SET_UP_SCREEN, REMOTE_SCREEN, DEVICE_SELECT_SCREEN
+} from '../../../../screens';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
   restoreDevice: Function,
   registerDeviceRequest: Function,
-  updateNickname: Function,
   barcode: String,
-  deviceInfo: any,
-  nickname: String,
 };
 
 type State = {
@@ -149,9 +146,7 @@ const Container = styled.KeyboardAvoidingView`
 `;
 
 
-
-
-class NicknameView extends Component<Props, State> {
+class RegisterCompleteTempView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -161,32 +156,16 @@ class NicknameView extends Component<Props, State> {
     }
 
   }
-
-
-
   componentWillMount() {
-
   }
 
   props: Props;
 
-  updateNickname(nickname) {
-    this.props.updateNickname(nickname);
-  }
-  goRegisterCompleteScreen(){
+  goRemoteScreen() {
     Keyboard.dismiss();
-    if(this.props.nickname==="" || this.props.nickname===null) {
-      this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> Storage.setItem('nickname',this.props.deviceInfo.modelName)).
-        then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e));
-    }
-    else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> Storage.setItem('nickname',this.props.nickname)).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e))
-    }
+    this.props.navigator.push({
+      ...DEVICE_SELECT_SCREEN,
+    })
   }
 
   static dismissKeyboard() {
@@ -197,35 +176,26 @@ class NicknameView extends Component<Props, State> {
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
-          onPress={NicknameView.dismissKeyboard}
+          onPress={RegisterCompleteTempView.dismissKeyboard}
         >
           <Container>
             <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
-              별명등록
+              제품 등록 완료되었습니다.
             </TitleText>
-            <IntroduceText  style={{color: 'black', fontWeight:'bold'}}>
-              {this.props.deviceInfo.modelName}
+            <IntroduceText>
+              제품명: {this.props.deviceInfoTemp.modelName}
             </IntroduceText>
             <IntroduceText>
-              {'\n\n제품의 별명을 입력하십시오.\n (동일 모델 제품을 여러대 등록하실 경우 편리하게 구분 하실 수 있습니다.\n 예: 거실/안방 등)\n\n별명을 등록하지 않을 경우 제품명으로 표기 됩니다.'}
+              별명: {this.props.nicknameTemp}
             </IntroduceText>
-            <TextsBoxInput
-              underlineColorAndroid="transparent"
-              autoCorrect={false}
-              onChangeText={(nickname)=>this.updateNickname(nickname)}
-              value={this.props.nickname}
-              autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 25}}
-              blurOnSubmit={true}
-            />
             <BottomButtonView>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-                onPress={()=> this.goRegisterCompleteScreen()}
+                onPress={()=> this.goRemoteScreen()}
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    등록완료
+                    다음
                   </ButtonText>
                 </TextCenterContainer>
               </NavButton>
@@ -237,7 +207,7 @@ class NicknameView extends Component<Props, State> {
   }
 }
 
-export default NicknameView;
+export default RegisterCompleteTempView;
 
 /*   <SNInput
             placeholder="Enter S/N yourself"

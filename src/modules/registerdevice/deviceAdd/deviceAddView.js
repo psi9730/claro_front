@@ -7,45 +7,27 @@ import {
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
+import ClaroTheme from '../../../utils/ClaroTheme';
+import toast from '../../../utils/toast';
 import {
- REGISTER_COMPLETE_SCREEN,
-} from '../../../screens';
+  BARCODE_SCAN_SCREEN, SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN
+} from '../../../../screens';
+import {KEYS} from '../../../utils/ClaroStorage';
+import Storage from '../../../utils/ClaroStorage';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
   restoreDevice: Function,
   registerDeviceRequest: Function,
-  updateNickname: Function,
   barcode: String,
-  deviceInfo: any,
-  nickname: String,
+  restoreDeviceInfo: Function,
 };
 
 type State = {
   serialNumber: ?string,
   secure: boolean,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-const TextsInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
+
 const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
@@ -87,15 +69,7 @@ const TitleText = styled.Text`
   margin-top:18px;
   
 `;
-const BottomButtonView = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: column
-    justify-content: flex-end;
-    align-items: center;
-`;
+
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
@@ -148,10 +122,18 @@ const Container = styled.KeyboardAvoidingView`
   
 `;
 
+const BottomButtonView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: flex-end;
+    align-items: center;
+`;
 
 
-
-class NicknameView extends Component<Props, State> {
+class DeviceAddView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -159,36 +141,49 @@ class NicknameView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+  onNavigatorEvent(event) {
+    if (event.type === 'DeepLink') {
+      (async() => {
+        const barcode = await Storage.getItem(KEYS.serialNumber);
+        const nickname = await Storage.getItem(KEYS.nickname);
+        const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
+        this.props.restoreDeviceInfo(barcode,nickname,deviceInfo);
+      })();
+    }
   }
 
 
-
   componentWillMount() {
-
+    this.props.restoreDeviceInfo("","","");
   }
 
   props: Props;
 
-  updateNickname(nickname) {
-    this.props.updateNickname(nickname);
-  }
-  goRegisterCompleteScreen(){
+  goBarcodeScan() {
     Keyboard.dismiss();
-    if(this.props.nickname==="" || this.props.nickname===null) {
-      this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> Storage.setItem('nickname',this.props.deviceInfo.modelName)).
-        then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e));
-    }
-    else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> Storage.setItem('nickname',this.props.nickname)).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e))
-    }
+    this.props.navigator.push({
+      ...BARCODE_SCAN_SCREEN,
+    })
+  }
+  showToastForResponse() {
+    toast("기기 등록 완료");
   }
 
+  sendSerialAndServerInfo() {
+    Keyboard.dismiss();
+    if (this.props.barcode == null || this.props.barcode === '') {
+      toast(this.props.t('enter_your_SN'), 'error');
+      return;
+    }
+    else {
+      console.log("this.props.barcode in serail",this.props.barcode);
+      this.props.navigator.push({
+        ...WIFI_MAIN_SCREEN,
+      })
+    }
+  }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
@@ -197,23 +192,40 @@ class NicknameView extends Component<Props, State> {
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
-          onPress={NicknameView.dismissKeyboard}
+          onPress={DeviceAddView.dismissKeyboard}
         >
           <Container>
             <TitleText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
-              별명등록
+              제품추가등록
             </TitleText>
-            <IntroduceText  style={{color: 'black', fontWeight:'bold'}}>
-              {this.props.deviceInfo.modelName}
-            </IntroduceText>
             <IntroduceText>
-              {'\n\n제품의 별명을 입력하십시오.\n (동일 모델 제품을 여러대 등록하실 경우 편리하게 구분 하실 수 있습니다.\n 예: 거실/안방 등)\n\n별명을 등록하지 않을 경우 제품명으로 표기 됩니다.'}
+              {'CLARO APP을 사용 하시기 위해서는 제품을 등록하셔야 합니다.\n 제품 등록은 고객님의 제품 활용을 지원 하기 위해 꼭 필요한 단계입니다\n\n제품 뒷면의 S/N 번호를 직접 입력하시거나 스캔해 주세요\n'}
+            </IntroduceText>
+            <IntroduceText style={  {textDecorationLine:'underline', marginBottom:30,  flexGrow:0, color:'black',alignSelf: 'flex-start',
+              flexShrink:0,
+              flexBasis: 'auto'}} onPress={()=>this.props.navigator.push({
+              ...SERIAL_NUMBER_SOLUTION_SCREEN
+            })} >
+              S/N 확인방법
+            </IntroduceText>
+            <NavButton
+              style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+              onPress={()=> this.goBarcodeScan()}
+            >
+              <TextCenterContainer>
+                <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                  바코드 스캐너로 입력
+                </ButtonText>
+              </TextCenterContainer>
+            </NavButton>
+            <IntroduceText>
+              S/N 직접입력
             </IntroduceText>
             <TextsBoxInput
               underlineColorAndroid="transparent"
               autoCorrect={false}
-              onChangeText={(nickname)=>this.updateNickname(nickname)}
-              value={this.props.nickname}
+              onChangeText={(barcode)=>this.props.updateBarcode(barcode)}
+              value={this.props.barcode}
               autoCapitalize='none'
               style={{marginBottom: 25, fontSize: 25}}
               blurOnSubmit={true}
@@ -221,11 +233,11 @@ class NicknameView extends Component<Props, State> {
             <BottomButtonView>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-                onPress={()=> this.goRegisterCompleteScreen()}
+                onPress={()=> this.sendSerialAndServerInfo()}
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    등록완료
+                    다음
                   </ButtonText>
                 </TextCenterContainer>
               </NavButton>
@@ -237,7 +249,7 @@ class NicknameView extends Component<Props, State> {
   }
 }
 
-export default NicknameView;
+export default DeviceAddView;
 
 /*   <SNInput
             placeholder="Enter S/N yourself"

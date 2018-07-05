@@ -8,20 +8,18 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
-import infoIcnBlue from '../../../assets/images/infoIcnBlue.png';
-import checkIcn from '../../../assets/images/checkIcn.png';
-import ToggleSwitch from 'toggle-switch-react-native'
 import circleIcnBlue from '../../../assets/images/circleIcnBlue.png';
 import exitIcnRed from '../../../assets/images/exitIcnRed.png';
-import {REMOTE_SCREEN} from '../../../../screens';
+import {REMOTE_SCREEN, RENTAL_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN,WIFI_SET_UP_TEMP_SCREEN} from '../../../../screens';
 import Modal from 'react-native-modal';
 type Props = {
   updateDeviceRequest: Function,
   deviceIndex: number,
   deleteDeviceRequest: Function,
+  updateNicknameTemp: Function,
+  updateDeviceTemp: Function,
 };
 
 type State = {
@@ -154,6 +152,9 @@ const BottomButtonRowView = styled.View`
     justify-content: space-around;
     align-items: center;
 `;
+const ErrorText = styled.Text`
+    color: red;
+`;
 class DeviceInfoView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -164,21 +165,22 @@ class DeviceInfoView extends Component<Props, State> {
       serialNumber: _.nth(this.props.devices,this.props.deviceIndex).serialNumber,
       nickname: _.nth(this.props.devices,this.props.deviceIndex).nickname,
       modelName: _.nth(this.props.devices,this.props.deviceIndex).deviceInfo.modelName,
+      deviceInfo: _.nth(this.props.devices,this.props.deviceIndex).deviceInfo,
+      error: '',
     }
   }
+  props: Props;
   onNavigatorEvent(event) {
       if (event.type === 'NavBarButtonPress') {
         if(event.id === 'goBack')
         {
-          this.props.updateDeviceRequest(this.state.serialNumber, this.props.nickname).then(()=>this.props.getDevicesRequest().catch()).then(()=>
+          this.props.updateDeviceRequest(this.state.serialNumber, this.props.nicknameTemp).then(()=>this.props.getDevicesRequest().catch()).then(()=>
           this.props.navigator.pop()).catch();
         }
       }
   }
-
-
   componentWillMount() {
-    this.props.updateNickname(this.state.nickname);
+    this.props.updateNicknameTemp(this.state.nickname);
     this.props.getDevicesRequest().catch((e)=>console.log(e));
     (async() => {
         const isTurnOnActive = await Storage.getItem(KEYS.isActivePush);
@@ -186,17 +188,35 @@ class DeviceInfoView extends Component<Props, State> {
       }
     )();
   }
-  props: Props;
-
+  goWifiSetupScreen(){
+    this.props.updateDeviceRequest(this.state.serialNumber, this.props.nicknameTemp).then(()=>this.props.getDevicesRequest().catch()).then(()=>
+    this.props.updateDeviceTemp(this.state.serialNumber,this.props.nicknameTemp,this.state.deviceInfo)).then(()=>this.props.navigator.push({...WIFI_SET_UP_TEMP_SCREEN})).catch();
+  }
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
   updateNickname(nickname){
-    this.props.updateNickname(this.state.nickname);
+    this.props.updateNicknameTemp(nickname);
    // this.props.updateDeviceRequest(this.state.serialNumber,nickname).then(()=>this.props.getDevicesRequest().catch()).catch();
   }
   deleteDevice(){
-    this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.props.getDevicesRequest().catch()).then(()=>this.props.navigator.pop()).catch();
+    if(_.size(this.props.devices)===1) {
+      this.setState({error: '최소한 하나의 기기는 등록되있어야합니다.'})
+      this.setModalVisible(!this.state.modalVisible)
+    }
+    else if(this.state.serialNumber === this.props.barcode && this.props.deviceIndex!==0)
+    {
+      this.props.restoreDeviceInfo(_.nth(this.props.devices,0).serialNumber,_.nth(this.props.devices,0).deviceInfo.modelName, _.nth(this.props.devices,0).deviceInfo)
+      this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.setModalVisible(!this.state.modalVisible)).then(()=>this.props.getDevicesRequest().catch()).then(()=>{this.forceUpdate();this.props.navigator.pop()}).catch();
+    }
+    else if(this.state.serialNumber === this.props.barcode)
+    {
+      this.props.restoreDeviceInfo(_.nth(this.props.devices,1).serialNumber,_.nth(this.props.devices,1).deviceInfo.modelName, _.nth(this.props.devices,1).deviceInfo)
+      this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.props.getDevicesRequest().catch()).then(()=>this.setModalVisible(!this.state.modalVisible)).then(()=>{this.forceUpdate();this.props.navigator.pop()}).catch();
+    }
+    else {
+      this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.props.getDevicesRequest().catch()).then(()=>this.setModalVisible(!this.state.modalVisible)).then(()=>this.props.navigator.pop()).catch();
+    }
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -236,16 +256,17 @@ class DeviceInfoView extends Component<Props, State> {
                 underlineColorAndroid="transparent"
                 autoCorrect={false}
                 onChangeText={(nickName)=>this.updateNickname(nickName)}
-                value={this.props.nickname}
+                value={this.props.nicknameTemp}
                 autoCapitalize='none'
                 style={{marginBottom: 25, fontSize: 18}}
                 blurOnSubmit={true}
               />
             </TopTextContainer>
             <BottomButtonContainer>
+              <ErrorText> {this.state.error}</ErrorText>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-                onPress={()=> this.goRemoteScreen()}
+                onPress={()=> this.goWifiSetupScreen()}
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>

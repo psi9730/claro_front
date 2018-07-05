@@ -163,7 +163,43 @@ class RegisterCompleteView extends Component<Props, State> {
 
 
   componentWillMount() {
+    (async() => {
+        await Storage.setItem(KEYS.serialNumber, this.props.barcode);
+    })();
+    console.log(this.props.barcode,"this.props.barcode");
+    this.props.setControlDevice2Request(this.props.barcode,0,0,0,0,0,false,false,  {
+      monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+    },
+    1,new Date()).then(()=>
+    this.props.setControlDeviceRequest(this.props.barcode, this.props.power,this.props.sterilizing,this.props.airCleaning,this.props.AI,this.props.sleepMode,this.props.isTurnOnActive, this.props.isTurnOffActive, this.props.turnOnDay,this.props.turnOffHour,this.props.turnOnHour));
 
+    (async() => {
+      await Storage.setItem(KEYS.serialNumber, this.props.barcode);
+      await Storage.setItem(KEYS.power, 0);
+      await Storage.setItem(KEYS.sterilizing, 0);
+      await Storage.setItem(KEYS.airCleaning, 0);
+      await Storage.setItem(KEYS.AI, 0);
+      await Storage.setItem(KEYS.sleepMode, 0);
+      await Storage.setItem(KEYS.isTurnOnActive, false);
+      await Storage.setItem(KEYS.isTurnOffActive, false);
+      await Storage.setItem(KEYS.turnOnDay,  {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+      });
+      await Storage.setItem(KEYS.turnOffHour, 1);
+      await Storage.setItem(KEYS.turnOnHour, new Date());
+    })();
   }
 
   props: Props;

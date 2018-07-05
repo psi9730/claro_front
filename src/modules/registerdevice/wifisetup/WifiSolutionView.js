@@ -49,6 +49,14 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 5px;
   
 `;
+const IntroduceText = styled.Text`
+  align-self: flex-start;
+  font-size: 15px;
+  color: black;
+  margin-bottom: 5px;
+  margin-top:3px;
+  
+`;
 
 
 class WifiSolutionView extends Component<Props, State> {

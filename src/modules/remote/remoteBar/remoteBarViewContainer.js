@@ -9,10 +9,22 @@ import Storage from '../../../utils/ClaroStorage';
 
 export default connect(
   state => ({
+    nickname: _.get(state, ['registerDevice', 'nickname']),
+    barcode: _.get(state,['registerDevice','barcode']),
+    deviceInfo: _.get(state, ['registerDevice', 'deviceInfo']),
+    isActive: _.get(state, ['registerDevice','isActivePush']),
+    devices: _.get(state, ['registerDevice','devices']),
     power: _.get(state, ['remote', 'power']),
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
     AI: _.get(state, ['remote', 'AI']),
+    isTurnOnActive: _.get(state,['remote','isTurnOnActive']),
+    isTurnOffActive: _.get(state,['remote','isTurnOffActive']),
+    turnOnDay: _.get(state,['remote','turnOnDay']),
+    turnOnHour: _.get(state,['remote','turnOnHour']),
+    turnOffHour: _.get(state,['remote','turnOffHour']),
+    sleepMode: _.get(state,['remote','sleepMode']),
+    isChangeDevice: _.get(state, ['registerDevice', 'isChangeDevice']),
   }),
   actions,
 )(

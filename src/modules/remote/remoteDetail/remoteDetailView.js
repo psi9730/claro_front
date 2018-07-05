@@ -49,7 +49,7 @@ type Props = {
   airCleaningColor: string,
   serialNumber: string,
   airCleaning: number,
-  sleep:number,
+  sleepMode:number,
 };
 
 type State = {
@@ -198,70 +198,33 @@ class RemoteDetailView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
-    (async() => {
-      const sterilizing = await Storage.getItem(KEYS.sterilizing);
-      const AI = await Storage.getItem(KEYS.AI);
-      const power = await Storage.getItem(KEYS.power);
-      const airCleaning = await Storage.getItem(KEYS.airCleaning);
-      if (sterilizing==null) {
-        await Storage.setItem(KEYS.sterilizing, 0);
-      }
-      if (AI==null) {
-        await Storage.setItem(KEYS.AI, 0);
-      }
-      if (power==null) {
-        await Storage.setItem(KEYS.power, 0);
-      }
-      if (airCleaning==null) {
-        await Storage.setItem(KEYS.airCleaning, 0);
-      }
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      this.setState({serialNumber: serialNumber});
-      const sterilizing_ = await Storage.getItem(KEYS.sterilizing);
-      const AI_ = await Storage.getItem(KEYS.AI);
-      const power_ = await Storage.getItem(KEYS.power);
-      const airCleaning_ = await Storage.getItem(KEYS.airCleaning);
-      this.props.toggleSterilizing_(sterilizing_, this.state.serialNumber);
-      this.props.toggleAI_(AI_, this.state.serialNumber);
-      this.props.togglePower_(power_, this.state.serialNumber);
-      this.props.toggleAirCleaning_(airCleaning_, this.state.serialNumber);
-    })();
   }
   state: State = {
   };
   props: Props;
   componentWillMount() {
     (async() => {
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      this.setState({serialNumber: serialNumber});
-      const sterilizing = await Storage.getItem(KEYS.sterilizing);
-      const AI = await Storage.getItem(KEYS.AI);
-      const sleep = await Storage.getItem(KEYS.sleep);
-      console.log(sleep,'sleep2');
-      const power = await Storage.getItem(KEYS.power);
-      const airCleaning = await Storage.getItem(KEYS.airCleaning);
-      this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
-      this.props.toggleAI_(AI, this.state.serialNumber);
-      this.props.togglePower_(power, this.state.serialNumber);
-      this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
-      this.props.toggleSleepRequest(sleep, this.state.serialNumber);
-
-      const isTurnOnActive = await Storage.getItem(KEYS.isTurnOnActive);
-      const isTurnOffActive = await Storage.getItem(KEYS.isTurnOffActive);
-      isTurnOnActive && this.props.setTurnOnTimer(isTurnOnActive);
-      isTurnOffActive && this.props.setTurnOffTimer(isTurnOffActive);
+      if(this.props.isChange===false) {
+        const sterilizing = await Storage.getItem(KEYS.sterilizing);
+        const AI = await Storage.getItem(KEYS.AI);
+        const power = await Storage.getItem(KEYS.power);
+        const airCleaning = await Storage.getItem(KEYS.airCleaning);
+        this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
+        this.props.toggleAI_(AI, this.state.serialNumber);
+        this.props.togglePower_(power, this.state.serialNumber);
+        this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
+      }
     })();
-    //get indoor, outside Air Info
   }
 
   turnOffSterilizing(){
-    this.props.toggleSterilizing_(0, this.state.serialNumber);
+    this.props.toggleSterilizing_(0, this.props.barcode);
   }
   turnOffAirCleaning(){
-    this.props.toggleAirCleaning_(0, this.state.serialNumber);
+    this.props.toggleAirCleaning_(0,this.props.barcode);
   }
   turnOffAI(){
-    this.props.toggleAI_(0, this.state.serialNumber);
+    this.props.toggleAI_(0,this.props.barcode);
   }
   toggleTimer(){
     this.props.navigator.push({
@@ -273,10 +236,10 @@ class RemoteDetailView extends Component<Props, State> {
     if(this.props.power===0){
       toast("Power is Off");
     }
-    else if (this.props.sleep === 1) { //turn on state
-      this.props.toggleSleepRequest(0, this.state.serialNumber).catch();
+    else if (this.props.sleepMode === 1) { //turn on state
+      this.props.toggleSleepRequest(0, this.props.barcode).catch();
     } else
-      this.props.toggleSleepRequest(1, this.state.serialNumber).catch();
+      this.props.toggleSleepRequest(1, this.props.barcode).catch();
   }
   toggleAI() {
     if(this.props.power===0){
@@ -284,12 +247,12 @@ class RemoteDetailView extends Component<Props, State> {
     }
     else if (this.props.AI === 0) {    //turn off state
       console.log("AI is 0");
-      this.props.toggleAI_(1, this.state.serialNumber);
+      this.props.toggleAI_(1, this.props.barcode);
       this.turnOffSterilizing();
       this.turnOffAirCleaning();
     }
     else if (this.props.AI === 1) { //turn on state
-      this.props.toggleAI_(0, this.state.serialNumber);
+      this.props.toggleAI_(0, this.props.barcode);
     }
   }
 
@@ -303,13 +266,13 @@ class RemoteDetailView extends Component<Props, State> {
       console.log("sterilizing is 0");
       this.turnOffAI();
       this.turnOffAirCleaning();
-      this.props.toggleSterilizing_(1, this.state.serialNumber);
+      this.props.toggleSterilizing_(1, this.props.barcode);
     }
     else if(this.props.sterilizing === 1){
-      this.props.toggleSterilizing_(2, this.state.serialNumber);
+      this.props.toggleSterilizing_(2, this.props.barcode);
     }
     else if(this.props.sterilizing === 2){
-      this.props.toggleSterilizing_(0, this.state.serialNumber);
+      this.props.toggleSterilizing_(0,this.props.barcode);
     }
   }
 
@@ -320,26 +283,26 @@ class RemoteDetailView extends Component<Props, State> {
     else if (this.props.airCleaning === 0){
       this.turnOffAI();
       this.turnOffSterilizing();
-      this.props.toggleAirCleaning_(1, this.state.serialNumber);
+      this.props.toggleAirCleaning_(1,this.props.barcode);
     }
     else if(this.props.airCleaning === 1){
-      this.props.toggleAirCleaning_(2, this.state.serialNumber);
+      this.props.toggleAirCleaning_(2, this.props.barcode);
     }
     else if(this.props.airCleaning === 2){
-      this.props.toggleAirCleaning_(0, this.state.serialNumber);
+      this.props.toggleAirCleaning_(0,this.props.barcode);
     }
   }
   togglePower(){
     if(this.props.power === 0){
-      this.props.togglePower_(1, this.state.serialNumber);
-      this.props.toggleAI_(1, this.state.serialNumber);
+      this.props.togglePower_(1, this.props.barcode);
+      this.props.toggleAI_(1, this.props.barcode);
     }
     else if(this.props.power === 1){
       this.turnOffAI();
       this.turnOffAirCleaning();
       this.turnOffSterilizing();
-      this.props.toggleSleepRequest(0,this.state.serialNumber);
-      this.props.togglePower_(0, this.state.serialNumber);
+      this.props.toggleSleepRequest(0,this.props.barcode);
+      this.props.togglePower_(0, this.props.barcode);
     }
   }
   goBack(){
@@ -528,7 +491,7 @@ class RemoteDetailView extends Component<Props, State> {
             <GrayLine style={{margin:0}}/>
           <BottomFunctionContainer>
             <TouchableOpacity onPress={() => this.toggleSleep()}>
-              { this.props.sleep===1?
+              { this.props.sleepMode===1?
                 <IconView2>
                   <Image source={sleepIcnBlue} style={{
                     flexGrow: 0,

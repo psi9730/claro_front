@@ -23,7 +23,10 @@ export const KEYS = {
   isTurnOffActive: 'isTurnOffActive',
   turnOnDay: 'turnOnDay',
   turnOnHour: 'turnOnHour',
-  sleep:'sleep',
+  sleepMode:'sleepMode',
+  serialNumberTemp: 'serialNumberTemp',
+  nicknameTemp: 'nicknameTemp',
+  deviceInfoTemp: 'deviceInfoTemp',
   turnOffHour: 'turnOffHour',
   isActivePush:'isActivePush',
 };

@@ -136,15 +136,6 @@ class DrawerView extends Component<Props> {
     }
   }
   componentWillMount(){
-    (async () => {
-        const nickname = await Storage.getItem(KEYS.nickname);
-        const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
-        const modelName= deviceInfo.modelName;
-        console.log(nickname,'nickname');
-        console.log(modelName,'modelName');
-        this.setState({nickname: nickname, modelName: modelName})
-      }
-    )();
   }
 
   render() {
@@ -180,7 +171,7 @@ class DrawerView extends Component<Props> {
                   </TextLeftView>
                   <TextRightView>
                     <RowText style={{color: 'blue', fontSize:15}}>
-                    {this.state.nickname}  {this.state.modelName}
+                    {this.props.nickname}  {this.props.deviceInfo.modelName}
                     </RowText>
                   </TextRightView>
                 </RowContainer>

@@ -158,32 +158,12 @@ class WifiGuideView extends Component<Props, State> {
       isFan: false,
       isError: false,
     }
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
 
 
   componentWillMount() {
-    console.log("this barcode in GuideView",this.props.barcode)
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
-  /*  (async () => {
-      const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      const ap = await Storage.getItem(KEYS.ap);
-      this.props.restoreDevice(deviceInfo);
-      this.props.restoreSerialNumber(serialNumber);
-      if (ap===2) {
-        this.props.navigator.push({
-          ...WIFI_SET_UP_SCREEN,
-        });
-      }
-    })();*/
   }
   props: Props;
   showToastForResponse() {
@@ -209,9 +189,7 @@ class WifiGuideView extends Component<Props, State> {
         })();}).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(()=>{  Keyboard.dismiss();
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
-      })}).catch( this.props.navigator.push({
-      ...WIFI_SET_UP_SCREEN,
-    }))).catch( e=> toast("Please turn on the Wifi",'error'));
+      })}).catch()).catch( e=> toast("Please turn on the Wifi",'error'));
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
