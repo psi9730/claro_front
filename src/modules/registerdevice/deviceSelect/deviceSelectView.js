@@ -291,7 +291,7 @@ class DeviceSelectView extends Component<Props, State> {
                               style={{
                                 color: 'black',
                                 fontWeight: 'bold'
-                              }}>{device.nickname} {device.deviceInfo.modelName}
+                              }}>{device.nickname} ({device.deviceInfo.modelName})
                             </RemoteText>
                           }
                         </TouchableOpacity>

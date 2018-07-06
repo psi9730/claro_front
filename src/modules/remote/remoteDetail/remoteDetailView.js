@@ -218,13 +218,16 @@ class RemoteDetailView extends Component<Props, State> {
   }
 
   turnOffSterilizing(){
-    this.props.toggleSterilizing_(0, this.props.barcode);
+    this.props.toggleSterilizing_(0, this.props.barcode).catch();
   }
   turnOffAirCleaning(){
-    this.props.toggleAirCleaning_(0,this.props.barcode);
+    this.props.toggleAirCleaning_(0,this.props.barcode).catch();
   }
   turnOffAI(){
-    this.props.toggleAI_(0,this.props.barcode);
+    this.props.toggleAI_(0,this.props.barcode).catch();
+  }
+  turnOffSleep(){
+    this.props.toggleSleepRequest(0,this.props.barcode).catch();
   }
   toggleTimer(){
     this.props.navigator.push({
@@ -237,9 +240,12 @@ class RemoteDetailView extends Component<Props, State> {
       toast("Power is Off");
     }
     else if (this.props.sleepMode === 1) { //turn on state
-      this.props.toggleSleepRequest(0, this.props.barcode).catch();
-    } else
+    } else {
       this.props.toggleSleepRequest(1, this.props.barcode).catch();
+      this.turnOffSterilizing();
+      this.turnOffAirCleaning();
+      this.turnOffAI();
+    }
   }
   toggleAI() {
     if(this.props.power===0){
@@ -249,6 +255,7 @@ class RemoteDetailView extends Component<Props, State> {
       console.log("AI is 0");
       this.props.toggleAI_(1, this.props.barcode);
       this.turnOffSterilizing();
+      this.turnOffSleep();
       this.turnOffAirCleaning();
     }
     else if (this.props.AI === 1) { //turn on state
@@ -265,6 +272,7 @@ class RemoteDetailView extends Component<Props, State> {
     else if (this.props.sterilizing === 0){
       console.log("sterilizing is 0");
       this.turnOffAI();
+      this.turnOffSleep();
       this.turnOffAirCleaning();
       this.props.toggleSterilizing_(1, this.props.barcode);
     }
@@ -282,6 +290,7 @@ class RemoteDetailView extends Component<Props, State> {
     }
     else if (this.props.airCleaning === 0){
       this.turnOffAI();
+      this.turnOffSleep();
       this.turnOffSterilizing();
       this.props.toggleAirCleaning_(1,this.props.barcode);
     }
@@ -300,8 +309,8 @@ class RemoteDetailView extends Component<Props, State> {
     else if(this.props.power === 1){
       this.turnOffAI();
       this.turnOffAirCleaning();
+      this.turnOffSleep();
       this.turnOffSterilizing();
-      this.props.toggleSleepRequest(0,this.props.barcode);
       this.props.togglePower_(0, this.props.barcode);
     }
   }

@@ -153,7 +153,7 @@ class NaverSignupView extends Component<Props, State> {
   }
 
   componentDidMount() {
-
+i
   }
 
   onChangeUsername(username) {

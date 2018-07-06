@@ -185,7 +185,7 @@ class DrawerView extends Component<Props> {
           </FunctionContainer>
           <FunctionContainer>
             <GrayText>내 정보</GrayText>
-            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
+            <TouchableOpacity onPress={() => this.props.goToUserProfile()}>
               <MenuText>
                 내 정보 관리
               </MenuText>

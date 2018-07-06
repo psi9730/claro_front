@@ -170,7 +170,7 @@ class RemoteBarView extends Component<Props, State> {
       this.turnOffAirCleaning();
     }
     else if (this.props.AI === 1) { //turn on state
-      this.props.toggleAI_(0, this.props.barcode);
+
     }
   }
 
@@ -190,7 +190,7 @@ class RemoteBarView extends Component<Props, State> {
       this.props.toggleSterilizing_(2,  this.props.barcode);
     }
     else if(this.props.sterilizing === 2){
-      this.props.toggleSterilizing_(0,  this.props.barcode);
+
     }
   }
 
@@ -207,7 +207,7 @@ class RemoteBarView extends Component<Props, State> {
       this.props.toggleAirCleaning_(2,  this.props.barcode);
     }
     else if(this.props.airCleaning === 2){
-      this.props.toggleAirCleaning_(0, this.props.barcode);
+
     }
   }
 

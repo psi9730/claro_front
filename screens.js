@@ -11,6 +11,14 @@ import {
   TouchableWithoutFeedback, Platform
 } from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
+import UserProfileScreen from './src/modules/userProfile/UserProfileViewContainer';
+import PhoneNumberEditScreen from './src/modules/userProfile/PhoneNumberEditViewContainer';
+import PasswordEditScreen from './src/modules/userProfile/PasswordEditViewContainer';
+import PasswordCheckScreen from './src/modules/userProfile/PasswordCheckViewContainer';
+import LocationSearchScreen from './src/modules/userProfile/LocationSearchViewContainer';
+import LocationEditScreen from './src/modules/userProfile/LocationEditViewContainer';
+import HomeNumberEditScreen from './src/modules/userProfile/HomeNumberEditViewContainer';
+import EmailEditScreen from './src/modules/userProfile/EmailEditViewContainer';
 import DrawerScreen from './src/modules/drawer/DrawerViewContainer';
 import FilterScreen from './src/modules/filter/FilterViewContainer';
 import DeviceAddScreen from './src/modules/registerdevice/deviceAdd/deviceAddViewContainer';
@@ -87,6 +95,64 @@ export const WIFI_SOLUTION_SCREEN = {
   navigatorButtons: {
   },
 };
+
+export const USER_PROFILE_SCREEN = {
+  screen: 'claro.UserProfileScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+export const PHONE_NUMBER_EDIT_SCREEN = {
+  screen: 'claro.PhoneNumberEditScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const PASSWORD_EDIT_SCREEN = {
+  screen: 'claro.PasswordEditScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const PASSWORD_CHECK_SCREEN = {
+  screen: 'claro.PasswordCheckScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const LOCATION_SEARCH_SCREEN = {
+  screen: 'claro.LocationSearchScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const LOCATION_EDIT_SCREEN = {
+  screen: 'claro.LocationEditScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const HOME_NUMBER_EDIT_SCREEN = {
+  screen: 'claro.HomeNumberEditScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const EMAIL_EDIT_SCREEN = {
+  screen: 'claro.EmailEditScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+
 export const WIFI_SET_UP_TEMP_SCREEN = {
   screen: 'claro.WifiSetUpTempScreen',
   navigatorStyle: {},
@@ -273,9 +339,21 @@ export const FILTER_SCREEN = {
   },
 };
 
-
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(USER_PROFILE_SCREEN.screen, () => NavigationWrapper(UserProfileScreen), store, Provider);
+  Navigation.registerComponent(PASSWORD_CHECK_SCREEN.screen, () => NavigationWrapper(PasswordCheckScreen), store, Provider);
+  Navigation.registerComponent(PASSWORD_EDIT_SCREEN.screen, () => NavigationWrapper(PasswordEditScreen), store, Provider);
+  Navigation.registerComponent(LOCATION_SEARCH_SCREEN.screen, () => NavigationWrapper(LocationSearchScreen), store, Provider);
+  Navigation.registerComponent(LOCATION_EDIT_SCREEN.screen, () => NavigationWrapper(LocationEditScreen), store, Provider);
+  Navigation.registerComponent(PHONE_NUMBER_EDIT_SCREEN.screen, () => NavigationWrapper(PhoneNumberEditScreen), store, Provider);
+  Navigation.registerComponent(HOME_NUMBER_EDIT_SCREEN.screen, () => NavigationWrapper(HomeNumberEditScreen), store, Provider);
+  Navigation.registerComponent(EMAIL_EDIT_SCREEN.screen, () => NavigationWrapper(EmailEditScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
+  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
   Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSetUpTempScreen), store, Provider);
   Navigation.registerComponent(REGISTER_COMPLETE_TEMP_SCREEN.screen, () => NavigationWrapper(RegisterCompleteTempScreen), store, Provider);
@@ -311,7 +389,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...SERIAL_NUMBER_SCREEN};
+    let firstScreen = {...USER_PROFILE_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...REMOTE_SCREEN};

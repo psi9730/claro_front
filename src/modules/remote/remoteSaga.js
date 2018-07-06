@@ -77,16 +77,21 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
 function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, serial_number: string}) {
   try {
     let body;
-    if(sleep===1)
-    body = {
-      serial_number,
-      type: 6
-    };
-    else
-      body = {                //non-sleep mode
+    if(sleep===1) {
+      body = {
         serial_number,
         type: 7
       };
+      yield call(post, `/devices/add_command`, body);
+      yield put(RemoteActions.toggleSleepSuccess(sleep));
+    }
+    else {
+      body = {                //non-sleep mode
+        serial_number,
+        type: 0
+      };
+      yield put(RemoteActions.toggleSleepSuccess(sleep));
+    }
     yield call(post, `/devices/add_command`, body);
     yield put(RemoteActions.toggleSleepSuccess(sleep));
   } catch (e) {

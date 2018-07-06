@@ -55,7 +55,47 @@ function* requestNaverSignup({username, name, email,phoneNumber}: {username: str
     yield put(LoginActions.naverSignupFailure(e));
   }
 }
+function* requestUpdateUserProfile({phoneNumber,homeNumber,location,detailLocation,postcode,email}: {phoneNumber:string,homeNumber:string,location:string,detailLocation:string,postcode:string,email:string}) {
+  try {
+    let body;
+    body = {phoneNumber,homeNumber,location,detailLocation,postcode,email};
+    const token = yield call(post, `/users/`, body);
+    yield put(LoginActions.updateUserProfileSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.updateUserProfileFailure(e));
+  }
+}
+function* requestUpdatePassword({password}: {password:string}) {
+  try {
+    let body;
+    body = {password};
+    const token = yield call(post, `/users/password`, body);
+    yield put(LoginActions.updatePasswordSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.updatePasswordFailure(e));
+  }
+}
+function* requestGetLocation() {
+  try {
+    const token = yield call(get, `/devices/add_command`, body);
+    yield put(LoginActions.getLocationSuccess());
+  } catch (e) {
+    yield put(LoginActions.getLocationFailure(e));
+  }
+}
+function* requestGetUserProfile() {
+  try {
+    const token = yield call(get, `/devices/add_command`, body);
+    yield put(LoginActions.getUserProfileSuccess());
+  } catch (e) {
+    yield put(LoginActions.getUserProfileFailure(e));
+  }
+}
 export const LoginSaga = [
+  takeLatest(LoginTypes.GET_LOCATION_REQUEST, requestGetLocation),
+  takeLatest(LoginTypes.UPDATE_USER_PROFILE_REQUEST, requestUpdateUserProfile),
+  takeLatest(LoginTypes.GET_USER_PROFILE_REQUEST, requestGetUserProfile),
+  takeLatest(LoginTypes.UPDATE_PASSWORD_REQUEST, requestUpdatePassword),
   takeLatest(LoginTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(LoginTypes.CHECK_ID_REQUEST, requestCheckId),
   takeLatest(LoginTypes.CLARO_SIGNUP_REQUEST, requestClaroSignup),
