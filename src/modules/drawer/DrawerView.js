@@ -153,7 +153,7 @@ class DrawerView extends Component<Props> {
                 제품제어
               </MenuText>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
+            <TouchableOpacity onPress={() => this.props.goToAirStatus()}>
               <MenuText>
                 공기질 관리
               </MenuText>

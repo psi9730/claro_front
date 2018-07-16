@@ -146,19 +146,25 @@ class DeviceAddView extends Component<Props, State> {
   onNavigatorEvent(event) {
     if (event.type === 'DeepLink') {
       (async() => {
-        const barcode = await Storage.getItem(KEYS.serialNumber);
-        const nickname = await Storage.getItem(KEYS.nickname);
-        const deviceInfo = await Storage.getItem(KEYS.deviceInfo);
-        this.props.restoreDeviceInfo(barcode,nickname,deviceInfo);
+      const barcode = await Storage.getItem(KEYS.serialNumber);
+       this.props.getControlDeviceRequest(barcode)
       })();
     }
+    else if (event.type === 'NavBarButtonPress') {
+      console.log("Button is pressed", event.id);
+      if (event.id === 'toggleDrawer') {
+        console.log("toggleDrawer1");
+        this.props.navigator.toggleDrawer({
+          animated: true,
+          side: 'left',
+        });
+      }
+    }
   }
-
 
   componentWillMount() {
     this.props.restoreDeviceInfo("","","");
   }
-
   props: Props;
 
   goBarcodeScan() {
@@ -170,7 +176,6 @@ class DeviceAddView extends Component<Props, State> {
   showToastForResponse() {
     toast("기기 등록 완료");
   }
-
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
     if (this.props.barcode == null || this.props.barcode === '') {
@@ -187,7 +192,6 @@ class DeviceAddView extends Component<Props, State> {
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
-
   render() {
     return (
       <ThemeProvider theme={ClaroTheme}>
@@ -250,46 +254,3 @@ class DeviceAddView extends Component<Props, State> {
 }
 
 export default DeviceAddView;
-
-/*   <SNInput
-            placeholder="Enter S/N yourself"
-            value={this.props.barcode}
-            onChangeText={barcode => {this.props.updateBarcode(barcode)}}
-          />
-            <Button
-              title={'바코드 스캐너로 입력'}
-              style={{ marginBottom: 20 }}
-              light
-              onPress={() => this.goBarcodeScan()}
-            />
-            <Button
-              title={'모듈로 시리얼 서버정보 전송'}
-              onPress={() => this.sendSerialAndServerInfo()}
-              color={ClaroTheme.mainColor} />
-            <SerialNumberText>
-              (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
-              0x0101, 0x0201까지 성공적으로 전송받으면
-              WifiSetup 화면으로 자동으로 이동)
-            </SerialNumberText>
-            <Button
-              title={'WifiSetup 화면으로 이동 (테스트용)'}
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...WIFI_SET_UP_SCREEN,
-                });
-              }}
-              color={ClaroTheme.mainColor}
-            />
-            <Button
-              title={'Remote 화면으로 바로 이동 (테스트용)'}
-              light
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...REMOTE_SCREEN,
-                })
-              }}
-            />*/

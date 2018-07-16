@@ -177,52 +177,11 @@ const LocationContainer = styled.View`
     align-items: center;
     margin-right:10px;
 `;
-const DateLeftContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row
-    justify-content: flex-end;
-    align-items: center;
-`;
-
-const GrayLine = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    height: 2px; 
-    background-color: gray;
-`;
-const DateText = styled.Text`
-    color : white;
-    font-size : 15px;
-`
-
-const IconView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 30px;
-`;
-const NavBar = styled.View`
-  display: flex;
-  flexDirection: row;
-  justifyContent: flex-end;
-  alignItems: center;
-`;
-const basicText = styled.View`
-  font-size: 15px;
-  color: white;
-`;
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     console.log("Constructor is implemented");
     super(props);
     autoBind(this);
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: true,
-    });
   }
   state: State = {
   };
@@ -312,31 +271,31 @@ class RemoteView extends Component<Props, State> {
               </OuterTextCenter>
               <FunctionContainer style={{paddingBottom: 10}}>
                 <TextContainer><Text style={{fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold', fontSize:25, color: Color}}>매우 나쁨</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold', fontSize:25, color: Color}}>{this.props.outerTotalGrade=== '1' ? '좋음' : (this.props.outerTotalGrade==='2' ? '보통' : '나쁨')}</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerPm10Value} </Text><Text>ug/m3</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>초미세먼지(PM 2.5)</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >25 </Text><Text>ug/m3</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerPm25Value} </Text><Text>ug/m3</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>오존</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.035 </Text><Text>ppm</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerO3Value} </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>이산화질소</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.016 </Text><Text>ppm</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerNo2Value} </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>일산화탄소</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.3 </Text><Text>ppm</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerCoValue} </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>이황상가스</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >0.004 </Text><Text>ppm</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.outerSo2Value} </Text><Text>ppm</Text></TextLeftContainer>
               </FunctionContainer>
                 </OutAirView>
               </ScrollView>

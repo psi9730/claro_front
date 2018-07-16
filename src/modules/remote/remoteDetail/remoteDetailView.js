@@ -203,28 +203,16 @@ class RemoteDetailView extends Component<Props, State> {
   };
   props: Props;
   componentWillMount() {
-    (async() => {
-      if(this.props.isChange===false) {
-        const sterilizing = await Storage.getItem(KEYS.sterilizing);
-        const AI = await Storage.getItem(KEYS.AI);
-        const power = await Storage.getItem(KEYS.power);
-        const airCleaning = await Storage.getItem(KEYS.airCleaning);
-        this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
-        this.props.toggleAI_(AI, this.state.serialNumber);
-        this.props.togglePower_(power, this.state.serialNumber);
-        this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
-      }
-    })();
   }
 
   turnOffSterilizing(){
-    this.props.toggleSterilizing_(0, this.props.barcode).catch();
+    this.props.toggleSterilizing_(0, this.props.barcode);
   }
   turnOffAirCleaning(){
-    this.props.toggleAirCleaning_(0,this.props.barcode).catch();
+    this.props.toggleAirCleaning_(0,this.props.barcode);
   }
   turnOffAI(){
-    this.props.toggleAI_(0,this.props.barcode).catch();
+    this.props.toggleAI_(0,this.props.barcode);
   }
   turnOffSleep(){
     this.props.toggleSleepRequest(0,this.props.barcode).catch();

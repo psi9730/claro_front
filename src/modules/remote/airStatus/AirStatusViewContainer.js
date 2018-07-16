@@ -1,12 +1,12 @@
 import {connect} from 'react-redux';
-import actions from '../../redux/actions';
-import RemoteView from './remoteDraggableView';
-import i18n from '../../utils/i18n/index';
+import actions from '../../../redux/actions';
+import RemoteView from './AirStatusView';
+import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
 import {compose, withHandlers, withProps, withState} from 'recompose';
 
-import {KEYS} from '../../utils/ClaroStorage';
-import Storage from '../../utils/ClaroStorage';
+import {KEYS} from '../../../utils/ClaroStorage';
+import Storage from '../../../utils/ClaroStorage';
 
 export default connect(
   state => ({

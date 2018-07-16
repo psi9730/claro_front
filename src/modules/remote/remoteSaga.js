@@ -92,8 +92,6 @@ function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, seri
       };
       yield put(RemoteActions.toggleSleepSuccess(sleep));
     }
-    yield call(post, `/devices/add_command`, body);
-    yield put(RemoteActions.toggleSleepSuccess(sleep));
   } catch (e) {
     yield put(RemoteActions.toggleSleepFailure(e));
   }
@@ -205,11 +203,72 @@ function* requestSetControlDevice2({serialNumber, power, sterilizing, airCleanin
   yield put(RemoteActions.setControlDevice2Success(body));
   yield put(DeviceActions.updateBarcode(serialNumber));
 }
+function* requestSetTimerOff({serialNumber, isTurnOffActive, turnOffHour}:  {serialNumber: string,
+  isTurnOffActive: boolean,
+  turnOffHour: any}) {
+  try {
+    var now  = new Date()
+    var date = new Date(now.getTime() + (turnOffHour * 60 * 60 * 1000));
+    const body={
+      serial_number: serialNumber,
+      is_turn_off_active: isTurnOffActive,
+      turn_off_date: date,
+    }
+    const token = yield call(post, `/devices/timer_off/${serialNumber}/`,body);
+    yield put(RemoteActions.setTurnOffSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.setTurnOffFailure(e));
+  }
+}
+function* requestSetTimerOn({serialNumber, isTurnOnActive, turnOnDay, turnOnHour}:  {serialNumber: string,
+  isTurnOnActive: boolean,
+  turnOnDay: any,
+  turnOnHour: Date}) {
+  try {
+    const body={
+      serial_number: serialNumber,
+      is_turn_on_active: isTurnOnActive,
+      turn_on_day: JSON.stringify(turnOnDay),
+      turn_on_date: turnOnHour,
+    }
+    const token = yield call(post, `/devices/timer_on/${serialNumber}/`,body);
+    yield put(RemoteActions.setTurnOnSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.setTurnOnFailure(e));
+  }
+}
+
+function* requestGetOuter({serialNumber, jibunAddr}:  {serialNumber: string, jibunAddr:string}) {
+  try {
+    const body={
+      location:jibunAddr
+    }
+    const token = yield call(post, `/devices/outer/${serialNumber}/`,body);
+    yield put(RemoteActions.getOuterSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.getOuterFailure(e));
+  }
+}
+
+function* requestFilterReset({time,serialNumber}:  {time: number,serialNumber:string}) {
+  try {
+    const body={
+    filter_sum: time
+    }
+    const token = yield call(post, `/devices/filter_set/${serialNumber}/`,body);
+    yield put(RemoteActions.filterTimeResetSuccess(token));
+  } catch (e) {
+    yield put(RemoteActions.filterTimeResetFailure(e));
+  }
+}
 
 export const RemoteSaga = [
-  takeLatest(RemoteTypes.GET_CONTROL_DEVICE_REQUEST, requestGetControlDevice),
-  takeLatest(RemoteTypes.SET_CONTROL_DEVICE_REQUEST, requestSetControlDevice),
+  takeLatest(RemoteTypes.GET_OUTER_REQUEST, requestGetOuter),
+  takeLatest(RemoteTypes.FILTER_TIME_RESET_REQUEST, requestFilterReset),
+  takeLatest(RemoteTypes.SET_TURN_ON_REQUEST, requestSetTimerOn),
+  takeLatest(RemoteTypes.SET_TURN_OFF_REQUEST, requestSetTimerOff),
   takeLatest(RemoteTypes.SET_CONTROL_DEVICE2_REQUEST, requestSetControlDevice2),
+  takeLatest(RemoteTypes.GET_CONTROL_DEVICE_REQUEST, requestGetControlDevice),
   takeLatest(RemoteTypes.TOGGLE_POWER_REQUEST, requestTogglePowerRequest),
   takeLatest(RemoteTypes.TOGGLE_SLEEP_REQUEST, requestToggleSleepRequest),
   takeLatest(RemoteTypes.TOGGLE_A_I_REQUEST, requestToggleAIRequest),

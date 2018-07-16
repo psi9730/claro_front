@@ -136,10 +136,6 @@ class AcceptSignupView extends Component<Props, State> {
   }
 
   componentDidMount() {
-       this.props.navigator.setDrawerEnabled({
-          side: 'left',
-          enabled: false,
-        });
 
   }
   onChangeCheckBox1(){      //전체체크

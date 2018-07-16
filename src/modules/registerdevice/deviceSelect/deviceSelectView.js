@@ -171,7 +171,7 @@ class DeviceSelectView extends Component<Props, State> {
 
   componentWillMount() {
     console.log('this will mount repeatedly');
-    this.props.getDevicesRequest().then(()=> (async() => {
+    this.props.getDevicesRequest(this.props.barcode).then(()=> (async() => {
         const isTurnOnActive = await Storage.getItem(KEYS.isActivePush);
         isTurnOnActive && this.props.isActiveRequest(isTurnOnActive);
       }
@@ -240,8 +240,8 @@ class DeviceSelectView extends Component<Props, State> {
     this.props.isActiveRequest(active).catch();
   }
   setControlDevice(device){
-      this.props.setControlDeviceRequest(this.props.barcode, this.props.power,this.props.sterilizing,this.props.airCleaning,this.props.AI,this.props.sleepMode,this.props.isTurnOnActive, this.props.isTurnOffActive, this.props.turnOnDay,this.props.turnOffHour,this.props.turnOnHour).then(()=>this.props.getControlDeviceRequest(device.serialNumber).then(()=> (async() => {await Storage.setItem(KEYS.serialNumber, this.props.barcode);
-      })()).catch()).catch();
+     this.props.getControlDeviceRequest(device.serialNumber).then(()=> (async() => {await Storage.setItem(KEYS.serialNumber, this.props.barcode);
+      })()).catch()
   }
   static dismissKeyboard() {
     Keyboard.dismiss();

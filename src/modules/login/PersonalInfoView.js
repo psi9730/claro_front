@@ -116,10 +116,7 @@ class PersonalInfoView extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
   onChangeUsername(username) {

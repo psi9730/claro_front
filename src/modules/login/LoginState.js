@@ -10,7 +10,17 @@ type LoginState = {
 
 // Initial state
 const initialState = {
-
+  name:"",
+  login:"",
+  password:"",
+  phoneNumber:"",
+  homeNumber:"",
+  email:"",
+  location:"",
+  roadAddr:"",
+  jibunAddr:"",
+  postcode:"",
+  detailLocation:"",
 };
 
 // Action Creators
@@ -21,16 +31,26 @@ export const {Types: LoginTypes, Creators: LoginActions} = createActions(
     checkIdRequest: ['username'],
     claroSignupRequest: ['username', 'password','name', 'email','phoneNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     naverSignupRequest: ['username', 'name', 'email','phoneNumber'],
-    updateUserProfileRequest: ['phoneNumber','homeNumber','location','detailLocation','postcode','email'],
+    updateUserProfileRequest: ['phoneNumber','homeNumber','jibunAddr','roadAddr','detailLocation','postcode','email'],
     getUserProfileRequest: [],
     updatePasswordRequest: ['password'],
-    getLocationRequest: ['search']
+    setLocation: ['rnAdres','lnmAdres','postcode'],
+    getLocationRequest: ['search'],
+    setLocationRequest: ['jibunAddr','roadAddr', 'postcode'],
   })
 );
 
 // Reducer
 export default function LoginReducer(state: LoginState = initialState, action: Object = {}): LoginState {
   switch (action.type) {
+    case LoginTypes.SET_LOCATION:
+      return {
+        ...state,
+        jibunAddr: action.rnAdres,
+        roadAddr: action.lnmAdres,
+        postcode: action.postcode,
+        loading:true,
+      }
     case LoginTypes.GET_LOCATION_REQUEST:
       return {
         ...state,
@@ -39,11 +59,13 @@ export default function LoginReducer(state: LoginState = initialState, action: O
     case LoginTypes.GET_LOCATION_SUCCESS:
       return {
         ...state,
+        locations: action.payload,
         loading:true,
       }
     case LoginTypes.GET_LOCATION_FAILURE:
       return {
         ...state,
+        error: action.error,
         loading:true,
       }
     case LoginTypes.UPDATE_USER_PROFILE_REQUEST:
@@ -59,7 +81,8 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         phoneNumber: action.payload.phoneNumber,
         homeNumber: action.payload.homeNumber,
         email: action.payload.email,
-        location: action.payload.location,
+        jibunAddr: action.payload.jibunAddr,
+        roadAddr: action.payload.roadAddr,
         postcode: action.payload.postcode,
         detailLocation: action.payload.detailLocation,
         loading:true,
@@ -83,7 +106,8 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         phoneNumber: action.payload.phoneNumber,
         homeNumber: action.payload.homeNumber,
         email: action.payload.email,
-        location: action.payload.location,
+        jibunAddr: action.payload.jibunAddr,
+        roadAddr: action.payload.roadAddr,
         postcode: action.payload.postcode,
         detailLocation: action.payload.detailLocation,
         password: action.payload.password,

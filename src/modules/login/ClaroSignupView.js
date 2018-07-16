@@ -156,11 +156,7 @@ class ClaroSignupView extends Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log("didmount");
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
   onChangeUsername(username) {

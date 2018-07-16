@@ -66,10 +66,6 @@ class WifiSolutionView extends Component<Props, State> {
     this.state = {
       secure: true,
     }
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
   }
 
 

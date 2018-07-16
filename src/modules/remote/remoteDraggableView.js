@@ -32,6 +32,7 @@ import Storage, {KEYS} from '../../utils/ClaroStorage';
 const { StatusBarManager } = NativeModules;
 type Props = {
   useState: Function,
+  getOuterRequest: Function,
 };
 
 type State = {
@@ -84,10 +85,15 @@ class RemoteDraggableView extends Component<Props, State> {
       firstHeight:Dimensions.get('window').height
     };
   }
+  componentDidMount(){
+
+  }
   componentWillMount(){
     this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
     (async () => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
+      this.props.updateBarcode(serialNumber);
+      this.props.getOuterRequest(serialNumber, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
       this.props.getControlDeviceRequest(serialNumber).catch();
     })();
     if(Platform.OS==='android'){
@@ -165,9 +171,7 @@ class RemoteDraggableView extends Component<Props, State> {
     }
   }
   onLayout = (event) => {
-    console.log("onLayout");
       var {height} = event.nativeEvent.layout;
-    console.log(height,"height is cal");
     if(Platform.OS==='android') {
       this.setState({height: height});
       this.setState({firstHeight: height})

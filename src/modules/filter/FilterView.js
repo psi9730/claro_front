@@ -15,11 +15,12 @@ import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
 import exitIcnRed from '../../assets/images/exitIcnRed.png';
 import NavigationStyleWrapper from '../../utils/NavigationStyleWrapper';
+import Storage, {KEYS} from '../../utils/ClaroStorage';
 type Props = {
   filterMaxTime: number,
   filterUsingTime: number,
   url: string,
-  filterTimeReset: Function,
+  filterTimeResetRequest: Function,
 };
 
 type State = {
@@ -156,6 +157,8 @@ class FilterView extends Component<Props, State> {
       modalVisible: false,
       resetVisible: false,
       progress:0,
+      usingDay: Math.ceil(this.props.filterUsingTime/720),
+      usingMonth: Math.ceil(this.props.filterUsingTime/21600)
     }
   }
 
@@ -169,21 +172,18 @@ class FilterView extends Component<Props, State> {
   }
 
   filterTimeReset(){
-    this.props.filterTimeReset();
-    this.setResetVisible(!this.state.resetVisible)
+    this.props.filterTimeResetRequest(0,this.props.barcode).then(()=>
+    this.setResetVisible(!this.state.resetVisible)).then(()=> this.forceUpdate())
   }
   componentWillReceiveProps(){
-    this.setState({progress: 0},()=>
-      setTimeout((function() {
-        this.setState({ progress: this.state.progress + this.props.filterUsingTime})
-      }).bind(this), 1000))
+
   }
-  componentWillMount(){
+  componentDidMount(){
     NavigationStyleWrapper(this.props.navigator,'dark','white','white',false,false)
-    this.setState({progress: 0},()=>
+  /*  this.setState({progress: 0},()=>
     setTimeout((function() {
       this.setState({ progress: this.state.progress + this.props.filterUsingTime})
-    }).bind(this), 1000))
+    }).bind(this), 1000))*/
   }
   props: Props;
 
@@ -204,7 +204,7 @@ class FilterView extends Component<Props, State> {
               <TitleText> 필터 관리</TitleText>
             </TopTextContainer>
             <ButtonView>
-              <Progress.Circle size={100} progress={ this.state.progress/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${progress1}%`)}}/>
+              <Progress.Circle size={100} progress={ this.props.filterUsingTime/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${this.props.filterUsingTime}분`)}}/>
             </ButtonView>
             <Modal
               isVisible={this.state.resetVisible}

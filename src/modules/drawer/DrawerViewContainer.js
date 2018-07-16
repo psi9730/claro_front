@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n';
 import _ from 'lodash';
 import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
-import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, SIGNUP_SCREEN, USER_PROFILE_SCREEN, CHOICE_DEVICE_SCREEN, DEVICE_SELECT_SCREEN, LOGIN_SCREEN, FILTER_SCREEN} from '../../../screens';
+import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, SIGNUP_SCREEN, USER_PROFILE_SCREEN, AIR_STATUS_SCREEN, CHOICE_DEVICE_SCREEN, DEVICE_SELECT_SCREEN, LOGIN_SCREEN, FILTER_SCREEN} from '../../../screens';
 import actions from '../../redux/actions';
 
 const hideDrawer = (props) => {
@@ -35,6 +35,10 @@ export default connect(
       },*/
       hideDrawerView: (props) => () => {
         hideDrawer(props);
+      },
+      goToAirStatus: (props) => () => {
+        hideDrawer(props);
+        props.navigator.handleDeepLink({link: AIR_STATUS_SCREEN.screen});
       },
       goToRemote: (props) => () => {
         hideDrawer(props);

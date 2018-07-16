@@ -15,7 +15,14 @@ export default connect(
     AI: _.get(state, ['remote', 'AI']),
     date: _.get(state,['remote','date']),
     backgroundColor: _.get(state,['remote','backgroundColor']),
-    location: _.get(state,['remote','location'])
+    location: _.get(state,['remote','location']),
+    outerTotalGrade: _.get(state,['remote','outerTotalGrade']),
+    outerNo2Value : _.get(state,['remote','outerNo2Value']),
+    outerO3Value : _.get(state,['remote','outerO3Value']),
+    outerCoValue: _.get(state, ['remote','outerCoValue']),
+    outerPm10Value: _.get(state,['remote','outerPm10Value']),
+    outerPm25Value : _.get(state,['remote','outerPm25Value']),
+    outerSo2Value : _.get(state,['remote','outerSo2Value']),
   }),
   actions,
 )(

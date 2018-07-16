@@ -6,11 +6,6 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import { Icon } from 'react-native-elements'
-import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
 import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN, LOCATION_SEARCH_SCREEN} from '../../../screens';
 type Props = {
   ssid: ?string,
@@ -28,7 +23,8 @@ type Props = {
   phoneNumber: string,
   homeNumber: string,
   email: string,
-  location: string,
+  jibunAddr: string,
+  roadAddr: string,
   postcode: string,
   detailLocation: string,
   devices: any,
@@ -41,6 +37,7 @@ type State = {
 const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
+  padding-left: 8px;
   font-size: 20px;
   margin-top: 8px;
   border-bottom-width:1px;
@@ -67,10 +64,6 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ErrorText = styled.Text`
-  font-size: 15px;
-  color: red;
-`;
 
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
@@ -95,12 +88,6 @@ const TextCenterContainer = styled.View`
     align-items: center;
 `;
 
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -164,6 +151,7 @@ const TextsInput = styled.TextInput`
   margin-bottom: 8px;
   font-size: 20px;
   margin-top: 8px;
+  padding-left: 8px;
   padding-bottom: 4px;
   border-bottom-color: gray;
   border-bottom-width: 1px;
@@ -174,8 +162,6 @@ class LocationEditView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.state = {
-      postcode: this.props.postcode,
-      location: this.props.location,
       detailLocation: this.props.detailLocation,
       error: false,
     };
@@ -187,7 +173,7 @@ class LocationEditView extends Component<Props, State> {
   componentWillMount() {
   }
   updateProfile(){
-    this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.state.location, this.state.detailLocation, this.state.postcode, this.props.email).then(()=>
+    this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.state.detailLocation, this.props.postcode, this.props.email).then(()=>
       this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
   }
 
@@ -210,7 +196,7 @@ class LocationEditView extends Component<Props, State> {
                   underlineColorAndroid="transparent"
                   autoCorrect={false}
                   editable={false}
-                  value={this.state.postcode}
+                  value={this.props.postcode}
                   autoCapitalize='none'
                   style={{marginBottom: 5, flex:1}}
                   blurOnSubmit={false}
@@ -231,7 +217,7 @@ class LocationEditView extends Component<Props, State> {
               underlineColorAndroid="transparent"
               autoCorrect={false}
               editable={false}
-              value={this.state.location}
+              value={this.props.jibunAddr}
               autoCapitalize='none'
               style={{marginBottom: 25, fontSize: 18}}
               blurOnSubmit={true}

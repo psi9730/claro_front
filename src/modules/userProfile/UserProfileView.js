@@ -120,6 +120,7 @@ class UserProfileView extends Component<Props, State> {
     }
   }
   componentWillMount(){
+   // this.props.getUserProfileRequest()
     this.props.getDevicesRequest().catch((e)=>console.log(e));
   }
   componentDidMount() {
@@ -231,7 +232,7 @@ class UserProfileView extends Component<Props, State> {
               </TextRightView>
             </RemoteContainer>
             <GrayLine/>
-            <RemoteContainer><TextLeftView > <GrayText> 주소 </GrayText><ContentText>{this.props.location}</ContentText></TextLeftView>
+            <RemoteContainer><TextLeftView > <GrayText> 주소 </GrayText><ContentText>{this.props.jibunAddr}</ContentText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToLocation()}>
                   <Image source={arrowLeftIcn} style={{
@@ -250,15 +251,14 @@ class UserProfileView extends Component<Props, State> {
               {_.map(this.props.devices, (device, index) => {
                   return (
                     <View key={index} style={{flex:1}}>
-                      <GrayText style={{marginLeft:20}}> 등록제품 {index+1} </GrayText>
+                      <GrayText style={{marginLeft: 20}}> 등록제품 {index+1} </GrayText>
                       <RemoteContainer>
                         <TextLeftView>
                             {
                               device.deviceInfo &&
                               <RemoteText
                                 style={{
-                                  color: 'black',
-                                  fontWeight: 'bold'
+                                  color: 'black', marginBottom: 5
                                 }}>{device.nickname} ({device.deviceInfo.modelName})
                               </RemoteText>
                             }
@@ -270,8 +270,8 @@ class UserProfileView extends Component<Props, State> {
                             device.deviceInfo &&
                             <RemoteText
                               style={{
-                                color: 'black',
-                                fontWeight: 'bold'
+                                color: 'black', marginBottom: 5
+
                               }}>S/N: {device.serialNumber}
                             </RemoteText>
                           }

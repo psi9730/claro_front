@@ -140,19 +140,13 @@ class SerialNumberView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
 
 
   componentWillMount() {
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
   props: Props;

@@ -6,10 +6,6 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import { Icon } from 'react-native-elements'
 import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
 import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
 type Props = {

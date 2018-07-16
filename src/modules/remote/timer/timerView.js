@@ -45,6 +45,7 @@ type Props = {
   turnOnHour: any,
   turnOffHour : any,
   turnOnDay: String,
+  getControlDeviceRequest: Function,
 };
 
 type State = {
@@ -134,20 +135,10 @@ class TimerView extends Component<Props, State> {
 
 
   componentWillMount() {
-    (async() => {
-        const isTurnOnActive = await Storage.getItem(KEYS.isTurnOnActive);
-        const isTurnOffActive = await Storage.getItem(KEYS.isTurnOffActive);
-        const turnOnDay = await Storage.getItem(KEYS.turnOnDay);
-        const turnOnHour = await Storage.getItem(KEYS.turnOnHour);
-        const turnOffHour = await Storage.getItem(KEYS.turnOffHour);
-        console.log(turnOnHour,'turnonhour');
-        isTurnOnActive && this.props.setTurnOnTimer(isTurnOnActive);
-        isTurnOffActive && this.props.setTurnOffTimer(isTurnOffActive);
-        turnOnDay && this.props.setTurnOnDay(turnOnDay);
-        turnOnHour && this.props.setTurnOnHour(turnOnHour);
-        turnOffHour && this.props.setTurnOffHour(turnOffHour);
-    }
-    )();
+    (async () => {
+      const serialNumber = await Storage.getItem(KEYS.serialNumber);
+      this.props.getControlDeviceRequest(serialNumber).catch();
+    })();
   }
   shouldComponentUpdate(nextProps){
     if(nextProps.turnOnDay !== this.props.turnOnDay)
@@ -163,29 +154,34 @@ class TimerView extends Component<Props, State> {
     }
     else
       turnOnDay = _.update(this.props.turnOnDay,date,()=>{return true;})
-    console.log(turnOnDay,'turnonDay');
-    this.props.setTurnOnDay(turnOnDay);
+    this.props.setTurnOnRequest(this.props.barcode, turnOnDay,this.props.turnOnHour, this.props.isTurnOnActive);
     this.forceUpdate()
   }
   setHour(hour){
-    console.log(hour,'hour');
-    this.props.setTurnOnHour(hour);
+    this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay,hour, this.props.isTurnOnActive);
   }
   toggleTurnOffTimer(hour){
-    this.props.setTurnOffHour(hour)  //꺼짐예약 시간 설정하기
+    this.props.setTurnOffRequest(this.props.barcode, hour, this.props.isTurnOffActive);
   }
   turnOffToggle(active){
-    this.props.setTurnOffTimer(active);
+    if(active===1) {
+      this.props.setTurnOffRequest(this.props.barcode, new Date(), active);
+    }
+    else{
+      this.props.setTurnOffRequest(this.props.barcode, this.props.turnOffHour, active);
+    }
   }
   turnOnToggle(active){
-   this.props.setTurnOnTimer(active);
+    if(active ===1) {
+      this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, new Date(), active);
+    }
+    else this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, this.props.turnOnHour, active);
   }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
 
   render() {
-    const newDate = new Date(this.props.turnOnHour)
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -305,7 +301,7 @@ class TimerView extends Component<Props, State> {
               />
               </TextRightView></RemoteContainer>
             {this.props.isTurnOnActive && Platform.OS==='ios' ?   (this.props.turnOnHour &&<DatePickerIOS
-              date={newDate}
+              date={this.props.turnOnHour}
               onDateChange={this.setHour}
               mode={"time"}
             />) : (null)}

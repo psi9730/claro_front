@@ -133,31 +133,37 @@ class RemoteBarView extends Component<Props, State> {
   };
 
   componentWillMount() {
-    (async() => {
-      if(this.props.isChange===false) {
-        const serialNumber = await Storage.getItem(KEYS.serialNumber);
-        this.setState({serialNumber: serialNumber});
-        const sterilizing = await Storage.getItem(KEYS.sterilizing);
-        const AI = await Storage.getItem(KEYS.AI);
-        const power = await Storage.getItem(KEYS.power);
-        const airCleaning = await Storage.getItem(KEYS.airCleaning);
-        this.props.toggleSterilizing_(sterilizing, this.state.serialNumber);
-        this.props.toggleAI_(AI, this.state.serialNumber);
-        this.props.togglePower_(power, this.state.serialNumber);
-        this.props.toggleAirCleaning_(airCleaning, this.state.serialNumber);
-      }
-    })();
-    //get indoor, outside Air Info
   }
 
   turnOffSterilizing(){
     this.props.toggleSterilizing_(0, this.props.barcode);
   }
   turnOffAirCleaning(){
-    this.props.toggleAirCleaning_(0, this.props.barcode);
+    this.props.toggleAirCleaning_(0,this.props.barcode);
   }
   turnOffAI(){
-    this.props.toggleAI_(0,  this.props.barcode);
+    this.props.toggleAI_(0,this.props.barcode);
+  }
+  turnOffSleep(){
+    this.props.toggleSleepRequest(0,this.props.barcode).catch();
+  }
+  toggleTimer(){
+    this.props.navigator.push({
+      ...TIMER_SCREEN,
+    });
+
+  }
+  toggleSleep(){
+    if(this.props.power===0){
+      toast("Power is Off");
+    }
+    else if (this.props.sleepMode === 1) { //turn on state
+    } else {
+      this.props.toggleSleepRequest(1, this.props.barcode).catch();
+      this.turnOffSterilizing();
+      this.turnOffAirCleaning();
+      this.turnOffAI();
+    }
   }
   toggleAI() {
     if(this.props.power===0){
@@ -165,12 +171,13 @@ class RemoteBarView extends Component<Props, State> {
     }
     else if (this.props.AI === 0) {    //turn off state
       console.log("AI is 0");
-      this.props.toggleAI_(1,  this.props.barcode);
+      this.props.toggleAI_(1, this.props.barcode);
       this.turnOffSterilizing();
+      this.turnOffSleep();
       this.turnOffAirCleaning();
     }
     else if (this.props.AI === 1) { //turn on state
-
+      this.props.toggleAI_(0, this.props.barcode);
     }
   }
 
@@ -183,14 +190,15 @@ class RemoteBarView extends Component<Props, State> {
     else if (this.props.sterilizing === 0){
       console.log("sterilizing is 0");
       this.turnOffAI();
+      this.turnOffSleep();
       this.turnOffAirCleaning();
-      this.props.toggleSterilizing_(1,  this.props.barcode);
+      this.props.toggleSterilizing_(1, this.props.barcode);
     }
     else if(this.props.sterilizing === 1){
-      this.props.toggleSterilizing_(2,  this.props.barcode);
+      this.props.toggleSterilizing_(2, this.props.barcode);
     }
     else if(this.props.sterilizing === 2){
-
+      this.props.toggleSterilizing_(0,this.props.barcode);
     }
   }
 
@@ -200,30 +208,33 @@ class RemoteBarView extends Component<Props, State> {
     }
     else if (this.props.airCleaning === 0){
       this.turnOffAI();
+      this.turnOffSleep();
       this.turnOffSterilizing();
-      this.props.toggleAirCleaning_(1,  this.props.barcode);
+      this.props.toggleAirCleaning_(1,this.props.barcode);
     }
     else if(this.props.airCleaning === 1){
-      this.props.toggleAirCleaning_(2,  this.props.barcode);
+      this.props.toggleAirCleaning_(2, this.props.barcode);
     }
     else if(this.props.airCleaning === 2){
-
+      this.props.toggleAirCleaning_(0,this.props.barcode);
     }
   }
-
   togglePower(){
     if(this.props.power === 0){
-      this.props.togglePower_(1,  this.props.barcode);
-      this.props.toggleAI_(1,  this.props.barcode);
+      this.props.togglePower_(1, this.props.barcode);
+      this.props.toggleAI_(1, this.props.barcode);
     }
     else if(this.props.power === 1){
       this.turnOffAI();
       this.turnOffAirCleaning();
+      this.turnOffSleep();
       this.turnOffSterilizing();
-      this.props.togglePower_(0,  this.props.barcode);
+      this.props.togglePower_(0, this.props.barcode);
     }
   }
-
+  goBack(){
+    this.props.navigator.pop();
+  }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }

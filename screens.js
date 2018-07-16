@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback, Platform
 } from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
+import AirStatusScreen from './src/modules/remote/airStatus/AirStatusViewContainer';
 import UserProfileScreen from './src/modules/userProfile/UserProfileViewContainer';
 import PhoneNumberEditScreen from './src/modules/userProfile/PhoneNumberEditViewContainer';
 import PasswordEditScreen from './src/modules/userProfile/PasswordEditViewContainer';
@@ -95,9 +96,15 @@ export const WIFI_SOLUTION_SCREEN = {
   navigatorButtons: {
   },
 };
-
 export const USER_PROFILE_SCREEN = {
   screen: 'claro.UserProfileScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+export const AIR_STATUS_SCREEN = {
+  screen: 'claro.AirStatusScreen',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -303,6 +310,7 @@ export const DEVICE_INFO_SCREEN = {
     leftButtons: [goBack],
   },
 };
+
 export const DEVICE_ADD_SCREEN = {
   screen: 'claro.DeviceAddScreen',
   navigatorStyle: {
@@ -311,7 +319,6 @@ export const DEVICE_ADD_SCREEN = {
     leftButtons: [burgerBtn],
   },
 };
-
 
 export const REMOTE_SCREEN = {
   screen: 'claro.RemoteScreen',
@@ -341,6 +348,7 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(AIR_STATUS_SCREEN.screen, () => NavigationWrapper(AirStatusScreen), store, Provider);
   Navigation.registerComponent(USER_PROFILE_SCREEN.screen, () => NavigationWrapper(UserProfileScreen), store, Provider);
   Navigation.registerComponent(PASSWORD_CHECK_SCREEN.screen, () => NavigationWrapper(PasswordCheckScreen), store, Provider);
   Navigation.registerComponent(PASSWORD_EDIT_SCREEN.screen, () => NavigationWrapper(PasswordEditScreen), store, Provider);
@@ -349,11 +357,6 @@ export function registerScreens() {
   Navigation.registerComponent(PHONE_NUMBER_EDIT_SCREEN.screen, () => NavigationWrapper(PhoneNumberEditScreen), store, Provider);
   Navigation.registerComponent(HOME_NUMBER_EDIT_SCREEN.screen, () => NavigationWrapper(HomeNumberEditScreen), store, Provider);
   Navigation.registerComponent(EMAIL_EDIT_SCREEN.screen, () => NavigationWrapper(EmailEditScreen), store, Provider);
-  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
-  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
-  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
-  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
-  Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
   Navigation.registerComponent(WIFI_SOLUTION_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSolutionTempScreen), store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_TEMP_SCREEN.screen, () => NavigationWrapper(WifiSetUpTempScreen), store, Provider);
   Navigation.registerComponent(REGISTER_COMPLETE_TEMP_SCREEN.screen, () => NavigationWrapper(RegisterCompleteTempScreen), store, Provider);
@@ -389,7 +392,7 @@ export function startApp() {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
-    let firstScreen = {...USER_PROFILE_SCREEN};
+    let firstScreen = {...AIR_STATUS_SCREEN};
 
     if (token && token.accessToken) {
       firstScreen = {...REMOTE_SCREEN};

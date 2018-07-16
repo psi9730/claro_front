@@ -6,7 +6,7 @@ import { Alert,
   BackAndroid,
 } from 'react-native';
 
-import {WIFI_SET_UP_SCREEN, DEVICE_SELECT_SCREEN, WIFI_SET_UP_TEMP_SCREEN, DEVICE_ADD_SCREEN, DEVICE_INFO_SCREEN, WIFI_SOLUTION_SCREEN, TIMER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
+import {WIFI_SET_UP_SCREEN, AIR_STATUS_SCREEN, DEVICE_SELECT_SCREEN, WIFI_SET_UP_TEMP_SCREEN, DEVICE_ADD_SCREEN, DEVICE_INFO_SCREEN, WIFI_SOLUTION_SCREEN, TIMER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, NICKNAME_SCREEN, REGISTER_COMPLETE_SCREEN, PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN,WIFI_MAIN_SCREEN, WIFI_GUIDE_SCREEN, CLARO_SIGNUP_SCREEN,NAVER_SIGNUP_SCREEN, FILTER_SCREEN, SIGNUP_SCREEN, LOGIN_SCREEN, CHOICE_DEVICE_SCREEN, REMOTE_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN, BARCODE_SCAN_SCREEN,ACCEPT_SIGNUP_SCREEN,REMOTE_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
 import locationUtils from '../../utils/locationUtils';
 
 function getDisplayName(WrappedComponent) {
@@ -59,6 +59,9 @@ export default function NavigationWrapper(WrappedComponent) {
         let back = false;
         let screenObj;
         switch (link) {
+          case AIR_STATUS_SCREEN.screen:
+            screenObj = {...AIR_STATUS_SCREEN};
+            break;
           case USER_PROFILE_SCREEN.screen:
             screenObj = {...USER_PROFILE_SCREEN};
             break;
@@ -146,6 +149,7 @@ export default function NavigationWrapper(WrappedComponent) {
       } else if (event.type === 'NavBarButtonPress') {
         console.log("Button is pressed",event.id);
         if (event.id === 'toggleDrawer') {
+          console.log("toggleDrawer");
           this.props.navigator.toggleDrawer({
             animated: true,
             side: 'left',

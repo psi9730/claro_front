@@ -16,7 +16,12 @@ export const callApi: Function = async (dataType: number, body) => {
       client.write(buf);
     });
     client.on('error', (error) => {
-      throw new Error('error')
+      console.log("error on callApi");
+      store.dispatch({
+        type: DeviceTypes.TCP_REQUEST_FAILURE,
+        error: "TCP_REQUEST_FAIL"
+      });
+      //throw new Error('error')
     });
     client.on('data', (data) => {
       client.destroy();
@@ -52,6 +57,7 @@ export const callApi: Function = async (dataType: number, body) => {
     client.on('close', () => {
     });
   } catch (e) {
+    console.log("error on callApi2");
     throw new Error('error')
   }
 };

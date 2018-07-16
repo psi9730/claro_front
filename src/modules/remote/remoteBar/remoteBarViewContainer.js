@@ -44,7 +44,7 @@ export default connect(
             props.setPower('black');
           else if (power=== 1) {
             props.setPower('blue');
-          }}). catch(()=> { console.log("claro can't toggle Power");});
+          }}). then(()=> props.getControlDeviceRequest(serialNumber).catch()).catch(()=> { console.log("claro can't toggle Power");});
       },
       toggleAI_: (props) => (AI,serialNumber) => {
         props.toggleAIRequest(AI,serialNumber).then(()=>{

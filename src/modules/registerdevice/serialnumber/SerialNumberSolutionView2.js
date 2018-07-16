@@ -76,20 +76,13 @@ class SerialNumberSolutionView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
     NavigationStyleWrapper(this.props.navigator,'dark','white','white',true,false,'black','black')
   }
 
 
 
   componentWillMount() {
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
+
   }
 
   props: Props;

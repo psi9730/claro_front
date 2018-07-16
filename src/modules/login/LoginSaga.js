@@ -75,10 +75,10 @@ function* requestUpdatePassword({password}: {password:string}) {
     yield put(LoginActions.updatePasswordFailure(e));
   }
 }
-function* requestGetLocation() {
+function* requestGetLocation({search}:{search: string}) {
   try {
-    const token = yield call(get, `/devices/add_command`, body);
-    yield put(LoginActions.getLocationSuccess());
+    const token = yield call(get, `/users/location?search_location=${search}`);
+    yield put(LoginActions.getLocationSuccess(token));
   } catch (e) {
     yield put(LoginActions.getLocationFailure(e));
   }
@@ -86,7 +86,7 @@ function* requestGetLocation() {
 function* requestGetUserProfile() {
   try {
     const token = yield call(get, `/devices/add_command`, body);
-    yield put(LoginActions.getUserProfileSuccess());
+    yield put(LoginActions.getUserProfileSuccess(token));
   } catch (e) {
     yield put(LoginActions.getUserProfileFailure(e));
   }

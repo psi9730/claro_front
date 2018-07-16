@@ -71,10 +71,6 @@ class LoginView extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.navigator.setDrawerEnabled({
-      side: 'left',
-      enabled: false,
-    });
     this.refs.phone.focus();
   }
 

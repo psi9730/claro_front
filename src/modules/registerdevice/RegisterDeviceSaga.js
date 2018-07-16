@@ -74,9 +74,11 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
       yield put(DeviceActions.sendSerialNumberSuccess(action.payload));
     }
-    else
+    else {
       yield put(DeviceActions.sendSerialNumberFailure(action.error));
+    }
   } catch (e) {
+    console.log("sendSerialNumber",action.error);
     yield put(DeviceActions.sendSerialNumberFailure(e));
   }
 }

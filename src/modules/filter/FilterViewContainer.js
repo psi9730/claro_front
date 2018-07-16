@@ -10,6 +10,7 @@ export default connect(
     filterMaxTime: _.get(state, ['remote', 'filterMaxTime']),
     filterUsingTime: _.get(state, ['remote', 'filterUsingTime']),
     url: _.get(state, ['remote', 'url']),
+    barcode: _.get(state,['registerDevice','barcode']),
   }),
   actions,
 )(
