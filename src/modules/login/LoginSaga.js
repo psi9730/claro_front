@@ -10,12 +10,15 @@ function* requestLogin({username, password}: {username: string, password: number
   try {
     let body;
     body = {
-        username, password
+        username, password,
+      grantType: 'password',
     };
-   // const token = yield call(post, `/devices/add_command`, body);
-    yield put(LoginActions.loginSuccess());
+    const token = yield call(post, `/auth/token`, body);
+    yield setAuthenticationToken(token);
+    console.log("here");
+    yield put(LoginActions.loginSuccess(token));
   } catch (e) {
-    yield put(LoginActions.loginFailure(e));
+
   }
 }
 
@@ -31,14 +34,14 @@ function* requestCheckId({username}: {username: string}) {
     yield put(LoginActions.checkIdFailure(e));
   }
 }
-function* requestClaroSignup({username, password,name, email,phoneNumber,postcode,roadAddr,jibunAddr,detailLocation}: {username: string, password: string, name: string, email: string, phoneNumber:string, poostcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
+function* requestClaroSignup({username, password,name, email,phoneNumber,homeNumber,postcode,roadAddr,jibunAddr,detailLocation}: {username: string, password: string, name: string, email: string, phoneNumber:string, homeNumber:string, postcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
   try {
     let body;
     body = {
-     username,password,email, phoneNumber, postcode, roadAddr, jibunAddr, detailLocation
+     login:username,password,email,name, phone_number: phoneNumber, home_number: homeNumber, postcode, road_addr: roadAddr, jibun_addr: jibunAddr, detail_location: detailLocation
     };
-    // const token = yield call(post, `/devices/add_command`, body);
-    yield put(LoginActions.claroSignupSuccess());
+    const token = yield call(post, `/users`, body);
+    yield put(LoginActions.claroSignupSuccess(token));
   } catch (e) {
     yield put(LoginActions.claroSignupFailure(e));
   }
@@ -58,8 +61,8 @@ function* requestNaverSignup({username, name, email,phoneNumber}: {username: str
 function* requestUpdateUserProfile({phoneNumber,homeNumber,location,detailLocation,postcode,email}: {phoneNumber:string,homeNumber:string,location:string,detailLocation:string,postcode:string,email:string}) {
   try {
     let body;
-    body = {phoneNumber,homeNumber,location,detailLocation,postcode,email};
-    const token = yield call(post, `/users/`, body);
+    body = {phone_number:phoneNumber,home_number: homeNumber,location,detail_location: detailLocation,postcode,email};
+    const token = yield call(post, `/users/me/update`, body);
     yield put(LoginActions.updateUserProfileSuccess(token));
   } catch (e) {
     yield put(LoginActions.updateUserProfileFailure(e));
@@ -85,7 +88,7 @@ function* requestGetLocation({search}:{search: string}) {
 }
 function* requestGetUserProfile() {
   try {
-    const token = yield call(get, `/devices/add_command`, body);
+    const token = yield call(get, `/users/me`);
     yield put(LoginActions.getUserProfileSuccess(token));
   } catch (e) {
     yield put(LoginActions.getUserProfileFailure(e));

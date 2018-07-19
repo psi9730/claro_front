@@ -248,10 +248,6 @@ async function getRequestHeaders(token, forceBasic = false, forceJson = false, c
   } else {
     _.assign(headers, {Authorization: 'Basic ZWFzaTZhZG1pbjplYXNpNg=='});
   }
-  const driverId = await getDriverId();
-  if (driverId) {
-    _.assign(headers, {Driver: `Driver ${driverId}`});
-  }
   return headers;
 }
 

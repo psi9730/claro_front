@@ -131,11 +131,11 @@ class LocationSearchView extends Component<Props, State> {
   }
 
   search(){
-    console.log(this.state.search,'search123');
     this.props.getLocationRequest(this.state.search).then(()=>{if(this.props.locations) this.setState({isSearch:true})}).catch();
   }
   setLocation(rnAdres,lnmAdres,postcode){
-    this.props.setLocation(rnAdres, lnmAdres,postcode);
+    console.log(this.props,'props');
+    this.props.onChangeLocation(rnAdres, lnmAdres,postcode);
     this.props.navigator.pop();
   }
   render() {

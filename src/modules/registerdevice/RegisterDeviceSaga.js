@@ -50,21 +50,6 @@ function* requestSendAP() {
   }
 }
 
-function* requestLogin({username, password}: {username: string, password: string}) {
-  const body = {
-    username,
-    password,
-    grantType: 'password',
-  };
-
-  try {
-    const token = yield call(post, '/auth/device_token', body);
-    yield setAuthenticationToken(token);
-    yield put(DeviceActions.loginSuccess(token));
-  } catch (e) {
-    yield put(DeviceActions.loginFailure(e));
-  }
-}
 
 function* requestSendSerialNumber({barcode}: {barcode: string}) {
   try {
@@ -139,8 +124,7 @@ function* requestDeleteDevice({serialNumber}: {serialNumber:string}) {
 }
 function* requestGetDevices() {
   try {
-    const username= "sss";
-    const token = yield call(get, `/devices/get_device_list/${username}`);
+    const token = yield call(get, `/devices/get_device_list`);
     yield put(DeviceActions.getDevicesSuccess(token));
   } catch (e) {
     yield put(DeviceActions.getDevicesFailure(e));
@@ -148,7 +132,6 @@ function* requestGetDevices() {
 }
 
 export const RegisterDeviceSaga = [
-  takeLatest(DeviceTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(DeviceTypes.DELETE_DEVICE_REQUEST, requestDeleteDevice),
   takeLatest(DeviceTypes.GET_DEVICES_REQUEST, requestGetDevices),
   takeLatest(DeviceTypes.IS_ACTIVE_REQUEST, requestIsActive),

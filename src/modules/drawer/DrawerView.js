@@ -190,7 +190,7 @@ class DrawerView extends Component<Props> {
                 내 정보 관리
               </MenuText>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.goToLogin()}>
+            <TouchableOpacity onPress={() => this.props.logout()}>
               <MenuText>
                 로그아웃
               </MenuText>

@@ -9,6 +9,7 @@ import {RENTALS_SCREEN} from '../../../screens';
 export default connect(
   state => ({
     loading: _.get(state, ['registerDevice', 'loading']),
+    devices: _.get(state, ['registerDevice','devices']),
   }),
   actions,
 )(
@@ -17,13 +18,6 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      onLoginPressed: (props) => (username, password) => {
-        /*props.loginRequest(username, password).then(() => {
-           props.navigator.resetTo({...RENTALS_SCREEN});
-         }).catch((err) => {
-           console.log('err', err);
-         }); */
-      }
     }),
   )(
     LoginView

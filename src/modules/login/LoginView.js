@@ -11,8 +11,11 @@ import easi6Logo from '../../assets/images/easi_6.png';
 import { CheckBox } from 'react-native-elements'
 import naver from '../../assets/images/naver.png'
 import facebook from '../../assets/images/facebook.png'
-import {RENTAL_DETAIL_SCREEN} from '../../../screens';
-
+import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN} from '../../../screens';
+import _ from 'lodash';
+import {clearAuthenticationToken, getDriverId, setAuthenticationToken} from '../../utils/authentication';
+import {KEYS} from '../../utils/ClaroStorage';
+import Storage from '../../utils/ClaroStorage';
 type State = {
   username: string,
   password: string,
@@ -120,7 +123,11 @@ class LoginView extends Component<Props, State> {
       checked: false,
     }
   }
-
+  componentWillMount(){
+    (async() =>  {
+      await clearAuthenticationToken();
+    })()
+  }
   componentDidMount() {
 
   }
@@ -135,13 +142,26 @@ class LoginView extends Component<Props, State> {
   }
 
   onLoginPressed() {
-    if(!this.state.username){
-      toast(this.props.t('enter_your_id'),'error');
-    } else if(!this.state.password){
-      toast(this.props.t('enter_your_password'),'error');
+    if (!this.state.username) {
+      toast(this.props.t('enter_your_id'), 'error');
+    } else if (!this.state.password) {
+      toast(this.props.t('enter_your_password'), 'error');
     } else {
       Keyboard.dismiss();
-      this.props.onLoginPressed(this.state.username, this.state.password).catch((e)=>console.log(e));
+      console.log("login");
+      this.props.loginRequest(this.state.username, this.state.password).then(() => this.props.getDevicesRequest().then(() => {
+        console.log(this.props.devices,'devices');
+        if (_.size(this.props.devices) > 0) {
+          (async() => {
+            await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
+          })();
+          this.props.navigator.handleDeepLink({link: REMOTE_SCREEN.screen});
+        }
+        else {
+          this.props.navigator.handleDeepLink({link: SERIAL_NUMBER_SCREEN.screen})
+        }
+      }).catch(e => console.log(e))).catch(e => console.log(e));
+
     }
   }
 
@@ -193,7 +213,7 @@ class LoginView extends Component<Props, State> {
             />
             <NavButton
               style={{backgroundColor: 'white',borderWidth: 1 }}
-              onPress={()=> this.props.onLoginPressed()}
+              onPress={()=> this.onLoginPressed()}
             >
               <TextLeftContainer>
                 <ButtonText style={{alignSelf: 'center', color:'black'}}>

@@ -9,7 +9,8 @@ import {RENTALS_SCREEN} from '../../../../screens';
 export default connect(
   state => ({
     barcode: _.get(state, ['registerDevice', 'barcode']),
-    deviceInfo:_.get(state, ['registerDevice','deviceInfo'])
+    deviceInfo:_.get(state, ['registerDevice','deviceInfo']),
+    devices: _.get(state, ['registerDevice','devices']),
   }),
   actions,
 )(

@@ -240,10 +240,7 @@ class AirStatusView extends Component<Props, State> {
   componentWillMount(){
     this._deltaY = Platform.OS ==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
     (async () => {
-      const serialNumber = await Storage.getItem(KEYS.serialNumber);
-      this.props.updateBarcode(serialNumber);
-      this.props.getOuterRequest(serialNumber, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
-      this.props.getControlDeviceRequest(serialNumber).catch();
+      this.props.getOuterRequest(this.props.barcode, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
     })();
     if(Platform.OS === 'android'){
       this.props.navigator.setStyle({
@@ -337,52 +334,47 @@ class AirStatusView extends Component<Props, State> {
     }
   }
   _renderGraph(time, type){ //5년, 1년, 6개월, 1개월, 1주, 1일
-    const data = [ 50, 10, 40, 95, -4];
-    const dataWeek = [ 'F', 'S', 'S', 'M', 'T'];
 
-    const contentInset = { top: 20, bottom: 20 }
+    const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
+
+    const axesSvg = { fontSize: 10, fill: 'grey' };
+    const verticalContentInset = { top: 10, bottom: 10 }
+    const xAxisHeight = 30
+
     if(type==="미세먼지 (PM10)")
     {
         return (
-          <View style={{ flex:1 , flexDirection: 'row' }}>
+          <View style={{ height: 200, padding: 20, flexDirection: 'row' }}>
             <YAxis
-              data={ data }
-              contentInset={ contentInset }
-              style={ {flexGrow:0, flexShrink:0, flexBasis: 'auto'}}
-              svg={{
-                fill: 'grey',
-                fontSize: 10,
-              }}
-              numberOfTicks={ 3 }
-              formatLabel={ value => `${value}` }
+              data={data}
+              style={{ marginBottom: xAxisHeight }}
+              contentInset={verticalContentInset}
+              svg={axesSvg}
             />
-            <ModalContainer>
+            <View style={{ flex: 1, marginLeft: 10 }}>
               <LineChart
-                style={{ flex: 1}}
-                data={ data }
+                style={{ flex: 1 }}
+                data={data}
+                contentInset={verticalContentInset}
                 svg={{ stroke: 'rgb(134, 65, 244)' }}
-                contentInset={ contentInset }
               >
                 <Grid/>
               </LineChart>
               <XAxis
-                style={ {flexGrow:0, flexShrink:0, flexBasis: 'auto'}}
-                data={ data }
-                contentInset={ contentInset }
-                svg={{
-                  fill: 'grey',
-                  fontSize: 10,
-                }}
                 numberOfTicks={ 3 }
-                formatLabel={(value, index) => dataWeek[ index ]}
+                style={{ marginHorizontal: -10, height: xAxisHeight }}
+                data={data}
+                formatLabel={(value, index) => index}
+                contentInset={{ left: 10, right: 10 }}
+                svg={axesSvg}
               />
-            </ModalContainer>
+            </View>
           </View>
         )
     }
     else if(type==="초미세먼지 (PM2.5)")
     {
-      return (
+     /* return (
         <View style={{ height: 200, flexDirection: 'row' }}>
           <YAxis
             data={ data }
@@ -416,10 +408,11 @@ class AirStatusView extends Component<Props, State> {
           </ModalContainer>
         </View>
       )
-
+*/
     }
     else if(type==="VOCs")
     {
+      /*
       return (
         <View style={{ height: 200, flexDirection: 'row' }}>
           <YAxis
@@ -454,6 +447,7 @@ class AirStatusView extends Component<Props, State> {
           </ModalContainer>
         </View>
       )
+      */
     }
   }
   _renderModal(){
@@ -706,15 +700,17 @@ class AirStatusView extends Component<Props, State> {
                 ios: 64,
                 android: 54
               })
-            }} >    <TextContainer>
-              <TouchableHighlight onPress={()=> this.props.navigator.toggleDrawer({
-                animated: true,
-                side: 'left',
-              })} >
-                <Image source={burgerIcn} resizeMode='stretch'  style={{height:30, width:30}}/>
-              </TouchableHighlight>
+            }} >
+              <TextContainer>
+                <TouchableHighlight onPress={()=> this.props.navigator.toggleDrawer({
+                  animated: true,
+                  side: 'left',
+                })} >
+                  <Image source={burgerIcn} resizeMode='stretch'  style={{height:30, width:30}}/>
+                </TouchableHighlight>
             </TextContainer>
-            </NavBar></View>)}
+            </NavBar>
+          </View>)}
         <View style={styles.contentIOS}>
           <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
             <Container>

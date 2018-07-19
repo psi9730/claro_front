@@ -36,7 +36,6 @@ const initialState = {
 
 export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
   actionsGenerator({
-    loginRequest: ['username', 'password'],
     tcpRequestSuccess: ['payload'],
     isActiveRequest: ['isActive'],
     tcpRequestFailure: ['error'],
@@ -66,7 +65,6 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
 export default function DeviceStateReducer(state: DeviceState = initialState, action: Object = {}): DeviceState {
   switch (action.type) {
     case DeviceTypes.SEND_SERIAL_NUMBER_REQUEST:             //send serial number
-    case DeviceTypes.LOGIN_REQUEST:
     case DeviceTypes.SEND_AP_REQUEST:
     case DeviceTypes.GET_DEVICES_REQEUST:
     case DeviceTypes.IS_ACTIVE_REQUEST:
@@ -78,13 +76,18 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         loading: true,
       }
     case DeviceTypes.GET_DEVICES_SUCCESS:
-      const first_devices =  _.forEach(action.payload, (value)=> _.update(value, 'deviceInfo', (device_info) => { return JSON.parse(device_info)}))
+      if(action.payload.isFulfilled!==false){
+      const first_devices =  _.forEach(action.payload.devices, (value)=> _.update(value, 'deviceInfo', (device_info) => { return JSON.parse(device_info)}))
       const devices =  _.forEach(first_devices, (value)=> _.update(value, 'status', (status) => { return JSON.parse(status)}))
       console.log(devices,'devices');
       return{
         ...state,
         devices: devices
-      };
+      }}
+      else return{
+        ...state,
+        loading: false
+      }
     case DeviceTypes.IS_ACTIVE_SUCCESS:
       (async() => {
         await Storage.setItem(KEYS.isActivePush,action.payload);
@@ -187,11 +190,6 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         loading: false,
         deviceInfo: action.payload,
       }
-    case DeviceTypes.LOGIN_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-      };
 
     case DeviceTypes.RESTORE_DEVICE:
       return {
@@ -232,7 +230,6 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
     case DeviceTypes.GET_DEVICES_FAILURE:
     case DeviceTypes.IS_ACTIVE_FAILURE:
     case DeviceTypes.SEND_WIFI_INFO_FAILURE:
-    case DeviceTypes.LOGIN_FAILURE:
     case DeviceTypes.SEND_SERIAL_NUMBER_FAILURE:
     case DeviceTypes.REGISTER_DEVICE_FAILURE:
       return {

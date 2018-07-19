@@ -160,10 +160,11 @@ class DeviceInfoView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    console.log(this.props.devices,'devices');
     this.state = {
       modalVisible: false,
       serialNumber: _.nth(this.props.devices,this.props.deviceIndex).serialNumber,
-      nickname: _.nth(this.props.devices,this.props.deviceIndex).nickname,
+      nickname: _.nth(this.props.devices,this.props.deviceIndex).deviceUser.nickname,
       modelName: _.nth(this.props.devices,this.props.deviceIndex).deviceInfo.modelName,
       deviceInfo: _.nth(this.props.devices,this.props.deviceIndex).deviceInfo,
       error: '',

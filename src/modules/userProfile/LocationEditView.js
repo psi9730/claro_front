@@ -164,16 +164,25 @@ class LocationEditView extends Component<Props, State> {
     this.state = {
       detailLocation: this.props.detailLocation,
       error: false,
+      jibunAddr: this.props.jibunAddr,
+      roadAddr: this.props.roadAddr,
+      postcode: this.props.postcode,
     };
   }
   props: Props;
   getPostcode(){
-    this.props.navigator.push({...LOCATION_SEARCH_SCREEN})
+    this.props.navigator.push({...LOCATION_SEARCH_SCREEN,  passProps: {onChangeLocation: this.onChangeLocation}});
   }
   componentWillMount() {
   }
+  onChangeLocation(jibunAddr, roadAddr, postcode){
+    console.log("changeLocation");
+    this.setState({
+      jibunAddr, roadAddr, postcode
+    })
+  }
   updateProfile(){
-    this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.state.detailLocation, this.props.postcode, this.props.email).then(()=>
+    this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.state.jibunAddr, this.state.roadAddr, this.state.detailLocation, this.state.postcode, this.props.email).then(()=>
       this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
   }
 
@@ -196,7 +205,7 @@ class LocationEditView extends Component<Props, State> {
                   underlineColorAndroid="transparent"
                   autoCorrect={false}
                   editable={false}
-                  value={this.props.postcode}
+                  value={this.state.postcode}
                   autoCapitalize='none'
                   style={{marginBottom: 5, flex:1}}
                   blurOnSubmit={false}
@@ -217,7 +226,7 @@ class LocationEditView extends Component<Props, State> {
               underlineColorAndroid="transparent"
               autoCorrect={false}
               editable={false}
-              value={this.props.jibunAddr}
+              value={this.state.jibunAddr}
               autoCapitalize='none'
               style={{marginBottom: 25, fontSize: 18}}
               blurOnSubmit={true}

@@ -9,9 +9,10 @@ import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
+import _ from 'lodash';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
-  BARCODE_SCAN_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN,
+  BARCODE_SCAN_SCREEN, REMOTE_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN
 } from '../../../../screens';
 import SignupView from '../../login/SignupView';
 type Props = {
@@ -146,7 +147,11 @@ class SerialNumberView extends Component<Props, State> {
 
 
   componentWillMount() {
-
+    this.props.getDevicesRequest().then(()=>{
+      if(_.size(this.props.devices)>0){
+        this.props.navigator.handleDeepLink({link: REMOTE_SCREEN.screen});
+      }
+    }).catch(e=>console.log(e));
   }
 
   props: Props;
@@ -156,9 +161,6 @@ class SerialNumberView extends Component<Props, State> {
     this.props.navigator.push({
       ...BARCODE_SCAN_SCREEN,
     })
-  }
-  showToastForResponse() {
-   toast("기기 등록 완료");
   }
 
   sendSerialAndServerInfo() {

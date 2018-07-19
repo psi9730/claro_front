@@ -58,7 +58,7 @@ const initialState = {
 
 export const {Types: RemoteTypes, Creators: RemoteActions} = createActions(
   actionsGenerator({
-    getDeviceInfoRequest: ['username'],
+    getDeviceInfoRequest: [],
     getOuterRequest: ['serialNumber','jibunAddr'],
     setDeviceInfoRequest: ['serial_number'],
     togglePowerRequest: ['power','serial_number'],

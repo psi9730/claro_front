@@ -22,18 +22,17 @@ export default class ChoiceDeviceView extends Component {
       const serial_number = await Storage.getItem(KEYS.serialNumber);
       this.setState({serial_number});
     })();
-    this.props.getDeviceInfoRequest("sss").then().catch((e)=>console.log(e));
+    this.props.getDevicesRequest().then().catch((e)=>console.log(e));
   }
   componentWillMount(){
     (async()=>{
       const serial_number = await Storage.getItem(KEYS.serialNumber);
       this.setState({serial_number});
     })();
-    this.props.getDeviceInfoRequest("sss").then().catch((e)=>console.log(e));
+    this.props.getDevicesRequest().then().catch((e)=>console.log(e));
   }
   onSelect(value, label) {
     this.setState({value : value}, ()=>this.props.setDeviceInfoRequest(this.state.value).then( ()=>{this.setState({serial_number: value})}).catch((e)=>console.log(e)));
-
   }
 
   render() {

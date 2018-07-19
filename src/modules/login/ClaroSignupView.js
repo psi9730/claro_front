@@ -5,6 +5,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import toast from '../../utils/toast';
 import { CheckBox } from 'react-native-elements'
+import {LOGIN_SCREEN, LOCATION_SEARCH_SCREEN, USER_PROFILE_SCREEN} from '../../../screens';
 import * as EmailValidator from 'email-validator';
 type State = {
   username: string,
@@ -21,6 +22,7 @@ const UsernameInput = styled.TextInput`
   margin-bottom: 8px;
   font-size: 20px;
   margin-top: 10px;
+  padding-left: 5px;
   padding-bottom: 4px;
   border-bottom-color: gray;
   border-bottom-width: 1px;
@@ -73,6 +75,7 @@ const TextsInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
   font-size: 20px;
+  padding-left:5px;
   margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: gray;
@@ -190,6 +193,10 @@ class ClaroSignupView extends Component<Props, State> {
   onChangeDetailLocation(detailLocation){
     this.setState({detailLocation});
   }
+  onChangeHomeNumber(homeNumber){
+    this.setState({homeNumber});
+  }
+
 
   _focusNextField(nextField) {
   //    this.refs[nextField].focus()
@@ -222,8 +229,13 @@ class ClaroSignupView extends Component<Props, State> {
   onCheckedId(e){
     this.props.checkIdRequest(e.target.value);
   }
-  onGetPostcodePressed(){
-    this.props.getPostcodeRequest();
+  onChangeLocation(jibunAddr, roadAddr, postcode){
+    this.setState({
+      jibunAddr, roadAddr, postcode
+    })
+  }
+  onGetPostCodePressed(){
+    this.props.navigator.push({...LOCATION_SEARCH_SCREEN,  passProps: {onChangeLocation: this.onChangeLocation}});
   }
   onSignupPressed() {
     console.log(EmailValidator.validate(this.state.email),"validate");
@@ -233,8 +245,8 @@ class ClaroSignupView extends Component<Props, State> {
       toast(this.props.t('enter_your_password'),'error');
     } else if(this.state.passwordCheck!==this.state.password){
       toast('password and passwordCheck is different','error');
-    } else if(this.state.username.length<8){
-      toast('username should be longer than 7')
+    } else if(this.state.username.length<7){
+      toast('username should be longer than 6')
     } else if(this.state.password.length<8) {
       toast('password should be longer than 7');
     } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)){
@@ -249,8 +261,8 @@ class ClaroSignupView extends Component<Props, State> {
       toast('you must enter phoneNumber form ');
     } else {
       Keyboard.dismiss();
-      this.props.claroSignupRequest(this.state.username, this.state.password,this.state.name, this.state.email,this.state.phoneNumber,this.state.postcode, this.state.roadAddr,
-        this.state.jibunAddr,this.state.detailLocation).catch((e)=>console.log(e));
+      this.props.claroSignupRequest(this.state.username, this.state.password,this.state.name, this.state.email,this.state.phoneNumber,this.state.homeNumber, this.state.postcode, this.state.roadAddr,
+        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.push({...LOGIN_SCREEN})).catch((e)=>console.log(e));
     }
   }
 
@@ -296,7 +308,7 @@ class ClaroSignupView extends Component<Props, State> {
               style={{marginBottom: 5}}
               blurOnSubmit={false}
               ref="password"
-              onSubmitEditing={() => { this.focusTextInput(this.refs.passwordCheck)}}
+              onSubmitEditing={() => { this.focusTextInput(this.refs.password)}}
             />
             <LoginText style={{margin:5}}>
               비밀번호 확인
@@ -305,13 +317,13 @@ class ClaroSignupView extends Component<Props, State> {
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={this.onChangePasswordCheck}
-              value={this.state.passwordCheckw}
+              value={this.state.passwordCheck}
               autoCapitalize='none'
               secureTextEntry
               style={{marginBottom: 5}}
               blurOnSubmit={false}
               ref={(input) => { this.passwordCheck = input; }}
-              onSubmitEditing={() => {this.focusTextInput(this.refs.name) }}
+              onSubmitEditing={() => {this.focusTextInput(this.refs.passwordCheck) }}
             />
             <LoginText style={{margin:5}}>
               이름
@@ -325,7 +337,7 @@ class ClaroSignupView extends Component<Props, State> {
               style={{marginBottom: 5}}
               blurOnSubmit={false}
               ref={(input) => { this.name = input; }}
-              onSubmitEditing={() => { this.focusTextInput(this.refs.email)}}
+              onSubmitEditing={() => { this.focusTextInput(this.refs.name)}}
             />
             <LoginText style={{margin:5}}>
               이메일
@@ -370,6 +382,19 @@ class ClaroSignupView extends Component<Props, State> {
               onPress={() => this.setState({checked2: !this.state.checked2})}
             />
             <LoginText style={{margin:5}}>
+              전화번호
+            </LoginText>
+            <TextsInput
+              underlineColorAndroid="transparent"
+              autoCorrect={false}
+              onChangeText={this.onChangeHomeNumber}
+              value={this.state.homeNumber}
+              autoCapitalize='none'
+              style={{marginBottom: 5}}
+              blurOnSubmit={true}
+              ref={(input) => { this.homeNumber = input; }}
+            />
+            <LoginText style={{margin:5}}>
               우편주소
             </LoginText>
             <TextAndButtonView >
@@ -379,6 +404,7 @@ class ClaroSignupView extends Component<Props, State> {
                   autoCorrect={false}
                   onChangeText={this.onChangePostcode}
                   value={this.state.postcode}
+                  editable={false}
                   autoCapitalize='none'
                   style={{marginBottom: 5, flex:1}}
                   ref={(input) => { this.postcode = input; }}
@@ -402,6 +428,7 @@ class ClaroSignupView extends Component<Props, State> {
               도로주소
             </LoginText>
             <TextsInput
+              editable={false}
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={this.onChangeRoadAddr}
@@ -416,6 +443,7 @@ class ClaroSignupView extends Component<Props, State> {
               지번주소
             </LoginText>
             <TextsInput
+              editable={false}
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={this.onChangeJibunAddr}

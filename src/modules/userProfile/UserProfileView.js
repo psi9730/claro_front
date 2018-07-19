@@ -30,16 +30,20 @@ const TitleText = styled.Text`
 const GrayText = styled.Text`
   font-size: 15px;
   color: gray;
-  margin-top:8px;
-  margin-bottom:8px;
+  margin-top:4px;
+  margin-bottom:4px;
 `;
 
 const ContentText = styled.Text`
   font-size: 18px;
   color: black;
+  margin-top:4px;
+  margin-bottom:4px;
 `
 const ContentTextInput = styled.TextInput`
  padding-right:10px;
+ margin-top:8px;
+ margin-bottom:8px;
 
 `
 
@@ -120,7 +124,7 @@ class UserProfileView extends Component<Props, State> {
     }
   }
   componentWillMount(){
-   // this.props.getUserProfileRequest()
+    this.props.getUserProfileRequest().catch((e)=>console.log(e));
     this.props.getDevicesRequest().catch((e)=>console.log(e));
   }
   componentDidMount() {
@@ -172,7 +176,7 @@ class UserProfileView extends Component<Props, State> {
             <RemoteContainer><TextLeftView ><GrayText> ID </GrayText><ContentText>{this.props.login}</ContentText></TextLeftView>
             </RemoteContainer>
             <GrayLine/>
-            <RemoteContainer><TextLeftView ><GrayText> 비밀번호 </GrayText><ContentTextInput value={this.props.password} secureTextEntry={true} editable={false}/></TextLeftView>
+            <RemoteContainer><TextLeftView ><GrayText> 비밀번호 </GrayText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToPassword()}>
                   <Image source={arrowLeftIcn} style={{
@@ -259,7 +263,7 @@ class UserProfileView extends Component<Props, State> {
                               <RemoteText
                                 style={{
                                   color: 'black', marginBottom: 5
-                                }}>{device.nickname} ({device.deviceInfo.modelName})
+                                }}>{device.deviceUser.nickname} ({device.deviceInfo.modelName})
                               </RemoteText>
                             }
                         </TextLeftView>

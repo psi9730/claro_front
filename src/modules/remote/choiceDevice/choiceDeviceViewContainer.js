@@ -10,7 +10,7 @@ import Storage from '../../../utils/ClaroStorage';
 
 export default connect(
   state => ({
-    devices: _.get(state, ['remote', 'devices']),
+    devices: _.get(state, ['registerDevice','devices']),
   }),
   actions,
 )(

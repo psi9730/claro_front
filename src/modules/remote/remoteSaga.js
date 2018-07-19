@@ -134,9 +134,9 @@ function* requestSetDeviceInfoRequest({serial_number}: {serial_number:string}) {
   }
 }
 
-function* requestGetDeviceInfoRequest({username}: {username:string}) {
+function* requestGetDeviceInfoRequest() {
   try {
-      const token = yield call(get, `/devices/get_device_list/${username}`);
+      const token = yield call(get, `/devices/get_device_list`);
       yield put(RemoteActions.getDeviceInfoSuccess(token));
   } catch (e) {
     yield put(RemoteActions.getDeviceInfoFailure(e));

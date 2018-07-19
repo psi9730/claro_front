@@ -1,0 +1,3 @@
+[submodule "server-common"]
+	path = server-common
+	url = git@github.com:easi6/server-common.git
