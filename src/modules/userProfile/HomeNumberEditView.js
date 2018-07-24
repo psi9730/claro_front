@@ -138,8 +138,8 @@ class HomeNumberEditView extends Component<Props, State> {
   componentWillMount() {
   }
   updateProfile(){
-    this.props.updateUserProfileRequest(this.props.phoneNumber,this.state.homeNumber, this.props.location, this.props.detailLocation, this.props.postcode, this.props.email).then(()=>
-      this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
+    this.props.updateUserProfileRequest(this.props.phoneNumber,this.state.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.props.detailLocation, this.props.postcode, this.props.email).then(()=>
+      this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch();
   }
 
   render() {

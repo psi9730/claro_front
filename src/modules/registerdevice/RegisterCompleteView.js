@@ -179,7 +179,7 @@ class RegisterCompleteView extends Component<Props, State> {
 
   goRemoteScreen() {
     Keyboard.dismiss();
-    this.props.navigator.push({
+    this.props.navigator.resetTo({
       ...REMOTE_SCREEN,
     })
   }

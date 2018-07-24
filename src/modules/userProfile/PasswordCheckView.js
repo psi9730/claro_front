@@ -113,11 +113,6 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ErrorText = styled.Text`
-  font-size: 15px;
-  color: red;
-`;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -166,6 +161,10 @@ const BottomButtonView = styled.View`
     justify-content: flex-end;
     align-items: center;
 `;
+const ErrorText = styled.Text`
+  color: red;
+  align-self: flex-start;
+`
 
 class PasswordCheckView extends Component<Props, State> {
   constructor(props) {
@@ -180,13 +179,8 @@ class PasswordCheckView extends Component<Props, State> {
   componentWillMount() {
   }
   checkPassword(){
-    if(this.props.password !== this.state.password){
-        this.setState({error: true});
-    }
-    else{
-      this.setState({error: false});
-      this.props.navigator.push({...PASSWORD_EDIT_SCREEN})
-    }
+    this.props.checkPasswordRequest(this.state.password).then(()=>
+      this.props.navigator.push({...PASSWORD_EDIT_SCREEN, passProps:{password : this.state.password}})).catch((e)=>this.setState({errorMessage: e.message}));
   }
   render() {
     return (
@@ -203,6 +197,7 @@ class PasswordCheckView extends Component<Props, State> {
               비밀번호 재입력
             </IntroduceText>
             <TextsBoxInput
+              secureTextEntry
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={(password)=>this.setState({password: password})}
@@ -211,6 +206,9 @@ class PasswordCheckView extends Component<Props, State> {
               style={{marginBottom: 25, fontSize: 18}}
               blurOnSubmit={true}
             />
+            <ErrorText>
+              {this.state.errorMessage}
+            </ErrorText>
             <BottomButtonView>
               {this.state.error &&<ErrorText> 비밀번호가 다릅니다 다시한번 비밀번호를 입력해주세요 </ErrorText>}
               <NavButton

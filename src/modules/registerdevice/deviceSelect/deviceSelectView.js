@@ -34,6 +34,7 @@ type Props = {
   turnOnDay: String,
   isActiveRequest: Function,
   getDevicesRequest: Function,
+  getUserProfileRequest: Function,
   isActive: boolean,
   devices: any,
   power: number,
@@ -171,9 +172,8 @@ class DeviceSelectView extends Component<Props, State> {
 
   componentWillMount() {
     console.log('this will mount repeatedly');
+    this.props.getUserProfileRequest().catch((e)=>console.log(e));
     this.props.getDevicesRequest(this.props.barcode).then(()=> (async() => {
-        const isTurnOnActive = await Storage.getItem(KEYS.isActivePush);
-        isTurnOnActive && this.props.isActiveRequest(isTurnOnActive);
       }
     )()).catch((e)=>console.log(e));
   }
@@ -231,7 +231,7 @@ class DeviceSelectView extends Component<Props, State> {
       await Storage.setItem(KEYS.nickname,this.props.nickname);
       await Storage.setItem(KEYS.deviceInfo,this.props.deviceInfo);
     })();
-    this.props.navigator.push({
+    this.props.navigator.resetTo({
       ...DEVICE_ADD_SCREEN,
     })
   };

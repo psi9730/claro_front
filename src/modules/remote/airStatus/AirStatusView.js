@@ -239,9 +239,6 @@ class AirStatusView extends Component<Props, State> {
   }
   componentWillMount(){
     this._deltaY = Platform.OS ==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
-    (async () => {
-      this.props.getOuterRequest(this.props.barcode, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
-    })();
     if(Platform.OS === 'android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'dark',
@@ -259,6 +256,9 @@ class AirStatusView extends Component<Props, State> {
       console.log(this.deltaY,"deltaY1")
       console.log(this.state,"state1");
     }
+    (async () => {
+      this.props.getOuterRequest(this.props.barcode, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
+    })();
   }
   onDrawerSnap(event){
     if(event.nativeEvent.index === 0){

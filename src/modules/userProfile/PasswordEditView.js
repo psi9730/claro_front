@@ -75,11 +75,6 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ErrorText = styled.Text`
-  font-size: 15px;
-  color: red;
-`;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -128,6 +123,10 @@ const BottomButtonView = styled.View`
     justify-content: flex-end;
     align-items: center;
 `;
+const ErrorText = styled.Text`
+  color: red;
+  align-self: flex-start;
+`
 
 class PasswordEditView extends Component<Props, State> {
   constructor(props) {
@@ -137,6 +136,7 @@ class PasswordEditView extends Component<Props, State> {
       password: "",
       passwordCheck:"",
       error: false,
+      errorMessage:null,
     };
   }
   props: Props;
@@ -144,12 +144,12 @@ class PasswordEditView extends Component<Props, State> {
   }
   checkPassword(){
     if(this.state.passwordCheck !== this.state.password){
-      this.setState({error: true});
+      this.setState({errorMessage: this.props.t('password_different')});
     }
     else{
-      this.setState({error: false});
-      this.props.updatePasswordRequest(this.state.password).then(()=>
-      this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
+      this.setState({errorMessage: null});
+      this.props.updatePasswordRequest(this.props.password, this.state.password).then(()=>
+      this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch((e)=>console.log(e));
     }
   }
   render() {
@@ -171,6 +171,7 @@ class PasswordEditView extends Component<Props, State> {
               autoCorrect={false}
               onChangeText={(password)=>this.setState({password: password})}
               value={this.state.password}
+              secureTextEntry
               autoCapitalize='none'
               style={{marginBottom: 25, fontSize: 18}}
               blurOnSubmit={true}
@@ -181,14 +182,17 @@ class PasswordEditView extends Component<Props, State> {
             <TextsBoxInput
               underlineColorAndroid="transparent"
               autoCorrect={false}
+              secureTextEntry
               onChangeText={(password)=>this.setState({passwordCheck: password})}
               value={this.state.passwordCheck}
               autoCapitalize='none'
               style={{marginBottom: 25, fontSize: 18}}
               blurOnSubmit={true}
             />
+            <ErrorText>
+              {this.state.errorMessage}
+            </ErrorText>
             <BottomButtonView>
-              {this.state.error &&<ErrorText> 확인 비밀번호가 다릅니다 다시한번 입력해주세요 </ErrorText>}
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
                 onPress={()=> this.checkPassword()}

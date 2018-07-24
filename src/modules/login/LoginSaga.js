@@ -15,10 +15,9 @@ function* requestLogin({username, password}: {username: string, password: number
     };
     const token = yield call(post, `/auth/token`, body);
     yield setAuthenticationToken(token);
-    console.log("here");
     yield put(LoginActions.loginSuccess(token));
   } catch (e) {
-
+    yield put(LoginActions.loginFailure(e));
   }
 }
 
@@ -58,21 +57,21 @@ function* requestNaverSignup({username, name, email,phoneNumber}: {username: str
     yield put(LoginActions.naverSignupFailure(e));
   }
 }
-function* requestUpdateUserProfile({phoneNumber,homeNumber,location,detailLocation,postcode,email}: {phoneNumber:string,homeNumber:string,location:string,detailLocation:string,postcode:string,email:string}) {
+function* requestUpdateUserProfile({phoneNumber,homeNumber, jibunAddr, roadAddr,detailLocation, postcode, email}: {phoneNumber:string,homeNumber:string,jibunAddr: string, roadAddr: string,detailLocation:string,postcode:string,email:string}) {
   try {
     let body;
-    body = {phone_number:phoneNumber,home_number: homeNumber,location,detail_location: detailLocation,postcode,email};
+    body = {phone_number:phoneNumber,home_number: homeNumber,jibun_addr:jibunAddr, road_addr: roadAddr,detail_location: detailLocation,postcode,email, };
     const token = yield call(post, `/users/me/update`, body);
     yield put(LoginActions.updateUserProfileSuccess(token));
   } catch (e) {
     yield put(LoginActions.updateUserProfileFailure(e));
   }
 }
-function* requestUpdatePassword({password}: {password:string}) {
+function* requestUpdatePassword({password, new_password}: {password:string, new_password:string}) {
   try {
     let body;
-    body = {password};
-    const token = yield call(post, `/users/password`, body);
+    body = {password,new_password};
+    const token = yield call(post, `/users/me/update_password`, body);
     yield put(LoginActions.updatePasswordSuccess(token));
   } catch (e) {
     yield put(LoginActions.updatePasswordFailure(e));
@@ -94,8 +93,27 @@ function* requestGetUserProfile() {
     yield put(LoginActions.getUserProfileFailure(e));
   }
 }
+function* requestCheckPassword({password}: {password:string}) {
+  try {
+    let body= {password};
+    const token = yield call(post, `/users/me/check_password`,body);
+    yield put(LoginActions.checkPasswordSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.checkPasswordFailure(e));
+  }
+}
+function* requestLogout() {
+  try {
+    const token = yield call(post, '/auth/logout',{});
+    yield put(LoginActions.logoutSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.logoutFailure(e));
+  }
+}
 export const LoginSaga = [
+  takeLatest(LoginTypes.LOGOUT_REQUEST, requestLogout),
   takeLatest(LoginTypes.GET_LOCATION_REQUEST, requestGetLocation),
+  takeLatest(LoginTypes.CHECK_PASSWORD_REQUEST, requestCheckPassword),
   takeLatest(LoginTypes.UPDATE_USER_PROFILE_REQUEST, requestUpdateUserProfile),
   takeLatest(LoginTypes.GET_USER_PROFILE_REQUEST, requestGetUserProfile),
   takeLatest(LoginTypes.UPDATE_PASSWORD_REQUEST, requestUpdatePassword),

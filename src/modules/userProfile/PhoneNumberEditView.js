@@ -142,8 +142,8 @@ class PhoneNumberEditView extends Component<Props, State> {
   componentWillMount() {
   }
   updateProfile(){
-    this.props.updateUserProfileRequest(this.state.phoneNumber,this.props.homeNumber, this.props.location, this.props.detailLocation, this.props.postcode, this.props.email).then(()=>
-      this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
+    this.props.updateUserProfileRequest(this.state.phoneNumber,this.props.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.props.detailLocation, this.props.postcode, this.props.email).then(()=>
+      this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch();
   }
 
   render() {

@@ -12,6 +12,7 @@ import Storage, {KEYS} from '../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
 import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
+import * as EmailValidator from 'email-validator';
 type Props = {
   ssid: ?string,
   password: ?string,
@@ -40,7 +41,7 @@ type State = {
 };
 const TextsBoxInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-size: 20px;
   border-top-width: 1px;
   border-top-color: gray;
@@ -51,7 +52,6 @@ const TextsBoxInput = styled.TextInput`
   borderLeftWidth: 1px;
   borderRightWidth: 2px;
   margin-top: 8px;
-  padding-bottom: 4px;
   border-bottom-color: black;
 `;
 
@@ -141,11 +141,14 @@ class HomeNumberEditView extends Component<Props, State> {
   props: Props;
   componentWillMount() {
   }
-  updateProfile(){
-    this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.props.location, this.props.detailLocation, this.props.postcode, this.state.email).then(()=>
-      this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
+  updateProfile() {
+    if(EmailValidator.validate(this.state.email)) {
+      this.props.updateUserProfileRequest(this.props.phoneNumber, this.props.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.props.detailLocation, this.props.postcode, this.state.email).then(() =>
+        this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch((e) => this.setState({errorMessage: e.message}));
+    } else{
+      this.setState({errorMessage: this.props.t('check_email_form')})
+    }
   }
-
   render() {
     return (
       <ThemeProvider theme={ClaroTheme}>
@@ -165,10 +168,12 @@ class HomeNumberEditView extends Component<Props, State> {
               onChangeText={(email)=>this.setState({email: email})}
               value={this.state.email}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{fontSize: 18}}
               blurOnSubmit={true}
             />
-
+            <ErrorText>
+              {this.state.errorMessage}
+            </ErrorText>
             <BottomButtonView>
               <NavButton
                 style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}

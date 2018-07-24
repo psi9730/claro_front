@@ -31,7 +31,7 @@ const GrayText = styled.Text`
   font-size: 15px;
   color: gray;
   margin-top:4px;
-  margin-bottom:4px;
+  margin-bottom:8px;
 `;
 
 const ContentText = styled.Text`
@@ -100,7 +100,7 @@ const GrayLine = styled.View`
   margin-Top:4px;
   margin-Bottom:4px;
   width: 100%;
-  background-color: gray;
+  background-color: #333333;
 `;
 const RemoteText = styled.Text`
 `
@@ -172,11 +172,11 @@ class UserProfileView extends Component<Props, State> {
           <ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1, display:'flex',flexDirection:'column',justifyContent: 'flex-start', alignItems:'flex-start'}}>
             <RemoteContainer><TextLeftView ><GrayText> 이름 </GrayText><ContentText>{this.props.name}</ContentText></TextLeftView>
             </RemoteContainer>
-            <GrayLine/>
+            <GrayLine style={{backgroundColor: '#333333'}}/>
             <RemoteContainer><TextLeftView ><GrayText> ID </GrayText><ContentText>{this.props.login}</ContentText></TextLeftView>
             </RemoteContainer>
-            <GrayLine/>
-            <RemoteContainer><TextLeftView ><GrayText> 비밀번호 </GrayText></TextLeftView>
+            <GrayLine style={{backgroundColor: '#333333'}}/>
+            <RemoteContainer><TextLeftView ><GrayText> 비밀번호 </GrayText><ContentText>*******</ContentText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToPassword()}>
                   <Image source={arrowLeftIcn} style={{
@@ -190,7 +190,7 @@ class UserProfileView extends Component<Props, State> {
                 </TouchableOpacity>
               </TextRightView>
             </RemoteContainer>
-            <GrayLine/>
+            <GrayLine e style={{backgroundColor: '#333333'}}/>
             <RemoteContainer><TextLeftView >  <GrayText> 휴대폰번호 </GrayText><ContentText>{this.props.phoneNumber}</ContentText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToPhoneNumber()}>
@@ -205,7 +205,7 @@ class UserProfileView extends Component<Props, State> {
                 </TouchableOpacity>
               </TextRightView>
             </RemoteContainer>
-            <GrayLine/>
+            <GrayLine style={{backgroundColor: '#333333'}}/>
             <RemoteContainer><TextLeftView >  <GrayText> 전화번호 </GrayText><ContentText>{this.props.homeNumber}</ContentText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToHomeNumber()}>

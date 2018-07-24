@@ -183,7 +183,7 @@ class LocationEditView extends Component<Props, State> {
   }
   updateProfile(){
     this.props.updateUserProfileRequest(this.props.phoneNumber,this.props.homeNumber, this.state.jibunAddr, this.state.roadAddr, this.state.detailLocation, this.state.postcode, this.props.email).then(()=>
-      this.props.navigator.push({...USER_PROFILE_SCREEN})).catch();
+      this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch();
   }
 
   render() {

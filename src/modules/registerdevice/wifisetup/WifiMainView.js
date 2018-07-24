@@ -112,7 +112,7 @@ class WifiMainView extends Component<Props, State> {
     }
     this.props.sendSerialNumberRequest(this.props.barcode).then(() => {
       console.log("SerialNumber completed");
-      this.props.sendApRequest().catch();
+      this.props.sendApRequest().catch((e)=>console.log(e));
       (
         async () => {
           let key;

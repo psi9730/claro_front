@@ -17,7 +17,7 @@ export default connect(
     jibunAddr:_.get(state, ['login','jibunAddr']),
     roadAddr:_.get(state, ['login','roadAddr']),
     postcode:_.get(state, ['login','postcode']),
-    detail_location:_.get(state, ['login','detail_location']),
+    detailLocation:_.get(state, ['login','detailLocation']),
     devices: _.get(state, ['registerDevice','devices']),
   }),
   actions,

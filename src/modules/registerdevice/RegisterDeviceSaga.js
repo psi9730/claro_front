@@ -105,10 +105,10 @@ function* requestUpdateDevice({barcode,nickname}: {barcode: string,nickname: str
 function* requestIsActive({isActive}: {isActive:boolean}) {
   try {
     const body ={
-      isActivePush: isActive
+      isActive: isActive
       }
     ;
-    //yield call(puts, `/devices/register/`, body, null);
+    yield call(post, `/users/me/update_active`, body);
     yield put(DeviceActions.isActiveSuccess(isActive));
   } catch (e) {
     yield put(DeviceActions.isActiveFailure(e));

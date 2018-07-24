@@ -39,7 +39,10 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-
+const ErrorText = styled.Text`
+  align-self: flex-start;
+  color: red;
+`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -133,7 +136,6 @@ const TextAndButtonView = styled.View`
   align-items: center;
 `;
 
-
 class ClaroSignupView extends Component<Props, State> {
   state = {
     username: '',
@@ -155,6 +157,12 @@ class ClaroSignupView extends Component<Props, State> {
       jibunAddr:"",
       detailLocation:"",
       phoneNumber:"",
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
     }
   }
 
@@ -237,32 +245,60 @@ class ClaroSignupView extends Component<Props, State> {
   onGetPostCodePressed(){
     this.props.navigator.push({...LOCATION_SEARCH_SCREEN,  passProps: {onChangeLocation: this.onChangeLocation}});
   }
+  parseSignupError(e){
+
+  }
+  parseError(e){
+    const message = e.message;
+    this.setState({
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
+    })
+    if(message.search("은 이미 사용 중인 이메일 주소입니다"))
+      this.setState({usernameError: message})
+    else if(message.search("은 이미 사용 중인 로그인입니다."))
+      this.setState({passwordError: message})
+
+  }
   onSignupPressed() {
+    this.setState({
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
+    })
     console.log(EmailValidator.validate(this.state.email),"validate");
     if(!this.state.username){
-      toast(this.props.t('enter_your_id'),'error');
+      this.setState({usernameError: this.props.t('enter_your_id')})
     } else if(!this.state.password){
-      toast(this.props.t('enter_your_password'),'error');
+    //  this.refs.password.focus();
+      this.setState({passwordError: this.props.t('enter_your_password')})
     } else if(this.state.passwordCheck!==this.state.password){
-      toast('password and passwordCheck is different','error');
+      this.setState({passwordError: this.props.t('password_different')})
     } else if(this.state.username.length<7){
-      toast('username should be longer than 6')
+      this.setState({usernameError: this.props.t('id_length_short')})
     } else if(this.state.password.length<8) {
-      toast('password should be longer than 7');
-    } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)){
-      toast('you must enter email form');
-    } else if (this.state.username.length<5){
-      toast('username is too short');
+      this.setState({passwordError: this.props.t('password_length_short')})
+    } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)) {
+      this.setState({emailError: this.props.t('check_email_form')})
     } else if (this.state.phoneNumber.length<10){
-      toast('you must enter phoneNumber form ');
+      this.setState({phoneNumberError: this.props.t('phone_length_short')})
     } else if (this.state.postcode.length<1){
-      toast('you must enter postcode form');
-    }else if (this.state.phoneNumber.length<10){
-      toast('you must enter phoneNumber form ');
+      this.setState({postcodeError: this.props.t('enter_your_postcode')})
+    } else if(this.state.name.length<7){
+      this.setState({nameError: this.props.t('name_length_short')})
+    } else if (this.state.homeNumber.length<8){
+      this.setState({homeNumberError: this.props.t('home_length_short')})
     } else {
       Keyboard.dismiss();
       this.props.claroSignupRequest(this.state.username, this.state.password,this.state.name, this.state.email,this.state.phoneNumber,this.state.homeNumber, this.state.postcode, this.state.roadAddr,
-        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.push({...LOGIN_SCREEN})).catch((e)=>console.log(e));
+        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.push({...LOGIN_SCREEN})).catch((e)=>this.parseError(e));
     }
   }
 
@@ -271,8 +307,6 @@ class ClaroSignupView extends Component<Props, State> {
   }
 
   render() {
-    const {t, loading} = this.props;
-    const blank = "  ";
     return (
       <ScrollView contentContainerStyle={{paddingBottom:30, flexGrow: 1}} >
           <Container >
@@ -284,11 +318,15 @@ class ClaroSignupView extends Component<Props, State> {
             </LoginText>
             <UsernameInput style={{backgroundColor:'white'}}
               onChangeText={this.onChangeUsername}
-                           autoFocus={true}
+              autoFocus={true}
               value={this.state.username} autoCapitalize='none'
-                           blurOnSubmit={false}
+              blurOnSubmit={false}
+              ref={username => this.username = username}
               onSubmitEditing={() => {  this._focusNextField('password') }}
             />
+            <ErrorText>
+              {this.state.usernameError}
+            </ErrorText>
             {
                this.state.checkedId===0  ?  null  :
               <LoginText style={{color: 'green', margin: 5}}>
@@ -307,9 +345,12 @@ class ClaroSignupView extends Component<Props, State> {
               secureTextEntry
               style={{marginBottom: 5}}
               blurOnSubmit={false}
-              ref="password"
+              ref={password=> this.password = password}
               onSubmitEditing={() => { this.focusTextInput(this.refs.password)}}
             />
+            <ErrorText>
+              {this.state.passwordError}
+            </ErrorText>
             <LoginText style={{margin:5}}>
               비밀번호 확인
             </LoginText>
@@ -339,6 +380,9 @@ class ClaroSignupView extends Component<Props, State> {
               ref={(input) => { this.name = input; }}
               onSubmitEditing={() => { this.focusTextInput(this.refs.name)}}
             />
+            <ErrorText>
+              {this.state.nameError}
+            </ErrorText>
             <LoginText style={{margin:5}}>
               이메일
             </LoginText>
@@ -352,6 +396,9 @@ class ClaroSignupView extends Component<Props, State> {
               blurOnSubmit={true}
               ref={(input) => { this.email = input; }}
             />
+            <ErrorText>
+              {this.state.emailError}
+            </ErrorText>
             <CheckBox
               title='정보/이벤트 메일 수신에 동의합니다.'
               containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
@@ -373,6 +420,9 @@ class ClaroSignupView extends Component<Props, State> {
               blurOnSubmit={true}
               ref={(input) => { this.phoneNumber = input; }}
             />
+            <ErrorText>
+              {this.state.phoneNumberError}
+            </ErrorText>
             <CheckBox
               title='정보/이벤트 메일 수신에 동의합니다.'
               containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
@@ -394,6 +444,9 @@ class ClaroSignupView extends Component<Props, State> {
               blurOnSubmit={true}
               ref={(input) => { this.homeNumber = input; }}
             />
+            <ErrorText>
+              {this.state.homeNumberError}
+            </ErrorText>
             <LoginText style={{margin:5}}>
               우편주소
             </LoginText>
@@ -454,6 +507,9 @@ class ClaroSignupView extends Component<Props, State> {
               blurOnSubmit={false}
               onSubmitEditing={() => { this.focusTextInput(this.refs.detailLocation)}}
             />
+            <ErrorText>
+              {this.state.postcodeError}
+            </ErrorText>
             <LoginText style={{margin:5}}>
               상세주소
             </LoginText>
@@ -467,7 +523,7 @@ class ClaroSignupView extends Component<Props, State> {
               style={{marginBottom: 30}}
             />
             <NavButton
-              style={{backgroundColor: 'white',borderWidth: 1 }}
+              style={{backgroundColor: 'white',borderWidth: 1, borderColor: '#333333' }}
               onPress={()=> this.onSignupPressed()}
             >
               <TextCenterContainer>

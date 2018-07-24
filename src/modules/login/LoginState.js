@@ -28,21 +28,55 @@ const initialState = {
 export const {Types: LoginTypes, Creators: LoginActions} = createActions(
   actionsGenerator({
     loginRequest: ['username','password'],
+    logoutRequest: [],
     checkIdRequest: ['username'],
     claroSignupRequest: ['username', 'password','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     naverSignupRequest: ['username', 'name', 'email','phoneNumber'],
     updateUserProfileRequest: ['phoneNumber','homeNumber','jibunAddr','roadAddr','detailLocation','postcode','email'],
     getUserProfileRequest: [],
-    updatePasswordRequest: ['password'],
+    updatePasswordRequest: ['password','new_password'],
     setLocation: ['rnAdres','lnmAdres','postcode'],
     getLocationRequest: ['search'],
     setLocationRequest: ['jibunAddr','roadAddr', 'postcode'],
+    checkPasswordRequest: ['password'],
   })
 );
 
 // Reducer
 export default function LoginReducer(state: LoginState = initialState, action: Object = {}): LoginState {
   switch (action.type) {
+    case LoginTypes.LOGOUT_REQUEST:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.LOGOUT_FAILURE:
+      return {
+        ...state,
+        loading:true,
+        error: action.error
+      }
+    case LoginTypes.CHECK_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.CHECK_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.CHECK_PASSWORD_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading:true,
+      }
     case LoginTypes.SET_LOCATION:
       return {
         ...state,
@@ -110,12 +144,14 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         roadAddr: action.payload.roadAddr,
         postcode: action.payload.postcode,
         detailLocation: action.payload.detailLocation,
+        isActivePush: action.payload.isActivePush,
         loading:true,
       }
     case LoginTypes.GET_USER_PROFILE_FAILURE:
       return {
         ...state,
         loading:true,
+        error: action.error,
       }
     case LoginTypes.UPDATE_PASSWORD_REQUEST:
       return {
@@ -132,6 +168,7 @@ export default function LoginReducer(state: LoginState = initialState, action: O
       return {
         ...state,
         loading:true,
+        error: action.error,
       }
     case LoginTypes.LOGIN_REQUEST:
       return {

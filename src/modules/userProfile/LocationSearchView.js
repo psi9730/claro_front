@@ -131,7 +131,7 @@ class LocationSearchView extends Component<Props, State> {
   }
 
   search(){
-    this.props.getLocationRequest(this.state.search).then(()=>{if(this.props.locations) this.setState({isSearch:true})}).catch();
+    this.props.getLocationRequest(this.state.search).then(()=>{if(this.props.locations) this.setState({isSearch:true})}).catch((e)=>console.log(e));
   }
   setLocation(rnAdres,lnmAdres,postcode){
     console.log(this.props,'props');

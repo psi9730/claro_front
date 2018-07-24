@@ -89,9 +89,6 @@ export default function DeviceStateReducer(state: DeviceState = initialState, ac
         loading: false
       }
     case DeviceTypes.IS_ACTIVE_SUCCESS:
-      (async() => {
-        await Storage.setItem(KEYS.isActivePush,action.payload);
-      })();
       return {
         ...state,
         isActivePush: action.payload

@@ -24,6 +24,7 @@ export const customI18nextReactNative = () => {
   return {
     ...i18nextReactNative,
     detect: () => {
+      return 'ko';
       const phoneLocale = i18nextReactNative.detect();
       if (phoneLocale.match(/^en(.)*/)) {
         return 'en';

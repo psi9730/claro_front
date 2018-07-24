@@ -1,5 +1,8 @@
+import * as EmailValidator from 'email-validator/index';
+
 export default {
   translations: {
+
     cover_text: 'Driver',
     login_phone: 'phone',
     login_password: 'password',
@@ -30,6 +33,13 @@ export default {
     profile_name_en: 'English Name',
     profile_phone: 'Phone',
     done: 'Done',
+    password_different: 'Password and passwordcheck is different',
+    id_length_short: 'Username length is short',
+    password_length_short: 'Password is too short',
+    check_email_form: 'Check your email form',
+    phone_length_short: 'PhoneNumber is too short',
+    name_length_short: 'name is too short',
+    home_length_short: 'homeNumber is too short',
     enter_your_phone: 'Enter your phone number',
     enter_your_password: 'Enter your password',
     enter_your_id: 'Enter your id',

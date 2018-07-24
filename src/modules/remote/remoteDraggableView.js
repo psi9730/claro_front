@@ -89,6 +89,7 @@ class RemoteDraggableView extends Component<Props, State> {
 
   }
   componentWillMount(){
+    console.log("componentwillmount");
     this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
     (async () => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
@@ -110,8 +111,6 @@ class RemoteDraggableView extends Component<Props, State> {
         statusBarColor: this.props.backgroundColor,
         navBarHidden: true,
       });
-      console.log(this.deltaY,"deltaY1")
-      console.log(this.state,"state1");
     }
   }
   shallowEqual(objA: mixed, objB: mixed): boolean {

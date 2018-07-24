@@ -69,7 +69,8 @@ export default connect(
         (async () => {
           hideDrawer(props);
           await clearAuthenticationToken();
-          props.navigator.handleDeepLink({link: LOGIN_SCREEN.screen});
+          props.logoutRequest().then(()=>
+          props.navigator.handleDeepLink({link: LOGIN_SCREEN.screen})).catch((e)=>console.log(e))
         })();
       },
     })

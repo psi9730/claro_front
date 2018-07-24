@@ -97,13 +97,14 @@ export async function del(path: string, schema: any) {
 
 let refreshingPromise = null;
 
-const TOKEN_URL = 'access_token';
+const TOKEN_URL = '/auth/token';
+const LOGIN_URL = '/auth/token';
 const REFRESH_TOKEN = 'refresh_token';
 
 async function refreshToken() {
   const token = await getAuthenticationToken();
   const refreshToken = token && token.refreshToken;
-
+  console.log("refresh Error here");
   if (!refreshToken) return new Error();
 
   const body = {
@@ -126,10 +127,21 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
+    console.log("response",response);
+    console.log("response status",response.status);
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
-      if (path === TOKEN_URL && body && body.grantType === REFRESH_TOKEN) {
+      if( path === LOGIN_URL){
+        const message = await getErrorMessageSafely(response);
+        const error = new HttpError(status, message);
+        // emit events on error channel, one for status-specific errors and other for all errors
+        errors.emit(status.toString(), {path, message: error.message});
+        errors.emit('*', {path, message: error.message}, status);
+        throw error;
+      }
+      else if (path === TOKEN_URL && body && body.grantType === REFRESH_TOKEN) {
+        console.log("erro here");
         throw new Error('incorrect_refresh_token');
       } else if (path !== TOKEN_URL) {
         if (refreshingPromise === null) {
@@ -146,10 +158,10 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
       }
     }
     // if error display error message
-
     // `fetch` promises resolve even if HTTP status indicates failure. Reroute
     // promise flow control to interpret error responses as failures
     if (status >= 400) {
+      console.log("error here1");
       const message = await getErrorMessageSafely(response);
       const error = new HttpError(status, message);
 

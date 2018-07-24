@@ -35,14 +35,7 @@ const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
   font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
   border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
   margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: black;

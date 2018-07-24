@@ -18,7 +18,7 @@ type State = {
 };
 
 type Props = {
-  t: Function,a
+  t: Function,
   loading: boolean,
   onLoginPressed: (username: string, password: string) => void,
 };

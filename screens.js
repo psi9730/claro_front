@@ -375,13 +375,13 @@ export function registerScreens() {
   Navigation.registerComponent(NAVER_SIGNUP_SCREEN.screen, () => NavigationWrapper(NaverSignupScreen), store, Provider);
   Navigation.registerComponent(FILTER_SCREEN.screen, () => NavigationWrapper(FilterScreen), store, Provider);
   Navigation.registerComponent(ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(AcceptSignupScreen), store, Provider);
-  Navigation.registerComponent(DRAWER_SCREEN.screen, () => NavigationWrapper(DrawerScreen), store, Provider);
+  Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
   Navigation.registerComponent(WIFI_MAIN_SCREEN.screen, () => NavigationWrapper(WifiMainScreen), store, Provider);
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
-  Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => NavigationWrapper(RemoteDetailScreen), store, Provider);
+  Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => RemoteDetailScreen, store, Provider);
   Navigation.registerComponent(CHOICE_DEVICE_SCREEN.screen, () => NavigationWrapper(ChoiceDeviceScreen), store, Provider);
   Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
   Navigation.registerComponent(SIGNUP_SCREEN.screen, () => NavigationWrapper(SignupScreen), store, Provider);
@@ -390,7 +390,6 @@ export function registerScreens() {
 export function startApp() {
   (async () => {
     const accessToken = await Storage.getItem(KEYS.accessToken);
-    console.log(accessToken, "accToken");
     const token = await getAuthenticationToken();
     let firstScreen = {...SIGNUP_SCREEN};
 

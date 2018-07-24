@@ -31,6 +31,7 @@ const UsernameInput = styled.TextInput`
   margin-bottom: 10px;
   font-size: 20px;
   margin-top: 10px;
+  padding-left: 4px;
   padding-bottom: 4px;
   border-bottom-color: gray;
   border-bottom-width: 1px;
@@ -65,6 +66,7 @@ const PasswordInput = styled.TextInput`
   margin-bottom: 8px;
   font-size: 20px;
   margin-top: 8px;
+  padding-left: 4px;
   padding-bottom: 4px;
   border-bottom-color: gray;
   border-bottom-width: 1px;
@@ -111,16 +113,22 @@ const GrayLine = styled.View`
   background-color: gray;
 `;
 
+const ErrorText = styled.Text`
+  color: red;
+  align-self: flex-start;
+`
 class LoginView extends Component<Props, State> {
   state = {
     username: '',
     password: '',
+    errorMessage: null,
   };
   constructor(props) {
     super(props);
     autoBind(this);
     this.state={
-      checked: false,
+      checked: true,
+      errorMessage: null,
     }
   }
   componentWillMount(){
@@ -140,12 +148,16 @@ class LoginView extends Component<Props, State> {
   onChangePassword(password) {
     this.setState({password});
   }
-
+  parseLogin(e){
+    console.log(e.message,'message');
+    const message = e.message;
+    this.setState({errorMessage: message})
+  }
   onLoginPressed() {
     if (!this.state.username) {
-      toast(this.props.t('enter_your_id'), 'error');
+      this.setState({errorMessage: this.props.t('enter_your_id')})
     } else if (!this.state.password) {
-      toast(this.props.t('enter_your_password'), 'error');
+      this.setState({errorMessage: this.props.t('enter_your_password')})
     } else {
       Keyboard.dismiss();
       console.log("login");
@@ -155,12 +167,12 @@ class LoginView extends Component<Props, State> {
           (async() => {
             await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
           })();
-          this.props.navigator.handleDeepLink({link: REMOTE_SCREEN.screen});
+          this.props.navigator.resetTo({...REMOTE_SCREEN});
         }
         else {
-          this.props.navigator.handleDeepLink({link: SERIAL_NUMBER_SCREEN.screen})
+          this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN})
         }
-      }).catch(e => console.log(e))).catch(e => console.log(e));
+      }).catch(e => console.log(e))).catch(e => this.parseLogin(e));
 
     }
   }
@@ -189,7 +201,7 @@ class LoginView extends Component<Props, State> {
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />
-            <LoginText style={{margin:10,backgroundColor:'white',}}>
+            <LoginText style={{margin:10,backgroundColor:'white',marginBottom:20, marginTop:20}}>
               비밀번호
             </LoginText>
             <PasswordInput
@@ -203,6 +215,9 @@ class LoginView extends Component<Props, State> {
               secureTextEntry
               style={{marginBottom: 5}}
             />
+            <ErrorText>
+              {this.state.errorMessage}
+            </ErrorText>
             <CheckBox
               title='정보/이벤트 메일 수신에 동의합니다.'
               containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
