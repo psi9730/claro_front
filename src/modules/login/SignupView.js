@@ -59,6 +59,7 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
+
 const PasswordInput = styled.TextInput`
   width: 100%;
   margin-bottom: 20px;
@@ -100,11 +101,13 @@ const GrayLine = styled.View`
 `;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content:center;
+  align-items: center;
   background-color: white;
   padding: 30px;
-  padding-bottom: 5px;
+  padding-bottom: 35px;
   
 `;
 

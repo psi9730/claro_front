@@ -164,7 +164,7 @@ class TimerView extends Component<Props, State> {
     this.props.setTurnOffRequest(this.props.barcode, hour, this.props.isTurnOffActive);
   }
   turnOffToggle(active){
-    if(active===1) {
+    if(active===false) {
       this.props.setTurnOffRequest(this.props.barcode, new Date(), active);
     }
     else{
@@ -172,7 +172,8 @@ class TimerView extends Component<Props, State> {
     }
   }
   turnOnToggle(active){
-    if(active ===1) {
+    console.log(this.props.turnOnHour);
+    if(active ===false) {
       this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, new Date(), active);
     }
     else this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, this.props.turnOnHour, active);

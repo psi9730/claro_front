@@ -242,7 +242,6 @@ class RemoteBarView extends Component<Props, State> {
   props: Props;
 
   render() {
-    console.log("this.props.delta",this.props._deltaY);
     let icon = this.icons['up'];
     const shadowOpt = {
       color:"#000",

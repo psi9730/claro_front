@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, DatePickerIOS, Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,ScrollView
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -177,7 +177,7 @@ class DeviceSelectView extends Component<Props, State> {
       }
     )()).catch((e)=>console.log(e));
   }
-    shallowEqual(objA: mixed, objB: mixed): boolean {
+  shallowEqual(objA: mixed, objB: mixed): boolean {
     if (objA === objB) {
       return true;
     }
@@ -203,7 +203,6 @@ class DeviceSelectView extends Component<Props, State> {
         return false;
       }
     }
-
     return true;
   }
 
@@ -213,11 +212,12 @@ class DeviceSelectView extends Component<Props, State> {
       !this.shallowEqual(instance.state, nextState)
     );
   }
+  /*
   shouldComponentUpdate(nextProps, nextState) {
     console.log(nextProps, 'nextProps');
     console.log(nextState,'nextState');
   return this.shallowCompare(this, nextProps, nextState);
-  }
+  }*/
 
   props: Props;
   goToDetail(index){
@@ -257,24 +257,19 @@ class DeviceSelectView extends Component<Props, State> {
             <TopTextContainer>
               <TitleText>제품 관리</TitleText>
             </TopTextContainer>
-            <RemoteContainer><TextLeftView ><RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText></TextLeftView>
-              <TextRightView>
-                <ToggleSwitch
-                  isOn={this.props.isActive}
-                  onColor='green'
-                  offColor='gray'
-                  size='small'
-                  onToggle={ (isOn) => this.pushToggle(isOn)}
-                />
-              </TextRightView>
+            <RemoteContainer>
+              <TextLeftView>
+                <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
+              </TextLeftView>
             </RemoteContainer>
-            <ScrollContainer >
+            <ScrollContainer>
             {_.map(this.props.devices, (device, index) => {
                 return (
                   <View key={index}>
                     <RemoteContainer>
                       <TextLeftView>
                         <TouchableOpacity onPress={() => this.goToDetail(index)}>
+                          <View>
                           <Image source={infoIcnBlue} style={{
                             flexGrow: 0,
                             flexShrink: 0,
@@ -283,20 +278,23 @@ class DeviceSelectView extends Component<Props, State> {
                             width: 20,
                             resizeMode: 'stretch'
                           }}/>
+                          </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.setControlDevice(device)}>
+                          <View>
                           {
-                            device.deviceInfo &&
+                            device.deviceInfo ?(
                             <RemoteText
                               style={{
                                 color: 'black',
                                 fontWeight: 'bold'
-                              }}>{device.deviceUser.nickname} ({device.deviceInfo.modelName})
-                            </RemoteText>
+                              }}>{device.deviceUser.nickname} {device.deviceInfo.modelName}
+                            </RemoteText>): null
                           }
+                          </View>
                         </TouchableOpacity>
                       </TextLeftView>
-                      <TextRightView> {device.serialNumber === this.props.barcode && <Image
+                      <TextRightView> {device.serialNumber === this.props.barcode ?(<Image
                         source={checkIcn} style={{
                         flexGrow: 0,
                         flexShrink: 0,
@@ -304,7 +302,7 @@ class DeviceSelectView extends Component<Props, State> {
                         height: 20,
                         width: 20,
                         resizeMode: 'stretch'
-                      }}/>}
+                      }}/>): null}
                       </TextRightView>
                     </RemoteContainer>
                     <GrayLine/>

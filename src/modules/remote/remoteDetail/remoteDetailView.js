@@ -203,6 +203,7 @@ class RemoteDetailView extends Component<Props, State> {
   };
   props: Props;
   componentWillMount() {
+    console.log(this.props,'this.props');
   }
 
   turnOffSterilizing(){
@@ -221,7 +222,6 @@ class RemoteDetailView extends Component<Props, State> {
     this.props.navigator.push({
       ...TIMER_SCREEN,
     });
-
   }
   toggleSleep(){
     if(this.props.power===0){
@@ -479,7 +479,7 @@ class RemoteDetailView extends Component<Props, State> {
                     <TextRightView>
                       <RemoteText>OFF</RemoteText>
                     </TextRightView>
-                  </RemoteContainer>) : (this.props.airCleaning===1 ? (<RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(약)</RemoteText></TextRightView></RemoteContainer>):(<RemoteContainer><TextLeftView><RemoteText>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(강)</RemoteText></TextRightView></RemoteContainer>))
+                  </RemoteContainer>) : (this.props.airCleaning===1 ? (<RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(약)</RemoteText></TextRightView></RemoteContainer>):(<RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(강)</RemoteText></TextRightView></RemoteContainer>))
                 }
                 <RemoteContainer><TextLeftView><RemoteText  style={{color :this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}>미세먼지 오염도(PM10):</RemoteText></TextLeftView><TextRightView><RemoteText>좋음</RemoteText></TextRightView></RemoteContainer>
                 <RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}>초미세먼지 오염도(PM2.5):</RemoteText></TextLeftView><TextRightView><RemoteText>좋음</RemoteText></TextRightView></RemoteContainer>

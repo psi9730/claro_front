@@ -76,7 +76,6 @@ const Screen = {
 class RemoteDraggableView extends Component<Props, State> {
 
   constructor(props) {
-    console.log("Constructor is implemented");
     super(props);
     autoBind(this);
     this.state = {

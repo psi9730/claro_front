@@ -198,6 +198,7 @@ class LoginView extends Component<Props, State> {
             </LoginText>
             <UsernameInput
               autoCapitalize='none'
+              underlineColorAndroid="transparent"
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />

@@ -33,7 +33,7 @@ const FunctionContainer = styled.View`
 const Container = styled.KeyboardAvoidingView`
   flex:1;
   height:100%;
-  margin:28px;
+  padding:28px;
   display:flex;
   flex-direction: column;
   justify-content: flex-start;

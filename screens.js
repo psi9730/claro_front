@@ -410,7 +410,9 @@ export function startApp() {
       },
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
-        left: {...DRAWER_SCREEN},
+        left: {...DRAWER_SCREEN
+          ,fixedWidth: 650
+        },
         style: { // ( iOS only )
           drawerShadow: false, // optional, add this if you want a side menu drawer shadow
           contentOverlayColor: 'rgba(0,0,0,0.25)', // optional, add this if you want a overlay color when drawer is open

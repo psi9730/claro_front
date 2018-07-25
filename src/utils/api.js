@@ -16,7 +16,7 @@ import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
 import toast from '../utils/toast';
 
-const TIMEOUT = 6000;
+const TIMEOUT = 12000;
 
 /**
  * All HTTP errors are emitted on this channel for interested listeners
@@ -104,7 +104,7 @@ const REFRESH_TOKEN = 'refresh_token';
 async function refreshToken() {
   const token = await getAuthenticationToken();
   const refreshToken = token && token.refreshToken;
-  console.log("refresh Error here");
+  console.log("refresh Error here",refreshToken);
   if (!refreshToken) return new Error();
 
   const body = {
@@ -113,6 +113,7 @@ async function refreshToken() {
   };
   try {
     const newToken = await post(TOKEN_URL, body);
+    console.log(newToken,'newToken');
     if (newToken) {
       await setAuthenticationToken(newToken);
       return null;
@@ -145,6 +146,7 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
         throw new Error('incorrect_refresh_token');
       } else if (path !== TOKEN_URL) {
         if (refreshingPromise === null) {
+          console.log("auth/token/  go to refresh");
           refreshingPromise = refreshToken();
         }
         const refreshError = await refreshingPromise;
