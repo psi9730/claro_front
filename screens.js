@@ -381,7 +381,6 @@ export function registerScreens() {
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
-  Navigation.registerComponent(REMOTE_DETAIL_SCREEN.screen, () => RemoteDetailScreen, store, Provider);
   Navigation.registerComponent(CHOICE_DEVICE_SCREEN.screen, () => NavigationWrapper(ChoiceDeviceScreen), store, Provider);
   Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
   Navigation.registerComponent(SIGNUP_SCREEN.screen, () => NavigationWrapper(SignupScreen), store, Provider);
@@ -391,10 +390,10 @@ export function startApp() {
   (async () => {
     const accessToken = await Storage.getItem(KEYS.accessToken);
     const token = await getAuthenticationToken();
-    let firstScreen = {...SIGNUP_SCREEN};
+    let firstScreen = {...LOGIN_SCREEN};
 
     if (token && token.accessToken) {
-      firstScreen = {...SIGNUP_SCREEN};
+      firstScreen = {...LOGIN_SCREEN};
     }
 
     Navigation.startSingleScreenApp({
@@ -411,7 +410,7 @@ export function startApp() {
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN
-          ,fixedWidth: 650
+          ,fixedWidth: 800
         },
         style: { // ( iOS only )
           drawerShadow: false, // optional, add this if you want a side menu drawer shadow

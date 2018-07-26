@@ -272,7 +272,7 @@ class RemoteDraggableView extends Component<Props, State> {
                 />
               </Animated.View>
               <View style={styles.bottomSheetContentIOS}>
-                <RemoteDetailView />
+                <RemoteDetailView navigator={this.props.navigator}/>
               </View>
             </View>
           </Interactable.View>

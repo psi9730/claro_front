@@ -31,7 +31,7 @@ import sleepIcnBlue from '../../../assets/images/sleepIcnBlue.png';
 import sleepIcn from '../../../assets/images/sleepIcn.png';
 import timerIcnBlue from '../../../assets/images/timerIcnBlue.png';
 import timerIcn from '../../../assets/images/timerIcn.png';
-import {TIMER_SCREEN} from '../../../../screens';
+import {TIMER_SCREEN,REMOTE_SCREEN} from '../../../../screens';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,

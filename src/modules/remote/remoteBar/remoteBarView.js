@@ -292,7 +292,7 @@ class RemoteBarView extends Component<Props, State> {
         <IconViewContainer >
           <TouchableOpacity onPress={() => this.togglePower()}>
             <IconView>
-              <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,tintColor: 'black', resizeMode:'stretch'}} />
+              {this.props.power===0 ?  <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} /> :  <Image source={powerIcnGreen} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} />}
               <IconText>전원</IconText>
             </IconView>
           </TouchableOpacity>

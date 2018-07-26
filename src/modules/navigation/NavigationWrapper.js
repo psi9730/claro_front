@@ -125,9 +125,6 @@ export default function NavigationWrapper(WrappedComponent) {
           case CHOICE_DEVICE_SCREEN.screen:
             screenObj = {...CHOICE_DEVICE_SCREEN};
             break;
-          case REMOTE_DETAIL_SCREEN.screen:
-            screenObj = {...REMOTE_DETAIL_SCREEN};
-            break;
           case WIFI_SET_UP_SCREEN.screen:
             screenObj = {...WIFI_SET_UP_SCREEN};
             break;

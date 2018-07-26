@@ -70,9 +70,9 @@ const RemoteContainer = styled.View`
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
-    marginBottom:11px;
-    marginTop:11px;
-    marginRight:0px;
+    margin-bottom:11px;
+    margin-top:11px;
+    margin-right:0px;
 `;
 const TitleText = styled.Text`
     font-size:21px;
@@ -94,14 +94,14 @@ const GrayLine = styled.View`
 `;
 const RemoteText = styled.Text`
 `
+
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content:flex-start;
   background-color: white;
   padding: 30px;
-  padding-bottom: 5px;
-  padding-Top:10px;
 `;
 
 const TopTextContainer = styled.View`
@@ -127,7 +127,9 @@ const ButtonText = styled.Text`
   color: white;
 `;
 const ScrollContainer = styled.ScrollView`
-  flex: 4 0 0;
+  flex-grow: 4;
+  flex-shrink: 0;
+  flex-basis: 0px;
   background-color: white;
 `;
 
@@ -261,6 +263,108 @@ class DeviceSelectView extends Component<Props, State> {
               <TextLeftView>
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
               </TextLeftView>
+              <TextRightView>
+                <ToggleSwitch
+                  isOn={this.props.isActive}
+                  onColor='green'
+                  offColor='gray'
+                  size='small'
+                  onToggle={ (isOn) => this.pushToggle(isOn)}
+                />
+              </TextRightView>
+            </RemoteContainer>
+            <ScrollContainer>
+              {_.map(this.props.devices, (device, index) => {
+                  return (
+                    <View key={index}>
+                      <RemoteContainer>
+                        <TextLeftView>
+                          <TouchableOpacity onPress={() => this.goToDetail(index)}>
+                            <View>
+                              <Image source={infoIcnBlue} style={{
+                                flexGrow: 0,
+                                flexShrink: 0,
+                                flexBasis: 'auto',
+                                height: 20,
+                                width: 20,
+                                resizeMode: 'stretch'
+                              }}/>
+                            </View>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => this.setControlDevice(device)}>
+                            <View>
+                              {
+                                device.deviceInfo ?(
+                                  <RemoteText
+                                    style={{
+                                      color: 'black',
+                                      fontWeight: 'bold'
+                                    }}>{device.deviceUser.nickname} {device.deviceInfo.modelName}
+                                  </RemoteText>): null
+                              }
+                            </View>
+                          </TouchableOpacity>
+                        </TextLeftView>
+                        <TextRightView>
+                          {device.serialNumber === this.props.barcode && <Image
+                            source={checkIcn} style={{
+                            flexGrow: 0,
+                            flexShrink: 0,
+                            flexBasis: 'auto',
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'stretch'
+                          }}/>}
+                        </TextRightView>
+                      </RemoteContainer>
+                      <GrayLine/>
+                    </View>)
+                }
+              )
+              }
+            </ScrollContainer>
+            <BottomButtonContainer>
+              <NavButton
+                style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+                onPress={()=> this.goToDeviceAddScreen()}
+              >
+                <TextCenterContainer>
+                  <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                    제품 추가 등록
+                  </ButtonText>
+                </TextCenterContainer>
+              </NavButton>
+            </BottomButtonContainer>
+          </Container>
+        </TouchableWithoutFeedback>
+      </ThemeProvider>
+    );
+  }
+}
+
+export default DeviceSelectView;
+
+/*  <ThemeProvider theme={ClaroTheme}>
+        <TouchableWithoutFeedback
+          onPress={DeviceSelectView.dismissKeyboard}
+        >
+          <Container>
+            <TopTextContainer>
+              <TitleText>제품 관리</TitleText>
+            </TopTextContainer>
+            <RemoteContainer>
+              <TextLeftView>
+                <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
+              </TextLeftView>
+              <TextRightView>
+                <ToggleSwitch
+                  isOn={this.props.isActive}
+                  onColor='green'
+                  offColor='gray'
+                  size='small'
+                  onToggle={ (isOn) => this.pushToggle(isOn)}
+                />
+              </TextRightView>
             </RemoteContainer>
             <ScrollContainer>
             {_.map(this.props.devices, (device, index) => {
@@ -302,7 +406,7 @@ class DeviceSelectView extends Component<Props, State> {
                         height: 20,
                         width: 20,
                         resizeMode: 'stretch'
-                      }}/>): null}
+                      }}/>): null }
                       </TextRightView>
                     </RemoteContainer>
                     <GrayLine/>
@@ -326,51 +430,16 @@ class DeviceSelectView extends Component<Props, State> {
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
-    );
-  }
-}
 
-export default DeviceSelectView;
-
-/*   <SNInput
-            placeholder="Enter S/N yourself"
-            value={this.props.barcode}
-            onChangeText={barcode => {this.props.updateBarcode(barcode)}}
-          />
-            <Button
-              title={'바코드 스캐너로 입력'}
-              style={{ marginBottom: 20 }}
-              light
-              onPress={() => this.goBarcodeScan()}
-            />
-            <Button
-              title={'모듈로 시리얼 서버정보 전송'}
-              onPress={() => this.sendSerialAndServerInfo()}
-              color={ClaroTheme.mainColor} />
-            <SerialNumberText>
-              (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
-              0x0101, 0x0201까지 성공적으로 전송받으면
-              WifiSetup 화면으로 자동으로 이동)
-            </SerialNumberText>
-            <Button
-              title={'WifiSetup 화면으로 이동 (테스트용)'}
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...WIFI_SET_UP_SCREEN,
-                });
-              }}
-              color={ClaroTheme.mainColor}
-            />
-            <Button
-              title={'Remote 화면으로 바로 이동 (테스트용)'}
-              light
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...REMOTE_SCREEN,
-                })
-              }}
-            />*/
+        {device.serialNumber === this.props.barcode ?
+                              <Image
+                              source={checkIcn} style={{
+                              flexGrow: 0,
+                              flexShrink: 0,
+                              flexBasis: 'auto',
+                              height: 20,
+                              width: 20,
+                              resizeMode: 'stretch'
+                            }}/> : null
+                          }
+            */
