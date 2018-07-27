@@ -1,10 +1,7 @@
-import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {LoginTypes, LoginActions} from './LoginState';
-import Constants from '../../constants/constants';
-import Storage, { KEYS } from '../../utils/ClaroStorage';
-const { API_ROOT } = Constants;
 
 function* requestLogin({username, password}: {username: string, password: number}) {
   try {
@@ -21,18 +18,6 @@ function* requestLogin({username, password}: {username: string, password: number
   }
 }
 
-function* requestCheckId({username}: {username: string}) {
-  try {
-    let body;
-    body = {
-      username
-    };
-    // const token = yield call(post, `/devices/add_command`, body);
-    yield put(LoginActions.checkIdSuccess());
-  } catch (e) {
-    yield put(LoginActions.checkIdFailure(e));
-  }
-}
 function* requestClaroSignup({username, password,name, email,phoneNumber,homeNumber,postcode,roadAddr,jibunAddr,detailLocation}: {username: string, password: string, name: string, email: string, phoneNumber:string, homeNumber:string, postcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
   try {
     let body;
@@ -118,7 +103,6 @@ export const LoginSaga = [
   takeLatest(LoginTypes.GET_USER_PROFILE_REQUEST, requestGetUserProfile),
   takeLatest(LoginTypes.UPDATE_PASSWORD_REQUEST, requestUpdatePassword),
   takeLatest(LoginTypes.LOGIN_REQUEST, requestLogin),
-  takeLatest(LoginTypes.CHECK_ID_REQUEST, requestCheckId),
   takeLatest(LoginTypes.CLARO_SIGNUP_REQUEST, requestClaroSignup),
   takeLatest(LoginTypes.NAVER_SIGNUP_REQUEST, requestNaverSignup)
 ];

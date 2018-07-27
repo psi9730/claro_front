@@ -1,6 +1,5 @@
 // @flow
 import {createActions} from 'reduxsauce';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
 import _ from 'lodash';
 type DeviceState = {
@@ -29,7 +28,6 @@ const initialState = {
   },
   deviceInfo: "",
   isActivePush: true,
-  isChangeDevice: false,
 };
 
 // Action Creators

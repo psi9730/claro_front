@@ -5,13 +5,7 @@ import {Button, Image, Keyboard, StyleSheet, Modal, Text, TextInput,
   ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
 import { CheckBox } from 'react-native-elements'
-import naver from '../../assets/images/naver.png'
-import facebook from '../../assets/images/facebook.png'
 import {CLARO_SIGNUP_SCREEN,PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN} from '../../../screens';
 type State = {
   username: string,
@@ -23,15 +17,6 @@ type Props = {
   loading: boolean,
   onLoginPressed: (username: string, password: string) => void,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
 const LoginText = styled.Text`
   flex-grow:0;
   flex-shrink:0;
@@ -41,12 +26,10 @@ const LoginText = styled.Text`
   color: black;
   margin-bottom: 10px;
   margin-top:10px;
-  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
 `;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -70,19 +53,6 @@ const CheckBoxView = styled.View`
   justify-content: flex-start;
   align-items: center;
 `;
-const TextBoxView = styled.View`
-  flex-grow:0;
-  flex-shrink:0;
-  flex-basis: 40px;
-  width: 100%;
-  margin-bottom: 5px;
-  display:flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   display: flex;
@@ -92,7 +62,6 @@ const Container = styled.KeyboardAvoidingView`
   padding: 30px;
   padding-bottom: 35px;
 `;
-
 const TextLeftContainer = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -111,13 +80,11 @@ const CheckBoxContainer = styled.View`
     justify-content: center;
     align-items: flex-start;
 `;
-
 const GrayLine = styled.View`
   height: 1px;
   width: 100%;
   background-color: gray;
 `;
-
 class AcceptSignupView extends Component<Props, State> {
   state = {
     username: '',
@@ -175,8 +142,6 @@ class AcceptSignupView extends Component<Props, State> {
   }
 
   render() {
-    const {t, loading} = this.props;
-
     return (
           <Container>
             <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>

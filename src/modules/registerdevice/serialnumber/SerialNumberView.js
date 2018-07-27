@@ -10,11 +10,9 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import _ from 'lodash';
-import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
   BARCODE_SCAN_SCREEN, REMOTE_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN
 } from '../../../../screens';
-import SignupView from '../../login/SignupView';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -32,57 +30,29 @@ const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
   font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
   border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
   margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: black;
 `;
-const TextsBoxContainer = styled.View`
- width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  borderTopWidth: 1px;
-  borderTopColor: gray;
-  borderLeftColor: gray;
-  borderRightColor: gray;
-  borderBottomWidth: 2px;
-  borderBottomColor: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 1px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
-  
 `;
-
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -95,7 +65,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -105,13 +74,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -119,9 +81,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 30px;
   padding-bottom: 5px;
-  
 `;
-
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -131,8 +91,6 @@ const BottomButtonView = styled.View`
     justify-content: flex-end;
     align-items: center;
 `;
-
-
 class SerialNumberView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -141,11 +99,7 @@ class SerialNumberView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-
   }
-
-
-
   componentWillMount() {
     this.props.getDevicesRequest().then(()=>{
       if(_.size(this.props.devices)>0){
@@ -153,21 +107,17 @@ class SerialNumberView extends Component<Props, State> {
       }
     }).catch(e=>console.log(e));
   }
-
   props: Props;
-
   goBarcodeScan() {
     Keyboard.dismiss();
     this.props.navigator.push({
       ...BARCODE_SCAN_SCREEN,
     })
   }
-
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
     if (this.props.barcode == null || this.props.barcode === '') {
       toast(this.props.t('enter_your_SN'), 'error');
-      return;
     }
     else {
       console.log("this.props.barcode in serail",this.props.barcode);

@@ -3,8 +3,7 @@ import actions from '../../redux/actions';
 import LocationSearchView from './LocationSearchView';
 import i18n from '../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps} from 'recompose';
-// import {} from '../../../../screens';
+import {compose, withProps} from 'recompose';
 
 export default connect(
   state => ({

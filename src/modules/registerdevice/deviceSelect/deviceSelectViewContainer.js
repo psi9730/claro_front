@@ -3,8 +3,7 @@ import actions from '../../../redux/actions';
 import DeviceSelectView from './deviceSelectView';
 import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps} from 'recompose';
-import {RENTALS_SCREEN} from '../../../../screens';
+import {compose, withProps} from 'recompose';
 
 export default connect(
   state => ({
@@ -23,7 +22,6 @@ export default connect(
     sleepMode: _.get(state,['remote','sleepMode']),
     turnOnHour: _.get(state,['remote','turnOnHour']),
     turnOffHour: _.get(state,['remote','turnOffHour']),
-    isChangeDevice: _.get(state, ['registerDevice', 'isChangeDevice']),
   }),
   actions,
 )(

@@ -6,11 +6,6 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import Claro6Theme from '../../utils/ClaroTheme';
-import Panel from './panel';
-import Panel2 from './panel2';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import {getAuthenticationToken} from '../../utils/authentication';
-import {REMOTE_SCREEN} from '../../../screens';
 type Props = {
   t: Function,
   me: ?{
@@ -29,7 +24,6 @@ const FunctionContainer = styled.View`
     flex-direction: column;
     justify-content: flex-start;
 `;
-
 const Container = styled.KeyboardAvoidingView`
   flex:1;
   height:100%;
@@ -44,7 +38,7 @@ const GrayText = styled.Text`
   color: gray;
   margin-top:20px;
   margin-bottom:20px;
-`
+`;
 const MenuText = styled.Text`
   font-weight: bold;
   margin-bottom: 20px;
@@ -54,17 +48,11 @@ const RowText = styled.Text`
   font-weight: bold;
   font-size: 20px;
 `;
-const DeviceText = styled.Text`
-  font-weight: bold;
-  color: blue;
-  margin-bottom: 8px;
-`;
 const GrayLine = styled.View`
   height: 1px;
   background-color: gray;
   align-self:stretch;
 `;
-
 const RowContainer = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -139,7 +127,6 @@ class DrawerView extends Component<Props> {
   }
 
   render() {
-    const {t} = this.props;
     return (
       <ThemeProvider theme={Claro6Theme}>
         <TouchableWithoutFeedback
@@ -221,23 +208,3 @@ class DrawerView extends Component<Props> {
 }
 
 export default DrawerView;
-
-
-/*<Menus>
-            <Select defaultValue={""}
-            <MenuButton
-              onPress={()=>(console.log("logOut"))}
-            >
-              <MenuText>
-                {t('menu_logout')}
-              </MenuText>
-            </MenuButton>
-            <MenuButton
-              onPress={this.props.logout}
-            >
-              <MenuText>
-                {t('menu_logout')}
-              </MenuText>
-            </MenuButton>
-          </Menus>
-          */

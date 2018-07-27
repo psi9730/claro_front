@@ -8,7 +8,6 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
 import infoIcnBlue from '../../../assets/images/infoIcnBlue.png';
@@ -145,7 +144,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -155,7 +153,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
 class DeviceSelectView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -169,59 +166,13 @@ class DeviceSelectView extends Component<Props, State> {
       turnOnHour: new Date(),
     }
   }
-
-
-
+  props: Props;
   componentWillMount() {
-    console.log('this will mount repeatedly');
     this.props.getUserProfileRequest().catch((e)=>console.log(e));
     this.props.getDevicesRequest(this.props.barcode).then(()=> (async() => {
       }
     )()).catch((e)=>console.log(e));
   }
-  shallowEqual(objA: mixed, objB: mixed): boolean {
-    if (objA === objB) {
-      return true;
-    }
-
-    if (typeof objA !== 'object' || objA === null ||
-      typeof objB !== 'object' || objB === null) {
-      return false;
-    }
-
-    var keysA = Object.keys(objA);
-    var keysB = Object.keys(objB);
-
-    if (keysA.length !== keysB.length) {
-      console.log('keysA',keysA,'keysB',keysB);
-      return false;
-    }
-
-    // Test for A's keys different from B.
-    var bHasOwnProperty = hasOwnProperty.bind(objB);
-    for (var i = 0; i < keysA.length; i++) {
-      if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
-        console.log('keysA', objA[keysA[i]],'keysB',objB[keysA[i]]);
-        return false;
-      }
-    }
-    return true;
-  }
-
-  shallowCompare(instance, nextProps, nextState) {
-    return (
-      !this.shallowEqual(instance.props, nextProps) ||
-      !this.shallowEqual(instance.state, nextState)
-    );
-  }
-  /*
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps, 'nextProps');
-    console.log(nextState,'nextState');
-  return this.shallowCompare(this, nextProps, nextState);
-  }*/
-
-  props: Props;
   goToDetail(index){
       this.props.navigator.push({
         ...DEVICE_INFO_SCREEN,
@@ -230,8 +181,6 @@ class DeviceSelectView extends Component<Props, State> {
   goToDeviceAddScreen(){
     (async() => {
       await Storage.setItem(KEYS.serialNumber,this.props.barcode);
-      await Storage.setItem(KEYS.nickname,this.props.nickname);
-      await Storage.setItem(KEYS.deviceInfo,this.props.deviceInfo);
     })();
     this.props.navigator.resetTo({
       ...DEVICE_ADD_SCREEN,
@@ -343,103 +292,3 @@ class DeviceSelectView extends Component<Props, State> {
 }
 
 export default DeviceSelectView;
-
-/*  <ThemeProvider theme={ClaroTheme}>
-        <TouchableWithoutFeedback
-          onPress={DeviceSelectView.dismissKeyboard}
-        >
-          <Container>
-            <TopTextContainer>
-              <TitleText>제품 관리</TitleText>
-            </TopTextContainer>
-            <RemoteContainer>
-              <TextLeftView>
-                <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
-              </TextLeftView>
-              <TextRightView>
-                <ToggleSwitch
-                  isOn={this.props.isActive}
-                  onColor='green'
-                  offColor='gray'
-                  size='small'
-                  onToggle={ (isOn) => this.pushToggle(isOn)}
-                />
-              </TextRightView>
-            </RemoteContainer>
-            <ScrollContainer>
-            {_.map(this.props.devices, (device, index) => {
-                return (
-                  <View key={index}>
-                    <RemoteContainer>
-                      <TextLeftView>
-                        <TouchableOpacity onPress={() => this.goToDetail(index)}>
-                          <View>
-                          <Image source={infoIcnBlue} style={{
-                            flexGrow: 0,
-                            flexShrink: 0,
-                            flexBasis: 'auto',
-                            height: 20,
-                            width: 20,
-                            resizeMode: 'stretch'
-                          }}/>
-                          </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setControlDevice(device)}>
-                          <View>
-                          {
-                            device.deviceInfo ?(
-                            <RemoteText
-                              style={{
-                                color: 'black',
-                                fontWeight: 'bold'
-                              }}>{device.deviceUser.nickname} {device.deviceInfo.modelName}
-                            </RemoteText>): null
-                          }
-                          </View>
-                        </TouchableOpacity>
-                      </TextLeftView>
-                      <TextRightView> {device.serialNumber === this.props.barcode ?(<Image
-                        source={checkIcn} style={{
-                        flexGrow: 0,
-                        flexShrink: 0,
-                        flexBasis: 'auto',
-                        height: 20,
-                        width: 20,
-                        resizeMode: 'stretch'
-                      }}/>): null }
-                      </TextRightView>
-                    </RemoteContainer>
-                    <GrayLine/>
-                  </View>)
-              }
-            )
-            }
-            </ScrollContainer>
-            <BottomButtonContainer>
-              <NavButton
-                style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
-                onPress={()=> this.goToDeviceAddScreen()}
-              >
-                <TextCenterContainer>
-                  <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    제품 추가 등록
-                  </ButtonText>
-                </TextCenterContainer>
-              </NavButton>
-            </BottomButtonContainer>
-          </Container>
-        </TouchableWithoutFeedback>
-      </ThemeProvider>
-
-        {device.serialNumber === this.props.barcode ?
-                              <Image
-                              source={checkIcn} style={{
-                              flexGrow: 0,
-                              flexShrink: 0,
-                              flexBasis: 'auto',
-                              height: 20,
-                              width: 20,
-                              resizeMode: 'stretch'
-                            }}/> : null
-                          }
-            */

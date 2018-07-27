@@ -6,14 +6,12 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
 import { CheckBox } from 'react-native-elements'
 import naver from '../../assets/images/naver.png'
 import facebook from '../../assets/images/facebook.png'
 import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN} from '../../../screens';
 import _ from 'lodash';
-import {clearAuthenticationToken, getDriverId, setAuthenticationToken} from '../../utils/authentication';
+import {clearAuthenticationToken} from '../../utils/authentication';
 import {KEYS} from '../../utils/ClaroStorage';
 import Storage from '../../utils/ClaroStorage';
 type State = {
@@ -95,28 +93,10 @@ const TextLeftContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-const CoverText = styled.Text`
-  font-size: 24px;
-  color: black;
-`;
-
-const CoverView = styled.View`
-  flex-grow: 2;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
-
 const ErrorText = styled.Text`
   color: red;
   align-self: flex-start;
-`
+`;
 class LoginView extends Component<Props, State> {
   state = {
     username: '',
@@ -182,8 +162,6 @@ class LoginView extends Component<Props, State> {
   }
 
   render() {
-    const {t, loading} = this.props;
-
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback

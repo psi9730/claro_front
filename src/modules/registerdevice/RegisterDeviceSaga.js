@@ -1,5 +1,4 @@
 import { call, take, put, takeLatest } from 'redux-saga/effects'
-import {setAuthenticationToken} from '../../utils/authentication';
 import {post,get, del, put as puts} from '../../utils/api';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
@@ -53,7 +52,6 @@ function* requestSendAP() {
 
 function* requestSendSerialNumber({barcode}: {barcode: string}) {
   try {
-    console.log(makeBody(strBuffer(barcode,32)));
     yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
     const action = yield take([DeviceActions.tcpRequestSuccess, DeviceActions.tcpRequestFailure]);
     if(action.type === DeviceTypes.TCP_REQUEST_SUCCESS) {
@@ -63,7 +61,6 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
       yield put(DeviceActions.sendSerialNumberFailure(action.error));
     }
   } catch (e) {
-    console.log("sendSerialNumber",action.error);
     yield put(DeviceActions.sendSerialNumberFailure(e));
   }
 }
@@ -78,8 +75,6 @@ function* requestRegisterDevice({barcode,nickname,deviceInfo}: {barcode: string,
       "longitude": 90,
       "device_info": JSON.stringify(deviceInfo)
     };
-    console.log(body);
-    console.log(`${API_ROOT}/devices/register/`);
     yield call(post, `/devices/register/`, body, null);
     yield put(DeviceActions.registerDeviceSuccess());
   } catch (e) {
@@ -94,8 +89,6 @@ function* requestUpdateDevice({barcode,nickname}: {barcode: string,nickname: str
       "latitude": 12,
       "longitude": 90
     };
-    console.log(body);
-    console.log(`${API_ROOT}/devices/register/`);
     yield call(puts, `/devices/register/`, body, null);
     yield put(DeviceActions.updateDeviceSuccess(nickname));
   } catch (e) {

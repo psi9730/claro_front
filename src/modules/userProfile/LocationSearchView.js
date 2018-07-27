@@ -6,13 +6,8 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
 import searchIcn from '../../assets/images/searchIcn.png';
 import locationIcnGray from '../../assets/images/locationIcnGray.png';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
-import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
 import _ from 'lodash'
 type Props = {
   ssid: ?string,
@@ -134,7 +129,6 @@ class LocationSearchView extends Component<Props, State> {
     this.props.getLocationRequest(this.state.search).then(()=>{if(this.props.locations) this.setState({isSearch:true})}).catch((e)=>console.log(e));
   }
   setLocation(rnAdres,lnmAdres,postcode){
-    console.log(this.props,'props');
     this.props.onChangeLocation(rnAdres, lnmAdres,postcode);
     this.props.navigator.pop();
   }

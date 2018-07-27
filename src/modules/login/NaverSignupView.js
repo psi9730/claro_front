@@ -176,10 +176,6 @@ i
     this.setState({phoneNumber});
   }
 
-  onCheckedId(e){
-    this.props.checkIdRequest(e.target.value);
-  }
-
   onSignupPressed() {
     if(!this.state.username){
       toast(this.props.t('enter_your_id'),'error');

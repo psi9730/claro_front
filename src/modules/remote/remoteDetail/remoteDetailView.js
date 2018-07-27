@@ -17,12 +17,10 @@ import {
 } from 'react-native';
 import autoBind from 'react-autobind';
 import toast from '../../../utils/toast';
-import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import powerIcn from '../../../assets/images/powerIcn.png';
-import upIcn from '../../../assets/images/upIcn.png';
 import AIIcn from '../../../assets/images/AIIcn.png';
 import downIcn from '../../../assets/images/downIcn.png';
 import AIIcnBlue from '../../../assets/images/AIIcnBlue.png';
@@ -31,7 +29,7 @@ import sleepIcnBlue from '../../../assets/images/sleepIcnBlue.png';
 import sleepIcn from '../../../assets/images/sleepIcn.png';
 import timerIcnBlue from '../../../assets/images/timerIcnBlue.png';
 import timerIcn from '../../../assets/images/timerIcn.png';
-import {TIMER_SCREEN,REMOTE_SCREEN} from '../../../../screens';
+import {TIMER_SCREEN} from '../../../../screens';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -79,8 +77,7 @@ const CenterContainer = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-`
+`;
 const BottomFunctionContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -92,8 +89,7 @@ const BottomFunctionContainer = styled.View`
     align-self: stretch;
     marginTop: 5px;
     marginBottom:5px;
-`
-
+`;
 const TextContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -103,32 +99,6 @@ const TextContainer = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-`;
-const TextRowContainer = styled.View`
-     flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row;
-    margin-bottom:4px;
-    margin-right:30px;
-    align-items:center;
-`
-const TextView = styled.Text`
-    flex:1;
-    text-align:left;
-    text-align-vertical;
-`;
-
-const GrayLineContainer = styled.View`
-    display:flex;
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 25px;
-    height: 25px;
-    flex-direction: row;
-    justify-content:center;
-    align-items:center;
 `;
 const GrayLine = styled.View`
   height: 2px;
@@ -154,7 +124,7 @@ const IconText = styled.Text`
     font-weight: bold;
 `;
 const RemoteText = styled.Text`
-`
+`;
 const TextRightView = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -202,9 +172,6 @@ class RemoteDetailView extends Component<Props, State> {
   state: State = {
   };
   props: Props;
-  componentWillMount() {
-    console.log(this.props,'this.props');
-  }
 
   turnOffSterilizing(){
     this.props.toggleSterilizing_(0, this.props.barcode);
@@ -252,13 +219,10 @@ class RemoteDetailView extends Component<Props, State> {
   }
 
   toggleSterilizing(){
-    console.log(this.props.sterilizing);
-    console.log(this.props.sterilizingColor);
     if(this.props.power===0){
       toast("Power is Off");
     }
     else if (this.props.sterilizing === 0){
-      console.log("sterilizing is 0");
       this.turnOffAI();
       this.turnOffSleep();
       this.turnOffAirCleaning();
@@ -412,7 +376,7 @@ class RemoteDetailView extends Component<Props, State> {
                     <RemoteText>좋음</RemoteText>
                   </TextRightView>
                 </RemoteContainer>
-                <RemoteContainer >
+                <RemoteContainer>
                   <TextLeftView>
                     <RemoteText style={{color : this.props.AI===0 ? 'black' : 'blue'}}>VOCs 오염도:</RemoteText>
                   </TextLeftView>
@@ -548,23 +512,4 @@ class RemoteDetailView extends Component<Props, State> {
     );
   }
 }
-
 export default  RemoteDetailView
-/*
-<FunctionContainer>
-<IconView>
-<TouchableHighlight
-onPress={() => this.toggleTimer()}
-underlayColor="#f1f1f1">
-  <Image
-style={{width: 40, height: 40}}
-source={timer}
-/>
-</TouchableHighlight>
-</IconView>
-<TextContainer>
-  <TextView> Timer: OFF</TextView>
-  <TextView> 꺼짐 예약 시간:</TextView>
-  <TextView> 켜짐 예약 시간:</TextView>
-</TextContainer>
-</FunctionContainer>*/

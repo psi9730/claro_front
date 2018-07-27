@@ -11,37 +11,29 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import {
-  BARCODE_SCAN_SCREEN, WIFI_SET_UP_SCREEN, WIFI_GUIDE_SCREEN, REMOTE_SCREEN, LOGIN_SCREEN, WIFI_MAIN_SCREEN,
-  ACCEPT_SIGNUP_SCREEN
+  WIFI_SET_UP_SCREEN, WIFI_GUIDE_SCREEN
 } from '../../../../screens';
 import SignupView from '../../login/SignupView';
 type Props = {
   sendSerialNumberRequest: Function,
-  restoreSerialNumber: Function,
-  restoreDevice: Function,
   registerDeviceRequest: Function,
   barcode: String,
 };
 
 type State = {
-  serialNumber: ?string,
-  secure: boolean,
-};
 
+};
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
-  
 `;
-
 const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -54,7 +46,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -73,8 +64,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -82,20 +71,14 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 30px;
   padding-bottom: 5px;
-  
 `;
-
 
 class WifiMainView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      secure: true,
-      isFan: false,
-    }
-
   }
+
 
 
 
@@ -116,7 +99,6 @@ class WifiMainView extends Component<Props, State> {
       (
         async () => {
           let key;
-          this.showToastForResponse();
           console.log("show toast");
           key = KEYS.serialNumber;
           await Storage.setItem(key, this.props.barcode);
@@ -182,46 +164,3 @@ class WifiMainView extends Component<Props, State> {
 }
 
 export default WifiMainView;
-
-/*   <SNInput
-            placeholder="Enter S/N yourself"
-            value={this.props.barcode}
-            onChangeText={barcode => {this.props.updateBarcode(barcode)}}
-          />
-            <Button
-              title={'바코드 스캐너로 입력'}
-              style={{ marginBottom: 20 }}
-              light
-              onPress={() => this.goBarcodeScan()}
-            />
-            <Button
-              title={'모듈로 시리얼 서버정보 전송'}
-              onPress={() => this.sendSerialAndServerInfo()}
-              color={ClaroTheme.mainColor} />
-            <SerialNumberText>
-              (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
-              0x0101, 0x0201까지 성공적으로 전송받으면
-              WifiSetup 화면으로 자동으로 이동)
-            </SerialNumberText>
-            <Button
-              title={'WifiSetup 화면으로 이동 (테스트용)'}
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...WIFI_SET_UP_SCREEN,
-                });
-              }}
-              color={ClaroTheme.mainColor}
-            />
-            <Button
-              title={'Remote 화면으로 바로 이동 (테스트용)'}
-              light
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...REMOTE_SCREEN,
-                })
-              }}
-            />*/

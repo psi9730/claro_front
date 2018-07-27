@@ -1,16 +1,11 @@
-import { call, take, fork, put, takeLatest } from 'redux-saga/effects'
-import {setAuthenticationToken} from '../../utils/authentication';
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {get, post} from '../../utils/api';
 import {RemoteTypes, RemoteActions} from './remoteState';
 import {DeviceTypes, DeviceActions} from '../registerdevice/RegisterDeviceState';
-import Constants from '../../constants/constants';
-import Storage, { KEYS } from '../../utils/ClaroStorage';
-const { API_ROOT } = Constants;
 
 function* requestTogglePowerRequest({power, serial_number}: {power: number, serial_number: string}) {
   try {
     let body;
-    console.log("power serial_number", serial_number);
     if(power===0)
       body = {
       serial_number,
@@ -49,7 +44,6 @@ function* requestToggleAIRequest({AI, serial_number}: {AI: number, serial_number
 function* requestToggleAirRequest({air, serial_number}: {air: number, serial_number: string}) {
   try {
     let body;
-    console.log("air serial_number", serial_number);
     if (air === 0) {
       yield put(RemoteActions.toggleAirCleaningSuccess(air));
     }
@@ -58,7 +52,6 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
         serial_number,
         type: 5
       };
-      console.log(body,"body");
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleAirCleaningSuccess(air));
     }
@@ -100,7 +93,6 @@ function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, seri
 function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterilizing: number, serial_number: string}) {
   try {
     let body;
-    console.log(sterilizing,"sterilizing in request");
     if (sterilizing === 0) {
       yield put(RemoteActions.toggleSterilizingSuccess(sterilizing));
     }
@@ -109,7 +101,6 @@ function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterili
         serial_number,
         type: 3
       };
-      console.log("body",body);
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleSterilizingSuccess(sterilizing));
     }

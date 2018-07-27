@@ -24,13 +24,8 @@ import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import {SERIAL_NUMBER_SCREEN} from '../../../../screens';
-import exitIcn from '../../../../src/assets/images/exit.png';
 import whiteExitIcn from '../../../../src/assets/images/x-mark-32.png';
-const { StatusBarManager } = NativeModules;
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.getHeight((statusBarHeight)=>{
-  console.log(statusBarHeight)
-}) : StatusBarManager.HEIGHT;
 type Props = {
   updateBarcode: Function,
 };
@@ -47,11 +42,6 @@ const Container = styled.KeyboardAvoidingView`
   align-items: center;
   background-color: green;
 `;
-
-const BarcodeText = styled.Text`
-  font-size: 15px;
-  color: #909090;
-`;
 const TitleText = styled.Text`
   align-self: center;
   font-size: 20px;
@@ -63,15 +53,6 @@ const TitleText = styled.Text`
   textAlignVertical: center;
   textAlign: center;
 `;
-
-const NavBar = styled.View`
-  display: flex;
-  flexDirection: row;
-  justifyContent: flex-end;
-  alignItems: center;
-`;
-
-
 class BarcodeScanView extends Component<Props, State> {
 
   constructor(props) {

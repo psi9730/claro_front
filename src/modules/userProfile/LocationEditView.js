@@ -6,7 +6,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN, LOCATION_SEARCH_SCREEN} from '../../../screens';
+import {USER_PROFILE_SCREEN, LOCATION_SEARCH_SCREEN} from '../../../screens';
 type Props = {
   ssid: ?string,
   password: ?string,
@@ -36,11 +36,11 @@ type State = {
 };
 const TextsBoxInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   padding-left: 8px;
   font-size: 20px;
   margin-top: 8px;
-  border-bottom-width:1px;
+  border-bottom-width: 1px;
   border-bottom-color: gray;
 `;
 
@@ -176,7 +176,6 @@ class LocationEditView extends Component<Props, State> {
   componentWillMount() {
   }
   onChangeLocation(jibunAddr, roadAddr, postcode){
-    console.log("changeLocation");
     this.setState({
       jibunAddr, roadAddr, postcode
     })

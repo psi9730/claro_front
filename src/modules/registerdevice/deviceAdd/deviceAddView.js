@@ -10,7 +10,7 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import {
-  BARCODE_SCAN_SCREEN, SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN
+  BARCODE_SCAN_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN, WIFI_MAIN_SCREEN
 } from '../../../../screens';
 import {KEYS} from '../../../utils/ClaroStorage';
 import Storage from '../../../utils/ClaroStorage';
@@ -37,45 +37,24 @@ const TextsBoxInput = styled.TextInput`
   padding-bottom: 4px;
   border-bottom-color: #333333;
 `;
-const TextsBoxContainer = styled.View`
- width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  borderTopWidth: 1px;
-  borderTopColor: gray;
-  borderLeftColor: gray;
-  borderRightColor: gray;
-  borderBottomWidth: 2px;
-  borderBottomColor: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 1px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
-  
 `;
-
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -88,7 +67,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -98,13 +76,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -112,9 +83,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 30px;
   padding-bottom: 5px;
-  
 `;
-
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -166,17 +135,12 @@ class DeviceAddView extends Component<Props, State> {
       ...BARCODE_SCAN_SCREEN,
     })
   }
-  showToastForResponse() {
-    toast("기기 등록 완료");
-  }
   sendSerialAndServerInfo() {
     Keyboard.dismiss();
     if (this.props.barcode == null || this.props.barcode === '') {
       toast(this.props.t('enter_your_SN'), 'error');
-      return;
     }
     else {
-      console.log("this.props.barcode in serail",this.props.barcode);
       this.props.navigator.push({
         ...WIFI_MAIN_SCREEN,
       })

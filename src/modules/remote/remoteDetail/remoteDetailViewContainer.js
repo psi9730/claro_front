@@ -18,13 +18,7 @@ export default connect(
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
     AI: _.get(state, ['remote', 'AI']),
-    isTurnOnActive: _.get(state,['remote','isTurnOnActive']),
-    isTurnOffActive: _.get(state,['remote','isTurnOffActive']),
-    turnOnDay: _.get(state,['remote','turnOnDay']),
-    turnOnHour: _.get(state,['remote','turnOnHour']),
-    turnOffHour: _.get(state,['remote','turnOffHour']),
     sleepMode: _.get(state,['remote','sleepMode']),
-    isChangeDevice: _.get(state, ['registerDevice', 'isChangeDevice']),
   }),
   actions,
 )(

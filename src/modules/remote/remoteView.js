@@ -19,30 +19,19 @@ import {
   NativeModules,
 } from 'react-native';
 import autoBind from 'react-autobind';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
-import burgerIcn from '../../assets/images/burger.png';
 import locationIcn from '../../assets/images/locationDot.png';
 import circleIcn from '../../assets/images/circle.png';
-const { StatusBarManager } = NativeModules;
-import moment from 'moment';
 import dateformat from 'dateformat';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
-  togglePower_: Function,
-  toggleAI_: Function,
-  toggleSterilizing_: Function,
-  toggleAirCleaning_: Function,
   AI: number,
   sterilizing: number,
   power: number,
   serialNumber: string,
   airCleaning: number,
 };
-
 type State = {
 };
 const Container = styled.KeyboardAvoidingView`
@@ -54,9 +43,9 @@ const Container = styled.KeyboardAvoidingView`
   padding-bottom: 3px;
 `;
 const TextView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
   display: flex;
   flex-direction: column;
   paddingRight: 20px;
@@ -66,139 +55,112 @@ const TextView = styled.View`
   align-items: flex-start;
 `;
 const OutAirView = styled.View`
-    flex:1;
-    padding: 20px;
+  flex:1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 `;
 const OuterContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: 230px;
-`;
-const StatusView = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: 230px;
 `;
 const FunctionContainer = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    display:flex;
-    padding: 3px;
-    flex-direction: row;
-    justify-content: flex-start;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  display:flex;
+  padding: 3px;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
-
 const InnerAirContainer = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 40px;
-    display:flex;
-    padding: 3px;
-    paddingRight:0px;
-    flex-direction: row;
-    justify-content: flex-start;
-    marginBottom:5px;
-    marginLeft:5px;
-    marginRight:0px;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: 40px;
+  display:flex;
+  padding: 3px;
+  paddingRight:0px;
+  flex-direction: row;
+  justify-content: flex-start;
+  marginBottom:5px;
+  marginLeft:5px;
+  marginRight:0px;
 `;
-
 const TextContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 `;
-
 const ImageTextContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: auto;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 `;
 const TextCenter = styled.Text`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    align-self: center;
-    font-size: 20px;
-    color: white;
-    margin-bottom:10px;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  align-self: center;
+  font-size: 20px;
+  color: white;
+  margin-bottom:10px;
 `;
 const OuterTextCenter = styled.Text`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    align-self: center;
-    font-size: 20px;
-    color: black;
-    margin-bottom:10px;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  align-self: center;
+  font-size: 20px;
+  color: black;
+  margin-bottom:10px;
 `;
 const OuterTextRight= styled.Text`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    font-size: 12px;
-    color: gray;
-    margin-right:5px;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  font-size: 12px;
+  color: gray;
+  margin-right:5px;
 `;
 const TextLeftContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row
-    justify-content: flex-end;
-    align-items: center;
-    margin-right:10px;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: auto;
+  display:flex;
+  flex-direction: row
+  justify-content: flex-end;
+  align-items: center;
+  margin-right:10px;
 `;
 const LocationContainer = styled.View`
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: auto;
-    align-self: flex-end;
-    display:flex;
-    flex-direction: row
-    justify-content: flex-end;
-    align-items: center;
-    margin-right:10px;
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  align-self: flex-end;
+  display:flex;
+  flex-direction: row
+  justify-content: flex-end;
+  align-items: center;
+  margin-right:10px;
 `;
 class RemoteView extends Component<Props, State> {
   constructor(props) {
-    console.log("Constructor is implemented");
     super(props);
     autoBind(this);
   }
   state: State = {
   };
-
-  componentWillMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps){
-
-  }
-  goToRemoteView(){
-    console.log("Plus Button is pressed");
-    this.props.navigator.push({
-      ...REMOTE_DETAIL_SCREEN,
-    });
-  }
 
   static dismissKeyboard() {
     Keyboard.dismiss();
@@ -208,7 +170,6 @@ class RemoteView extends Component<Props, State> {
 
   render() {
     const Color = this.props.backgroundColor;
-    console.log(this.props.height,"height");
     if(Platform.OS==='android'){
     this.props.navigator.setStyle({
       statusBarTextColorScheme: 'light',

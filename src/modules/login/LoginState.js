@@ -29,7 +29,6 @@ export const {Types: LoginTypes, Creators: LoginActions} = createActions(
   actionsGenerator({
     loginRequest: ['username','password'],
     logoutRequest: [],
-    checkIdRequest: ['username'],
     claroSignupRequest: ['username', 'password','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     naverSignupRequest: ['username', 'name', 'email','phoneNumber'],
     updateUserProfileRequest: ['phoneNumber','homeNumber','jibunAddr','roadAddr','detailLocation','postcode','email'],
@@ -186,22 +185,6 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         loading:false,
         error: action.error,
       };
-    case LoginTypes.CHECK_ID_REQUEST:
-      return {
-        ...state,
-        loading:true,
-      }
-    case LoginTypes.CHECK_ID_SUCCESS:
-      return {
-        ...state,
-        loading:false,
-      }
-    case LoginTypes.CHECK_ID_FAILURE:
-      return {
-        ...state,
-        loading:false,
-        error: action.error,
-      }
     case LoginTypes.CLARO_SIGNUP_REQUEST:
       return {
         ...state,

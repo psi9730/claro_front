@@ -70,8 +70,8 @@ const RemoteContainer = styled.View`
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
-    marginBottom:11px;
-    marginTop:11px;
+    marginBottom:5px;
+    marginTop:5px;
     marginRight:0px;
 `;
 const IconContainer = styled.View`
@@ -79,9 +79,9 @@ const IconContainer = styled.View`
     flex-shrink:0;
     flex-basis: auto;
     display: flex;
+    margin-top: 4px;
     flex-direction: row;
     justify-content: space-around;
-    marginBottom: 10px;
 `;
 const TextLeftView = styled.View`
     flex-grow:1;
@@ -112,8 +112,8 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 12px;
-  margin-top:12px;
+  margin-bottom: 6px;
+  margin-top:6px;
   
 `;
 const DatePickContainer = styled.View`
@@ -122,6 +122,7 @@ const DatePickContainer = styled.View`
     flex-basis: auto;
     display:flex;
     width: 100%;
+    background-color:blue;
     flex-direction: column
     justify-content: center;
     align-items: center;
@@ -220,7 +221,7 @@ class TimerView extends Component<Props, State> {
             <TopTextContainer>
               <TitleText style={{color:'black',fontSize: 25, fontWeight:'bold'}} >타이머</TitleText>
             </TopTextContainer>
-            <RemoteContainer><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
+            <RemoteContainer style={{marginTop: 10}}><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
               <TextRightView>
                 <ToggleSwitch
                   isOn={this.props.isTurnOffActive}
@@ -241,9 +242,8 @@ class TimerView extends Component<Props, State> {
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
+                      height:15,
+                      width:15,
                       resizeMode: 'stretch'
                     }}/>
                     </TextRightView>
@@ -261,8 +261,8 @@ class TimerView extends Component<Props, State> {
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height:30,
-                      width:30,
+                      height:15,
+                      width:15,
                       marginBottom: 4,
                       resizeMode: 'stretch'
                     }}/></TextRightView></RemoteContainer>
@@ -278,8 +278,8 @@ class TimerView extends Component<Props, State> {
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height:30,
-                      width:30,
+                      height:15,
+                      width:15,
                       marginBottom: 4,
                       resizeMode: 'stretch'
                     }}/></TextRightView></RemoteContainer>
@@ -295,8 +295,8 @@ class TimerView extends Component<Props, State> {
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height:30,
-                      width:30,
+                      height:15,
+                      width:15,
                       marginBottom: 4,
                       resizeMode: 'stretch'
                     }}/></TextRightView></RemoteContainer>
@@ -314,8 +314,8 @@ class TimerView extends Component<Props, State> {
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height:30,
-                      width:30,
+                      height:15,
+                      width:15,
                       marginBottom: 4,
                       resizeMode: 'stretch'
                     }}/></TextRightView></RemoteContainer>
@@ -325,7 +325,7 @@ class TimerView extends Component<Props, State> {
                 </RemoteContainer>
                   <GrayLine/>
                 </TouchableOpacity>)):null}
-            <RemoteContainer>
+            <RemoteContainer style={{marginBottom:10, marginTop:10}}>
               <TextLeftView>
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText>
               </TextLeftView>
@@ -339,8 +339,7 @@ class TimerView extends Component<Props, State> {
                 />
               </TextRightView>
             </RemoteContainer>
-            <DatePickContainer>
-            {this.props.isTurnOnActive && Platform.OS==='ios' ?   (this.props.turnOnHour &&<DatePickerIOS
+            {this.props.isTurnOnActive && Platform.OS==='ios' ?   (<DatePickerIOS
               date={this.props.turnOnHour}
               onDateChange={this.setHour}
               mode={"time"}
@@ -356,15 +355,15 @@ class TimerView extends Component<Props, State> {
               }}
               format="HH:mm"
               showIcon={false}
-              getDateStr={}
               style={{
+                marginBottom: 10,
                 width: '100%',
                 backgroundColor: 'white',
                 androidMode:'default',
               }}
               mode={"time"}
             />) : (null)}
-            </DatePickContainer>
+
             {this.props.isTurnOnActive ?   (
               <IconContainer>
               <TouchableOpacity onPress={() => this.setDay("monday")}>

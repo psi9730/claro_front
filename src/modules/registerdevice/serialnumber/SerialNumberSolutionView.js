@@ -37,7 +37,6 @@ const TitleText = styled.Text`
   margin-bottom: 18px;
   margin-top:18px;
 `;
-
 const NavBar = styled.View`
   display: flex;
   flexDirection: row;
@@ -50,9 +49,7 @@ const IntroduceText = styled.Text`
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
-
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -60,11 +57,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 30px;
   padding-bottom: 5px;
-  
 `;
-
-
-
 
 class SerialNumberSolutionView extends Component<Props, State> {
   constructor(props) {
@@ -74,33 +67,11 @@ class SerialNumberSolutionView extends Component<Props, State> {
       secure: true,
       isFan: false,
     }
-
   }
-
-
-
-  componentWillMount() {
-
-  }
-
   props: Props;
 
   updateNickname(nickname) {
     this.props.updateNickname(nickname);
-  }
-  goRegisterCompleteScreen(){
-    Keyboard.dismiss();
-    if(this.props.nickname==="") {
-      this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e));
-    }
-    else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e))
-    }
   }
 
   static dismissKeyboard() {

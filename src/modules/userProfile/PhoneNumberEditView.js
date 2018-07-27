@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import {Button, Image, Keyboard, Toast, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
@@ -6,12 +5,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import { Icon } from 'react-native-elements'
-import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
-import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
+import {USER_PROFILE_SCREEN} from '../../../screens';
 type Props = {
   ssid: ?string,
   password: ?string,
@@ -40,17 +34,10 @@ type State = {
 };
 const TextsBoxInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
-  border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
   margin-top: 8px;
+  border-bottom-width: 1px;
   padding-bottom: 4px;
   border-bottom-color: black;
 `;
@@ -75,10 +62,6 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ErrorText = styled.Text`
-  font-size: 15px;
-  color: red;
-`;
 
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
@@ -102,13 +85,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -116,9 +92,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 20px;
   padding-bottom: 5px;
-  
 `;
-
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -135,7 +109,6 @@ class PhoneNumberEditView extends Component<Props, State> {
     autoBind(this);
     this.state = {
       phoneNumber: this.props.phoneNumber,
-      error: false,
     };
   }
   props: Props;

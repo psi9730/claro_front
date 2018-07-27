@@ -6,15 +6,15 @@ import {decamelizeKeys, camelizeKeys} from 'humps';
 import {normalize} from 'normalizr';
 import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import {SIGNUP_SCREEN,LOGIN_SCREEN} from '../../screens'
 import _ from 'lodash';
 import EventEmitter from 'event-emitter';
-
+import {Navigation} from 'react-native-navigation';
 import {getConfiguration} from '../utils/configuration';
 import {getAuthenticationToken} from '../utils/authentication';
 import {clearAuthenticationToken, getDriverId, setAuthenticationToken} from './authentication';
 import {deviceLocale} from '../utils/i18n';
 import timeout from './timeout';
-import toast from '../utils/toast';
 
 const TIMEOUT = 12000;
 
@@ -104,8 +104,11 @@ const REFRESH_TOKEN = 'refresh_token';
 async function refreshToken() {
   const token = await getAuthenticationToken();
   const refreshToken = token && token.refreshToken;
-  console.log("refresh Error here",refreshToken);
-  if (!refreshToken) return new Error();
+  console.log('refreshToken',refreshToken);
+  if (!refreshToken) {
+    console.log('handleDeeplink');
+    return new Error();
+  }
 
   const body = {
     refreshToken,
@@ -118,8 +121,13 @@ async function refreshToken() {
       await setAuthenticationToken(newToken);
       return null;
     }
+
     return new Error();
   } catch (e) {
+    Navigation.handleDeepLink({
+      link: SIGNUP_SCREEN.screen,
+      payload: '' // (optional) Extra payload with deep link
+    });
     return e;
   }
 }
@@ -128,8 +136,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
   try {
     const response = await sendRequest(method, path, body);
     const status = response.status;
-    console.log("response",response);
-    console.log("response status",response.status);
     // if 401 refresh token
     // after refresh token retry
     if (status === 401) {
@@ -142,11 +148,9 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
         throw error;
       }
       else if (path === TOKEN_URL && body && body.grantType === REFRESH_TOKEN) {
-        console.log("erro here");
         throw new Error('incorrect_refresh_token');
       } else if (path !== TOKEN_URL) {
         if (refreshingPromise === null) {
-          console.log("auth/token/  go to refresh");
           refreshingPromise = refreshToken();
         }
         const refreshError = await refreshingPromise;
@@ -163,7 +167,6 @@ export async function request(method: string, path: string, body: ?{}|Array<any>
     // `fetch` promises resolve even if HTTP status indicates failure. Reroute
     // promise flow control to interpret error responses as failures
     if (status >= 400) {
-      console.log("error here1");
       const message = await getErrorMessageSafely(response);
       const error = new HttpError(status, message);
 

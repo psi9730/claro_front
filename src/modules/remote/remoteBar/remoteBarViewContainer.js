@@ -3,10 +3,7 @@ import actions from '../../../redux/actions';
 import RemoteBarView from './remoteBarView';
 import i18n from '../../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, lifecycle, withHandlers, withProps, withState} from 'recompose';
-import {KEYS} from '../../../utils/ClaroStorage';
-import Storage from '../../../utils/ClaroStorage';
-
+import {compose, withHandlers, withProps, withState} from 'recompose';
 export default connect(
   state => ({
     nickname: _.get(state, ['registerDevice', 'nickname']),
@@ -18,13 +15,6 @@ export default connect(
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
     AI: _.get(state, ['remote', 'AI']),
-    isTurnOnActive: _.get(state,['remote','isTurnOnActive']),
-    isTurnOffActive: _.get(state,['remote','isTurnOffActive']),
-    turnOnDay: _.get(state,['remote','turnOnDay']),
-    turnOnHour: _.get(state,['remote','turnOnHour']),
-    turnOffHour: _.get(state,['remote','turnOffHour']),
-    sleepMode: _.get(state,['remote','sleepMode']),
-    isChangeDevice: _.get(state, ['registerDevice', 'isChangeDevice']),
   }),
   actions,
 )(
@@ -44,7 +34,7 @@ export default connect(
             props.setPower('black');
           else if (power=== 1) {
             props.setPower('blue');
-          }}). then(()=> props.getControlDeviceRequest(serialNumber).catch()).catch(()=> { console.log("claro can't toggle Power");});
+          }}). then(()=> props.getControlDeviceRequest(serialNumber).catch((e)=>console.log(e))).catch(()=> { console.log("claro can't toggle Power");});
       },
       toggleAI_: (props) => (AI,serialNumber) => {
         props.toggleAIRequest(AI,serialNumber).then(()=>{

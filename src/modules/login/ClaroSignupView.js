@@ -3,9 +3,8 @@ import React, {Component} from 'react';
 import {Button, Image, Keyboard, StyleSheet, findNodeHandle, Text, TextInput, ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import toast from '../../utils/toast';
 import { CheckBox } from 'react-native-elements'
-import {LOGIN_SCREEN, LOCATION_SEARCH_SCREEN, USER_PROFILE_SCREEN} from '../../../screens';
+import {LOGIN_SCREEN, LOCATION_SEARCH_SCREEN} from '../../../screens';
 import * as EmailValidator from 'email-validator';
 type State = {
   username: string,
@@ -204,38 +203,8 @@ class ClaroSignupView extends Component<Props, State> {
   onChangeHomeNumber(homeNumber){
     this.setState({homeNumber});
   }
-
-
   _focusNextField(nextField) {
   //    this.refs[nextField].focus()
-  }
-  handleAddress= (data) =>{
-    var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-    var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-      extraRoadAddr += data.bname;
-    }
-    // 건물명이 있고, 공동주택일 경우 추가한다.
-    if(data.buildingName !== '' && data.apartment === 'Y'){
-      extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-    }
-    // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-    if(extraRoadAddr !== ''){
-      extraRoadAddr = ' (' + extraRoadAddr + ')';
-    }
-    // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-    if(fullRoadAddr !== ''){
-      fullRoadAddr += extraRoadAddr;
-    }
-
-    this.setState({postcode: data.zonecode})
-    this.setState({roadAddress: fullRoadAddr})
-    this.setState({jibunAddress: data.jibunAddress});
-  }
-  onCheckedId(e){
-    this.props.checkIdRequest(e.target.value);
   }
   onChangeLocation(jibunAddr, roadAddr, postcode){
     this.setState({
@@ -244,9 +213,6 @@ class ClaroSignupView extends Component<Props, State> {
   }
   onGetPostCodePressed(){
     this.props.navigator.push({...LOCATION_SEARCH_SCREEN,  passProps: {onChangeLocation: this.onChangeLocation}});
-  }
-  parseSignupError(e){
-
   }
   parseError(e){
     const message = e.message;

@@ -16,50 +16,13 @@ type Props = {
   loading: boolean,
   onLoginPressed: (username: string, password: string) => void,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 10px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
 const LoginText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 10px;
   margin-top:10px;
-  
 `;
-const ButtonText = styled.Text`
-  font-size: 15px;
-  color: white;
-`;
-
-const NavButton = styled.TouchableOpacity`
-  flex-grow:0;
-  flex-shrink:0;
-  flex-basis: 40px;
-  width: 100%;
-  margin-bottom: 5px;
-  background-color: #00CC39;
-  display:flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
-const PasswordInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   display: flex;
@@ -67,39 +30,6 @@ const Container = styled.KeyboardAvoidingView`
   justify-content:center;
   align-items: center;
   background-color: white;
-  
-`;
-const ImageContainer = styled.View`
-    position: absolute;
-`;
-const TextLeftContainer = styled.View`
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row
-    justify-content: center;
-    align-items: center;
-`;
-
-const CoverText = styled.Text`
-  font-size: 24px;
-  color: black;
-`;
-
-const CoverView = styled.View`
-  flex-grow: 2;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const GrayLine = styled.View`
-  flex-grow: 0; 
-  flex-shrink: 0; 
-  flex-basis: auto;
-  height: 1px;
-  width: 100%;
-  background-color: gray;
 `;
 
 class PersonalInfoView extends Component<Props, State> {
@@ -115,37 +45,11 @@ class PersonalInfoView extends Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-
-  }
-
-  onChangeUsername(username) {
-    this.setState({username});
-  }
-
-
-  onChangePassword(password) {
-    this.setState({password});
-  }
-
-  onLoginPressed() {
-    if(!this.state.username){
-      toast(this.props.t('enter_your_id'),'error');
-    } else if(!this.state.password){
-      toast(this.props.t('enter_your_password'),'error');
-    } else {
-      Keyboard.dismiss();
-      this.props.onLoginPressed(this.state.username, this.state.password).catch((e)=>console.log(e));
-    }
-  }
-
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
 
   render() {
-    const {t, loading} = this.props;
-
     return (
           <Container>
             <LoginText style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', padding: 30, fontSize: 25, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>

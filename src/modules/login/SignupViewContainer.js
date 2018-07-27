@@ -16,13 +16,7 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-      onLoginPressed: (props) => (username, password) => {
-        /*props.loginRequest(username, password).then(() => {
-           props.navigator.resetTo({...RENTALS_SCREEN});
-         }).catch((err) => {
-           console.log('err', err);
-         }); */
-      }
+
     }),
   )(
     SignupView

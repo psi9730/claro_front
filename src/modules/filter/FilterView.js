@@ -11,11 +11,9 @@ import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import * as Progress from 'react-native-progress';
-import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
 import exitIcnRed from '../../assets/images/exitIcnRed.png';
 import NavigationStyleWrapper from '../../utils/NavigationStyleWrapper';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
 type Props = {
   filterMaxTime: number,
   filterUsingTime: number,
@@ -69,11 +67,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
-const ImageContainer = styled.View`
-    position: absolute;
-`;
-
 const TextLeftContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -180,10 +173,6 @@ class FilterView extends Component<Props, State> {
   }
   componentDidMount(){
     NavigationStyleWrapper(this.props.navigator,'dark','white','white',false,false)
-  /*  this.setState({progress: 0},()=>
-    setTimeout((function() {
-      this.setState({ progress: this.state.progress + this.props.filterUsingTime})
-    }).bind(this), 1000))*/
   }
   props: Props;
 
@@ -193,7 +182,6 @@ class FilterView extends Component<Props, State> {
 
 
   render() {
-    NavigationStyleWrapper(this.props.navigator,'dark','white','white',false,false)
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -204,7 +192,7 @@ class FilterView extends Component<Props, State> {
               <TitleText> 필터 관리</TitleText>
             </TopTextContainer>
             <ButtonView>
-              <Progress.Circle size={100} progress={ this.props.filterUsingTime/this.props.filterMaxTime} showsText={true} formatText={(progress) => {const progress1= Math.ceil(100*progress); return (`${this.props.filterUsingTime}분`)}}/>
+              <Progress.Circle size={100} progress={ this.props.filterUsingTime/this.props.filterMaxTime} showsText={true} formatText={(progress) => { return (`${this.props.filterUsingTime}분`)}}/>
             </ButtonView>
             <Modal
               isVisible={this.state.resetVisible}

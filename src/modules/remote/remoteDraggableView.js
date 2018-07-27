@@ -19,6 +19,7 @@ import {
   View,
   NativeModules,
 } from 'react-native';
+import _ from 'lodash';
 import {Platform} from 'react-native';
 import autoBind from 'react-autobind';
 import RemoteBarView from '../remote/remoteBar/remoteBarViewContainer';
@@ -29,6 +30,8 @@ import burgerIcn from '../../assets/images/burger.png';
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import dateformat from 'dateformat';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
+import {getAuthenticationToken} from '../../utils/authentication';
+import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN} from '../../../screens';
 const { StatusBarManager } = NativeModules;
 type Props = {
   useState: Function,
@@ -85,16 +88,27 @@ class RemoteDraggableView extends Component<Props, State> {
     };
   }
   componentDidMount(){
-
+    (async()=> {
+      const token = await getAuthenticationToken();
+      const refreshToken = token && token.refreshToken;
+      console.log('refreshToken', refreshToken);
+    })()
   }
   componentWillMount(){
-    console.log("componentwillmount");
+    this.props.getDevicesRequest().then(() => {
+      console.log(this.props.devices,'devices');
+      if (_.size(this.props.devices) > 0) {
+      }
+      else {
+        this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN});
+      }
+    }).catch(e => console.log(e))
     this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
     (async () => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.props.updateBarcode(serialNumber);
       this.props.getOuterRequest(serialNumber, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
-      this.props.getControlDeviceRequest(serialNumber).catch();
+      this.props.getControlDeviceRequest(serialNumber).catch((e)=>console.log(e));
     })();
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
@@ -153,14 +167,12 @@ class RemoteDraggableView extends Component<Props, State> {
   }
   onDrawerSnap(event){
     if(event.nativeEvent.index===0){
-      console.log("gotoindex0");
       this.props.navigator.setStyle({
         statusBarColor: 'white',
         statusBarTextColorScheme: 'dark',
         statusBarTextColorSchemeSingleScreen: 'dark',
       })
     } else if(event.nativeEvent.index===1){
-      console.log("gotoindex1");
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
         statusBarColor: this.props.backgroundColor,
@@ -173,7 +185,6 @@ class RemoteDraggableView extends Component<Props, State> {
     if(Platform.OS==='android') {
       this.setState({height: height});
       this.setState({firstHeight: height})
-      console.log("calculate", height);
     }
   }
 
@@ -388,41 +399,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 
-})
+});
 
 export default  RemoteDraggableView
-
-/*if (Platform.OS === 'android') {
-      return (
-        <ThemeProvider theme={ClaroTheme}>
-          <TouchableWithoutFeedback
-            onPress={RemoteDraggableView.dismissKeyboard} onLayout={(event) => {
-            {this.onLayout(event)}
-          }}
-          >
-            <CoordinatorLayout style={styles.container}>
-              <View style={styles.content}>
-                <RemoteView navigator={this.props.navigator}/>
-                <View style={styles.blank}/>
-              </View>
-
-              <BottomSheetBehavior
-                peekHeight={70}
-                hideable={false}
-                anchorEnabled={false}
-                onStateChange={(state)=>this.useState(state)}
-              >
-                <View style={styles.bottomSheet}>
-                  <View style={styles.bottomSheetHeader}>
-                    <RemoteBarView/>
-                  </View>
-                  <View style={styles.bottomSheetContent}>
-                    <RemoteDetailView/>
-                  </View>
-                </View>
-              </BottomSheetBehavior>
-            </CoordinatorLayout>
-          </TouchableWithoutFeedback>
-        </ThemeProvider>
-      );
-    }*/

@@ -8,14 +8,10 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import {
-  REGISTER_COMPLETE_SCREEN,
-} from '../../../../screens';
 import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper'
 import NavBarView from '../../navBar/NavBarViewContainer'
 import Barcode from '../../../../src/assets/images/barcode.jpg'
 import exitIcn from '../../../../src/assets/images/exit.png';
-const { StatusBarManager } = NativeModules;
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -39,22 +35,13 @@ const TitleText = styled.Text`
   margin-bottom: 18px;
   margin-top:18px;
 `;
-
-const NavBar = styled.View`
-  display: flex;
-  flexDirection: row;
-  justifyContent: flex-end;
-  alignItems: center;
-`;
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
-
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -62,11 +49,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 30px;
   padding-bottom: 5px;
-  
 `;
-
-
-
 
 class SerialNumberSolutionView extends Component<Props, State> {
   constructor(props) {
@@ -75,39 +58,17 @@ class SerialNumberSolutionView extends Component<Props, State> {
     this.state = {
       secure: true,
       isFan: false,
-    }
+    };
     NavigationStyleWrapper(this.props.navigator,'dark','white','white',true,false,'black','black')
   }
-
-
-
   componentWillMount() {
 
   }
-
   props: Props;
 
-  updateNickname(nickname) {
-    this.props.updateNickname(nickname);
-  }
-  goRegisterCompleteScreen(){
-    Keyboard.dismiss();
-    if(this.props.nickname==="") {
-      this.props.updateNickname(this.props.deviceInfo.modelName)
-      this.props.updateDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e));
-    }
-    else {
-      this.props.updateDeviceRequest(this.props.barcode, this.props.nickname).then(()=> this.props.navigator.push({
-        ...REGISTER_COMPLETE_SCREEN,
-      })).catch((e)=>console.log(e))
-    }
-  }
   pop(){
     this.props.navigator.pop();
   }
-
   static dismissKeyboard() {
     Keyboard.dismiss();
   }

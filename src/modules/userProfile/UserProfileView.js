@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import {Button, Image, Keyboard, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import toast from '../../utils/toast';
 import arrowLeftIcn from '../../assets/images/arrowLeftIcn.png';
 import {PASSWORD_CHECK_SCREEN, PHONE_NUMBER_EDIT_SCREEN,LOCATION_EDIT_SCREEN, HOME_NUMBER_EDIT_SCREEN,EMAIL_EDIT_SCREEN} from '../../../screens';
 import _ from 'lodash';
@@ -39,15 +38,7 @@ const ContentText = styled.Text`
   color: black;
   margin-top:4px;
   margin-bottom:4px;
-`
-const ContentTextInput = styled.TextInput`
- padding-right:10px;
- margin-top:8px;
- margin-bottom:8px;
-
-`
-
-
+`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -55,8 +46,6 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding-bottom: 5px;
 `;
-
-
 const TextRightView = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -77,15 +66,6 @@ const RemoteContainer = styled.View`
     margin-right:20px;
     margin-left:20px;
 `;
-const TextLeftView2 = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-`;
 const TextLeftView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -103,12 +83,10 @@ const GrayLine = styled.View`
   background-color: #333333;
 `;
 const RemoteText = styled.Text`
-`
-
+`;
 const ScrollContainer = styled.ScrollView`
   flex: 1 0 0;
   width:100%;
-
 `;
 
 class UserProfileView extends Component<Props, State> {
@@ -151,7 +129,6 @@ class UserProfileView extends Component<Props, State> {
     })
   }
   goToLocation(){
-    console.log("gotolocation");
     this.props.navigator.push({
       ...LOCATION_EDIT_SCREEN
     })
@@ -161,8 +138,6 @@ class UserProfileView extends Component<Props, State> {
   }
 
   render() {
-    const {t, loading} = this.props;
-
     return (
       <Container>
         <TitleText style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', fontSize: 25, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>

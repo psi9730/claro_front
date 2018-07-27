@@ -12,7 +12,7 @@ import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
 import circleIcnBlue from '../../../assets/images/circleIcnBlue.png';
 import exitIcnRed from '../../../assets/images/exitIcnRed.png';
-import {REMOTE_SCREEN, RENTAL_DETAIL_SCREEN, SERIAL_NUMBER_SCREEN,WIFI_SET_UP_TEMP_SCREEN} from '../../../../screens';
+import {WIFI_SET_UP_TEMP_SCREEN} from '../../../../screens';
 import Modal from 'react-native-modal';
 type Props = {
   updateDeviceRequest: Function,
@@ -82,11 +82,6 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ScrollContainer = styled.ScrollView`
-  flex: 1 0 0;
-  background-color: white;
-`;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -99,7 +94,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -112,7 +106,7 @@ const TextCenterContainer = styled.View`
 const GrayText = styled.Text`
     font-size: 15px;
     color: gray;
-`
+`;
 const ModalView2= styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -160,7 +154,6 @@ class DeviceInfoView extends Component<Props, State> {
     super(props);
     autoBind(this);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    console.log(this.props.devices,'devices');
     this.state = {
       modalVisible: false,
       serialNumber: _.nth(this.props.devices,this.props.deviceIndex).serialNumber,
@@ -171,7 +164,7 @@ class DeviceInfoView extends Component<Props, State> {
     }
   }
   props: Props;
-  onNavigatorEvent(event) {
+  onNavigatorEvent(event) {   //뒤로가기하면 nickname을 update한 뒤에 다시 받아준다.
       if (event.type === 'NavBarButtonPress') {
         if(event.id === 'goBack')
         {
@@ -198,7 +191,6 @@ class DeviceInfoView extends Component<Props, State> {
   }
   updateNickname(nickname){
     this.props.updateNicknameTemp(nickname);
-   // this.props.updateDeviceRequest(this.state.serialNumber,nickname).then(()=>this.props.getDevicesRequest().catch()).catch();
   }
   deleteDevice(){
     if(_.size(this.props.devices)===1) {
@@ -207,12 +199,12 @@ class DeviceInfoView extends Component<Props, State> {
     }
     else if(this.state.serialNumber === this.props.barcode && this.props.deviceIndex!==0)
     {
-      this.props.restoreDeviceInfo(_.nth(this.props.devices,0).serialNumber,_.nth(this.props.devices,0).deviceInfo.modelName, _.nth(this.props.devices,0).deviceInfo)
+      this.props.restoreDeviceInfo(_.nth(this.props.devices,0).serialNumber,_.nth(this.props.devices,0).deviceInfo.modelName, _.nth(this.props.devices,0).deviceInfo);
       this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.setModalVisible(!this.state.modalVisible)).then(()=>this.props.getDevicesRequest().catch()).then(()=>{this.forceUpdate();this.props.navigator.pop()}).catch();
     }
     else if(this.state.serialNumber === this.props.barcode)
     {
-      this.props.restoreDeviceInfo(_.nth(this.props.devices,1).serialNumber,_.nth(this.props.devices,1).deviceInfo.modelName, _.nth(this.props.devices,1).deviceInfo)
+      this.props.restoreDeviceInfo(_.nth(this.props.devices,1).serialNumber,_.nth(this.props.devices,1).deviceInfo.modelName, _.nth(this.props.devices,1).deviceInfo);
       this.props.deleteDeviceRequest(this.state.serialNumber).then(()=>this.props.getDevicesRequest().catch()).then(()=>this.setModalVisible(!this.state.modalVisible)).then(()=>{this.forceUpdate();this.props.navigator.pop()}).catch();
     }
     else {
@@ -315,46 +307,3 @@ class DeviceInfoView extends Component<Props, State> {
 }
 
 export default DeviceInfoView;
-
-/*   <SNInput
-            placeholder="Enter S/N yourself"
-            value={this.props.barcode}
-            onChangeText={barcode => {this.props.updateBarcode(barcode)}}
-          />
-            <Button
-              title={'바코드 스캐너로 입력'}
-              style={{ marginBottom: 20 }}
-              light
-              onPress={() => this.goBarcodeScan()}
-            />
-            <Button
-              title={'모듈로 시리얼 서버정보 전송'}
-              onPress={() => this.sendSerialAndServerInfo()}
-              color={ClaroTheme.mainColor} />
-            <SerialNumberText>
-              (tcp packet data type 0x0100, 0x0200 전송에 모두 성공하고
-              0x0101, 0x0201까지 성공적으로 전송받으면
-              WifiSetup 화면으로 자동으로 이동)
-            </SerialNumberText>
-            <Button
-              title={'WifiSetup 화면으로 이동 (테스트용)'}
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...WIFI_SET_UP_SCREEN,
-                });
-              }}
-              color={ClaroTheme.mainColor}
-            />
-            <Button
-              title={'Remote 화면으로 바로 이동 (테스트용)'}
-              light
-              style={{ marginTop: 20 }}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.navigator.push({
-                  ...REMOTE_SCREEN,
-                })
-              }}
-            />*/

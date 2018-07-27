@@ -29,10 +29,6 @@ export default connect(
       t: i18n.getFixedT(),
     }),
     withHandlers({
-     /* goToProfile: (props) => () => {
-        hideDrawer(props);
-        props.navigator.handleDeepLink({link: PROFILE_SCREEN.screen});
-      },*/
       hideDrawerView: (props) => () => {
         hideDrawer(props);
       },
@@ -48,10 +44,6 @@ export default connect(
         hideDrawer(props);
         props.navigator.handleDeepLink({link: USER_PROFILE_SCREEN.screen});
       },
-      goToRegisterDevice: (props) => () => {
-        hideDrawer(props);
-        props.navigator.handleDeepLink({link: SERIAL_NUMBER_SCREEN.screen})
-      },
       goToChoiceDevice: (props) => () => {
         hideDrawer(props);
         console.log("I go to device Select")
@@ -61,23 +53,16 @@ export default connect(
         hideDrawer(props);
         props.navigator.handleDeepLink({link: FILTER_SCREEN.screen})
       },
-      goToLogin: (props) => () => {
-        hideDrawer(props);
-        props.navigator.handleDeepLink({link: SIGNUP_SCREEN.screen})
-      },
       logout: (props) => () => {
         (async () => {
           hideDrawer(props);
-          await clearAuthenticationToken();
-          props.logoutRequest().then(()=>
-          props.navigator.handleDeepLink({link: LOGIN_SCREEN.screen})).catch((e)=>console.log(e))
+          props.logoutRequest().then(()=>   (async()=>{  await clearAuthenticationToken()})()).then(()=>
+          props.navigator.handleDeepLink({link: SIGNUP_SCREEN.screen})).catch((e)=>console.log(e))
         })();
       },
     })
   )(lifecycle({
     componentDidMount() {
-      // this.props.fetchMeRequest().then((
-      // ) => {}).catch(() => {});
     }
   })(
     DrawerView

@@ -6,8 +6,7 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
-import {PASSWORD_EDIT_SCREEN,USER_PROFILE_SCREEN} from '../../../screens';
+import {USER_PROFILE_SCREEN} from '../../../screens';
 type Props = {
   ssid: ?string,
   password: ?string,
@@ -36,28 +35,19 @@ type State = {
 };
 const TextsBoxInput = styled.TextInput`
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
-  border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
   margin-top: 8px;
+  border-bottom-width: 1px;
   padding-bottom: 4px;
   border-bottom-color: black;
 `;
-
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
-  
 `;
 const IntroduceText = styled.Text`
   align-self: flex-start;
@@ -65,17 +55,11 @@ const IntroduceText = styled.Text`
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-const ErrorText = styled.Text`
-  font-size: 15px;
-  color: red;
-`;
-
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -88,22 +72,14 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row
-    justify-content: center;
-    align-items: center;
-`;
-
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: auto;
+  display:flex;
+  flex-direction: row
+  justify-content: center;
+  align-items: center;
 `;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -112,17 +88,15 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 20px;
   padding-bottom: 5px;
-  
 `;
-
 const BottomButtonView = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: column
-    justify-content: flex-end;
-    align-items: center;
+  flex-grow:1;
+  flex-shrink:1;
+  flex-basis: auto;
+  display:flex;
+  flex-direction: column
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 class HomeNumberEditView extends Component<Props, State> {
@@ -131,7 +105,6 @@ class HomeNumberEditView extends Component<Props, State> {
     autoBind(this);
     this.state = {
       homeNumber: this.props.homeNumber,
-      error: false,
     };
   }
   props: Props;

@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import {Button, Image, Keyboard, Toast, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
@@ -6,11 +5,6 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
-import Storage, {KEYS} from '../../utils/ClaroStorage';
-import { Icon } from 'react-native-elements'
-import {SERIAL_NUMBER_SCREEN, SERIAL_NUMBER_SOLUTION_SCREEN} from '../../../screens';
 import {PASSWORD_EDIT_SCREEN} from '../../../screens';
 type Props = {
   ssid: ?string,
@@ -27,79 +21,21 @@ type Props = {
 type State = {
   secure: boolean,
 };
-const WifiSetUpInput= styled.TextInput`
-  width: 70%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-
-const WifiSetUpText = styled.Text`
-  font-size: 15px;
-  color: #909090;
-`;
-
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
-const TextsInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
 const TextsBoxInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
   font-size: 20px;
-  border-top-width: 1px;
-  border-top-color: gray;
-  border-left-color: gray;
-  border-right-color: gray;
-  border-bottom-width: 2px;
-  border-bottom-color: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 2px;
+  border-bottom-width: 1px;
   margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: black;
 `;
-const TextsBoxContainer = styled.View`
- width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  borderTopWidth: 1px;
-  borderTopColor: gray;
-  borderLeftColor: gray;
-  borderRightColor: gray;
-  borderBottomWidth: 2px;
-  borderBottomColor: blue;
-  borderLeftWidth: 1px;
-  borderRightWidth: 1px;
-  margin-top: 8px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`
 const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
   margin-bottom: 18px;
   margin-top:18px;
-  
 `;
 const IntroduceText = styled.Text`
   align-self: flex-start;
@@ -107,7 +43,6 @@ const IntroduceText = styled.Text`
   color: black;
   margin-bottom: 5px;
   margin-top:3px;
-  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
@@ -125,7 +60,6 @@ const NavButton = styled.TouchableOpacity`
   justify-content: flex-start;
   align-items: center;
 `;
-
 const TextCenterContainer = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -135,13 +69,6 @@ const TextCenterContainer = styled.View`
     justify-content: center;
     align-items: center;
 `;
-
-
-const GrayLine = styled.View`
-  height: 1px;
-  width: 70%;
-  background-color: gray;
-`;
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   flex-direction: column;
@@ -149,9 +76,7 @@ const Container = styled.KeyboardAvoidingView`
   background-color: white;
   padding: 20px;
   padding-bottom: 5px;
-  
 `;
-
 const BottomButtonView = styled.View`
     flex-grow:1;
     flex-shrink:1;
@@ -164,7 +89,7 @@ const BottomButtonView = styled.View`
 const ErrorText = styled.Text`
   color: red;
   align-self: flex-start;
-`
+`;
 
 class PasswordCheckView extends Component<Props, State> {
   constructor(props) {

@@ -3,7 +3,7 @@ import actions from '../../redux/actions';
 import FilterView from './FilterView';
 import i18n from '../../utils/i18n/index';
 import _ from 'lodash';
-import {compose, withHandlers, withProps} from 'recompose';
+import {compose, withProps} from 'recompose';
 
 export default connect(
   state => ({

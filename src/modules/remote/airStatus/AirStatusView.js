@@ -24,22 +24,18 @@ import {Platform} from 'react-native';
 import autoBind from 'react-autobind';
 import RemoteBarView from '../../remote/remoteBar/remoteBarViewContainer';
 import RemoteDetailView from '../../remote/remoteDetail/remoteDetailViewContainer';
-import RemoteView from '../../remote/remoteViewContainer';
 import Interactable from 'react-native-interactable';
 import burgerIcn from '../../../assets/images/burger.png';
 import arrowDown from '../../../assets/images/Arrowhead-Down-01-128.png';
 import ExtraDimensions from 'react-native-extra-dimensions-android';
 import Modal from 'react-native-modal';
-import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import Carousel from 'react-native-snap-carousel';
 import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+const { width: viewportWidth } = Dimensions.get('window');
 function wp (percentage) {
   const value = (percentage * viewportWidth) / 100;
   return Math.round(value);
 }
-
-const slideHeight = viewportHeight * 0.36;
 const slideWidth = wp(82);
 const itemHorizontalMargin = wp(0);
 
@@ -47,8 +43,6 @@ export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 const { StatusBarManager } = NativeModules;
 type Props = {
-  useState: Function,
-  getOuterRequest: Function,
 };
 
 type State = {
@@ -149,21 +143,12 @@ const PageContainer = styled.View`
     shadow-color: #000;
     shadow-opacity: 0.2;
     shadow-radius: 15;
-`
+`;
 const NavBar = styled.View`
   display: flex;
   flexDirection: row;
   justifyContent: flex-end;
   alignItems: center;
-`;
-const ModalContainer = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: column
-    justify-content: center;
-    align-items: center;
 `;
 const ModalView = styled.View`
     flex-grow:0;
@@ -187,15 +172,6 @@ const ModalView2= styled.View`
     justify-content: space-around;
     background-color:white;
 `;
-const BottomButtonRowView = styled.View`
-    flex-grow:1;
-    flex-shrink:1;
-    flex-basis: auto;
-    display:flex;
-    flex-direction: row
-    justify-content: space-around;
-    align-items: center;
-`;
 const Screen = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height
@@ -204,7 +180,6 @@ const Screen = {
 class AirStatusView extends Component<Props, State> {
 
   constructor(props) {
-    console.log("Constructor is implemented");
     super(props);
     autoBind(this);
     this.state = {
@@ -253,12 +228,7 @@ class AirStatusView extends Component<Props, State> {
         statusBarColor: 'white',
         navBarHidden: true,
       });
-      console.log(this.deltaY,"deltaY1")
-      console.log(this.state,"state1");
     }
-    (async () => {
-      this.props.getOuterRequest(this.props.barcode, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
-    })();
   }
   onDrawerSnap(event){
     if(event.nativeEvent.index === 0){
@@ -276,7 +246,6 @@ class AirStatusView extends Component<Props, State> {
     }
   }
   _renderItem({item, index}){
-    console.log(item,'item');
     if(index===0) {
       return (
         <PageContainer>
@@ -364,7 +333,7 @@ class AirStatusView extends Component<Props, State> {
                 numberOfTicks={ 3 }
                 style={{ marginHorizontal: -10, height: xAxisHeight }}
                 data={data}
-                formatLabel={(value, index) => index}
+                formatLabel={(value, index) => index*2}
                 contentInset={{ left: 10, right: 10 }}
                 svg={axesSvg}
               />
@@ -450,59 +419,12 @@ class AirStatusView extends Component<Props, State> {
       */
     }
   }
-  _renderModal(){
-    return (
-        <Modal
-          isVisible={this.state.pm10modalVisible}
-          onBackdropPress={() => this.setPm10ModalVisible(!this.state.pm10modalVisible)}
-        >
-          <ModalView>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'5 년')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>5 년</TitleText>
-                <GrayLine/>
-              </SelectContainer>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'1 년')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>1 년</TitleText>
-                <GrayLine/>
-              </SelectContainer>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'6 개월')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>6 개월</TitleText>
-                <GrayLine/>
-              </SelectContainer>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'1 개월')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>1 개월</TitleText>
-                <GrayLine/>
-              </SelectContainer>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'1 주')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>1 주</TitleText>
-                <GrayLine/>
-              </SelectContainer>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=> this.selectPm10ModalVisible(!this.state.pm10modalVisible,'1 일')} >
-              <SelectContainer>
-                <TitleText style={{margin:10}}>1 일</TitleText>
-              </SelectContainer>
-            </TouchableHighlight>
-          </ModalView>
-        </Modal>
-    )
-  }
 
   onLayout = (event) => {
     var {height} = event.nativeEvent.layout;
     if(Platform.OS==='android') {
       this.setState({height: height});
       this.setState({firstHeight: height})
-      console.log("calculate", height);
     }
   }
   setPm10ModalVisible(visible) {
@@ -518,11 +440,10 @@ class AirStatusView extends Component<Props, State> {
     this.setState({pm25modalVisible: visible});
   }
   selectPm25ModalVisible(visible,time){
-    console.log(time,'time');
     let entries = [...this.state.entries];
     entries[1] = {...entries[1], time: time};
     this.setState({entries});
-    this.setState({pm25modalVisible: visible},()=>console.log(this.state,'this.state'));
+    this.setState({pm25modalVisible: visible});
   }
   setVocModalVisible(visible) {
     this.setState({vocmodalVisible: visible});
@@ -891,38 +812,3 @@ const styles = StyleSheet.create({
 })
 
 export default  AirStatusView
-
-/*if (Platform.OS === 'android') {
-      return (
-        <ThemeProvider theme={ClaroTheme}>
-          <TouchableWithoutFeedback
-            onPress={RemoteDraggableView.dismissKeyboard} onLayout={(event) => {
-            {this.onLayout(event)}
-          }}
-          >
-            <CoordinatorLayout style={styles.container}>
-              <View style={styles.content}>
-                <RemoteView navigator={this.props.navigator}/>
-                <View style={styles.blank}/>
-              </View>
-
-              <BottomSheetBehavior
-                peekHeight={70}
-                hideable={false}
-                anchorEnabled={false}
-                onStateChange={(state)=>this.useState(state)}
-              >
-                <View style={styles.bottomSheet}>
-                  <View style={styles.bottomSheetHeader}>
-                    <RemoteBarView/>
-                  </View>
-                  <View style={styles.bottomSheetContent}>
-                    <RemoteDetailView/>
-                  </View>
-                </View>
-              </BottomSheetBehavior>
-            </CoordinatorLayout>
-          </TouchableWithoutFeedback>
-        </ThemeProvider>
-      );
-    }*/

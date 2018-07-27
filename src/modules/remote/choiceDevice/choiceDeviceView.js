@@ -15,7 +15,6 @@ export default class ChoiceDeviceView extends Component {
 
   constructor(props) {
     super(props);
-    console.log("choice constructor");
     this.state = {value : "Select Me Please"}
     autoBind(this);
     (async()=>{

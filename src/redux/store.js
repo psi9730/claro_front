@@ -3,8 +3,6 @@ import promiseMiddleware from 'redux-promise';
 import thunkMiddleware from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import createReduxWaitForMiddleware from 'redux-wait-for-action';
-import tcapi from './middleware/tcapi';
-import tokenApi from './middleware/tokenApi';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import reducer from './reducer';
 

@@ -32,8 +32,6 @@ import WifiMainScreen from './src/modules/registerdevice/wifisetup/WifiMainViewC
 import WifiSolutionScreen from './src/modules/registerdevice/wifisetup/WifiSolutionViewContainer';
 import WifiGuideScreen from './src/modules/registerdevice/wifisetup/WifiGuideViewContainer';
 import RemoteScreen from './src/modules/remote/remoteDraggableViewContainer';
-import ChoiceDeviceScreen from './src/modules/remote/choiceDevice/choiceDeviceViewContainer';
-import RemoteDetailScreen from './src/modules/remote/remoteDetail/remoteDetailViewContainer';
 import TimerScreen from './src/modules/remote/timer/timerViewContainer';
 import NicknameScreen from './src/modules/registerdevice/NicknameViewContainer';
 import RegisterCompleteScreen from './src/modules/registerdevice/RegisterCompleteViewContainer';
@@ -51,9 +49,8 @@ import {getAuthenticationToken} from './src/utils/authentication';
 import SerialNumberSolutionScreen from './src/modules/registerdevice/serialnumber/SerialNumberSolutionViewContainer';
 import burgerIcn from './src/assets/images/burger.png';
 import goBackIcn from './src/assets/images/goBack.png';
-import exitIcn from './src/assets/images/exit.png';
 import blankIcn from './src/assets/images/Blank.png';
-import easi_6 from './src/assets/images/easi_6.png';
+
 const burgerBtn = {
   id: 'toggleDrawer',
   icon: burgerIcn,
@@ -70,18 +67,10 @@ const goBack = {
     ios: goBackIcn,
     android: goBackIcn
   })}
-
 const t = i18n.getFixedT();
 export const DRAWER_SCREEN = {
   screen: 'claro.DrawerScreen',
 };
-/*
-export const LOGIN_SCREEN = {
-  screen: 'claro.LoginScreen',
-  title: t('title_login'),
-  navigatorStyle: {},
-  navigatorButtons: {},
-};*/
 
 export const BARCODE_SCAN_SCREEN = {
   screen: 'claro.BarcodeScreen',
@@ -265,13 +254,6 @@ export const NAVER_SIGNUP_SCREEN = {
     leftButtons: [goBack],
   },
 };
-export const CHOICE_DEVICE_SCREEN = {
-  screen: 'claro.ChoiceDeviceScreen',
-  navigatorStyle: {},
-  navigatorButtons: {
-    leftButtons: [burgerBtn],
-  },
-};
 export const SERIAL_NUMBER_SCREEN = {
   screen: 'claro.SerialNumberScreen',
   navigatorStyle: {},
@@ -381,19 +363,18 @@ export function registerScreens() {
   Navigation.registerComponent(BARCODE_SCAN_SCREEN.screen, () => NavigationWrapper(BarcodeScanScreen), store, Provider);
   Navigation.registerComponent(SERIAL_NUMBER_SCREEN.screen, () => NavigationWrapper(SerialNumberScreen), store, Provider);
   Navigation.registerComponent(REMOTE_SCREEN.screen, () => NavigationWrapper(RemoteScreen), store, Provider);
-  Navigation.registerComponent(CHOICE_DEVICE_SCREEN.screen, () => NavigationWrapper(ChoiceDeviceScreen), store, Provider);
   Navigation.registerComponent(LOGIN_SCREEN.screen, () => NavigationWrapper(LoginScreen), store, Provider);
   Navigation.registerComponent(SIGNUP_SCREEN.screen, () => NavigationWrapper(SignupScreen), store, Provider);
 }
 
 export function startApp() {
   (async () => {
-    const accessToken = await Storage.getItem(KEYS.accessToken);
     const token = await getAuthenticationToken();
-    let firstScreen = {...LOGIN_SCREEN};
-
+    const refreshToken = token && token.refreshToken;
+    console.log('refreshToken',refreshToken);
+    let firstScreen = {...SIGNUP_SCREEN};
     if (token && token.accessToken) {
-      firstScreen = {...LOGIN_SCREEN};
+      firstScreen = {...REMOTE_SCREEN};
     }
 
     Navigation.startSingleScreenApp({

@@ -3,7 +3,6 @@
 import {createActions} from 'reduxsauce';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {actionsGenerator} from '../../redux/reducerUtils';
-import {DeviceTypes} from '../registerdevice/RegisterDeviceState';
 
 type RemoteState = {
   filterMaxTime: number,
@@ -127,14 +126,12 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         error: action.error,
         loading: true,
       };
-
     case RemoteTypes.SET_TURN_ON_REQUEST:
       return {
         ...state,
         loading: true,
       };
     case RemoteTypes.SET_TURN_ON_SUCCESS:
-      console.log(action.payload.turnOnDate, "turnOnHour");
       return {
         ...state,
         isTurnOnActive: action.payload.isActive,
@@ -171,47 +168,30 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
         loading: false,
       };
     case RemoteTypes.SET_TURN_ON_DAY:
-      (async() => {
-        await Storage.setItem(KEYS.turnOnDay, action.date);
-      })();
-
       return {
         ...state,
         turnOnDay: action.date,
-  }
+      };
     case RemoteTypes.SET_TURN_ON_HOUR:
-      (async() => {
-        console.log(action.hour,'checkhour');
-        await Storage.setItem(KEYS.turnOnHour, action.hour);
-      })();
       return {
         ...state,
         turnOnHour: action.hour,
-      }
+      };
     case RemoteTypes.SET_TURN_OFF_HOUR:
-      (async() => {
-        await Storage.setItem(KEYS.turnOffHour, action.hour);
-      })();
       return {
         ...state,
         turnOffHour: action.hour,
-      }
+      };
     case RemoteTypes.SET_TURN_OFF_TIMER:
-      (async() => {
-        await Storage.setItem(KEYS.isTurnOffActive, action.isActive);
-      })();
       return {
         ...state,
         isTurnOffActive: action.isActive,
-      }
+      };
     case RemoteTypes.SET_TURN_ON_TIMER:
-      (async() => {
-        await Storage.setItem(KEYS.isTurnOnActive, action.isActive);
-      })();
       return {
         ...state,
         isTurnOnActive: action.isActive,
-      }
+      };
     case RemoteTypes.TOGGLE_POWER_REQUEST:
     case RemoteTypes.TOGGLE_SLEEP_REQUEST:
     case RemoteTypes.GET_DEVICE_INFO_REQUEST:
@@ -240,11 +220,7 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
     case RemoteTypes.SET_DEVICE_INFO_SUCCESS:
       (async() => {
         await Storage.setItem(KEYS.serialNumber,action.payload.serialNumber);
-        await Storage.setItem(KEYS.power, action.payload.power);
         if(action.payload.mode===0) {
-          await Storage.setItem(KEYS.AI,0);
-          await Storage.setItem(KEYS.sterilizing,0);
-          await Storage.setItem(KEYS.airCleaning,0);
           return {
             ...state,
             AI: 0,
@@ -254,9 +230,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
             loading: false,
           }
         } else if(action.payload.mode===1) {
-          await Storage.setItem(KEYS.AI,1);
-          await Storage.setItem(KEYS.sterilizing,0);
-          await Storage.setItem(KEYS.airCleaning,0);
           return {
             ...state,
             AI: 0,
@@ -266,9 +239,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
             loading: false,
           }
         }else if(action.payload.mode===2) {
-          await Storage.setItem(KEYS.AI,0);
-          await Storage.setItem(KEYS.sterilizing,1);
-          await Storage.setItem(KEYS.airCleaning,0);
           return {
             ...state,
             power: action.payload.power,
@@ -279,9 +249,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           }
 
         }else if(action.payload.mode===3) {
-          await Storage.setItem(KEYS.AI,0);
-          await Storage.setItem(KEYS.sterilizing,2);
-          await Storage.setItem(KEYS.airCleaning,0);
           return {
             ...state,
             AI: 0,
@@ -291,9 +258,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
             loading: false,
           }
         }else if(action.payload.mode===4) {
-          await Storage.setItem(KEYS.AI,0);
-          await Storage.setItem(KEYS.sterilizing,0);
-          await Storage.setItem(KEYS.airCleaning,1);
           return {
             ...state,
             AI: 0,
@@ -303,9 +267,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
             loading: false,
           }
         }else {
-          await Storage.setItem(KEYS.AI,0);
-          await Storage.setItem(KEYS.sterilizing,0);
-          await Storage.setItem(KEYS.airCleaning,2);
           return {
             ...state,
             AI: 0,
@@ -363,7 +324,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           filterUsingTime: status.filterSum,
           turnOnHour: new Date(status.turnOnDate),
           loading: false,
-          isChangeDevice: true,
         };
     case RemoteTypes.FILTER_TIME_RESET:
       return {
@@ -373,36 +333,24 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
       };
 
     case RemoteTypes.TOGGLE_POWER_SUCCESS:
-      (async() => {
-        await Storage.setItem(KEYS.power, action.payload);
-      })();
-            return {
-              ...state,
-              power: action.payload,
-              loading:false,
+      return {
+        ...state,
+        power: action.payload,
+        loading:false,
       };
     case RemoteTypes.TOGGLE_A_I_SUCCESS:
-      (async() => {
-        await Storage.setItem(KEYS.AI, action.payload);
-      })();
       return {
         ...state,
         AI: action.payload,
         loading:false,
       };
     case RemoteTypes.TOGGLE_STERILIZING_SUCCESS:
-      (async() => {
-        await Storage.setItem(KEYS.sterilizing, action.payload);
-      })();
       return {
         ...state,
         sterilizing: action.payload,
         loading:false,
       };
     case RemoteTypes.TOGGLE_AIR_CLEANING_SUCCESS:
-      (async() => {
-        await Storage.setItem(KEYS.airCleaning, action.payload);
-      })();
       return {
         ...state,
         airCleaning: action.payload,

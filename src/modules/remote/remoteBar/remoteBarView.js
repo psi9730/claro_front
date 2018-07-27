@@ -19,24 +19,15 @@ import {
 } from 'react-native';
 import autoBind from 'react-autobind';
 import toast from '../../../utils/toast';
-import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import { Icon } from 'react-native-elements'
-import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../../utils/ClaroTheme';
 import up from '../../../assets/images/Arrowhead-01-128.png'
 import down from '../../../assets/images/Arrowhead-Down-01-128.png'
-import circleIcn from '../../../assets/images/circle.png'
-import ElevatedView from 'react-native-elevated-view'
-import {BorderShadow} from 'react-native-shadow'
-import circleShadowIcn from '../../../assets/images/Circle-Shadow.jpg';
 import powerIcn from '../../../assets/images/powerIcn.png';
 import powerIcnGreen from '../../../assets/images/powerIcnGreen.png';
 import AIIcnBlue from '../../../assets/images/AIIcnBlue.png';
 import upIcn from '../../../assets/images/upIcn.png';
 import AIIcn from '../../../assets/images/AIIcn.png';
 type Props = {
-  restoreOutsideAirInfo: Function,
-  restoreIndoorAirInfo: Function,
   togglePower_: Function,
   toggleAI_: Function,
   toggleSterilizing_: Function,
@@ -63,15 +54,6 @@ const Container = styled.KeyboardAvoidingView`
   shadow-opacity: 0.3;
   shadow-radius: 20;
 `;
-const OuterContainer = styled.View`
- height:100%;
-  flex:1;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: white;
-  `;
-
 const IconText = styled.Text`
     flex-grow:0;
     flex-shrink:0;
@@ -97,14 +79,6 @@ const IconViewContainer = styled.View`
     justify-content: space-around;
     align-items: center;
 `;
-const GrayLineContainer = styled.View`
-    display:flex;
-    flex-grow:0;
-    flex-shrink:0;
-    flex-basis: 30px;
-    height: 30px;
-    align-self: center;
-`;
 const GrayLine = styled.View`
     flex-grow:0;
     flex-shrink:0;
@@ -115,10 +89,6 @@ const GrayLine = styled.View`
     top:  0px;
 `;
 
-
-
-
-
 class RemoteBarView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -127,14 +97,7 @@ class RemoteBarView extends Component<Props, State> {
       'down'  : down
     };
     autoBind(this);
-
   }
-  state: State = {
-  };
-
-  componentWillMount() {
-  }
-
   turnOffSterilizing(){
     this.props.toggleSterilizing_(0, this.props.barcode);
   }
@@ -145,25 +108,7 @@ class RemoteBarView extends Component<Props, State> {
     this.props.toggleAI_(0,this.props.barcode);
   }
   turnOffSleep(){
-    this.props.toggleSleepRequest(0,this.props.barcode).catch();
-  }
-  toggleTimer(){
-    this.props.navigator.push({
-      ...TIMER_SCREEN,
-    });
-
-  }
-  toggleSleep(){
-    if(this.props.power===0){
-      toast("Power is Off");
-    }
-    else if (this.props.sleepMode === 1) { //turn on state
-    } else {
-      this.props.toggleSleepRequest(1, this.props.barcode).catch();
-      this.turnOffSterilizing();
-      this.turnOffAirCleaning();
-      this.turnOffAI();
-    }
+    this.props.toggleSleepRequest(0,this.props.barcode).catch((e)=>console.log(e));
   }
   toggleAI() {
     if(this.props.power===0){
@@ -180,7 +125,6 @@ class RemoteBarView extends Component<Props, State> {
       this.props.toggleAI_(0, this.props.barcode);
     }
   }
-
   toggleSterilizing(){
     console.log(this.props.sterilizing);
     console.log(this.props.sterilizingColor);
@@ -188,7 +132,6 @@ class RemoteBarView extends Component<Props, State> {
       toast("Power is Off");
     }
     else if (this.props.sterilizing === 0){
-      console.log("sterilizing is 0");
       this.turnOffAI();
       this.turnOffSleep();
       this.turnOffAirCleaning();
@@ -243,14 +186,6 @@ class RemoteBarView extends Component<Props, State> {
 
   render() {
     let icon = this.icons['up'];
-    const shadowOpt = {
-      color:"#000",
-      border:2,
-      height: 70,
-      width:100,
-      opacity:0.2,
-      side: 'top',
-    }
     return (
       Platform.OS ==='ios' ?(
             <Container style={{  shadowOffset: {width: 0, height: 2}}}>
