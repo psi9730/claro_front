@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
 import AirStatusScreen from './src/modules/remote/airStatus/AirStatusViewContainer';
+import WidgetScreen from './src/modules/widget/WidgetViewContainer';
 import UserProfileScreen from './src/modules/userProfile/UserProfileViewContainer';
 import PhoneNumberEditScreen from './src/modules/userProfile/PhoneNumberEditViewContainer';
 import PasswordEditScreen from './src/modules/userProfile/PasswordEditViewContainer';
@@ -87,6 +88,13 @@ export const WIFI_SOLUTION_SCREEN = {
 };
 export const USER_PROFILE_SCREEN = {
   screen: 'claro.UserProfileScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [burgerBtn],
+  },
+};
+export const WIDGET_SCREEN = {
+  screen: 'claro.WidgetScreen',
   navigatorStyle: {},
   navigatorButtons: {
     leftButtons: [burgerBtn],
@@ -330,6 +338,7 @@ export const FILTER_SCREEN = {
 
 // register all screens of the app (including internal ones)
 export function registerScreens() {
+  Navigation.registerComponent(WIDGET_SCREEN.screen, () => NavigationWrapper(WidgetScreen), store, Provider);
   Navigation.registerComponent(AIR_STATUS_SCREEN.screen, () => NavigationWrapper(AirStatusScreen), store, Provider);
   Navigation.registerComponent(USER_PROFILE_SCREEN.screen, () => NavigationWrapper(UserProfileScreen), store, Provider);
   Navigation.registerComponent(PASSWORD_CHECK_SCREEN.screen, () => NavigationWrapper(PasswordCheckScreen), store, Provider);

@@ -13,6 +13,7 @@ type Props = {
   },
   goToRegisterDevice: Function,
   goToRemote: Function,
+  goToSetting: Function,
   goToFilter: Function,
   logout: () => void,
 };
@@ -182,7 +183,7 @@ class DrawerView extends Component<Props> {
                 로그아웃
               </MenuText>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.goToChoiceDevice()}>
+            <TouchableOpacity onPress={() => this.props.goToSetting()}>
               <MenuText>
                 설정
               </MenuText>

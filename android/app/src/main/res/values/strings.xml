@@ -6,4 +6,5 @@
     <string name="content_authority">com.easi6.easi6driver.authority</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true">ALWAYS_SEND</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true">ALWAYS_SEND</string>
+    <string name="facebook_app_id">1810540268999716</string>
 </resources>

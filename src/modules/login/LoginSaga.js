@@ -95,7 +95,20 @@ function* requestLogout() {
     yield put(LoginActions.logoutFailure(e));
   }
 }
+function* requestFacebookLogin({id,accessToken, email,name}: {id: string, accessToken: string, email: string, name:string}) {
+  try {
+    const body={
+      id, accessToken, email, name
+    };
+    const token = yield call(post, '/auth/facebook/login',body);
+    yield put(LoginActions.facebookLoginSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.facebookLoginFailure(e));
+  }
+}
+
 export const LoginSaga = [
+  takeLatest(LoginTypes.FACEBOOK_LOGIN_REQUEST, requestFacebookLogin),
   takeLatest(LoginTypes.LOGOUT_REQUEST, requestLogout),
   takeLatest(LoginTypes.GET_LOCATION_REQUEST, requestGetLocation),
   takeLatest(LoginTypes.CHECK_PASSWORD_REQUEST, requestCheckPassword),

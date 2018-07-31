@@ -166,6 +166,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
+    compile project(':react-native-naver-login')
     compile project(':react-native-wheel-datepicker')
     compile project(':react-native-extra-dimensions-android')
     compile project(':react-native-interactable')

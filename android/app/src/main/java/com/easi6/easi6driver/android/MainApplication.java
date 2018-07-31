@@ -1,8 +1,9 @@
 package com.easi6.easi6driver.android;
-
+import android.content.Intent;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
+import com.dooboolab.naverlogin.RNNaverLoginPackage;
 import com.zyu.ReactNativeWheelPickerPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.wix.interactable.Interactable;
@@ -22,22 +23,32 @@ import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.appevents.AppEventsLogger;
+import com.reactnativenavigation.controllers.ActivityCallbacks;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends NavigationApplication implements ReactApplication {
+    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    protected static CallbackManager getCallbackManager() {
+      return mCallbackManager;
+    }
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
-
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+        new FBSDKPackage(mCallbackManager),
+            new RNNaverLoginPackage(),
             new ReactNativeWheelPickerPackage(),
         new ExtraDimensionsPackage(),
         new Interactable(),
@@ -53,7 +64,8 @@ public class MainApplication extends NavigationApplication implements ReactAppli
         new BackgroundGeolocationPackage(),
         new RNSendIntentPackage(),
         new ReactNativeI18n(),
-        new MapsPackage()
+        new MapsPackage(),
+        new FBSDKPackage(mCallbackManager)
       );
     }
   };
@@ -77,6 +89,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
       // eg. new VectorIconsPackage()
       new MainReactPackage(),
       new ReactNativeWheelPickerPackage(),
+      new FBSDKPackage(mCallbackManager),
       new ExtraDimensionsPackage(),
       new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
       new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
@@ -101,8 +114,16 @@ public class MainApplication extends NavigationApplication implements ReactAppli
   }
 
   @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, false);
-  }
+ public void onCreate()
+ {    super.onCreate();
+     setActivityCallbacks(new ActivityCallbacks()
+             {   @Override
+                 public void onActivityResult(int requestCode, int resultCode, Intent data)
+                 {  mCallbackManager.onActivityResult(requestCode, resultCode, data);
+                 }
+             });
+     FacebookSdk.sdkInitialize(getApplicationContext());
+     // If you want to use AppEventsLogger to log events.
+     AppEventsLogger.activateApp(this);
+   }
 }
