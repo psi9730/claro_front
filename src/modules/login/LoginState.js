@@ -28,10 +28,11 @@ const initialState = {
 export const {Types: LoginTypes, Creators: LoginActions} = createActions(
   actionsGenerator({
     loginRequest: ['username','password'],
-    facebookLoginRequest: ['id','accessToken','email','name'],
     logoutRequest: [],
     claroSignupRequest: ['username', 'password','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     naverSignupRequest: ['username', 'name', 'email','phoneNumber'],
+    facebookLoginRequest: ['id','accessToken'],
+    facebookSignupRequest: ['id','accessToken','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     updateUserProfileRequest: ['phoneNumber','homeNumber','jibunAddr','roadAddr','detailLocation','postcode','email'],
     getUserProfileRequest: [],
     updatePasswordRequest: ['password','new_password'],
@@ -45,6 +46,22 @@ export const {Types: LoginTypes, Creators: LoginActions} = createActions(
 // Reducer
 export default function LoginReducer(state: LoginState = initialState, action: Object = {}): LoginState {
   switch (action.type) {
+    case LoginTypes.FACEBOOK_SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.FACEBOOK_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading:true,
+      }
+    case LoginTypes.FACEBOOK_SIGNUP_FAILURE:
+      return {
+        ...state,
+        loading:true,
+        error: action.error
+      }
     case LoginTypes.FACEBOOK_LOGIN_REQUEST:
       return {
         ...state,
@@ -102,6 +119,12 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         loading:true,
       }
     case LoginTypes.GET_LOCATION_SUCCESS:
+      if(action.payload===null)
+        return {
+          ...state,
+          locations: [],
+          loading:true,
+        };
       return {
         ...state,
         locations: action.payload,

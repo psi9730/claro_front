@@ -42,6 +42,8 @@ import DeviceInfoScreen from './src/modules/registerdevice/deviceInfo/deviceInfo
 import SignupScreen from './src/modules/login/SignupViewContainer';
 import LoginScreen from './src/modules/login/LoginViewContainer';
 import ClaroSignupScreen from './src/modules/login/ClaroSignupViewContainer';
+import FacebookSignupScreen from './src/modules/login/FacebookSignupViewContainer';
+import FacebookAcceptSignupScreen from './src/modules/login/FacebookAcceptSignupViewContainer';
 import NaverSignupScreen from './src/modules/login/NaverSignupViewContainer';
 import AcceptSignupScreen from './src/modules/login/AcceptSignupViewContainer';
 import PersonalInfoScreen from './src/modules/login/PersonalInfoViewContainer';
@@ -240,6 +242,20 @@ export const ACCEPT_SIGNUP_SCREEN = {
     leftButtons: [goBack],
   },
 };
+export const FACEBOOK_ACCEPT_SIGNUP_SCREEN = {
+  screen: 'claro.FacebookAcceptSignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+    leftButtons: [goBack],
+  },
+};
+export const FACEBOOK_SIGNUP_SCREEN = {
+  screen: 'claro.FacebookSignupScreen',
+  navigatorStyle: {},
+  navigatorButtons: {
+  },
+};
+
 export const SIGNUP_SCREEN = {
   screen: 'claro.SignupScreen',
   navigatorStyle: {},
@@ -366,6 +382,8 @@ export function registerScreens() {
   Navigation.registerComponent(NAVER_SIGNUP_SCREEN.screen, () => NavigationWrapper(NaverSignupScreen), store, Provider);
   Navigation.registerComponent(FILTER_SCREEN.screen, () => NavigationWrapper(FilterScreen), store, Provider);
   Navigation.registerComponent(ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(AcceptSignupScreen), store, Provider);
+  Navigation.registerComponent(FACEBOOK_ACCEPT_SIGNUP_SCREEN.screen, () => NavigationWrapper(FacebookAcceptSignupScreen), store, Provider);
+  Navigation.registerComponent(FACEBOOK_SIGNUP_SCREEN.screen, () => NavigationWrapper(FacebookSignupScreen), store, Provider);
   Navigation.registerComponent(DRAWER_SCREEN.screen, () => DrawerScreen, store, Provider);
   Navigation.registerComponent(WIFI_SET_UP_SCREEN.screen, () => NavigationWrapper(WifiSetUpScreen), store, Provider);
   Navigation.registerComponent(WIFI_MAIN_SCREEN.screen, () => NavigationWrapper(WifiMainScreen), store, Provider);
@@ -400,7 +418,7 @@ export function startApp() {
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN
-          ,fixedWidth: 800
+          ,fixedWidth: 500
         },
         style: { // ( iOS only )
           drawerShadow: false, // optional, add this if you want a side menu drawer shadow

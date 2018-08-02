@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import {setAuthenticationToken} from '../../utils/authentication';
 import {get, post} from '../../utils/api';
 import {LoginTypes, LoginActions} from './LoginState';
-
+import FBSDK, {LoginManager, AccessToken, LoginButton,GraphRequest,GraphRequestManager} from 'react-native-fbsdk';
 function* requestLogin({username, password}: {username: string, password: number}) {
   try {
     let body;
@@ -90,24 +90,39 @@ function* requestCheckPassword({password}: {password:string}) {
 function* requestLogout() {
   try {
     const token = yield call(post, '/auth/logout',{});
+    LoginManager.logOut();
     yield put(LoginActions.logoutSuccess(token));
   } catch (e) {
     yield put(LoginActions.logoutFailure(e));
   }
 }
-function* requestFacebookLogin({id,accessToken, email,name}: {id: string, accessToken: string, email: string, name:string}) {
+function* requestFacebookLogin({id,accessToken}: {id: string, accessToken: string}) {
   try {
     const body={
-      id, accessToken, email, name
+      fbid:id, fb_access_token:accessToken, grantType:'fb'
     };
-    const token = yield call(post, '/auth/facebook/login',body);
+    const token = yield call(post, '/auth/token',body);
+    yield setAuthenticationToken(token);
     yield put(LoginActions.facebookLoginSuccess(token));
   } catch (e) {
     yield put(LoginActions.facebookLoginFailure(e));
   }
 }
 
+function* requestFacebookSignup({id, accessToken, name, email, phoneNumber, homeNumber, postcode, roadAddr, jibunAddr, detailLocation}: {id:string, accessToken: string, name: string, email: string, phoneNumber:string, homeNumber:string, postcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
+  try {
+    const body={
+      fbid:id, fb_access_token: accessToken, name, email, phone_number:phoneNumber, home_number:homeNumber, postcode, road_addr: roadAddr, jibun_addr: jibunAddr, detail_location: detailLocation
+    };
+    const token = yield call(post, '/users',body);
+    yield put(LoginActions.facebookSignupSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.facebookSignupFailure(e));
+  }
+}
+
 export const LoginSaga = [
+  takeLatest(LoginTypes.FACEBOOK_SIGNUP_REQUEST, requestFacebookSignup),
   takeLatest(LoginTypes.FACEBOOK_LOGIN_REQUEST, requestFacebookLogin),
   takeLatest(LoginTypes.LOGOUT_REQUEST, requestLogout),
   takeLatest(LoginTypes.GET_LOCATION_REQUEST, requestGetLocation),

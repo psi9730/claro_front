@@ -7,6 +7,7 @@ import {compose, lifecycle, withHandlers, withProps} from 'recompose';
 import {clearAuthenticationToken} from '../../utils/authentication';
 import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN, WIDGET_SCREEN, SIGNUP_SCREEN, USER_PROFILE_SCREEN, AIR_STATUS_SCREEN, CHOICE_DEVICE_SCREEN, DEVICE_SELECT_SCREEN, LOGIN_SCREEN, FILTER_SCREEN} from '../../../screens';
 import actions from '../../redux/actions';
+import {LoginManager} from 'react-native-fbsdk';
 
 const hideDrawer = (props) => {
   props.navigator.toggleDrawer({
@@ -60,7 +61,7 @@ export default connect(
       logout: (props) => () => {
         (async () => {
           hideDrawer(props);
-          props.logoutRequest().then(()=>   (async()=>{  await clearAuthenticationToken()})()).then(()=>
+          props.logoutRequest().then(()=>   (async()=>{    LoginManager.logOut(); await clearAuthenticationToken()})()).then(()=>
           props.navigator.handleDeepLink({link: SIGNUP_SCREEN.screen})).catch((e)=>console.log(e))
         })();
       },

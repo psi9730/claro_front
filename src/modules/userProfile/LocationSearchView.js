@@ -126,7 +126,7 @@ class LocationSearchView extends Component<Props, State> {
   }
 
   search(){
-    this.props.getLocationRequest(this.state.search).then(()=>{if(this.props.locations) this.setState({isSearch:true})}).catch((e)=>console.log(e));
+    this.props.getLocationRequest(this.state.search).then(()=>{ console.log(this.props.locations,_.nth(this.props.locations,0),'locations'); console.log(Array.isArray(this.props.locations)); if(this.props.locations) this.setState({isSearch:true})}).catch((e)=>console.log(e));
   }
   setLocation(rnAdres,lnmAdres,postcode){
     this.props.onChangeLocation(rnAdres, lnmAdres,postcode);
@@ -163,9 +163,11 @@ class LocationSearchView extends Component<Props, State> {
             </IntroduceText></View>): (
               <View style={{flex:1, paddingBottom: 20,marginTop:20}}>
                 <GrayLine/>
-                <PostText style={{alignSelf: 'center', color:'gray'}}> 주소 검색 결과 {_.size(this.props.locations)} 건 </PostText>
+                <PostText style={{alignSelf: 'center', color:'gray'}}> 주소 검색 결과 {Array.isArray(this.props.locations) ? _.size(this.props.locations) : 1} 건 </PostText>
                 <ScrollView style={ {flexGrow:1}}>
-                {_.map(this.props.locations, (location, index) => {
+                {
+                  Array.isArray(this.props.locations) ? (
+                  _.map(this.props.locations, (location, index) => {
                   return (
                     <TouchableOpacity style={{flex:1}} key={index} onPress={() => this.setLocation(location.rnAdres.text,location.lnmAdres.text,location.zipNo.text)}>
                       <View style={{flex: 1}}>
@@ -199,7 +201,36 @@ class LocationSearchView extends Component<Props, State> {
                     </TouchableOpacity>
                   )
                   }
-                  )
+                  )) : (  <TouchableOpacity style={{flex:1}}  onPress={() => this.setLocation(this.props.locations.rnAdres.text,this.props.locations.lnmAdres.text,this.props.locations.zipNo.text)}>
+                    <View style={{flex: 1}}>
+                      <RemoteContainer>
+                        <ImageView>
+                          <Image source={locationIcnGray} style={{
+                            marginRight: 10,
+                            flexGrow: 0,
+                            flexShrink: 0,
+                            flexBasis: 'auto',
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'stretch',
+                            alignSelf: 'center'
+                          }}/>
+                        </ImageView>
+                        <TextLeftView>
+                          <RemoteText
+                            style={{
+                              color: 'black',
+                              fontWeight: 'bold'
+                            }}>{this.props.locations.rnAdres.text}
+                          </RemoteText>
+                          <RemoteText>
+                            {this.props.locations.lnmAdres.text}
+                          </RemoteText>
+                        </TextLeftView>
+                      </RemoteContainer>
+                      <GrayLine/>
+                    </View>
+                  </TouchableOpacity> )
                 }
                 </ScrollView>
                 </View>

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight, Platform} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
@@ -9,7 +9,7 @@ import ClaroTheme from '../../utils/ClaroTheme';
 import { CheckBox } from 'react-native-elements'
 import naver from '../../assets/images/naver.png'
 import facebook from '../../assets/images/facebook.png'
-import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN} from '../../../screens';
+import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN, FACEBOOK_ACCEPT_SIGNUP_SCREEN} from '../../../screens';
 import _ from 'lodash';
 import {clearAuthenticationToken} from '../../utils/authentication';
 import {KEYS} from '../../utils/ClaroStorage';
@@ -242,15 +242,46 @@ class LoginView extends Component<Props, State> {
       alert('Error fetching data: ' + error.toString());
     } else {
       console.log(result, 'result');
-      this.setState({facebookEmail: result.email})
-      this.setState({facebookName: result.name});
+      this.props.facebookLoginRequest(this.state.facebookId, this.state.facebookAccessToken).then(()=>
+        {
+          this.props.getDevicesRequest().then(() => {
+            console.log(this.props.devices,'devices');
+            if (_.size(this.props.devices) > 0) {
+              (async() => {
+                await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
+              })();
+              this.props.navigator.resetTo({...REMOTE_SCREEN});
+            }
+            else {
+              this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN})
+            }
+          }).catch(e => console.log(e))
+        }
+      ).catch((e)=> {
+          const message = e.message;
+          console.log(message,'message');
+          if(message==="아이디가 존재하지 않습니다." || message==="timeout")
+          {
+            this.props.navigator.push({...FACEBOOK_ACCEPT_SIGNUP_SCREEN,  passProps: {
+                id: this.state.facebookId, name: result.name, token: this.state.facebookAccessToken, email: result.email
+              },},)
+          }
+          else{
+            this.setState({errorMessage:message})
+          }
+        }
+      )
     }
   }
 
   _fbAuth(){
+    LoginManager.logOut();
+    console.log("go to facebook");
+    if(Platform.OS==='ios')
+      LoginManager.setLoginBehavior("web");
     LoginManager.logInWithReadPermissions(["user_friends", "public_profile", "email"]).then((result)=>{
       if(result.isCancelled){
-        console.log('login was canelled');
+        console.log('login was cancelled');
       } else {
         AccessToken.getCurrentAccessToken().then(
           (data) => {
@@ -258,7 +289,21 @@ class LoginView extends Component<Props, State> {
             this.setState({facebookId: data.userID});
             this.setState({facebookAccessToken: data.accessToken})
           }
-        );
+        ).then(()=>{
+            const infoRequest = new GraphRequest(
+              '/me',
+              { parameters: {
+                  'fields': {
+                    'string' : 'email,name,friends'
+                  }
+                }},
+              this._responseInfoCallback,
+            );
+// Start the graph request.
+            new GraphRequestManager().addRequest(infoRequest).start();
+          }
+        )
+        /*
         const infoRequest = new GraphRequest(
           '/me?fields=name,email',
           null,
@@ -266,11 +311,9 @@ class LoginView extends Component<Props, State> {
         );
         // Start the graph request.
         new GraphRequestManager().addRequest(infoRequest).start();
+        */
       }
-    }).then(()=>{
-        this.props.facebookLoginRequest(this.state.facebookId, this.state.facebookAccessToken, this.state.facebookEmail, this.state.facebookName).catch((e)=>console.log(e))
-      }
-    ).catch( (error)=>{
+    }).catch( (error)=>{
       console.log('An error occured:'+ error);
     })
   }

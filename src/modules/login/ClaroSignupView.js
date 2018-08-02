@@ -225,9 +225,9 @@ class ClaroSignupView extends Component<Props, State> {
       nameError: null,
     })
     if(message.search("은 이미 사용 중인 이메일 주소입니다"))
-      this.setState({usernameError: message})
+      this.setState({emailError: message})
     else if(message.search("은 이미 사용 중인 로그인입니다."))
-      this.setState({passwordError: message})
+      this.setState({usernameError: message})
 
   }
   onSignupPressed() {
@@ -253,18 +253,16 @@ class ClaroSignupView extends Component<Props, State> {
       this.setState({passwordError: this.props.t('password_length_short')})
     } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)) {
       this.setState({emailError: this.props.t('check_email_form')})
-    } else if (this.state.phoneNumber.length<10){
+    } else if (this.state.phoneNumber.length<8){
       this.setState({phoneNumberError: this.props.t('phone_length_short')})
     } else if (this.state.postcode.length<1){
       this.setState({postcodeError: this.props.t('enter_your_postcode')})
-    } else if(this.state.name.length<7){
-      this.setState({nameError: this.props.t('name_length_short')})
     } else if (this.state.homeNumber.length<8){
       this.setState({homeNumberError: this.props.t('home_length_short')})
     } else {
       Keyboard.dismiss();
       this.props.claroSignupRequest(this.state.username, this.state.password,this.state.name, this.state.email,this.state.phoneNumber,this.state.homeNumber, this.state.postcode, this.state.roadAddr,
-        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.push({...LOGIN_SCREEN})).catch((e)=>this.parseError(e));
+        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.resetTo({...LOGIN_SCREEN})).catch((e)=>this.parseError(e));
     }
   }
 
