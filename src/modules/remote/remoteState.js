@@ -26,7 +26,7 @@ const initialState = {
   sterilizing: 0,
   url: 'https://www.google.com/',
   airCleaning: 0,
-  backgroundColor: 'steelblue',
+  backgroundColor: '#4c669f',
   devices: [],
   date: new Date(),
   location: '금천구 가산동',

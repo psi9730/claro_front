@@ -8,14 +8,16 @@ import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../utils/ClaroTheme';
 import { CheckBox } from 'react-native-elements'
 import naver from '../../assets/images/naver.png'
+import circle from '../../assets/images/white-circle.png'
 import facebook from '../../assets/images/facebook.png'
-import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN, FACEBOOK_ACCEPT_SIGNUP_SCREEN} from '../../../screens';
+import {SERIAL_NUMBER_SCREEN, REMOTE_SCREEN, ACCEPT_SIGNUP_SCREEN} from '../../../screens';
 import _ from 'lodash';
 import {clearAuthenticationToken} from '../../utils/authentication';
 import {KEYS} from '../../utils/ClaroStorage';
 import Storage from '../../utils/ClaroStorage';
 import { NaverLogin, getProfile } from 'react-native-naver-login';
 import FBSDK, {LoginManager, AccessToken, LoginButton,GraphRequest,GraphRequestManager} from 'react-native-fbsdk';
+import LinearGradient from 'react-native-linear-gradient';
 type State = {
   username: string,
   password: string,
@@ -102,16 +104,15 @@ const ErrorText = styled.Text`
 `;
 
 const initials = {
+  kConsumerKey: 'uamDmgf3d3J5K1GzxqTS',
+  kConsumerSecret: 'mRol3D9tFd',
+  kServiceAppName: 'claro',
+};
+const IOSinitials = {
   kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
   kConsumerSecret: 'AHBgzH9ZkM',
   kServiceAppName: 'dooboolab',
   kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
-};
-const naverInit = {
-  kConsumerKey: 'jyvqXeaVOVmV',
-  kConsumerSecret: '527300A0_COq1_XV33cf',
-  kServiceAppName: '네이버 아이디로 로그인하기',
-  kServiceAppUrlScheme: 'thirdparty20samplegame', // only for iOS
 };
 
 class LoginView extends Component<Props, State> {
@@ -178,7 +179,11 @@ class LoginView extends Component<Props, State> {
 
   onNaverLogin = async() => {
     try {
-      const result = await this.naverLogin(initials);
+      let result;
+      if(Platform.OS==='ios')
+        result = await this.naverLogin(IOSinitials);
+      else
+        result = await this.naverLogin(initials);
       console.log('token: ' + result);
 
       if (result) {
@@ -192,20 +197,37 @@ class LoginView extends Component<Props, State> {
         }
 
         result.profile = profileResult;
-
+        console.log(result, 'result');
         // 성공시 다음 페이지로 넘어간다.
-        this.props.getDevicesRequest().then(() => {
-          console.log(this.props.devices,'devices');
-          if (_.size(this.props.devices) > 0) {
-            (async() => {
-              await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
-            })();
-            this.props.navigator.resetTo({...REMOTE_SCREEN});
+        this.props.naverLoginRequest(profileResult.response.id, result).then(()=>
+          {
+            this.props.getDevicesRequest().then(() => {
+              console.log(this.props.devices,'devices');
+              if (_.size(this.props.devices) > 0) {
+                (async() => {
+                  await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
+                })();
+                this.props.navigator.resetTo({...REMOTE_SCREEN});
+              }
+              else {
+                this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN})
+              }
+            }).catch(e => console.log(e))
           }
-          else {
-            this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN})
+        ).catch((e)=> {
+            const message = e.message;
+            console.log(message,'message');
+            if(message==="아이디가 존재하지 않습니다." || message==="timeout")
+            {
+              this.props.navigator.push({...ACCEPT_SIGNUP_SCREEN,  passProps: {
+                  id: profileResult.response.id, name: profileResult.response.name, token: result, email:profileResult.response.email, platform: 'naver'
+                },},)
+            }
+            else{
+              this.setState({errorMessage:message})
+            }
           }
-        }).catch(e => console.log(e))
+        )
       } else {
         console.log('no result');
       }
@@ -262,8 +284,8 @@ class LoginView extends Component<Props, State> {
           console.log(message,'message');
           if(message==="아이디가 존재하지 않습니다." || message==="timeout")
           {
-            this.props.navigator.push({...FACEBOOK_ACCEPT_SIGNUP_SCREEN,  passProps: {
-                id: this.state.facebookId, name: result.name, token: this.state.facebookAccessToken, email: result.email
+            this.props.navigator.push({...ACCEPT_SIGNUP_SCREEN,  passProps: {
+                id: this.state.facebookId, name: result.name, token: this.state.facebookAccessToken, email: result.email, platform: 'facebook'
               },},)
           }
           else{
@@ -303,15 +325,6 @@ class LoginView extends Component<Props, State> {
             new GraphRequestManager().addRequest(infoRequest).start();
           }
         )
-        /*
-        const infoRequest = new GraphRequest(
-          '/me?fields=name,email',
-          null,
-          this._responseInfoCallback
-        );
-        // Start the graph request.
-        new GraphRequestManager().addRequest(infoRequest).start();
-        */
       }
     }).catch( (error)=>{
       console.log('An error occured:'+ error);
@@ -379,6 +392,9 @@ class LoginView extends Component<Props, State> {
               style={{backgroundColor: '#3A589B'}}
               onPress={this._fbAuth}
             >
+              <ImageContainer>
+                <Image source={circle} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+              </ImageContainer>
               <ImageContainer>
                 <Image source={facebook} resizeMode='center' style={{height:30, width:30, margin:10}}/>
               </ImageContainer>

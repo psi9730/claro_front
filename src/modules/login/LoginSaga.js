@@ -30,18 +30,7 @@ function* requestClaroSignup({username, password,name, email,phoneNumber,homeNum
     yield put(LoginActions.claroSignupFailure(e));
   }
 }
-function* requestNaverSignup({username, name, email,phoneNumber}: {username: string, name: string, email: string, phoneNumber:string}) {
-  try {
-    let body;
-    body = {
-      username,name, email, phoneNumber
-    };
-    // const token = yield call(post, `/devices/add_command`, body);
-    yield put(LoginActions.naverSignupSuccess());
-  } catch (e) {
-    yield put(LoginActions.naverSignupFailure(e));
-  }
-}
+
 function* requestUpdateUserProfile({phoneNumber,homeNumber, jibunAddr, roadAddr,detailLocation, postcode, email}: {phoneNumber:string,homeNumber:string,jibunAddr: string, roadAddr: string,detailLocation:string,postcode:string,email:string}) {
   try {
     let body;
@@ -108,7 +97,6 @@ function* requestFacebookLogin({id,accessToken}: {id: string, accessToken: strin
     yield put(LoginActions.facebookLoginFailure(e));
   }
 }
-
 function* requestFacebookSignup({id, accessToken, name, email, phoneNumber, homeNumber, postcode, roadAddr, jibunAddr, detailLocation}: {id:string, accessToken: string, name: string, email: string, phoneNumber:string, homeNumber:string, postcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
   try {
     const body={
@@ -120,9 +108,34 @@ function* requestFacebookSignup({id, accessToken, name, email, phoneNumber, home
     yield put(LoginActions.facebookSignupFailure(e));
   }
 }
+function* requestNaverLogin({id,accessToken}: {id: string, accessToken: string}) {
+  try {
+    const body={
+      naver_id:id, naver_access_token:accessToken, grantType:'naver'
+    };
+    const token = yield call(post, '/auth/token',body);
+    yield setAuthenticationToken(token);
+    yield put(LoginActions.naverLoginSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.naverLoginFailure(e));
+  }
+}
+function* requestNaverSignup({id, accessToken, name, email, phoneNumber, homeNumber, postcode, roadAddr, jibunAddr, detailLocation}: {id:string, accessToken: string, name: string, email: string, phoneNumber:string, homeNumber:string, postcode:string, roadAddr:string, jibunAddr:string, detailLocation:string}) {
+  try {
+    const body={
+      naver_id:id, naver_access_token: accessToken, name, email, phone_number:phoneNumber, home_number:homeNumber, postcode, road_addr: roadAddr, jibun_addr: jibunAddr, detail_location: detailLocation
+    };
+    const token = yield call(post, '/users',body);
+    yield put(LoginActions.naverSignupSuccess(token));
+  } catch (e) {
+    yield put(LoginActions.naverSignupFailure(e));
+  }
+}
 
 export const LoginSaga = [
   takeLatest(LoginTypes.FACEBOOK_SIGNUP_REQUEST, requestFacebookSignup),
+  takeLatest(LoginTypes.NAVER_LOGIN_REQUEST, requestNaverLogin),
+  takeLatest(LoginTypes.NAVER_SIGNUP_REQUEST, requestNaverSignup),
   takeLatest(LoginTypes.FACEBOOK_LOGIN_REQUEST, requestFacebookLogin),
   takeLatest(LoginTypes.LOGOUT_REQUEST, requestLogout),
   takeLatest(LoginTypes.GET_LOCATION_REQUEST, requestGetLocation),
@@ -132,5 +145,4 @@ export const LoginSaga = [
   takeLatest(LoginTypes.UPDATE_PASSWORD_REQUEST, requestUpdatePassword),
   takeLatest(LoginTypes.LOGIN_REQUEST, requestLogin),
   takeLatest(LoginTypes.CLARO_SIGNUP_REQUEST, requestClaroSignup),
-  takeLatest(LoginTypes.NAVER_SIGNUP_REQUEST, requestNaverSignup)
 ];

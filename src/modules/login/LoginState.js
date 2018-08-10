@@ -30,7 +30,8 @@ export const {Types: LoginTypes, Creators: LoginActions} = createActions(
     loginRequest: ['username','password'],
     logoutRequest: [],
     claroSignupRequest: ['username', 'password','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
-    naverSignupRequest: ['username', 'name', 'email','phoneNumber'],
+    naverSignupRequest: ['id','accessToken','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
+    naverLoginRequest: ['id','accessToken'],
     facebookLoginRequest: ['id','accessToken'],
     facebookSignupRequest: ['id','accessToken','name', 'email','phoneNumber','homeNumber','postcode','roadAddr','jibunAddr','detailLocation'],
     updateUserProfileRequest: ['phoneNumber','homeNumber','jibunAddr','roadAddr','detailLocation','postcode','email'],
@@ -46,65 +47,97 @@ export const {Types: LoginTypes, Creators: LoginActions} = createActions(
 // Reducer
 export default function LoginReducer(state: LoginState = initialState, action: Object = {}): LoginState {
   switch (action.type) {
+    case LoginTypes.NAVER_SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading:true,
+      };
+    case LoginTypes.NAVER_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading:true,
+      };
+    case LoginTypes.NAVER_SIGNUP_FAILURE:
+      return {
+        ...state,
+        loading:true,
+        error: action.error
+      };
+    case LoginTypes.NAVER_LOGIN_REQUEST:
+      return {
+        ...state,
+        loading:true,
+      };
+    case LoginTypes.NAVER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading:true,
+      };
+    case LoginTypes.NAVER_LOGIN_FAILURE:
+      return {
+        ...state,
+        loading:true,
+        error: action.error
+      };
     case LoginTypes.FACEBOOK_SIGNUP_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.FACEBOOK_SIGNUP_SUCCESS:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.FACEBOOK_SIGNUP_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error
-      }
+      };
     case LoginTypes.FACEBOOK_LOGIN_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.FACEBOOK_LOGIN_SUCCESS:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.FACEBOOK_LOGIN_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error
-      }
+      };
     case LoginTypes.LOGOUT_SUCCESS:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.LOGOUT_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error
-      }
+      };
     case LoginTypes.CHECK_PASSWORD_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.CHECK_PASSWORD_SUCCESS:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.CHECK_PASSWORD_FAILURE:
       return {
         ...state,
         error: action.error,
         loading:true,
-      }
+      };
     case LoginTypes.SET_LOCATION:
       return {
         ...state,
@@ -112,12 +145,12 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         roadAddr: action.lnmAdres,
         postcode: action.postcode,
         loading:true,
-      }
+      };
     case LoginTypes.GET_LOCATION_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.GET_LOCATION_SUCCESS:
       if(action.payload===null)
         return {
@@ -129,18 +162,18 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         ...state,
         locations: action.payload,
         loading:true,
-      }
+      };
     case LoginTypes.GET_LOCATION_FAILURE:
       return {
         ...state,
         error: action.error,
         loading:true,
-      }
+      };
     case LoginTypes.UPDATE_USER_PROFILE_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.UPDATE_USER_PROFILE_SUCCESS:
       return {
         ...state,
@@ -154,18 +187,18 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         postcode: action.payload.postcode,
         detailLocation: action.payload.detailLocation,
         loading:true,
-      }
+      };
     case LoginTypes.UPDATE_USER_PROFILE_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error,
-      }
+      };
     case LoginTypes.GET_USER_PROFILE_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.GET_USER_PROFILE_SUCCESS:
       return {
         ...state,
@@ -180,30 +213,30 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         detailLocation: action.payload.detailLocation,
         isActivePush: action.payload.isActivePush,
         loading:true,
-      }
+      };
     case LoginTypes.GET_USER_PROFILE_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error,
-      }
+      };
     case LoginTypes.UPDATE_PASSWORD_REQUEST:
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.UPDATE_PASSWORD_SUCCESS:
       return {
         ...state,
         password: action.payload.password,
         loading:true,
-      }
+      };
     case LoginTypes.UPDATE_PASSWORD_FAILURE:
       return {
         ...state,
         loading:true,
         error: action.error,
-      }
+      };
     case LoginTypes.LOGIN_REQUEST:
       return {
         ...state,
@@ -224,34 +257,18 @@ export default function LoginReducer(state: LoginState = initialState, action: O
       return {
         ...state,
         loading:true,
-      }
+      };
     case LoginTypes.CLARO_SIGNUP_SUCCESS:
       return {
         ...state,
         loading:false,
-      }
+      };
     case LoginTypes.CLARO_SIGNUP_FAILURE:
       return {
         ...state,
         loading:false,
         error: action.error,
-      }
-    case LoginTypes.NAVER_SIGNUP_REQUEST:
-      return {
-        ...state,
-        loading:true,
-      }
-    case LoginTypes.NAVER_SIGNUP_SUCCESS:
-      return {
-        ...state,
-        loading:false,
-      }
-    case LoginTypes.NAVER_SIGNUP_FAILURE:
-      return {
-        ...state,
-        loading:false,
-        error: action.error,
-      }
+      };
     default:
       return state;
   }

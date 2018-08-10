@@ -32,6 +32,7 @@ import dateformat from 'dateformat';
 import Storage, {KEYS} from '../../utils/ClaroStorage';
 import {getAuthenticationToken} from '../../utils/authentication';
 import {REMOTE_SCREEN, SERIAL_NUMBER_SCREEN} from '../../../screens';
+
 const { StatusBarManager } = NativeModules;
 type Props = {
   useState: Function,

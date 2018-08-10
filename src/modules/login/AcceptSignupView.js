@@ -6,7 +6,7 @@ import {Button, Image, Keyboard, StyleSheet, Modal, Text, TextInput,
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import { CheckBox } from 'react-native-elements'
-import {CLARO_SIGNUP_SCREEN,PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN} from '../../../screens';
+import {CLARO_SIGNUP_SCREEN,PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN, NAVER_SIGNUP_SCREEN, FACEBOOK_SIGNUP_SCREEN} from '../../../screens';
 type State = {
   username: string,
   password: string,
@@ -131,10 +131,26 @@ class AcceptSignupView extends Component<Props, State> {
 
   }
   goToClaroSignup(){
-    if(this.state.checked2===true && this.state.checked3===true)
-      this.props.navigator.push({
-        ...CLARO_SIGNUP_SCREEN,
-      })
+    if(this.state.checked2===true && this.state.checked3===true) {
+      if(this.props.platform === 'claro')
+        this.props.navigator.push({
+          ...CLARO_SIGNUP_SCREEN,
+        })
+      else if(this.props.platform === 'facebook')
+        this.props.navigator.push({
+          ...FACEBOOK_SIGNUP_SCREEN,
+          passProps: {
+            id: this.props.id, name: this.props.name, token: this.props.token, email: this.props.email
+          },
+        })
+      else
+        this.props.navigator.push({
+          ...NAVER_SIGNUP_SCREEN,
+          passProps: {
+            id: this.props.id, name: this.props.name, token: this.props.token, email: this.props.email
+          },
+        })
+    }
 
   }
   static dismissKeyboard() {

@@ -225,7 +225,7 @@ class FacebookSignupView extends Component<Props, State> {
       postcodeError: null,
       nameError: null,
     })
-    if (this.state.phoneNumber.length<10){
+    if (this.state.phoneNumber.length<8){
       this.setState({phoneNumberError: this.props.t('phone_length_short')})
     } else if (this.state.postcode.length<1){
       this.setState({postcodeError: this.props.t('enter_your_postcode')})

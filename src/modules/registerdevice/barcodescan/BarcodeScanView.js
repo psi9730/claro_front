@@ -17,7 +17,6 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   View,
-  NativeModules
 } from 'react-native';
 import autoBind from 'react-autobind';
 import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper'

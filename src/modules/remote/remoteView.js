@@ -22,7 +22,7 @@ import autoBind from 'react-autobind';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 import locationIcn from '../../assets/images/locationDot.png';
 import circleIcn from '../../assets/images/circle.png';
-import dateformat from 'dateformat';
+import LinearGradient from 'react-native-linear-gradient';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
@@ -193,17 +193,25 @@ class RemoteView extends Component<Props, State> {
         navBarBackgroundColor: 'steelblue',
       });
     }
-    var newDate = dateformat(this.props.date,'yyyy.mm.dd HH:MM');
     return (
             <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
           <Container>
-            <TextView style={{ backgroundColor : Color}}>
+            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{flexGrow:0,
+              flexShrink:0,
+              flexBasis: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              paddingRight: 20,
+              paddingLeft: 20,
+              paddingBottom: 20,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start'}}>
                 <TextCenter>
                   실내 공기 정보
                 </TextCenter>
                 <InnerAirContainer style={{marginBottom:10}}>
-                  <TextContainer style={{backgroundColor: Color}}><Text style={{fontSize:15, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
-                  <TextLeftContainer style={{backgroundColor: Color }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>매우 나쁨</Text></TextLeftContainer>
+                  <TextContainer style={{backgroundColor: 'transparent'}}><Text style={{fontSize:15, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
+                  <TextLeftContainer style={{backgroundColor: 'transparent' }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>매우 나쁨</Text></TextLeftContainer>
                 </InnerAirContainer>
               <InnerAirContainer style={{marginTop: 0, backgroundColor : 'white'}}>
                 <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
@@ -217,7 +225,7 @@ class RemoteView extends Component<Props, State> {
                 <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
               </InnerAirContainer>
-          </TextView>
+            </LinearGradient>
             <OuterContainer>
               <ScrollView style={ {flexGrow:1}}>
                 <OutAirView>

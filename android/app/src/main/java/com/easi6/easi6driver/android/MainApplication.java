@@ -28,7 +28,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 import com.reactnativenavigation.controllers.ActivityCallbacks;
-
+import com.dooboolab.naverlogin.RNNaverLoginPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,8 +49,9 @@ public class MainApplication extends NavigationApplication implements ReactAppli
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
         new FBSDKPackage(mCallbackManager),
-            new RNNaverLoginPackage(),
-            new ReactNativeWheelPickerPackage(),
+         new LinearGradientPackage(),
+        new RNNaverLoginPackage(),
+        new ReactNativeWheelPickerPackage(),
         new ExtraDimensionsPackage(),
         new Interactable(),
         new SvgPackage(),
@@ -88,6 +90,8 @@ public class MainApplication extends NavigationApplication implements ReactAppli
     return Arrays.<ReactPackage>asList(
       // eg. new VectorIconsPackage()
       new MainReactPackage(),
+      new RNNaverLoginPackage(),
+       new LinearGradientPackage(),
       new ReactNativeWheelPickerPackage(),
       new FBSDKPackage(mCallbackManager),
       new ExtraDimensionsPackage(),

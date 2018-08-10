@@ -418,7 +418,7 @@ export function startApp() {
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN
-          ,fixedWidth: 500
+          ,fixedWidth: 700
         },
         style: { // ( iOS only )
           drawerShadow: false, // optional, add this if you want a side menu drawer shadow

@@ -1,19 +1,11 @@
 // @flow
 import React, {Component} from 'react';
-import {Button, Image, Keyboard, StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
+import {Button, Image, Keyboard, StyleSheet, findNodeHandle, Text, TextInput, ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
-import {ThemeProvider} from 'styled-components';
-import ClaroTheme from '../../utils/ClaroTheme';
-import toast from '../../utils/toast';
-import easi6Logo from '../../assets/images/easi_6.png';
 import { CheckBox } from 'react-native-elements'
-import naver from '../../assets/images/naver.png'
-import facebook from '../../assets/images/facebook.png'
-import {CLARO_SIGNUP_SCREEN} from '../../../screens';
-import DaumPostcode from 'react-daum-postcode';
-import * as EmailValidator from 'email-validator/index';
-
+import {LOGIN_SCREEN, LOCATION_SEARCH_SCREEN} from '../../../screens';
+import * as EmailValidator from 'email-validator';
 type State = {
   username: string,
   password: string,
@@ -22,17 +14,10 @@ type State = {
 type Props = {
   t: Function,
   loading: boolean,
+  facebookSignupRequest: Function,
   onLoginPressed: (username: string, password: string) => void,
 };
-const UsernameInput = styled.TextInput`
-  width: 100%;
-  margin-bottom: 8px;
-  font-size: 20px;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-`;
+
 const LoginText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
@@ -45,7 +30,10 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
-
+const ErrorText = styled.Text`
+  align-self: flex-start;
+  color: red;
+`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
@@ -81,6 +69,7 @@ const TextsInput = styled.TextInput`
   width: 100%;
   margin-bottom: 8px;
   font-size: 20px;
+  padding-left:5px;
   margin-top: 8px;
   padding-bottom: 4px;
   border-bottom-color: gray;
@@ -138,34 +127,35 @@ const TextAndButtonView = styled.View`
   align-items: center;
 `;
 
-
 class NaverSignupView extends Component<Props, State> {
   state = {
     username: '',
     password: '',
   };
   constructor(props) {
+    console.log("constructor");
     super(props);
     autoBind(this);
     this.state={
       checked: false,
+      postcode:"",
+      roadAddr:"",
+      jibunAddr:"",
+      detailLocation:"",
+      phoneNumber:"",
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
     }
   }
 
   componentDidMount() {
-i
+
   }
 
-  onChangeUsername(username) {
-    this.setState({username});
-  }
-
-  onChangePassword(password) {
-    this.setState({password});
-  }
-  onChangePasswordCheck(passwordCheck){
-    this.setState({passwordCheck});
-  }
   onChangeName(name){
     this.setState({name});
   }
@@ -175,69 +165,81 @@ i
   onChangePhoneNumber(phoneNumber){
     this.setState({phoneNumber});
   }
+  onChangePostcode(postcode){
+    this.setState({postcode})
+  }
+  onChangeRoadAddr(roadAddr){
+    this.setState({roadAddr})
+  }
+  onChangeJibunAddr(jibunAddr){
+    this.setState({jibunAddr})
+  }
+  onChangeDetailLocation(detailLocation){
+    this.setState({detailLocation});
+  }
+  onChangeHomeNumber(homeNumber){
+    this.setState({homeNumber});
+  }
+  _focusNextField(nextField) {
+    //    this.refs[nextField].focus()
+  }
+  onChangeLocation(jibunAddr, roadAddr, postcode){
+    this.setState({
+      jibunAddr, roadAddr, postcode
+    })
+  }
+  onGetPostCodePressed(){
+    this.props.navigator.push({...LOCATION_SEARCH_SCREEN,  passProps: {onChangeLocation: this.onChangeLocation}});
+  }
+  parseError(e){
+    const message = e.message;
+    this.setState({
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
+    })
+    if(message.search("은 이미 사용 중인 이메일 주소입니다"))
+      this.setState({emailError: message})
+    else if(message.search("은 이미 사용 중인 로그인입니다."))
+      this.setState({usernameError: message})
 
-  onSignupPressed() {
-    if(!this.state.username){
-      toast(this.props.t('enter_your_id'),'error');
-    } else if(!this.state.password){
-      toast(this.props.t('enter_your_password'),'error');
-    } else if(this.state.username.length<8){
-      toast('id should be longer than 7')
-    } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)){
-      toast('you must enter email form');
-    } else if (this.state.name.length<5){
-      toast('name is too short');
-    } else {
-      Keyboard.dismiss();
-      this.props.naverSignupRequest(this.state.username, this.state.name, this.state.email,this.state.phoneNumber).catch((e)=>console.log(e));
-    }
   }
   onSignupPressed() {
-    console.log(EmailValidator.validate(this.state.email),"validate");
-    if(!this.state.username){
-      toast(this.props.t('enter_your_id'),'error');
-    } else if(!this.state.password){
-      toast(this.props.t('enter_your_password'),'error');
-    } else if(this.state.passwordCheck!==this.state.password){
-      toast('password and passwordCheck is different','error');
-    } else if(this.state.username.length<8){
-      toast('username should be longer than 7')
-    } else if(this.state.password.length<8) {
-      toast('password should be longer than 7');
-    } else if (this.state.email.length<3 || !EmailValidator.validate(this.state.email)){
-      toast('you must enter email form');
-    } else if (this.state.username.length<5){
-      toast('username is too short');
-    } else if (this.state.phoneNumber.length<10){
-      toast('you must enter phoneNumber form ');
+    this.setState({
+      usernameError: null,
+      passwordError: null,
+      homeNumberError: null,
+      phoneNumberError: null,
+      postcodeError: null,
+      nameError: null,
+    })
+    if (this.state.phoneNumber.length<8){
+      this.setState({phoneNumberError: this.props.t('phone_length_short')})
     } else if (this.state.postcode.length<1){
-      toast('you must enter postcode form');
+      this.setState({postcodeError: this.props.t('enter_your_postcode')})
+    } else if (this.state.homeNumber.length<8){
+      this.setState({homeNumberError: this.props.t('home_length_short')})
     } else {
       Keyboard.dismiss();
-      this.props.claroSignupRequest(this.state.username, this.state.password,this.state.name, this.state.email,this.state.phoneNumber,this.state.postcode, this.state.roadAddr,
-        this.state.jibunAddr,this.state.detailLocation).catch((e)=>console.log(e));
+      this.props.naverSignupRequest(this.props.id, this.props.token, this.props.name, this.props.email,this.state.phoneNumber,this.state.homeNumber, this.state.postcode, this.state.roadAddr,
+        this.state.jibunAddr,this.state.detailLocation).then(()=>this.props.navigator.resetTo({...LOGIN_SCREEN})).catch((e)=>this.parseError(e));
     }
   }
+
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
 
   render() {
-    const {t, loading} = this.props;
-
     return (
+      <ScrollView contentContainerStyle={{paddingBottom:30, flexGrow: 1}} >
         <Container >
           <LoginText style={{fontSize: 20, marginBottom: 15, color: 'black', fontWeight:'bold'}}>
             정보입력
           </LoginText>
-          <LoginText style={{margin:5 }}>
-            아이디
-          </LoginText>
-          <UsernameInput style={{backgroundColor:'white'}}
-                         onChangeText={this.onChangeUsername}
-                         value={this.state.username}
-                         autoCapitalize='none'
-          />
           <LoginText style={{margin:5}}>
             이름
           </LoginText>
@@ -245,21 +247,34 @@ i
             underlineColorAndroid="transparent"
             autoCorrect={false}
             onChangeText={this.onChangeName}
-            value={this.state.name}
+            value={this.props.name}
             autoCapitalize='none'
+            editable={false}
             style={{marginBottom: 5}}
+            blurOnSubmit={false}
+            ref={(input) => { this.name = input; }}
+            onSubmitEditing={() => { this.focusTextInput(this.refs.name)}}
           />
+          <ErrorText>
+            {this.state.nameError}
+          </ErrorText>
           <LoginText style={{margin:5}}>
             이메일
           </LoginText>
           <TextsInput
             underlineColorAndroid="transparent"
             autoCorrect={false}
+            editable={false}
             onChangeText={this.onChangeEmail}
-            value={this.state.email}
+            value={this.props.email}
             autoCapitalize='none'
             style={{marginBottom: 5}}
+            blurOnSubmit={true}
+            ref={(input) => { this.email = input; }}
           />
+          <ErrorText>
+            {this.state.emailError}
+          </ErrorText>
           <CheckBox
             title='정보/이벤트 메일 수신에 동의합니다.'
             containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
@@ -278,8 +293,123 @@ i
             value={this.state.phoneNumber}
             autoCapitalize='none'
             style={{marginBottom: 5}}
+            blurOnSubmit={true}
+            ref={(input) => { this.phoneNumber = input; }}
           />
+          <ErrorText>
+            {this.state.phoneNumberError}
+          </ErrorText>
+          <CheckBox
+            title='정보/이벤트 메일 수신에 동의합니다.'
+            containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
+            checked={this.state.checked2}
+            uncheckedColor='black'
+            checkedColor='black'
+            onPress={() => this.setState({checked2: !this.state.checked2})}
+          />
+          <LoginText style={{margin:5}}>
+            전화번호
+          </LoginText>
+          <TextsInput
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={this.onChangeHomeNumber}
+            value={this.state.homeNumber}
+            autoCapitalize='none'
+            style={{marginBottom: 5}}
+            blurOnSubmit={true}
+            ref={(input) => { this.homeNumber = input; }}
+          />
+          <ErrorText>
+            {this.state.homeNumberError}
+          </ErrorText>
+          <LoginText style={{margin:5}}>
+            우편주소
+          </LoginText>
+          <TextAndButtonView >
+            <TextRightContainer>
+              <TextsInput
+                underlineColorAndroid="transparent"
+                autoCorrect={false}
+                onChangeText={this.onChangePostcode}
+                value={this.state.postcode}
+                editable={false}
+                autoCapitalize='none'
+                style={{marginBottom: 5, flex:1}}
+                ref={(input) => { this.postcode = input; }}
+                blurOnSubmit={false}
+                onSubmitEditing={() => { this.focusTextInput(this.refs.roadAddr) }}
+              />
+            </TextRightContainer>
+            <ButtonLeftContainer>
+              <PostButton
+                style={{backgroundColor: 'gray'}}
+                onPress={()=> this.onGetPostCodePressed()}
+              >
+                <ButtonText style={{alignSelf: 'center', color:'white'}}>
+                  우편번호
+                </ButtonText>
+              </PostButton>
+            </ButtonLeftContainer>
+          </TextAndButtonView>
+
+          <LoginText style={{margin:5}}>
+            도로주소
+          </LoginText>
+          <TextsInput
+            editable={false}
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={this.onChangeRoadAddr}
+            value={this.state.roadAddr}
+            autoCapitalize='none'
+            style={{marginBottom: 5}}
+            ref={(input) => { this.roadAddr= input; }}
+            onSubmitEditing={() => { this.focusTextInput(this.refs.jibunAddr) }}
+            blurOnSubmit={false}
+          />
+          <LoginText style={{margin:5}}>
+            지번주소
+          </LoginText>
+          <TextsInput
+            editable={false}
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={this.onChangeJibunAddr}
+            value={this.state.jibunAddr}
+            autoCapitalize='none'
+            style={{marginBottom: 5}}
+            ref={(input) => { this.jibunAddr= input; }}
+            blurOnSubmit={false}
+            onSubmitEditing={() => { this.focusTextInput(this.refs.detailLocation)}}
+          />
+          <ErrorText>
+            {this.state.postcodeError}
+          </ErrorText>
+          <LoginText style={{margin:5}}>
+            상세주소
+          </LoginText>
+          <TextsInput
+            underlineColorAndroid="transparent"
+            autoCorrect={false}
+            onChangeText={this.onChangeDetailLocation}
+            value={this.state.detailLocation}
+            autoCapitalize='none'
+            ref={(input) => { this.detailLocation= input; }}
+            style={{marginBottom: 30}}
+          />
+          <NavButton
+            style={{backgroundColor: 'white',borderWidth: 1, borderColor: '#333333' }}
+            onPress={()=> this.onSignupPressed()}
+          >
+            <TextCenterContainer>
+              <ButtonText style={{alignSelf: 'center', color:'black'}}>
+                회원가입
+              </ButtonText>
+            </TextCenterContainer>
+          </NavButton>
         </Container>
+      </ScrollView>
     );
   }
 }
