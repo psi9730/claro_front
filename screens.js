@@ -7,7 +7,7 @@ import i18n from './src/utils/i18n';
 import store from './src/redux/store';
 import React, { Component } from 'react';
 import {
-  Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
+  Button, Image, AppRegistry, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView,
   TouchableWithoutFeedback, Platform
 } from 'react-native';
 import NavigationWrapper from './src/modules/navigation/NavigationWrapper';
@@ -396,6 +396,31 @@ export function registerScreens() {
 
 export function startApp() {
   (async () => {
+    class Widget extends Component {
+      onLayout = (event) => {
+        const height = event.nativeEvent.layout.height;
+        if (height == 110) {
+          // widget is in compact mode
+        }
+        else if (height == 300) {
+          // widget is in expanded mode
+        }
+      }
+      render() {
+        return (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
+            onLayout={this.onLayout}
+          >
+            <Text>
+              Hello from React Native!
+            </Text>
+          </View>
+        );
+      }
+    }
+
+    AppRegistry.registerComponent('claro_widget', () => Widget);
     const token = await getAuthenticationToken();
     const refreshToken = token && token.refreshToken;
     console.log('refreshToken',refreshToken);

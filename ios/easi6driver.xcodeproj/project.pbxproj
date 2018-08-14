@@ -59,6 +59,46 @@
 		F9906C7E210F12730027BE82 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7A210F12730027BE82 /* FBSDKShareKit.framework */; };
 		F9906C80210F12730027BE82 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7C210F12730027BE82 /* Bolts.framework */; };
 		F9906D03211172AF0027BE82 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906D02211172710027BE82 /* libRCTFBSDK.a */; };
+		F9CDBC21211D7DD8002617EC /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC20211D7DD8002617EC /* TodayViewController.swift */; };
+		F9CDBC24211D7DD8002617EC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */; };
+		F9CDBC28211D7DD9002617EC /* claro_widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F9CDBC1C211D7DD8002617EC /* claro_widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F9CDBC68211D8BC2002617EC /* DisplayMode.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC67211D8BC2002617EC /* DisplayMode.m */; };
+		F9CDBC6C211D8C21002617EC /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC6B211D8C21002617EC /* TodayViewController.m */; };
+		F9CDBC6E211D8C3E002617EC /* Linking.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC6D211D8C3E002617EC /* Linking.m */; };
+		F9CDBCC6211D8E51002617EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */; };
+		F9CDBD17211D94C7002617EC /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD4211D91A3002617EC /* libBVLinearGradient.a */; };
+		F9CDBD19211D94DC002617EC /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF0211D91A7002617EC /* libRCTFBSDK.a */; };
+		F9CDBD1B211D94E5002617EC /* TodayWidgetExtension.appex in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEA211D91A6002617EC /* TodayWidgetExtension.appex */; };
+		F9CDBD1C211D94E8002617EC /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD9211D91A4002617EC /* libRCTBlob.a */; };
+		F9CDBD1D211D94EC002617EC /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE5211D91A5002617EC /* libART.a */; };
+		F9CDBD1F211D94FA002617EC /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEB211D91A6002617EC /* libRCTActionSheet.a */; };
+		F9CDBD20211D94FD002617EC /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF3211D91A7002617EC /* libRCTGeolocation.a */; };
+		F9CDBD21211D9506002617EC /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD8211D91A4002617EC /* libRCTImage.a */; };
+		F9CDBD22211D950A002617EC /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEC211D91A6002617EC /* libRCTLinking.a */; };
+		F9CDBD23211D950D002617EC /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDD211D91A4002617EC /* libRCTNetwork.a */; };
+		F9CDBD24211D9514002617EC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDA211D91A4002617EC /* libRCTSettings.a */; };
+		F9CDBD25211D951F002617EC /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDB211D91A4002617EC /* libRCTText.a */; };
+		F9CDBD27211D9527002617EC /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE8211D91A5002617EC /* libRCTVibration.a */; };
+		F9CDBD28211D952A002617EC /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD2211D91A3002617EC /* libRCTWebSocket.a */; };
+		F9CDBD29211D9540002617EC /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE0211D91A4002617EC /* libRNI18n.a */; };
+		F9CDBD2A211D955A002617EC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDF211D91A4002617EC /* libReactNativeNavigation.a */; };
+		F9CDBD2B211D9572002617EC /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF2211D91A7002617EC /* libRCTBackgroundGeolocation.a */; };
+		F9CDBD2C211D95D6002617EC /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE2211D91A5002617EC /* libRNFIRMessaging.a */; };
+		F9CDBD2D211D95E2002617EC /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD3211D91A3002617EC /* libPods-easi6driver.a */; };
+		F9CDBD2E211D95ED002617EC /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE9211D91A6002617EC /* libAppCenterReactNative.a */; };
+		F9CDBD2F211D95F0002617EC /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD5211D91A3002617EC /* libAppCenterReactNativeAnalytics.a */; };
+		F9CDBD30211D95F1002617EC /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEF211D91A7002617EC /* libAppCenterReactNativeCrashes.a */; };
+		F9CDBD31211D95FE002617EC /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE7211D91A5002617EC /* libPods-easi6driverTests.a */; };
+		F9CDBD32211D9614002617EC /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE1211D91A5002617EC /* libTcpSockets.a */; };
+		F9CDBD33211D961E002617EC /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCED211D91A6002617EC /* libRNNaverLogin.a */; };
+		F9CDBD36211D9840002617EC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7D210F12730027BE82 /* FBSDKCoreKit.framework */; };
+		F9CDBD37211D9842002617EC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7A210F12730027BE82 /* FBSDKShareKit.framework */; };
+		F9CDBD38211D9844002617EC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7C210F12730027BE82 /* Bolts.framework */; };
+		F9CDBD39211D9848002617EC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7B210F12730027BE82 /* FBSDKLoginKit.framework */; };
+		F9CDBD3A211D9A36002617EC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */; };
+		F9CDBD3B211D9A37002617EC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */; };
+		F9CDBD3C211D9A3B002617EC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */; };
+		F9CDBD3D211D9A3C002617EC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EC211852FF0018A4E2 /* Bolts.framework */; };
 		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
 /* End PBXBuildFile section */
 
@@ -455,7 +495,28 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
+		F9CDBC26211D7DD9002617EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9CDBC1B211D7DD8002617EC;
+			remoteInfo = claro_widget;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F9CDBC63211D7DD9002617EC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F9CDBC28211D7DD9002617EC /* claro_widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -542,6 +603,70 @@
 		F9906C7C210F12730027BE82 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../FacebookSDKs-iOS-4.35.0/Bolts.framework"; sourceTree = "<group>"; };
 		F9906C7D210F12730027BE82 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../FacebookSDKs-iOS-4.35.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		F9906CFD211172710027BE82 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		F9CDBC1C211D7DD8002617EC /* claro_widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = claro_widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		F9CDBC20211D7DD8002617EC /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		F9CDBC23211D7DD8002617EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		F9CDBC25211D7DD8002617EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9CDBC66211D8B95002617EC /* DisplayMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayMode.h; sourceTree = "<group>"; };
+		F9CDBC67211D8BC2002617EC /* DisplayMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplayMode.m; sourceTree = "<group>"; };
+		F9CDBC69211D8BE5002617EC /* Linking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Linking.h; sourceTree = "<group>"; };
+		F9CDBC6A211D8C01002617EC /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		F9CDBC6B211D8C21002617EC /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		F9CDBC6D211D8C3E002617EC /* Linking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linking.m; sourceTree = "<group>"; };
+		F9CDBC70211D8DEE002617EC /* libDoubleConversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libDoubleConversion.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC72211D8DEE002617EC /* libFolly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFolly.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC74211D8DEE002617EC /* libglog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libglog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC76211D8DEE002617EC /* libGoogle-Maps-iOS-Utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libGoogle-Maps-iOS-Utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC78211D8DEE002617EC /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC7A211D8DEE002617EC /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInteractable.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC7C211D8DEE002617EC /* libnanopb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnanopb.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC7E211D8DEE002617EC /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC80211D8DEE002617EC /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC82211D8DEE002617EC /* libProtobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libProtobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC84211D8DEE002617EC /* libreact-native-camera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-camera.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC86211D8DEE002617EC /* libreact-native-google-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-google-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC88211D8DEE002617EC /* libreact-native-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC8A211D8DEE002617EC /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC8C211D8DEE002617EC /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNSVG.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC8E211D8DEE002617EC /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBC90211D8DEE002617EC /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9CDBCC7211D9048002617EC /* easi6driver */ = {isa = PBXFileReference; lastKnownFileType = folder; path = easi6driver; sourceTree = "<group>"; };
+		F9CDBCD1211D91A3002617EC /* libdouble-conversion.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libdouble-conversion.a"; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libdouble-conversion.a"; sourceTree = "<group>"; };
+		F9CDBCD2211D91A3002617EC /* libRCTWebSocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTWebSocket.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTWebSocket.a"; sourceTree = "<group>"; };
+		F9CDBCD3211D91A3002617EC /* libPods-easi6driver.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-easi6driver.a"; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libPods-easi6driver.a"; sourceTree = "<group>"; };
+		F9CDBCD4211D91A3002617EC /* libBVLinearGradient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBVLinearGradient.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libBVLinearGradient.a"; sourceTree = "<group>"; };
+		F9CDBCD5211D91A3002617EC /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNativeAnalytics.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNativeAnalytics.a"; sourceTree = "<group>"; };
+		F9CDBCD6211D91A3002617EC /* libthird-party.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libthird-party.a"; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libthird-party.a"; sourceTree = "<group>"; };
+		F9CDBCD7211D91A3002617EC /* libjsinspector.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjsinspector.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libjsinspector.a"; sourceTree = "<group>"; };
+		F9CDBCD8211D91A4002617EC /* libRCTImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTImage.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTImage.a"; sourceTree = "<group>"; };
+		F9CDBCD9211D91A4002617EC /* libRCTBlob.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTBlob.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTBlob.a"; sourceTree = "<group>"; };
+		F9CDBCDA211D91A4002617EC /* libRCTSettings.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTSettings.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTSettings.a"; sourceTree = "<group>"; };
+		F9CDBCDB211D91A4002617EC /* libRCTText.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTText.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTText.a"; sourceTree = "<group>"; };
+		F9CDBCDC211D91A4002617EC /* libReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReact.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libReact.a"; sourceTree = "<group>"; };
+		F9CDBCDD211D91A4002617EC /* libRCTNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTNetwork.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTNetwork.a"; sourceTree = "<group>"; };
+		F9CDBCDE211D91A4002617EC /* libyoga.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyoga.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libyoga.a"; sourceTree = "<group>"; };
+		F9CDBCDF211D91A4002617EC /* libReactNativeNavigation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReactNativeNavigation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libReactNativeNavigation.a"; sourceTree = "<group>"; };
+		F9CDBCE0211D91A4002617EC /* libRNI18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNI18n.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRNI18n.a"; sourceTree = "<group>"; };
+		F9CDBCE1211D91A5002617EC /* libTcpSockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTcpSockets.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libTcpSockets.a"; sourceTree = "<group>"; };
+		F9CDBCE2211D91A5002617EC /* libRNFIRMessaging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNFIRMessaging.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRNFIRMessaging.a"; sourceTree = "<group>"; };
+		F9CDBCE3211D91A5002617EC /* libfishhook.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfishhook.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libfishhook.a"; sourceTree = "<group>"; };
+		F9CDBCE4211D91A5002617EC /* libjschelpers.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjschelpers.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libjschelpers.a"; sourceTree = "<group>"; };
+		F9CDBCE5211D91A5002617EC /* libART.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libART.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libART.a"; sourceTree = "<group>"; };
+		F9CDBCE6211D91A5002617EC /* libcxxreact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcxxreact.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libcxxreact.a"; sourceTree = "<group>"; };
+		F9CDBCE7211D91A5002617EC /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-easi6driverTests.a"; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libPods-easi6driverTests.a"; sourceTree = "<group>"; };
+		F9CDBCE8211D91A5002617EC /* libRCTVibration.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTVibration.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTVibration.a"; sourceTree = "<group>"; };
+		F9CDBCE9211D91A6002617EC /* libAppCenterReactNative.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNative.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNative.a"; sourceTree = "<group>"; };
+		F9CDBCEA211D91A6002617EC /* TodayWidgetExtension.appex */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.app-extension"; name = TodayWidgetExtension.appex; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/TodayWidgetExtension.appex"; sourceTree = "<group>"; };
+		F9CDBCEB211D91A6002617EC /* libRCTActionSheet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTActionSheet.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTActionSheet.a"; sourceTree = "<group>"; };
+		F9CDBCEC211D91A6002617EC /* libRCTLinking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTLinking.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTLinking.a"; sourceTree = "<group>"; };
+		F9CDBCED211D91A6002617EC /* libRNNaverLogin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNNaverLogin.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRNNaverLogin.a"; sourceTree = "<group>"; };
+		F9CDBCEE211D91A7002617EC /* libRCTAnimation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTAnimation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTAnimation.a"; sourceTree = "<group>"; };
+		F9CDBCEF211D91A7002617EC /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNativeCrashes.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNativeCrashes.a"; sourceTree = "<group>"; };
+		F9CDBCF0211D91A7002617EC /* libRCTFBSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTFBSDK.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTFBSDK.a"; sourceTree = "<group>"; };
+		F9CDBCF1211D91A7002617EC /* libprivatedata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprivatedata.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libprivatedata.a"; sourceTree = "<group>"; };
+		F9CDBCF2211D91A7002617EC /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTBackgroundGeolocation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTBackgroundGeolocation.a"; sourceTree = "<group>"; };
+		F9CDBCF3211D91A7002617EC /* libRCTGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTGeolocation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTGeolocation.a"; sourceTree = "<group>"; };
 		FC87AE0A26DF0CD7A00D3FF7 /* Pods-easi6driver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -560,13 +685,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F98BA286211838B30018A4E2 /* libBVLinearGradient.a in Frameworks */,
 				F98BA2F3211852FF0018A4E2 /* FBSDKCoreKit.framework in Frameworks */,
 				F9906D03211172AF0027BE82 /* libRCTFBSDK.a in Frameworks */,
 				F98BA2F2211852FF0018A4E2 /* FBSDKShareKit.framework in Frameworks */,
 				F9906BC5210B22E00027BE82 /* TodayWidgetExtension.appex in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				F94BD4D220A941AF0012B27F /* libART.a in Frameworks */,
+				F98BA286211838B30018A4E2 /* libBVLinearGradient.a in Frameworks */,
 				F9906C7E210F12730027BE82 /* FBSDKShareKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -591,6 +716,47 @@
 				D55CFBB788C14289928C310B /* libRNNaverLogin.a in Frameworks */,
 				F9906C80210F12730027BE82 /* Bolts.framework in Frameworks */,
 				F98BA2F0211852FF0018A4E2 /* Bolts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9CDBC19211D7DD8002617EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9CDBD38211D9844002617EC /* Bolts.framework in Frameworks */,
+				F9CDBD39211D9848002617EC /* FBSDKLoginKit.framework in Frameworks */,
+				F9CDBD28211D952A002617EC /* libRCTWebSocket.a in Frameworks */,
+				F9CDBD37211D9842002617EC /* FBSDKShareKit.framework in Frameworks */,
+				F9CDBD3C211D9A3B002617EC /* FBSDKShareKit.framework in Frameworks */,
+				F9CDBCC6211D8E51002617EC /* NotificationCenter.framework in Frameworks */,
+				F9CDBD3D211D9A3C002617EC /* Bolts.framework in Frameworks */,
+				F9CDBD3A211D9A36002617EC /* FBSDKCoreKit.framework in Frameworks */,
+				F9CDBD3B211D9A37002617EC /* FBSDKLoginKit.framework in Frameworks */,
+				F9CDBD36211D9840002617EC /* FBSDKCoreKit.framework in Frameworks */,
+				F9CDBD17211D94C7002617EC /* libBVLinearGradient.a in Frameworks */,
+				F9CDBD19211D94DC002617EC /* libRCTFBSDK.a in Frameworks */,
+				F9CDBD2E211D95ED002617EC /* libAppCenterReactNative.a in Frameworks */,
+				F9CDBD2D211D95E2002617EC /* libPods-easi6driver.a in Frameworks */,
+				F9CDBD33211D961E002617EC /* libRNNaverLogin.a in Frameworks */,
+				F9CDBD30211D95F1002617EC /* libAppCenterReactNativeCrashes.a in Frameworks */,
+				F9CDBD32211D9614002617EC /* libTcpSockets.a in Frameworks */,
+				F9CDBD2F211D95F0002617EC /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				F9CDBD31211D95FE002617EC /* libPods-easi6driverTests.a in Frameworks */,
+				F9CDBD1F211D94FA002617EC /* libRCTActionSheet.a in Frameworks */,
+				F9CDBD2C211D95D6002617EC /* libRNFIRMessaging.a in Frameworks */,
+				F9CDBD21211D9506002617EC /* libRCTImage.a in Frameworks */,
+				F9CDBD20211D94FD002617EC /* libRCTGeolocation.a in Frameworks */,
+				F9CDBD22211D950A002617EC /* libRCTLinking.a in Frameworks */,
+				F9CDBD29211D9540002617EC /* libRNI18n.a in Frameworks */,
+				F9CDBD2B211D9572002617EC /* libRCTBackgroundGeolocation.a in Frameworks */,
+				F9CDBD2A211D955A002617EC /* libReactNativeNavigation.a in Frameworks */,
+				F9CDBD24211D9514002617EC /* libRCTSettings.a in Frameworks */,
+				F9CDBD25211D951F002617EC /* libRCTText.a in Frameworks */,
+				F9CDBD23211D950D002617EC /* libRCTNetwork.a in Frameworks */,
+				F9CDBD27211D9527002617EC /* libRCTVibration.a in Frameworks */,
+				F9CDBD1C211D94E8002617EC /* libRCTBlob.a in Frameworks */,
+				F9CDBD1D211D94EC002617EC /* libART.a in Frameworks */,
+				F9CDBD1B211D94E5002617EC /* TodayWidgetExtension.appex in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,12 +903,66 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9CDBCE9211D91A6002617EC /* libAppCenterReactNative.a */,
+				F9CDBCD5211D91A3002617EC /* libAppCenterReactNativeAnalytics.a */,
+				F9CDBCEF211D91A7002617EC /* libAppCenterReactNativeCrashes.a */,
+				F9CDBCE5211D91A5002617EC /* libART.a */,
+				F9CDBCD4211D91A3002617EC /* libBVLinearGradient.a */,
+				F9CDBCE6211D91A5002617EC /* libcxxreact.a */,
+				F9CDBCD1211D91A3002617EC /* libdouble-conversion.a */,
+				F9CDBCE3211D91A5002617EC /* libfishhook.a */,
+				F9CDBCE4211D91A5002617EC /* libjschelpers.a */,
+				F9CDBCD7211D91A3002617EC /* libjsinspector.a */,
+				F9CDBCD3211D91A3002617EC /* libPods-easi6driver.a */,
+				F9CDBCE7211D91A5002617EC /* libPods-easi6driverTests.a */,
+				F9CDBCF1211D91A7002617EC /* libprivatedata.a */,
+				F9CDBCEB211D91A6002617EC /* libRCTActionSheet.a */,
+				F9CDBCEE211D91A7002617EC /* libRCTAnimation.a */,
+				F9CDBCF2211D91A7002617EC /* libRCTBackgroundGeolocation.a */,
+				F9CDBCD9211D91A4002617EC /* libRCTBlob.a */,
+				F9CDBCF0211D91A7002617EC /* libRCTFBSDK.a */,
+				F9CDBCF3211D91A7002617EC /* libRCTGeolocation.a */,
+				F9CDBCD8211D91A4002617EC /* libRCTImage.a */,
+				F9CDBCEC211D91A6002617EC /* libRCTLinking.a */,
+				F9CDBCDD211D91A4002617EC /* libRCTNetwork.a */,
+				F9CDBCDA211D91A4002617EC /* libRCTSettings.a */,
+				F9CDBCDB211D91A4002617EC /* libRCTText.a */,
+				F9CDBCE8211D91A5002617EC /* libRCTVibration.a */,
+				F9CDBCD2211D91A3002617EC /* libRCTWebSocket.a */,
+				F9CDBCDC211D91A4002617EC /* libReact.a */,
+				F9CDBCDF211D91A4002617EC /* libReactNativeNavigation.a */,
+				F9CDBCE2211D91A5002617EC /* libRNFIRMessaging.a */,
+				F9CDBCE0211D91A4002617EC /* libRNI18n.a */,
+				F9CDBCED211D91A6002617EC /* libRNNaverLogin.a */,
+				F9CDBCE1211D91A5002617EC /* libTcpSockets.a */,
+				F9CDBCD6211D91A3002617EC /* libthird-party.a */,
+				F9CDBCDE211D91A4002617EC /* libyoga.a */,
+				F9CDBCEA211D91A6002617EC /* TodayWidgetExtension.appex */,
+				F9CDBCC7211D9048002617EC /* easi6driver */,
+				F9CDBC70211D8DEE002617EC /* libDoubleConversion.a */,
+				F9CDBC72211D8DEE002617EC /* libFolly.a */,
+				F9CDBC74211D8DEE002617EC /* libglog.a */,
+				F9CDBC76211D8DEE002617EC /* libGoogle-Maps-iOS-Utils.a */,
+				F9CDBC78211D8DEE002617EC /* libGoogleToolboxForMac.a */,
+				F9CDBC7A211D8DEE002617EC /* libInteractable.a */,
+				F9CDBC7C211D8DEE002617EC /* libnanopb.a */,
+				F9CDBC7E211D8DEE002617EC /* libPods-easi6driver.a */,
+				F9CDBC80211D8DEE002617EC /* libPods-easi6driverTests.a */,
+				F9CDBC82211D8DEE002617EC /* libProtobuf.a */,
+				F9CDBC84211D8DEE002617EC /* libreact-native-camera.a */,
+				F9CDBC86211D8DEE002617EC /* libreact-native-google-maps.a */,
+				F9CDBC88211D8DEE002617EC /* libreact-native-maps.a */,
+				F9CDBC8A211D8DEE002617EC /* libRNDeviceInfo.a */,
+				F9CDBC8C211D8DEE002617EC /* libRNSVG.a */,
+				F9CDBC8E211D8DEE002617EC /* libRNVectorIcons.a */,
+				F9CDBC90211D8DEE002617EC /* libyoga.a */,
 				F98BA2EC211852FF0018A4E2 /* Bolts.framework */,
 				F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */,
 				F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */,
 				F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */,
 				99F9E09DB5891E96C96D67C7 /* libPods-easi6driver.a */,
 				6B6949E4B2C244D6EA1E91B3 /* libPods-easi6driverTests.a */,
+				F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -833,6 +1053,7 @@
 				13B07FAE1A68108700A75B9A /* easi6driver */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* easi6driverTests */,
+				F9CDBC1F211D7DD8002617EC /* claro_widget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				ECB1B2F91FE9F92400E7AF9D /* Recovered References */,
 				6D539BEB45A90059FF46159A /* Pods */,
@@ -850,6 +1071,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* easi6driver.app */,
 				00E356EE1AD99517003FC87E /* easi6driverTests.xctest */,
+				F9CDBC1C211D7DD8002617EC /* claro_widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1005,6 +1227,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F9CDBC1F211D7DD8002617EC /* claro_widget */ = {
+			isa = PBXGroup;
+			children = (
+				F9CDBC20211D7DD8002617EC /* TodayViewController.swift */,
+				F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */,
+				F9CDBC25211D7DD8002617EC /* Info.plist */,
+				F9CDBC66211D8B95002617EC /* DisplayMode.h */,
+				F9CDBC67211D8BC2002617EC /* DisplayMode.m */,
+				F9CDBC69211D8BE5002617EC /* Linking.h */,
+				F9CDBC6D211D8C3E002617EC /* Linking.m */,
+				F9CDBC6A211D8C01002617EC /* TodayViewController.h */,
+				F9CDBC6B211D8C21002617EC /* TodayViewController.m */,
+			);
+			path = claro_widget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1037,15 +1275,35 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				C30EF3A10F5F405CF050A822 /* [CP] Copy Pods Resources */,
+				F9CDBC63211D7DD9002617EC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F9CDBC27211D7DD9002617EC /* PBXTargetDependency */,
 			);
 			name = easi6driver;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* easi6driver.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F9CDBC1B211D7DD8002617EC /* claro_widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9CDBC62211D7DD9002617EC /* Build configuration list for PBXNativeTarget "claro_widget" */;
+			buildPhases = (
+				F9CDBC18211D7DD8002617EC /* Sources */,
+				F9CDBC19211D7DD8002617EC /* Frameworks */,
+				F9CDBC1A211D7DD8002617EC /* Resources */,
+				F9CDBC6F211D8D78002617EC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = claro_widget;
+			productName = claro_widget;
+			productReference = F9CDBC1C211D7DD8002617EC /* claro_widget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1053,6 +1311,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -1070,6 +1329,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					F9CDBC1B211D7DD8002617EC = {
+						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1198,6 +1462,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* easi6driver */,
 				00E356ED1AD99517003FC87E /* easi6driverTests */,
+				F9CDBC1B211D7DD8002617EC /* claro_widget */,
 			);
 		};
 /* End PBXProject section */
@@ -1621,6 +1886,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F9CDBC1A211D7DD8002617EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9CDBC24211D7DD8002617EC /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1714,6 +1987,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F9CDBC6F211D8D78002617EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.widget.js";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1734,6 +2020,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F9CDBC18211D7DD8002617EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9CDBC6E211D8C3E002617EC /* Linking.m in Sources */,
+				F9CDBC6C211D8C21002617EC /* TodayViewController.m in Sources */,
+				F9CDBC21211D7DD8002617EC /* TodayViewController.swift in Sources */,
+				F9CDBC68211D8BC2002617EC /* DisplayMode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1741,6 +2038,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* easi6driver */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		F9CDBC27211D7DD9002617EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9CDBC1B211D7DD8002617EC /* claro_widget */;
+			targetProxy = F9CDBC26211D7DD9002617EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1762,6 +2064,14 @@
 				EC7E09262022B07900D6F432 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F9CDBC23211D7DD8002617EC /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1858,6 +2168,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7C6422E844386F79E6359A0B /* Pods-easi6driver.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
@@ -1920,6 +2231,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC87AE0A26DF0CD7A00D3FF7 /* Pods-easi6driver.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
@@ -2055,6 +2367,89 @@
 			};
 			name = Release;
 		};
+		F9CDBC29211D7DD9002617EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = claro_widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.easi6.easi6driver9730.claro-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F9CDBC2A211D7DD9002617EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = claro_widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.easi6.easi6driver9730.claro-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2081,6 +2476,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9CDBC62211D7DD9002617EC /* Build configuration list for PBXNativeTarget "claro_widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9CDBC29211D7DD9002617EC /* Debug */,
+				F9CDBC2A211D7DD9002617EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
