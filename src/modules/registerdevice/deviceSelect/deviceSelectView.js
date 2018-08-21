@@ -13,6 +13,7 @@ import _ from 'lodash';
 import infoIcnBlue from '../../../assets/images/infoIcnBlue.png';
 import checkIcn from '../../../assets/images/checkIcn.png';
 import ToggleSwitch from 'toggle-switch-react-native'
+import FlipToggle from 'react-native-flip-toggle-button';
 import {DEVICE_INFO_SCREEN,DEVICE_ADD_SCREEN} from '../../../../screens';
 type Props = {
   sendSerialNumberRequest: Function,
@@ -213,11 +214,18 @@ class DeviceSelectView extends Component<Props, State> {
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
               </TextLeftView>
               <TextRightView>
-                <ToggleSwitch
-                  isOn={this.props.isActive}
-                  onColor='green'
-                  offColor='gray'
-                  size='small'
+                <FlipToggle
+                  value={this.props.isActive}
+                  buttonWidth={70}
+                  buttonHeight={36}
+                  buttonRadius={36}
+                  sliderWidth={30}
+                  sliderHeight={30}
+                  sliderRadius={50}
+                  buttonOnColor="#4CD964"
+                  buttonOffColor="gray"
+                  sliderOnColor="#FFFFFF"
+                  sliderOffColor="#FFFFFF"
                   onToggle={ (isOn) => this.pushToggle(isOn)}
                 />
               </TextRightView>
@@ -241,7 +249,7 @@ class DeviceSelectView extends Component<Props, State> {
                             </View>
                           </TouchableOpacity>
                           <TouchableOpacity onPress={() => this.setControlDevice(device)}>
-                            <View>
+                            <View style={{marginLeft: 10}}>
                               {
                                 device.deviceInfo ?(
                                   <RemoteText

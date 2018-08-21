@@ -108,7 +108,11 @@ class WifiGuideView extends Component<Props, State> {
         })();}).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(()=>{  Keyboard.dismiss();
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
-      })}).catch()).catch( e=> toast("Please turn on the Wifi",'error'));
+      })}).catch()).catch( e=>
+    {
+      this.setState({error: "Please turn on the wifi"});
+      toast("Please turn on the Wifi",'error')
+    });
   }
   static dismissKeyboard() {
     Keyboard.dismiss();

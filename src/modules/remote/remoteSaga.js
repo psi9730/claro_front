@@ -199,7 +199,9 @@ function* requestSetTimerOff({serialNumber, isTurnOffActive, turnOffHour}:  {ser
   turnOffHour: any}) {
   try {
     var now  = new Date()
+    console.log(now, 'date');
     var date = new Date(now.getTime() + (turnOffHour * 60 * 60 * 1000));
+    console.log(date,'newDate');
     const body={
       serial_number: serialNumber,
       is_turn_off_active: isTurnOffActive,

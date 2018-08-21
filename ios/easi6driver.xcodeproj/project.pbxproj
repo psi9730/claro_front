@@ -16,7 +16,6 @@
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -24,16 +23,14 @@
 		14B10834ED0A4F3F9FDF31B2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF8D2FB2291649C7969ED465 /* MaterialIcons.ttf */; };
 		17276CAD16694568A4DFA8F1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A658D242AD704860B4D1A3E5 /* Ionicons.ttf */; };
 		228D61DB8364403598D3F3A9 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14FD508A52994A19917643B0 /* Feather.ttf */; };
+		23022169C95D683CB75726CC /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87F65EBE61706BFE5A77ABAA /* libPods-easi6driverTests.a */; };
 		2E1C4C2643E24B7EBD2F9F69 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50F216AFBE2B4BAEB4E17247 /* Zocial.ttf */; };
 		378589C5DBD247108452EEE3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C17A765A2C874214A6A34316 /* Octicons.ttf */; };
 		3959CF93AEF842C2B9DABE3A /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C59967FA44FB3B65C522D /* libRNI18n.a */; };
-		40B64E71F7AE19D01E80FEBB /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B6949E4B2C244D6EA1E91B3 /* libPods-easi6driverTests.a */; };
 		4940D3D1E13646FE95D5C494 /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6814FAF90F43F089E931FC /* libTcpSockets.a */; };
 		4F73033B9EF041F0A5B6D4DC /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF6F0C25DC46435CB4BE002C /* MaterialCommunityIcons.ttf */; };
 		53A94468734D43198C064060 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55AC4BD086154F2D87D5AE82 /* FontAwesome.ttf */; };
-		5A8EA2237DE14B7A8F9CC6D4 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */; };
 		7F5DDF7D0A58474C957B352D /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */; };
-		8045DF22D0E37E67BE0F5A4B /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F9E09DB5891E96C96D67C7 /* libPods-easi6driver.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		870E13AB8B664F2683B18228 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83B0D3765BA244E48975C446 /* SimpleLineIcons.ttf */; };
 		9624804A555E4298B26CB5F4 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */; };
@@ -41,65 +38,61 @@
 		99D55F00AA414820A2ED8332 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79D5E60EA34B42AA89CF2181 /* EvilIcons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B39D7C680AA34ED48EE256B6 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */; };
-		D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */; };
 		D55CFBB788C14289928C310B /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5805D9DF8C94448B36FD596 /* libRNNaverLogin.a */; };
 		DD91F989F6DD419E86E459AC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */; };
 		E193A1A2D15B4E51A62F5BE1 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34B53C7FB2FA44448A9A08B2 /* Entypo.ttf */; };
+		E8C2B53EA771CE03968EBEA0 /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEF7C22A80BA4595E9A9371 /* libPods-easi6driver.a */; };
 		EC75FB272006FC1100B0C0FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC75FB262006FC1000B0C0FB /* GoogleService-Info.plist */; };
 		EC7E09232022B06600D6F432 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7E09252022B06600D6F432 /* InfoPlist.strings */; };
 		EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */; };
 		F486B9DFA5EB4814912C177C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 481440DD12F04076BFF10E0B /* AppCenter-Config.plist */; };
 		F94BD4D220A941AF0012B27F /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94BD4CF20A941930012B27F /* libART.a */; };
+		F97D3C742122DFCA00BE4F46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		F97D3C8E212507AE00BE4F46 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */; };
+		F97D3C92212507AE00BE4F46 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F97D3C91212507AE00BE4F46 /* TodayViewController.m */; };
+		F97D3C95212507AE00BE4F46 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F97D3C93212507AE00BE4F46 /* MainInterface.storyboard */; };
+		F97D3C99212507AE00BE4F46 /* ClaroWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F97D3C8D212507AD00BE4F46 /* ClaroWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F97D3C9F2125091700BE4F46 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA255211838580018A4E2 /* libBVLinearGradient.a */; };
+		F97D3CA02125091B00BE4F46 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C1E210F11860027BE82 /* libRNNaverLogin.a */; };
+		F97D3CA12125091F00BE4F46 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906D02211172710027BE82 /* libRCTFBSDK.a */; };
+		F97D3CA22125092300BE4F46 /* TodayWidgetExtension.appex in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906BC3210B229E0027BE82 /* TodayWidgetExtension.appex */; };
+		F97D3CA32125092700BE4F46 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F933BAD720BE3DE3009C56EF /* libRCTCamera.a */; };
+		F97D3CA42125092F00BE4F46 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94BD4CF20A941930012B27F /* libART.a */; };
+		F97D3CA52125093300BE4F46 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		F97D3CA62125093800BE4F46 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		F97D3CA72125093D00BE4F46 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		F97D3CA82125094000BE4F46 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		F97D3CA92125094400BE4F46 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		F97D3CAA2125094900BE4F46 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		F97D3CAB2125095000BE4F46 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		F97D3CAC2125095300BE4F46 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		F97D3CAD2125095800BE4F46 /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		F97D3CAE2125095E00BE4F46 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		F97D3CAF2125096200BE4F46 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		F97D3CB02125096700BE4F46 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
+		F97D3CB12125096C00BE4F46 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1B31B1FE9F92800E7AF9D /* libReactNativeNavigation.a */; };
+		F97D3CB22125097000BE4F46 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1B31F1FE9F92800E7AF9D /* libRNI18n.a */; };
+		F97D3CB32125097400BE4F46 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB7366F20037D3C007F82A8 /* libRCTBackgroundGeolocation.a */; };
+		F97D3CB82125098400BE4F46 /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F97CCA4E2093257B004556CF /* libTcpSockets.a */; };
+		F97D3CB9212515F700BE4F46 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EC211852FF0018A4E2 /* Bolts.framework */; };
+		F97D3CBA212515F900BE4F46 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */; };
+		F97D3CBB212515FB00BE4F46 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */; };
+		F97D3CBC212515FD00BE4F46 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */; };
+		F97D3D232125175600BE4F46 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3D1F2125175600BE4F46 /* Bolts.framework */; };
+		F97D3D242125175600BE4F46 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3D202125175600BE4F46 /* FBSDKLoginKit.framework */; };
+		F97D3D252125175600BE4F46 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3D212125175600BE4F46 /* FBSDKShareKit.framework */; };
+		F97D3D262125175600BE4F46 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3D222125175600BE4F46 /* FBSDKCoreKit.framework */; };
+		F97D3D2A212523AF00BE4F46 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6038C6200F27E3006C0C13 /* libAppCenterReactNative.a */; };
+		F97D3D2C212523C300BE4F46 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC60397A200F2890006C0C13 /* libAppCenterReactNativeCrashes.a */; };
+		F97D3E0C21254E6000BE4F46 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3DF02125469700BE4F46 /* libAppCenterReactNativeAnalytics.a */; };
 		F98BA286211838B30018A4E2 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA253211838580018A4E2 /* libBVLinearGradient.a */; };
 		F98BA2F0211852FF0018A4E2 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EC211852FF0018A4E2 /* Bolts.framework */; };
 		F98BA2F1211852FF0018A4E2 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */; };
 		F98BA2F2211852FF0018A4E2 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */; };
 		F98BA2F3211852FF0018A4E2 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */; };
 		F9906BC5210B22E00027BE82 /* TodayWidgetExtension.appex in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906BC3210B229E0027BE82 /* TodayWidgetExtension.appex */; };
-		F9906C7E210F12730027BE82 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7A210F12730027BE82 /* FBSDKShareKit.framework */; };
-		F9906C80210F12730027BE82 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7C210F12730027BE82 /* Bolts.framework */; };
 		F9906D03211172AF0027BE82 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906D02211172710027BE82 /* libRCTFBSDK.a */; };
-		F9CDBC21211D7DD8002617EC /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC20211D7DD8002617EC /* TodayViewController.swift */; };
-		F9CDBC24211D7DD8002617EC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */; };
-		F9CDBC28211D7DD9002617EC /* claro_widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F9CDBC1C211D7DD8002617EC /* claro_widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F9CDBC68211D8BC2002617EC /* DisplayMode.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC67211D8BC2002617EC /* DisplayMode.m */; };
-		F9CDBC6C211D8C21002617EC /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC6B211D8C21002617EC /* TodayViewController.m */; };
-		F9CDBC6E211D8C3E002617EC /* Linking.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CDBC6D211D8C3E002617EC /* Linking.m */; };
-		F9CDBCC6211D8E51002617EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */; };
-		F9CDBD17211D94C7002617EC /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD4211D91A3002617EC /* libBVLinearGradient.a */; };
-		F9CDBD19211D94DC002617EC /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF0211D91A7002617EC /* libRCTFBSDK.a */; };
-		F9CDBD1B211D94E5002617EC /* TodayWidgetExtension.appex in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEA211D91A6002617EC /* TodayWidgetExtension.appex */; };
-		F9CDBD1C211D94E8002617EC /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD9211D91A4002617EC /* libRCTBlob.a */; };
-		F9CDBD1D211D94EC002617EC /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE5211D91A5002617EC /* libART.a */; };
-		F9CDBD1F211D94FA002617EC /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEB211D91A6002617EC /* libRCTActionSheet.a */; };
-		F9CDBD20211D94FD002617EC /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF3211D91A7002617EC /* libRCTGeolocation.a */; };
-		F9CDBD21211D9506002617EC /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD8211D91A4002617EC /* libRCTImage.a */; };
-		F9CDBD22211D950A002617EC /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEC211D91A6002617EC /* libRCTLinking.a */; };
-		F9CDBD23211D950D002617EC /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDD211D91A4002617EC /* libRCTNetwork.a */; };
-		F9CDBD24211D9514002617EC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDA211D91A4002617EC /* libRCTSettings.a */; };
-		F9CDBD25211D951F002617EC /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDB211D91A4002617EC /* libRCTText.a */; };
-		F9CDBD27211D9527002617EC /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE8211D91A5002617EC /* libRCTVibration.a */; };
-		F9CDBD28211D952A002617EC /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD2211D91A3002617EC /* libRCTWebSocket.a */; };
-		F9CDBD29211D9540002617EC /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE0211D91A4002617EC /* libRNI18n.a */; };
-		F9CDBD2A211D955A002617EC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCDF211D91A4002617EC /* libReactNativeNavigation.a */; };
-		F9CDBD2B211D9572002617EC /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCF2211D91A7002617EC /* libRCTBackgroundGeolocation.a */; };
-		F9CDBD2C211D95D6002617EC /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE2211D91A5002617EC /* libRNFIRMessaging.a */; };
-		F9CDBD2D211D95E2002617EC /* libPods-easi6driver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD3211D91A3002617EC /* libPods-easi6driver.a */; };
-		F9CDBD2E211D95ED002617EC /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE9211D91A6002617EC /* libAppCenterReactNative.a */; };
-		F9CDBD2F211D95F0002617EC /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCD5211D91A3002617EC /* libAppCenterReactNativeAnalytics.a */; };
-		F9CDBD30211D95F1002617EC /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCEF211D91A7002617EC /* libAppCenterReactNativeCrashes.a */; };
-		F9CDBD31211D95FE002617EC /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE7211D91A5002617EC /* libPods-easi6driverTests.a */; };
-		F9CDBD32211D9614002617EC /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCE1211D91A5002617EC /* libTcpSockets.a */; };
-		F9CDBD33211D961E002617EC /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CDBCED211D91A6002617EC /* libRNNaverLogin.a */; };
-		F9CDBD36211D9840002617EC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7D210F12730027BE82 /* FBSDKCoreKit.framework */; };
-		F9CDBD37211D9842002617EC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7A210F12730027BE82 /* FBSDKShareKit.framework */; };
-		F9CDBD38211D9844002617EC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7C210F12730027BE82 /* Bolts.framework */; };
-		F9CDBD39211D9848002617EC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9906C7B210F12730027BE82 /* FBSDKLoginKit.framework */; };
-		F9CDBD3A211D9A36002617EC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */; };
-		F9CDBD3B211D9A37002617EC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */; };
-		F9CDBD3C211D9A3B002617EC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */; };
-		F9CDBD3D211D9A3C002617EC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F98BA2EC211852FF0018A4E2 /* Bolts.framework */; };
-		FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */; };
+		F9910EE321255A7600E62A9F /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F97D3DE62125467800BE4F46 /* libRNFIRMessaging.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,26 +362,12 @@
 			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
 			remoteInfo = AppCenterReactNative;
 		};
-		EC603926200F2833006C0C13 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 548694001D8384E600E6685A;
-			remoteInfo = AppCenterReactNativeAnalytics;
-		};
 		EC603979200F2890006C0C13 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5419C2701D824AA700DDF3A1;
 			remoteInfo = AppCenterReactNativeCrashes;
-		};
-		ECAFB7272005B97900B5D76A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNFIRMessaging;
 		};
 		ECB1B31A1FE9F92800E7AF9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -460,6 +439,48 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = TcpSockets;
 		};
+		F97D3C97212507AE00BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F97D3C8C212507AD00BE4F46;
+			remoteInfo = ClaroWidget;
+		};
+		F97D3DE52125467800BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97D3DE12125467800BE4F46 /* RNFIRMessaging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFIRMessaging;
+		};
+		F97D3DEF2125469700BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 548694001D8384E600E6685A;
+			remoteInfo = AppCenterReactNativeAnalytics;
+		};
+		F97D3DFB212546C400BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97D3DF7212546C400BE4F46 /* AppCenterReactNativeAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 548694001D8384E600E6685A;
+			remoteInfo = AppCenterReactNativeAnalytics;
+		};
+		F97D3E01212546CB00BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97D3DFD212546CB00BE4F46 /* AppCenterReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
+			remoteInfo = AppCenterReactNative;
+		};
+		F97D3E0A2125472000BE4F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97D3E062125472000BE4F46 /* AppCenterReactNativeCrashes.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5419C2701D824AA700DDF3A1;
+			remoteInfo = AppCenterReactNativeCrashes;
+		};
 		F98BA252211838580018A4E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F98BA248211838580018A4E2 /* BVLinearGradient.xcodeproj */;
@@ -495,13 +516,6 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
-		F9CDBC26211D7DD9002617EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F9CDBC1B211D7DD8002617EC;
-			remoteInfo = claro_widget;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -511,7 +525,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F9CDBC28211D7DD9002617EC /* claro_widget.appex in Embed App Extensions */,
+				F97D3C99212507AE00BE4F46 /* ClaroWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +542,6 @@
 		00E356EE1AD99517003FC87E /* easi6driverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = easi6driverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* easi6driverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = easi6driverTests.m; sourceTree = "<group>"; };
-		03F1D5525706138B9606AA3A /* Pods-easi6driverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driverTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driverTests/Pods-easi6driverTests.release.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* easi6driver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = easi6driver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -541,42 +554,38 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		14FD508A52994A19917643B0 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		1EFEAE52617E44BA9B0F2F20 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		29FB2ECDFE98307E00F0DB62 /* Pods-easi6driver-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOS/Pods-easi6driver-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		34B53C7FB2FA44448A9A08B2 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		378C3CAF508D4B43BE1DEEC1 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		3E787323292D4FA7950B3CFF /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
-		452B86244CD4AA5F32C3DE1B /* Pods-easi6driver-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOS/Pods-easi6driver-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		481440DD12F04076BFF10E0B /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "easi6driver/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		50F216AFBE2B4BAEB4E17247 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		55AC4BD086154F2D87D5AE82 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B6949E4B2C244D6EA1E91B3 /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79D5E60EA34B42AA89CF2181 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
-		7C6422E844386F79E6359A0B /* Pods-easi6driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.debug.xcconfig"; sourceTree = "<group>"; };
 		7C6814FAF90F43F089E931FC /* libTcpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTcpSockets.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		83A0F0D68C4640D998F4ADD2 /* Pods-easi6driverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driverTests/Pods-easi6driverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		83B0D3765BA244E48975C446 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		87F65EBE61706BFE5A77ABAA /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		93B406E7D3FA4D5CAF0595BF /* TcpSockets.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TcpSockets.xcodeproj; path = "../node_modules/react-native-tcp/ios/TcpSockets.xcodeproj"; sourceTree = "<group>"; };
-		99F9E09DB5891E96C96D67C7 /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
+		9CF458F887E2332E8266C85B /* Pods-easi6driver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.release.xcconfig"; sourceTree = "<group>"; };
 		A5805D9DF8C94448B36FD596 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 		A658D242AD704860B4D1A3E5 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		ADEF7C22A80BA4595E9A9371 /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8D2FB2291649C7969ED465 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61C59967FA44FB3B65C522D /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		BC8F995DBD73411D95526078 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		BF6F0C25DC46435CB4BE002C /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		C17A765A2C874214A6A34316 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		C56B72C3D8B633BDB9E39DE4 /* Pods-easi6driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.debug.xcconfig"; sourceTree = "<group>"; };
 		C7086D75432346FDB95F1618 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-locale-detector/RNI18n.xcodeproj"; sourceTree = "<group>"; };
+		CA2BCD2E8E1A6EA0FF521646 /* Pods-easi6driverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driverTests/Pods-easi6driverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
 		D6C7AC0983CB438E98C22EB8 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
 		EA948D768E7A4D66A4CE2F05 /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBackgroundGeolocation.a; sourceTree = "<group>"; };
@@ -586,12 +595,26 @@
 		EC7E09262022B07900D6F432 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECDC4F561FEA96C300E22BC2 /* easi6driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = easi6driver.entitlements; path = easi6driver/easi6driver.entitlements; sourceTree = "<group>"; };
 		F25138D446B848799BA7EF43 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
-		F2F2F146F9E8DCF82FEC5EA2 /* Pods-easi6driver-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F85E07CF38D843ED98EE91C3 /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/react-native-naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
 		F933BAD220BE3DE1009C56EF /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		F935A9232117DB7E001429A0 /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/react-native-naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
 		F94BD4C920A941930012B27F /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
-		F97D7500EB52ACF8D0FD0173 /* Pods-easi6driver-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver-tvOSTests/Pods-easi6driver-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F97D3C192122AA0C00BE4F46 /* claro_widget copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "claro_widget copy-Info.plist"; path = "/Users/easi6/easi6/easi6-driver-client/ios/claro_widget copy-Info.plist"; sourceTree = "<absolute>"; };
+		F97D3C6C2122D6DC00BE4F46 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKStrings.bundle; path = ../../../Documents/FacebookSDK/FacebookSDKStrings.bundle; sourceTree = "<group>"; };
+		F97D3C6D2122D6DD00BE4F46 /* FBNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBNotifications.framework; path = ../../../Documents/FacebookSDK/FBNotifications.framework; sourceTree = "<group>"; };
+		F97D3C8D212507AD00BE4F46 /* ClaroWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClaroWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F97D3C90212507AE00BE4F46 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		F97D3C91212507AE00BE4F46 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		F97D3C94212507AE00BE4F46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		F97D3C96212507AE00BE4F46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F97D3D1F2125175600BE4F46 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../../../Documents/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		F97D3D202125175600BE4F46 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		F97D3D212125175600BE4F46 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F97D3D222125175600BE4F46 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		F97D3DE12125467800BE4F46 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
+		F97D3DF7212546C400BE4F46 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../../../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		F97D3DFD212546CB00BE4F46 /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../../../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
+		F97D3E062125472000BE4F46 /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../../../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		F98BA248211838580018A4E2 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		F98BA2EC211852FF0018A4E2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../Documents/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
 		F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -603,17 +626,10 @@
 		F9906C7C210F12730027BE82 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../FacebookSDKs-iOS-4.35.0/Bolts.framework"; sourceTree = "<group>"; };
 		F9906C7D210F12730027BE82 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../FacebookSDKs-iOS-4.35.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		F9906CFD211172710027BE82 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
-		F9CDBC1C211D7DD8002617EC /* claro_widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = claro_widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9910EA22125506300E62A9F /* libAppCenterReactNative.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNative.a; path = "../../../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNative.a"; sourceTree = "<group>"; };
+		F9910EDD2125506600E62A9F /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNativeAnalytics.a; path = "../../../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNativeAnalytics.a"; sourceTree = "<group>"; };
+		F9910EDE2125506E00E62A9F /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenterReactNativeCrashes.a; path = "../../../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libAppCenterReactNativeCrashes.a"; sourceTree = "<group>"; };
 		F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		F9CDBC20211D7DD8002617EC /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		F9CDBC23211D7DD8002617EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		F9CDBC25211D7DD8002617EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9CDBC66211D8B95002617EC /* DisplayMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayMode.h; sourceTree = "<group>"; };
-		F9CDBC67211D8BC2002617EC /* DisplayMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplayMode.m; sourceTree = "<group>"; };
-		F9CDBC69211D8BE5002617EC /* Linking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Linking.h; sourceTree = "<group>"; };
-		F9CDBC6A211D8C01002617EC /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
-		F9CDBC6B211D8C21002617EC /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
-		F9CDBC6D211D8C3E002617EC /* Linking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linking.m; sourceTree = "<group>"; };
 		F9CDBC70211D8DEE002617EC /* libDoubleConversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libDoubleConversion.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC72211D8DEE002617EC /* libFolly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFolly.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC74211D8DEE002617EC /* libglog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libglog.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -621,8 +637,6 @@
 		F9CDBC78211D8DEE002617EC /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC7A211D8DEE002617EC /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInteractable.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC7C211D8DEE002617EC /* libnanopb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnanopb.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9CDBC7E211D8DEE002617EC /* libPods-easi6driver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-easi6driver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9CDBC80211D8DEE002617EC /* libPods-easi6driverTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-easi6driverTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC82211D8DEE002617EC /* libProtobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libProtobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC84211D8DEE002617EC /* libreact-native-camera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-camera.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CDBC86211D8DEE002617EC /* libreact-native-google-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-google-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -667,7 +681,7 @@
 		F9CDBCF1211D91A7002617EC /* libprivatedata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprivatedata.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libprivatedata.a"; sourceTree = "<group>"; };
 		F9CDBCF2211D91A7002617EC /* libRCTBackgroundGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTBackgroundGeolocation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTBackgroundGeolocation.a"; sourceTree = "<group>"; };
 		F9CDBCF3211D91A7002617EC /* libRCTGeolocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTGeolocation.a; path = "../../../Library/Developer/Xcode/DerivedData/easi6driver-fmwgfabgkbdcmtcvnruvgooenleg/Build/Products/Debug-iphonesimulator/libRCTGeolocation.a"; sourceTree = "<group>"; };
-		FC87AE0A26DF0CD7A00D3FF7 /* Pods-easi6driver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driver.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver.release.xcconfig"; sourceTree = "<group>"; };
+		FABD76EDCC5C0F9B2F3978EF /* Pods-easi6driverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easi6driverTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-easi6driverTests/Pods-easi6driverTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,8 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				FA47A86B2E6C1857EA939439 /* libPods-easi6driverTests.a in Frameworks */,
-				40B64E71F7AE19D01E80FEBB /* libPods-easi6driverTests.a in Frameworks */,
+				23022169C95D683CB75726CC /* libPods-easi6driverTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,77 +699,74 @@
 			buildActionMask = 2147483647;
 			files = (
 				F98BA2F3211852FF0018A4E2 /* FBSDKCoreKit.framework in Frameworks */,
-				F9906D03211172AF0027BE82 /* libRCTFBSDK.a in Frameworks */,
 				F98BA2F2211852FF0018A4E2 /* FBSDKShareKit.framework in Frameworks */,
-				F9906BC5210B22E00027BE82 /* TodayWidgetExtension.appex in Frameworks */,
+				F9906D03211172AF0027BE82 /* libRCTFBSDK.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				F94BD4D220A941AF0012B27F /* libART.a in Frameworks */,
 				F98BA286211838B30018A4E2 /* libBVLinearGradient.a in Frameworks */,
-				F9906C7E210F12730027BE82 /* FBSDKShareKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				F9906BC5210B22E00027BE82 /* TodayWidgetExtension.appex in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				F9910EE321255A7600E62A9F /* libRNFIRMessaging.a in Frameworks */,
 				F98BA2F1211852FF0018A4E2 /* FBSDKLoginKit.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DD91F989F6DD419E86E459AC /* libReactNativeNavigation.a in Frameworks */,
 				3959CF93AEF842C2B9DABE3A /* libRNI18n.a in Frameworks */,
 				9624804A555E4298B26CB5F4 /* libRCTBackgroundGeolocation.a in Frameworks */,
-				5A8EA2237DE14B7A8F9CC6D4 /* libRNFIRMessaging.a in Frameworks */,
-				D1CE4A5FC4BEB273C305D9F8 /* libPods-easi6driver.a in Frameworks */,
+				F97D3D2A212523AF00BE4F46 /* libAppCenterReactNative.a in Frameworks */,
+				F97D3D2C212523C300BE4F46 /* libAppCenterReactNativeCrashes.a in Frameworks */,
 				B39D7C680AA34ED48EE256B6 /* libAppCenterReactNative.a in Frameworks */,
+				F97D3E0C21254E6000BE4F46 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
 				EFDAA5356D304BB192EF61C0 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
 				7F5DDF7D0A58474C957B352D /* libAppCenterReactNativeCrashes.a in Frameworks */,
-				8045DF22D0E37E67BE0F5A4B /* libPods-easi6driver.a in Frameworks */,
 				4940D3D1E13646FE95D5C494 /* libTcpSockets.a in Frameworks */,
 				D55CFBB788C14289928C310B /* libRNNaverLogin.a in Frameworks */,
-				F9906C80210F12730027BE82 /* Bolts.framework in Frameworks */,
 				F98BA2F0211852FF0018A4E2 /* Bolts.framework in Frameworks */,
+				E8C2B53EA771CE03968EBEA0 /* libPods-easi6driver.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F9CDBC19211D7DD8002617EC /* Frameworks */ = {
+		F97D3C8A212507AD00BE4F46 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9CDBD38211D9844002617EC /* Bolts.framework in Frameworks */,
-				F9CDBD39211D9848002617EC /* FBSDKLoginKit.framework in Frameworks */,
-				F9CDBD28211D952A002617EC /* libRCTWebSocket.a in Frameworks */,
-				F9CDBD37211D9842002617EC /* FBSDKShareKit.framework in Frameworks */,
-				F9CDBD3C211D9A3B002617EC /* FBSDKShareKit.framework in Frameworks */,
-				F9CDBCC6211D8E51002617EC /* NotificationCenter.framework in Frameworks */,
-				F9CDBD3D211D9A3C002617EC /* Bolts.framework in Frameworks */,
-				F9CDBD3A211D9A36002617EC /* FBSDKCoreKit.framework in Frameworks */,
-				F9CDBD3B211D9A37002617EC /* FBSDKLoginKit.framework in Frameworks */,
-				F9CDBD36211D9840002617EC /* FBSDKCoreKit.framework in Frameworks */,
-				F9CDBD17211D94C7002617EC /* libBVLinearGradient.a in Frameworks */,
-				F9CDBD19211D94DC002617EC /* libRCTFBSDK.a in Frameworks */,
-				F9CDBD2E211D95ED002617EC /* libAppCenterReactNative.a in Frameworks */,
-				F9CDBD2D211D95E2002617EC /* libPods-easi6driver.a in Frameworks */,
-				F9CDBD33211D961E002617EC /* libRNNaverLogin.a in Frameworks */,
-				F9CDBD30211D95F1002617EC /* libAppCenterReactNativeCrashes.a in Frameworks */,
-				F9CDBD32211D9614002617EC /* libTcpSockets.a in Frameworks */,
-				F9CDBD2F211D95F0002617EC /* libAppCenterReactNativeAnalytics.a in Frameworks */,
-				F9CDBD31211D95FE002617EC /* libPods-easi6driverTests.a in Frameworks */,
-				F9CDBD1F211D94FA002617EC /* libRCTActionSheet.a in Frameworks */,
-				F9CDBD2C211D95D6002617EC /* libRNFIRMessaging.a in Frameworks */,
-				F9CDBD21211D9506002617EC /* libRCTImage.a in Frameworks */,
-				F9CDBD20211D94FD002617EC /* libRCTGeolocation.a in Frameworks */,
-				F9CDBD22211D950A002617EC /* libRCTLinking.a in Frameworks */,
-				F9CDBD29211D9540002617EC /* libRNI18n.a in Frameworks */,
-				F9CDBD2B211D9572002617EC /* libRCTBackgroundGeolocation.a in Frameworks */,
-				F9CDBD2A211D955A002617EC /* libReactNativeNavigation.a in Frameworks */,
-				F9CDBD24211D9514002617EC /* libRCTSettings.a in Frameworks */,
-				F9CDBD25211D951F002617EC /* libRCTText.a in Frameworks */,
-				F9CDBD23211D950D002617EC /* libRCTNetwork.a in Frameworks */,
-				F9CDBD27211D9527002617EC /* libRCTVibration.a in Frameworks */,
-				F9CDBD1C211D94E8002617EC /* libRCTBlob.a in Frameworks */,
-				F9CDBD1D211D94EC002617EC /* libART.a in Frameworks */,
-				F9CDBD1B211D94E5002617EC /* TodayWidgetExtension.appex in Frameworks */,
+				F97D3C8E212507AE00BE4F46 /* NotificationCenter.framework in Frameworks */,
+				F97D3CB9212515F700BE4F46 /* Bolts.framework in Frameworks */,
+				F97D3D252125175600BE4F46 /* FBSDKShareKit.framework in Frameworks */,
+				F97D3CBA212515F900BE4F46 /* FBSDKCoreKit.framework in Frameworks */,
+				F97D3CBB212515FB00BE4F46 /* FBSDKLoginKit.framework in Frameworks */,
+				F97D3CBC212515FD00BE4F46 /* FBSDKShareKit.framework in Frameworks */,
+				F97D3C9F2125091700BE4F46 /* libBVLinearGradient.a in Frameworks */,
+				F97D3CA12125091F00BE4F46 /* libRCTFBSDK.a in Frameworks */,
+				F97D3CAD2125095800BE4F46 /* libRCTSettings.a in Frameworks */,
+				F97D3D242125175600BE4F46 /* FBSDKLoginKit.framework in Frameworks */,
+				F97D3CA52125093300BE4F46 /* libRCTAnimation.a in Frameworks */,
+				F97D3CAF2125096200BE4F46 /* libRCTVibration.a in Frameworks */,
+				F97D3CA42125092F00BE4F46 /* libART.a in Frameworks */,
+				F97D3CB02125096700BE4F46 /* libRCTWebSocket.a in Frameworks */,
+				F97D3CAA2125094900BE4F46 /* libRCTImage.a in Frameworks */,
+				F97D3CA22125092300BE4F46 /* TodayWidgetExtension.appex in Frameworks */,
+				F97D3D232125175600BE4F46 /* Bolts.framework in Frameworks */,
+				F97D3CA02125091B00BE4F46 /* libRNNaverLogin.a in Frameworks */,
+				F97D3CB22125097000BE4F46 /* libRNI18n.a in Frameworks */,
+				F97D3CAE2125095E00BE4F46 /* libRCTText.a in Frameworks */,
+				F97D3CAB2125095000BE4F46 /* libRCTLinking.a in Frameworks */,
+				F97D3CB82125098400BE4F46 /* libTcpSockets.a in Frameworks */,
+				F97D3D262125175600BE4F46 /* FBSDKCoreKit.framework in Frameworks */,
+				F97D3CA72125093D00BE4F46 /* libRCTActionSheet.a in Frameworks */,
+				F97D3CB32125097400BE4F46 /* libRCTBackgroundGeolocation.a in Frameworks */,
+				F97D3CB12125096C00BE4F46 /* libReactNativeNavigation.a in Frameworks */,
+				F97D3CA32125092700BE4F46 /* libRCTCamera.a in Frameworks */,
+				F97D3CA92125094400BE4F46 /* libRCTGeolocation.a in Frameworks */,
+				F97D3CAC2125095300BE4F46 /* libRCTNetwork.a in Frameworks */,
+				F97D3CA82125094000BE4F46 /* libRCTBlob.a in Frameworks */,
+				F97D3CA62125093800BE4F46 /* libReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +913,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F97D3C6C2122D6DC00BE4F46 /* FacebookSDKStrings.bundle */,
+				F97D3C6D2122D6DD00BE4F46 /* FBNotifications.framework */,
 				F9CDBCE9211D91A6002617EC /* libAppCenterReactNative.a */,
 				F9CDBCD5211D91A3002617EC /* libAppCenterReactNativeAnalytics.a */,
 				F9CDBCEF211D91A7002617EC /* libAppCenterReactNativeCrashes.a */,
@@ -946,8 +958,6 @@
 				F9CDBC78211D8DEE002617EC /* libGoogleToolboxForMac.a */,
 				F9CDBC7A211D8DEE002617EC /* libInteractable.a */,
 				F9CDBC7C211D8DEE002617EC /* libnanopb.a */,
-				F9CDBC7E211D8DEE002617EC /* libPods-easi6driver.a */,
-				F9CDBC80211D8DEE002617EC /* libPods-easi6driverTests.a */,
 				F9CDBC82211D8DEE002617EC /* libProtobuf.a */,
 				F9CDBC84211D8DEE002617EC /* libreact-native-camera.a */,
 				F9CDBC86211D8DEE002617EC /* libreact-native-google-maps.a */,
@@ -960,9 +970,9 @@
 				F98BA2EF211852FF0018A4E2 /* FBSDKCoreKit.framework */,
 				F98BA2ED211852FF0018A4E2 /* FBSDKLoginKit.framework */,
 				F98BA2EE211852FF0018A4E2 /* FBSDKShareKit.framework */,
-				99F9E09DB5891E96C96D67C7 /* libPods-easi6driver.a */,
-				6B6949E4B2C244D6EA1E91B3 /* libPods-easi6driverTests.a */,
 				F9CDBC1D211D7DD8002617EC /* NotificationCenter.framework */,
+				ADEF7C22A80BA4595E9A9371 /* libPods-easi6driver.a */,
+				87F65EBE61706BFE5A77ABAA /* libPods-easi6driverTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -983,14 +993,10 @@
 				F9906C7D210F12730027BE82 /* FBSDKCoreKit.framework */,
 				F9906C7B210F12730027BE82 /* FBSDKLoginKit.framework */,
 				F9906C7A210F12730027BE82 /* FBSDKShareKit.framework */,
-				7C6422E844386F79E6359A0B /* Pods-easi6driver.debug.xcconfig */,
-				FC87AE0A26DF0CD7A00D3FF7 /* Pods-easi6driver.release.xcconfig */,
-				452B86244CD4AA5F32C3DE1B /* Pods-easi6driver-tvOS.debug.xcconfig */,
-				29FB2ECDFE98307E00F0DB62 /* Pods-easi6driver-tvOS.release.xcconfig */,
-				F2F2F146F9E8DCF82FEC5EA2 /* Pods-easi6driver-tvOSTests.debug.xcconfig */,
-				F97D7500EB52ACF8D0FD0173 /* Pods-easi6driver-tvOSTests.release.xcconfig */,
-				83A0F0D68C4640D998F4ADD2 /* Pods-easi6driverTests.debug.xcconfig */,
-				03F1D5525706138B9606AA3A /* Pods-easi6driverTests.release.xcconfig */,
+				C56B72C3D8B633BDB9E39DE4 /* Pods-easi6driver.debug.xcconfig */,
+				9CF458F887E2332E8266C85B /* Pods-easi6driver.release.xcconfig */,
+				CA2BCD2E8E1A6EA0FF521646 /* Pods-easi6driverTests.debug.xcconfig */,
+				FABD76EDCC5C0F9B2F3978EF /* Pods-easi6driverTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1007,6 +1013,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */,
+				F97D3DE12125467800BE4F46 /* RNFIRMessaging.xcodeproj */,
 				F98BA248211838580018A4E2 /* BVLinearGradient.xcodeproj */,
 				F935A9232117DB7E001429A0 /* RNNaverLogin.xcodeproj */,
 				F9906CFD211172710027BE82 /* RCTFBSDK.xcodeproj */,
@@ -1028,9 +1036,7 @@
 				BC8F995DBD73411D95526078 /* ReactNativeNavigation.xcodeproj */,
 				C7086D75432346FDB95F1618 /* RNI18n.xcodeproj */,
 				3E787323292D4FA7950B3CFF /* RCTBackgroundGeolocation.xcodeproj */,
-				A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */,
 				D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */,
-				920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */,
 				3CAF177B531549AE96D05A58 /* AppCenterReactNativeCrashes.xcodeproj */,
 				93B406E7D3FA4D5CAF0595BF /* TcpSockets.xcodeproj */,
 				F85E07CF38D843ED98EE91C3 /* RNNaverLogin.xcodeproj */,
@@ -1053,13 +1059,14 @@
 				13B07FAE1A68108700A75B9A /* easi6driver */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* easi6driverTests */,
-				F9CDBC1F211D7DD8002617EC /* claro_widget */,
+				F97D3C8F212507AE00BE4F46 /* ClaroWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				ECB1B2F91FE9F92400E7AF9D /* Recovered References */,
 				6D539BEB45A90059FF46159A /* Pods */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				481440DD12F04076BFF10E0B /* AppCenter-Config.plist */,
 				16190345D68F4AF3AA71FD75 /* Resources */,
+				F97D3C192122AA0C00BE4F46 /* claro_widget copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1071,7 +1078,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* easi6driver.app */,
 				00E356EE1AD99517003FC87E /* easi6driverTests.xctest */,
-				F9CDBC1C211D7DD8002617EC /* claro_widget.appex */,
+				F97D3C8D212507AD00BE4F46 /* ClaroWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1093,26 +1100,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EC603923200F2832006C0C13 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EC603927200F2833006C0C13 /* libAppCenterReactNativeAnalytics.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		EC603976200F2890006C0C13 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				EC60397A200F2890006C0C13 /* libAppCenterReactNativeCrashes.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		ECAFB7242005B97900B5D76A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				ECAFB7282005B97900B5D76A /* libRNFIRMessaging.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1127,8 +1118,6 @@
 				75357A5D2BCF402D849C221B /* libAppCenterReactNative.a */,
 				7B1B84F6C92845009BC43001 /* libAppCenterReactNativeAnalytics.a */,
 				526C6F0E3F1543299BA84DF1 /* libAppCenterReactNativeCrashes.a */,
-				B595E7C008B76F9B6C3360A8 /* libPods-easi6driver.a */,
-				6139E62BFA28F6E5C4873309 /* libPods-easi6driverTests.a */,
 				7C6814FAF90F43F089E931FC /* libTcpSockets.a */,
 				A5805D9DF8C94448B36FD596 /* libRNNaverLogin.a */,
 				378C3CAF508D4B43BE1DEEC1 /* libRCTFBSDK.a */,
@@ -1194,6 +1183,83 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F97D3C8F212507AE00BE4F46 /* ClaroWidget */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3DDA2125465A00BE4F46 /* Libraries */,
+				F97D3D1E2125173600BE4F46 /* Frameworks */,
+				F97D3C90212507AE00BE4F46 /* TodayViewController.h */,
+				F97D3C91212507AE00BE4F46 /* TodayViewController.m */,
+				F97D3C93212507AE00BE4F46 /* MainInterface.storyboard */,
+				F97D3C96212507AE00BE4F46 /* Info.plist */,
+			);
+			path = ClaroWidget;
+			sourceTree = "<group>";
+		};
+		F97D3D1E2125173600BE4F46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9910EA22125506300E62A9F /* libAppCenterReactNative.a */,
+				F9910EDD2125506600E62A9F /* libAppCenterReactNativeAnalytics.a */,
+				F9910EDE2125506E00E62A9F /* libAppCenterReactNativeCrashes.a */,
+				F97D3DF7212546C400BE4F46 /* AppCenterReactNativeAnalytics.xcodeproj */,
+				F97D3DFD212546CB00BE4F46 /* AppCenterReactNative.xcodeproj */,
+				F97D3E062125472000BE4F46 /* AppCenterReactNativeCrashes.xcodeproj */,
+				F97D3D1F2125175600BE4F46 /* Bolts.framework */,
+				F97D3D222125175600BE4F46 /* FBSDKCoreKit.framework */,
+				F97D3D202125175600BE4F46 /* FBSDKLoginKit.framework */,
+				F97D3D212125175600BE4F46 /* FBSDKShareKit.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		F97D3DDA2125465A00BE4F46 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		F97D3DE22125467800BE4F46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3DE62125467800BE4F46 /* libRNFIRMessaging.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F97D3DEC2125469700BE4F46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3DF02125469700BE4F46 /* libAppCenterReactNativeAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F97D3DF8212546C400BE4F46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3DFC212546C400BE4F46 /* libAppCenterReactNativeAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F97D3DFE212546CB00BE4F46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3E02212546CB00BE4F46 /* libAppCenterReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F97D3E072125472000BE4F46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97D3E0B2125472000BE4F46 /* libAppCenterReactNativeCrashes.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F98BA249211838580018A4E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1227,22 +1293,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F9CDBC1F211D7DD8002617EC /* claro_widget */ = {
-			isa = PBXGroup;
-			children = (
-				F9CDBC20211D7DD8002617EC /* TodayViewController.swift */,
-				F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */,
-				F9CDBC25211D7DD8002617EC /* Info.plist */,
-				F9CDBC66211D8B95002617EC /* DisplayMode.h */,
-				F9CDBC67211D8BC2002617EC /* DisplayMode.m */,
-				F9CDBC69211D8BE5002617EC /* Linking.h */,
-				F9CDBC6D211D8C3E002617EC /* Linking.m */,
-				F9CDBC6A211D8C01002617EC /* TodayViewController.h */,
-				F9CDBC6B211D8C21002617EC /* TodayViewController.m */,
-			);
-			path = claro_widget;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1250,7 +1300,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "easi6driverTests" */;
 			buildPhases = (
-				77C9CA05C6AD9331B6192AAA /* [CP] Check Pods Manifest.lock */,
+				088338899D24A771FC32EA79 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -1269,40 +1319,40 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "easi6driver" */;
 			buildPhases = (
-				3A36A29D90A3B01536B64A19 /* [CP] Check Pods Manifest.lock */,
+				CAFFBFD03563298A12AD9335 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				C30EF3A10F5F405CF050A822 /* [CP] Copy Pods Resources */,
 				F9CDBC63211D7DD9002617EC /* Embed App Extensions */,
+				6A60659ACF2CE1ADA4E65023 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F9CDBC27211D7DD9002617EC /* PBXTargetDependency */,
+				F97D3C98212507AE00BE4F46 /* PBXTargetDependency */,
 			);
 			name = easi6driver;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* easi6driver.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F9CDBC1B211D7DD8002617EC /* claro_widget */ = {
+		F97D3C8C212507AD00BE4F46 /* ClaroWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F9CDBC62211D7DD9002617EC /* Build configuration list for PBXNativeTarget "claro_widget" */;
+			buildConfigurationList = F97D3C9A212507AE00BE4F46 /* Build configuration list for PBXNativeTarget "ClaroWidget" */;
 			buildPhases = (
-				F9CDBC18211D7DD8002617EC /* Sources */,
-				F9CDBC19211D7DD8002617EC /* Frameworks */,
-				F9CDBC1A211D7DD8002617EC /* Resources */,
-				F9CDBC6F211D8D78002617EC /* ShellScript */,
+				F97D3C89212507AD00BE4F46 /* Sources */,
+				F97D3C8A212507AD00BE4F46 /* Frameworks */,
+				F97D3C8B212507AD00BE4F46 /* Resources */,
+				F97D3C9D2125084500BE4F46 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = claro_widget;
-			productName = claro_widget;
-			productReference = F9CDBC1C211D7DD8002617EC /* claro_widget.appex */;
+			name = ClaroWidget;
+			productName = ClaroWidget;
+			productReference = F97D3C8D212507AD00BE4F46 /* ClaroWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1330,9 +1380,8 @@
 							};
 						};
 					};
-					F9CDBC1B211D7DD8002617EC = {
+					F97D3C8C212507AD00BE4F46 = {
 						CreatedOnToolsVersion = 9.3;
-						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1354,8 +1403,20 @@
 					ProjectRef = D08B32778723411A847AE054 /* AppCenterReactNative.xcodeproj */;
 				},
 				{
-					ProductGroup = EC603923200F2832006C0C13 /* Products */;
+					ProductGroup = F97D3DFE212546CB00BE4F46 /* Products */;
+					ProjectRef = F97D3DFD212546CB00BE4F46 /* AppCenterReactNative.xcodeproj */;
+				},
+				{
+					ProductGroup = F97D3DEC2125469700BE4F46 /* Products */;
 					ProjectRef = 920C6744BAC14F209BA5C973 /* AppCenterReactNativeAnalytics.xcodeproj */;
+				},
+				{
+					ProductGroup = F97D3DF8212546C400BE4F46 /* Products */;
+					ProjectRef = F97D3DF7212546C400BE4F46 /* AppCenterReactNativeAnalytics.xcodeproj */;
+				},
+				{
+					ProductGroup = F97D3E072125472000BE4F46 /* Products */;
+					ProjectRef = F97D3E062125472000BE4F46 /* AppCenterReactNativeCrashes.xcodeproj */;
 				},
 				{
 					ProductGroup = EC603976200F2890006C0C13 /* Products */;
@@ -1434,8 +1495,8 @@
 					ProjectRef = BC8F995DBD73411D95526078 /* ReactNativeNavigation.xcodeproj */;
 				},
 				{
-					ProductGroup = ECAFB7242005B97900B5D76A /* Products */;
-					ProjectRef = A3B372DAA8E84736AB5C60B8 /* RNFIRMessaging.xcodeproj */;
+					ProductGroup = F97D3DE22125467800BE4F46 /* Products */;
+					ProjectRef = F97D3DE12125467800BE4F46 /* RNFIRMessaging.xcodeproj */;
 				},
 				{
 					ProductGroup = ECB1B3171FE9F92800E7AF9D /* Products */;
@@ -1462,7 +1523,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* easi6driver */,
 				00E356ED1AD99517003FC87E /* easi6driverTests */,
-				F9CDBC1B211D7DD8002617EC /* claro_widget */,
+				F97D3C8C212507AD00BE4F46 /* ClaroWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -1727,25 +1788,11 @@
 			remoteRef = EC6038C5200F27E3006C0C13 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EC603927200F2833006C0C13 /* libAppCenterReactNativeAnalytics.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAppCenterReactNativeAnalytics.a;
-			remoteRef = EC603926200F2833006C0C13 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		EC60397A200F2890006C0C13 /* libAppCenterReactNativeCrashes.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libAppCenterReactNativeCrashes.a;
 			remoteRef = EC603979200F2890006C0C13 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		ECAFB7282005B97900B5D76A /* libRNFIRMessaging.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFIRMessaging.a;
-			remoteRef = ECAFB7272005B97900B5D76A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ECB1B31B1FE9F92800E7AF9D /* libReactNativeNavigation.a */ = {
@@ -1818,6 +1865,41 @@
 			remoteRef = F97CCA4D2093257B004556CF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F97D3DE62125467800BE4F46 /* libRNFIRMessaging.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFIRMessaging.a;
+			remoteRef = F97D3DE52125467800BE4F46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F97D3DF02125469700BE4F46 /* libAppCenterReactNativeAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeAnalytics.a;
+			remoteRef = F97D3DEF2125469700BE4F46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F97D3DFC212546C400BE4F46 /* libAppCenterReactNativeAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeAnalytics.a;
+			remoteRef = F97D3DFB212546C400BE4F46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F97D3E02212546CB00BE4F46 /* libAppCenterReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNative.a;
+			remoteRef = F97D3E01212546CB00BE4F46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F97D3E0B2125472000BE4F46 /* libAppCenterReactNativeCrashes.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterReactNativeCrashes.a;
+			remoteRef = F97D3E0A2125472000BE4F46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F98BA253211838580018A4E2 /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1886,11 +1968,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F9CDBC1A211D7DD8002617EC /* Resources */ = {
+		F97D3C8B212507AD00BE4F46 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9CDBC24211D7DD8002617EC /* MainInterface.storyboard in Resources */,
+				F97D3C95212507AE00BE4F46 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1909,27 +1991,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh index.widget.js";
 		};
-		3A36A29D90A3B01536B64A19 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-easi6driver-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		77C9CA05C6AD9331B6192AAA /* [CP] Check Pods Manifest.lock */ = {
+		088338899D24A771FC32EA79 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1947,7 +2011,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C30EF3A10F5F405CF050A822 /* [CP] Copy Pods Resources */ = {
+		6A60659ACF2CE1ADA4E65023 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1987,7 +2051,25 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-easi6driver/Pods-easi6driver-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F9CDBC6F211D8D78002617EC /* ShellScript */ = {
+		CAFFBFD03563298A12AD9335 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-easi6driver-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F97D3C9D2125084500BE4F46 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1998,7 +2080,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.widget.js";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2015,19 +2097,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F97D3C742122DFCA00BE4F46 /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F9CDBC18211D7DD8002617EC /* Sources */ = {
+		F97D3C89212507AD00BE4F46 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9CDBC6E211D8C3E002617EC /* Linking.m in Sources */,
-				F9CDBC6C211D8C21002617EC /* TodayViewController.m in Sources */,
-				F9CDBC21211D7DD8002617EC /* TodayViewController.swift in Sources */,
-				F9CDBC68211D8BC2002617EC /* DisplayMode.m in Sources */,
+				F97D3C92212507AE00BE4F46 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2039,10 +2118,10 @@
 			target = 13B07F861A680F5B00A75B9A /* easi6driver */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
-		F9CDBC27211D7DD9002617EC /* PBXTargetDependency */ = {
+		F97D3C98212507AE00BE4F46 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F9CDBC1B211D7DD8002617EC /* claro_widget */;
-			targetProxy = F9CDBC26211D7DD9002617EC /* PBXContainerItemProxy */;
+			target = F97D3C8C212507AD00BE4F46 /* ClaroWidget */;
+			targetProxy = F97D3C97212507AE00BE4F46 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2066,10 +2145,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		F9CDBC22211D7DD8002617EC /* MainInterface.storyboard */ = {
+		F97D3C93212507AE00BE4F46 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F9CDBC23211D7DD8002617EC /* Base */,
+				F97D3C94212507AE00BE4F46 /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -2079,7 +2158,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83A0F0D68C4640D998F4ADD2 /* Pods-easi6driverTests.debug.xcconfig */;
+			baseConfigurationReference = CA2BCD2E8E1A6EA0FF521646 /* Pods-easi6driverTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2124,7 +2203,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03F1D5525706138B9606AA3A /* Pods-easi6driverTests.release.xcconfig */;
+			baseConfigurationReference = FABD76EDCC5C0F9B2F3978EF /* Pods-easi6driverTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -2166,9 +2245,10 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C6422E844386F79E6359A0B /* Pods-easi6driver.debug.xcconfig */;
+			baseConfigurationReference = C56B72C3D8B633BDB9E39DE4 /* Pods-easi6driver.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
@@ -2210,9 +2290,11 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"\"${PODS_ROOT}/Headers/Public/Facebook-iOS-SDK\\\" \"${PODS_ROOT}/Headers/Public/Facebook-iOS-SDK/FacebookSDK\\\"",
 					"\"${PODS_ROOT}/Headers/Public/FBSDKCoreKit\\\" \"${PODS_ROOT}/Headers/Public/FBSDKCoreKit/FBSDKCoreKit\\\"",
+					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 				);
 				INFOPLIST_FILE = easi6driver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2223,15 +2305,17 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC87AE0A26DF0CD7A00D3FF7 /* Pods-easi6driver.release.xcconfig */;
+			baseConfigurationReference = 9CF458F887E2332E8266C85B /* Pods-easi6driver.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = easi6driver/easi6driver.entitlements;
@@ -2272,6 +2356,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"\"${PODS_ROOT}/Headers/Public/Facebook-iOS-SDK\\\" \"${PODS_ROOT}/Headers/Public/Facebook-iOS-SDK/FacebookSDK\\\"",
 					"\"${PODS_ROOT}/Headers/Public/FBSDKCoreKit\\\" \"${PODS_ROOT}/Headers/Public/FBSDKCoreKit/FBSDKCoreKit\\\"",
+					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 				);
 				INFOPLIST_FILE = easi6driver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2285,6 +2370,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -2362,18 +2448,20 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		F9CDBC29211D7DD9002617EC /* Debug */ = {
+		F97D3C9B212507AE00BE4F46 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2393,29 +2481,44 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"~/Documents/FacebookSDK\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/AppCenterReactNativeShared/AppCenterReactNativeShared\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = claro_widget/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+				);
+				INFOPLIST_FILE = ClaroWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.easi6.easi6driver9730.claro-widget";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.easi6.easi6driver9730.ClaroWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
-		F9CDBC2A211D7DD9002617EC /* Release */ = {
+		F97D3C9C212507AE00BE4F46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2435,18 +2538,33 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "\"~/Documents/FacebookSDK\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"~/Documents/FacebookSDK\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/AppCenterReactNativeShared/AppCenterReactNativeShared\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = claro_widget/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+				);
+				INFOPLIST_FILE = ClaroWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.easi6.easi6driver9730.claro-widget";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.easi6.easi6driver9730.ClaroWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -2480,11 +2598,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F9CDBC62211D7DD9002617EC /* Build configuration list for PBXNativeTarget "claro_widget" */ = {
+		F97D3C9A212507AE00BE4F46 /* Build configuration list for PBXNativeTarget "ClaroWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F9CDBC29211D7DD9002617EC /* Debug */,
-				F9CDBC2A211D7DD9002617EC /* Release */,
+				F97D3C9B212507AE00BE4F46 /* Debug */,
+				F97D3C9C212507AE00BE4F46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

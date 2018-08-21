@@ -125,7 +125,7 @@ PODS:
     - React/RCTBlob
   - RNDeviceInfo (0.21.5):
     - React
-  - RNSVG (6.3.1):
+  - RNSVG (6.5.2):
     - React
   - RNVectorIcons (4.6.0):
     - React
@@ -164,7 +164,7 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AppCenter
     - AppCenterReactNativeShared
     - boost-for-react-native
@@ -234,4 +234,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 93a53a81d135911f578cb90909e3808d90d2dc17
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

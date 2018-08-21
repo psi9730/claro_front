@@ -11,6 +11,7 @@ import ClaroTheme from '../../../utils/ClaroTheme';
 import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
+import FlipToggle from 'react-native-flip-toggle-button';
 import mondayIcn from '../../../assets/images/mondayIcn.png';
 import mondayIcnBlue from '../../../assets/images/mondayIcnBlue.png';
 import tuesdayIcn from '../../../assets/images/tuesdayIcn.png';
@@ -223,14 +224,20 @@ class TimerView extends Component<Props, State> {
             </TopTextContainer>
             <RemoteContainer style={{marginTop: 10}}><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
               <TextRightView>
-                <ToggleSwitch
-                  isOn={this.props.isTurnOffActive}
-                  onColor='green'
-                  offColor='gray'
-                  size='small'
+                <FlipToggle
+                  value={this.props.isTurnOffActive}
+                  buttonWidth={70}
+                  buttonHeight={36}
+                  buttonRadius={36}
+                  sliderWidth={30}
+                  sliderHeight={30}
+                  sliderRadius={50}
+                  buttonOnColor="#4CD964"
+                  buttonOffColor="gray"
+                  sliderOnColor="#FFFFFF"
+                  sliderOffColor="#FFFFFF"
                   onToggle={ (isOn) => this.turnOffToggle(isOn)}
                 />
-
               </TextRightView>
             </RemoteContainer>
             {this.props.isTurnOffActive ?
@@ -330,12 +337,19 @@ class TimerView extends Component<Props, State> {
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText>
               </TextLeftView>
               <TextRightView>
-                <ToggleSwitch
-                isOn={this.props.isTurnOnActive}
-                onColor='green'
-                offColor='gray'
-                size='small'
-                onToggle={ (isOn) => this.turnOnToggle(isOn)}
+                <FlipToggle
+                  value={this.props.isTurnOnActive}
+                  buttonWidth={70}
+                  buttonHeight={36}
+                  buttonRadius={36}
+                  sliderWidth={30}
+                  sliderHeight={30}
+                  sliderRadius={50}
+                  buttonOnColor="#4CD964"
+                  buttonOffColor="gray"
+                  sliderOnColor="#FFFFFF"
+                  sliderOffColor="#FFFFFF"
+                  onToggle={ (isOn) => this.turnOnToggle(isOn)}
                 />
               </TextRightView>
             </RemoteContainer>
@@ -523,290 +537,3 @@ class TimerView extends Component<Props, State> {
 }
 
 export default TimerView;
-
-/*     <ThemeProvider theme={ClaroTheme}>
-        <TouchableWithoutFeedback
-          onPress={TimerView.dismissKeyboard}
-        >
-          <Container>
-            <TopTextContainer>
-              <Text>타이머</Text>
-            </TopTextContainer>
-            <RemoteContainer><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
-              <TextRightView>
-                <ToggleSwitch
-                  isOn={this.props.isTurnOffActive}
-                  onColor='green'
-                  offColor='gray'
-                  size='small'
-                  onToggle={ (isOn) => this.turnOffToggle(isOn)}
-                />
-
-              </TextRightView>
-            </RemoteContainer>
-            {this.props.isTurnOffActive ?
-              ( this.props.turnOffHour===1 ?
-                ( <TouchableOpacity onPress={() => this.toggleTurnOffTimer(1)}>
-                  <RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>1시간</RemoteText></TextLeftView>
-                    <TextRightView>
-                      <Image source={checkIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                    </TextRightView>
-                  </RemoteContainer>
-                    <GrayLine/>
-                </TouchableOpacity>
-                )
-                : (<TouchableOpacity onPress={() => this.toggleTurnOffTimer(1)}><RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>1시간</RemoteText></TextLeftView>
-                  </RemoteContainer><GrayLine/></TouchableOpacity>)):null}
-            {this.props.isTurnOffActive ?
-              ( this.props.turnOffHour===2 ?
-                ( <TouchableOpacity onPress={() => this.toggleTurnOffTimer(2)}>
-                  <RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>2시간</RemoteText></TextLeftView>
-                    <TextRightView><Image source={checkIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/></TextRightView></RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)
-                : (<TouchableOpacity onPress={() => this.toggleTurnOffTimer(2)}><RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>2시간</RemoteText></TextLeftView>
-                </RemoteContainer><GrayLine/></TouchableOpacity>)):null}
-            {this.props.isTurnOffActive ?
-              ( this.props.turnOffHour===4 ?
-                ( <TouchableOpacity onPress={() => this.toggleTurnOffTimer(4)}>
-                  <RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>4시간</RemoteText></TextLeftView>
-                    <TextRightView><Image source={checkIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/></TextRightView></RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)
-                : (<TouchableOpacity onPress={() => this.toggleTurnOffTimer(4)}><RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>4시간</RemoteText></TextLeftView>
-                </RemoteContainer><GrayLine/></TouchableOpacity>)):null}
-            {this.props.isTurnOffActive ?
-              ( this.props.turnOffHour===8 ?
-                ( <TouchableOpacity onPress={() => this.toggleTurnOffTimer(8)}>
-                  <RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>8시간</RemoteText></TextLeftView>
-                    <TextRightView><Image source={checkIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/></TextRightView></RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)
-                : (<TouchableOpacity onPress={() => this.toggleTurnOffTimer(8)}><RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>8시간</RemoteText></TextLeftView>
-                </RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)):null}
-            {this.props.isTurnOffActive ?
-              ( this.props.turnOffHour===12 ?
-                ( <TouchableOpacity onPress={() => this.toggleTurnOffTimer(12)}>
-                  <RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>12시간</RemoteText></TextLeftView>
-                    <TextRightView><Image source={checkIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:30,
-                      width:30,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/></TextRightView></RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)
-                : (<TouchableOpacity onPress={() => this.toggleTurnOffTimer(12)}><RemoteContainer><TextLeftView><RemoteText style={{color : 'black'}}>12시간</RemoteText></TextLeftView>
-                </RemoteContainer>
-                  <GrayLine/>
-                </TouchableOpacity>)):null}
-            <RemoteContainer><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText></TextLeftView>
-              <TextRightView>
-                <ToggleSwitch
-                isOn={this.props.isTurnOnActive}
-                onColor='green'
-                offColor='gray'
-                size='small'
-                onToggle={ (isOn) => this.turnOnToggle(isOn)}
-                />
-              </TextRightView></RemoteContainer>
-            {this.props.isTurnOnActive && Platform.OS==='ios' ?   (this.props.turnOnHour &&<DatePickerIOS
-              date={this.props.turnOnHour}
-              onDateChange={this.setHour}
-              mode={"time"}
-            />) : (null)}
-            {this.props.isTurnOnActive && Platform.OS==='android' ?   (<DatePicker
-              onValueChange={value => this.setHour(value)}
-              mode={"time"}
-            />) : (null)}
-            {this.props.isTurnOnActive ?   (
-              <IconContainer>
-              <TouchableOpacity onPress={() => this.setDay("monday")}>
-                {  _.get(this.props.turnOnDay,'monday')===true ?
-                  <Image source={mondayIcnBlue} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height: 50,
-                    width: 50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/> :<Image source={mondayIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height: 50,
-                    width: 50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/>
-                }
-              </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("tuesday")}>
-                  {  _.get(this.props.turnOnDay,'tuesday')===true ?
-                    <Image source={tuesdayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> :   <Image source={tuesdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("wednesday")}>
-                  { _.get(this.props.turnOnDay,'wednesday')===true ?
-                    <Image source={wednesdayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> :   <Image source={wednesdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("thursday")}>
-                  { _.get(this.props.turnOnDay,'thursday')===true ?
-                    <Image source={thursdayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> :   <Image source={thursdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("friday")}>
-                  {  _.get(this.props.turnOnDay,'friday')===true ?
-                    <Image source={fridayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> : <Image source={fridayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("saturday")}>
-                  {  _.get(this.props.turnOnDay,'saturday')===true ?
-                    <Image source={saturdayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> :   <Image source={saturdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setDay("sunday")}>
-                  {  _.get(this.props.turnOnDay,'sunday') ===true?
-                    <Image source={sundayIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/> :   <Image source={sundayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  }
-                </TouchableOpacity>
-              </IconContainer>
-            ) : (null)}
-          </Container>
-        </TouchableWithoutFeedback>
-      </ThemeProvider>*/

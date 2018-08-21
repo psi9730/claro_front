@@ -3,9 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>App Trasnport Security Settings</key>
-	<dict/>
-	<key>Allow Arbitrary Loads</key>
-	<true/>
+	<dict>
+		<key>Allow Arbitrary Loads</key>
+		<true/>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

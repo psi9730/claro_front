@@ -253,6 +253,7 @@ export const FACEBOOK_SIGNUP_SCREEN = {
   screen: 'claro.FacebookSignupScreen',
   navigatorStyle: {},
   navigatorButtons: {
+    leftButtons: [goBack],
   },
 };
 
@@ -420,7 +421,7 @@ export function startApp() {
       }
     }
 
-    AppRegistry.registerComponent('claro_widget', () => Widget);
+    AppRegistry.registerComponent('TodayWidgetExtension', () => Widget);
     const token = await getAuthenticationToken();
     const refreshToken = token && token.refreshToken;
     console.log('refreshToken',refreshToken);

@@ -108,7 +108,10 @@ class WifiMainView extends Component<Props, State> {
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
       })}).catch((e) => console.log(e))
-    ).catch(e => toast("Please turn on the Wifi", 'error'));
+    ).catch(e => {
+      this.setState({error: "Please turn on the Wifi"})
+      toast("Please turn on the Wifi", 'error')
+    });
   }
   goWifiGuideView(){
     Keyboard.dismiss();

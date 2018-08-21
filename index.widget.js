@@ -8,5 +8,5 @@ const TodayWidget = () => (
   </View>
 )
 if (Platform.OS === 'ios') {
-  AppRegistry.registerComponent('claro_widget', () => TodayWidget)
+  AppRegistry.registerComponent('TodayWidgetExtension', () => TodayWidget)
 }

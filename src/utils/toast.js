@@ -8,7 +8,7 @@ export default toast = (message, type, options) => {
         animation: false,
         hideOnPress: true,
         delay: 0,
-        backgroundColor: 'red',
+        backgroundColor: '#FF6174',
         ...(options ? options : {}),
       });
       break;
@@ -18,7 +18,7 @@ export default toast = (message, type, options) => {
         animation: false,
         hideOnPress: true,
         delay: 0,
-        backgroundColor: 'red',
+        backgroundColor: '#FF6174',
       })
   }
 };
