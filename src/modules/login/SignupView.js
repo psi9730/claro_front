@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import {Modal,
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform,
-  TouchableWithoutFeedback, Linking, WebView, TouchableHighlight
+  TouchableWithoutFeedback, Linking, WebView, TouchableHighlight, ScrollView
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -36,23 +36,24 @@ const LoginText = styled.Text`
 `;
 const IntroduceText = styled.Text`
   align-self: flex-start;
-  font-size: 15px;
+  font-size: 16px;
   color: gray;
   margin-bottom: 3px;
   margin-top:3px;
   
 `;
 const ButtonText = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   color: white;
 `;
 
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
-  margin-bottom: 5px;
+  height: 46px;
+  margin-bottom: 14px;
   background-color: #00CC39;
   display:flex;
   flex-direction: row;
@@ -265,12 +266,13 @@ class SignupView extends Component<Props, State> {
   render() {
 
     return (
+      <ScrollView>
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
           onPress={SignupView.dismissKeyboard}
         >
           <Container>
-            <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+            <LoginText style={{fontSize: 20, color: 'black', fontWeight:'bold'}}>
               회원 가입
             </LoginText>
             <IntroduceText>
@@ -307,10 +309,7 @@ class SignupView extends Component<Props, State> {
               onPress={this._fbAuth}
             >
               <TextContainer>
-                <Image source={circle} resizeMode='center' style={{height:30, width:30, margin:10}}/>
-              </TextContainer>
-              <TextContainer>
-                <Image source={facebook} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+                <Image source={facebook} resizeMode='center' style={{backgroundColor: 'transparent', height:30, width:30, margin:10}}/>
               </TextContainer>
               <TextLeftContainer>
                 <ButtonText style={{alignSelf: 'center'}}>
@@ -333,7 +332,7 @@ class SignupView extends Component<Props, State> {
             <View style={{  flexGrow:1,
                     flexShrink:1,
                     flexBasis: 'auto',display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
-            <LoginText style={  {textDecorationLine:'underline',   flexGrow:0, color:'black',alignSelf: 'center',
+            <LoginText style={  {textDecorationLine:'underline',  fontSize:14, flexGrow:0, color:'black',alignSelf: 'center',
               flexShrink:0,
               flexBasis: 'auto'}}  onPress={()=>this.props.navigator.push({...LOGIN_SCREEN})}>
               로그인
@@ -342,6 +341,7 @@ class SignupView extends Component<Props, State> {
           </Container>
         </TouchableWithoutFeedback>
       </ThemeProvider>
+      </ScrollView>
     );
   };
 }

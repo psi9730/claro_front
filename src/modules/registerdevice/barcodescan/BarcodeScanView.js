@@ -58,7 +58,6 @@ class BarcodeScanView extends Component<Props, State> {
     super(props);
     this.camera = null;
     autoBind(this);
-    NavigationStyleWrapper(this.props.navigator,'light','transparent','transparent',true,true,'white','white')
   }
   state: State = {
     camera: {
@@ -70,7 +69,9 @@ class BarcodeScanView extends Component<Props, State> {
     },
     isRecording: false,
   };
-
+  componentWillMount(){
+    NavigationStyleWrapper(this.props.navigator,'light','transparent','transparent',true,true,'white','white')
+  }
   onBarcodeRead(e) {
     this.props.updateBarcode(e);
     this.props.navigator.push({

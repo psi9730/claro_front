@@ -46,15 +46,14 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
+  margin-bottom: 40px;
   margin-top:18px;
 `;
 const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: black;
-  margin-bottom: 5px;
-  margin-top:3px;
+  margin-bottom: 17px;
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
@@ -63,7 +62,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -126,7 +125,7 @@ class HomeNumberEditView extends Component<Props, State> {
               전화번호 수정
             </TitleText>
             </View>
-            <IntroduceText style={{color: 'gray'}}>
+            <IntroduceText style={{opacity:0.4}}>
              전화번호
             </IntroduceText>
             <TextsBoxInput
@@ -135,7 +134,7 @@ class HomeNumberEditView extends Component<Props, State> {
               onChangeText={(homeNumber)=>this.setState({homeNumber: homeNumber})}
               value={this.state.homeNumber}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{marginBottom: 25, fontSize: 18, paddingRight: 4, paddingBottom:12}}
               blurOnSubmit={true}
             />
 

@@ -131,7 +131,7 @@ class NicknameView extends Component<Props, State> {
               {this.props.deviceInfo.modelName}
             </IntroduceText>
             <IntroduceText>
-              {'\n\n제품의 별명을 입력하십시오.\n (동일 모델 제품을 여러대 등록하실 경우 편리하게 구분 하실 수 있습니다.\n 예: 거실/안방 등)\n\n별명을 등록하지 않을 경우 제품명으로 표기 됩니다.'}
+              {'\n\n제품의 별명을 입력하십시오.\n(동일 모델 제품을 여러대 등록하실 경우 편리하게 구분 하실 수 있습니다.\n 예: 거실/안방 등)\n\n별명을 등록하지 않을 경우 제품명으로 표기 됩니다.'}
             </IntroduceText>
             <TextsBoxInput
               underlineColorAndroid="transparent"
@@ -149,7 +149,7 @@ class NicknameView extends Component<Props, State> {
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    등록완료
+                    다음
                   </ButtonText>
                 </TextCenterContainer>
               </NavButton>

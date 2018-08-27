@@ -400,10 +400,10 @@ export function startApp() {
     class Widget extends Component {
       onLayout = (event) => {
         const height = event.nativeEvent.layout.height;
-        if (height == 110) {
+        if (height === 110) {
           // widget is in compact mode
         }
-        else if (height == 300) {
+        else if (height === 300) {
           // widget is in expanded mode
         }
       }
@@ -424,8 +424,7 @@ export function startApp() {
     AppRegistry.registerComponent('TodayWidgetExtension', () => Widget);
     const token = await getAuthenticationToken();
     const refreshToken = token && token.refreshToken;
-    console.log('refreshToken',refreshToken);
-    let firstScreen = {...SIGNUP_SCREEN};
+    let firstScreen = {...LOGIN_SCREEN};
     if (token && token.accessToken) {
       firstScreen = {...REMOTE_SCREEN};
     }
@@ -444,7 +443,7 @@ export function startApp() {
       screen: firstScreen,
       drawer: { // optional, add this if you want a side menu drawer in your app
         left: {...DRAWER_SCREEN
-          ,fixedWidth: 700
+          ,fixedWidth: 400
         },
         style: { // ( iOS only )
           drawerShadow: false, // optional, add this if you want a side menu drawer shadow

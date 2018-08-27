@@ -6,6 +6,9 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import Claro6Theme from '../../utils/ClaroTheme';
+import Modal from 'react-native-modal';
+import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
+import exitIcnRed from '../../assets/images/exitIcnRed.png';
 type Props = {
   t: Function,
   me: ?{
@@ -93,7 +96,7 @@ const BottomButtonView = styled.View`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -115,6 +118,45 @@ const ButtonText = styled.Text`
   font-size: 15px;
   color: white;
 `;
+const ModalView2= styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis:auto;
+    border-radius:30;
+    border-width: 1;
+    border-color: white;
+    width:90%;
+    display:flex;
+    flex-direction:column;
+    background-color:white;
+`;
+const ModalContainer = styled.View`
+    flex-grow:3;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: center;
+    align-items: center;
+`;
+const ModalView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 180px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+const BottomButtonRowView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: space-around;
+    align-items: center;
+`;
 class DrawerView extends Component<Props> {
   constructor(props: Object) {
     super(props);
@@ -122,9 +164,14 @@ class DrawerView extends Component<Props> {
     this.state={
       nickname: '',
       modelName: '',
+      modalVisible: false,
     }
   }
   componentWillMount(){
+  }
+  Logout(){
+    this.setState({modalVisible: false})
+    this.props.logout();
   }
 
   render() {
@@ -158,9 +205,10 @@ class DrawerView extends Component<Props> {
                     </RowText>
                   </TextLeftView>
                   <TextRightView>
-                    <RowText style={{color: 'blue', fontSize:15}}>
-                    {this.props.nickname}  {this.props.deviceInfo.modelName}
-                    </RowText>
+                    {this.props.nickname ?
+                    <RowText style={{color: '#2dc3e8', fontSize:15}}>
+                    {this.props.nickname}  ({this.props.deviceInfo.modelName})
+                    </RowText> : null}
                   </TextRightView>
                 </RowContainer>
               </TouchableOpacity>
@@ -178,11 +226,32 @@ class DrawerView extends Component<Props> {
                 내 정보 관리
               </MenuText>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.logout()}>
+            <TouchableOpacity onPress={() => this.setState({modalVisible: true})}>
               <MenuText>
                 로그아웃
               </MenuText>
             </TouchableOpacity>
+            <Modal
+              isVisible={this.state.modalVisible}
+              onBackdropPress={() => this.setState({modalVisible: false})}
+            >
+              <ModalView style={{marginTop: 22}}>
+                <ModalView2>
+                  <ModalContainer>
+                    <Text>{'로그아웃 하시겠습니까?'}</Text>
+                  </ModalContainer>
+                  <GrayLine/>
+                  <BottomButtonRowView>
+                    <TouchableHighlight onPress={()=> this.Logout()} >
+                      <Image source={circleIcnBlue} resizeMode='stretch' style={{height:25, width:25}}/>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={()=> this.setState({modalVisible: false})} >
+                      <Image source={exitIcnRed} resizeMode='stretch' style={{height:25, width:25}}/>
+                    </TouchableHighlight>
+                  </BottomButtonRowView>
+                </ModalView2>
+              </ModalView>
+            </Modal>
             <TouchableOpacity onPress={() => this.props.goToSetting()}>
               <MenuText>
                 설정

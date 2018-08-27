@@ -14,11 +14,17 @@ import * as Progress from 'react-native-progress';
 import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
 import exitIcnRed from '../../assets/images/exitIcnRed.png';
 import NavigationStyleWrapper from '../../utils/NavigationStyleWrapper';
+import Pie from 'react-native-pie';
+import Fill from '../../assets/images/Fill.png';
+import Picker from 'react-native-wheel-picker'
+var PickerItem = Picker.Item;
 type Props = {
   filterMaxTime: number,
   filterUsingTime: number,
   url: string,
   filterTimeResetRequest: Function,
+  usingDay: number,
+  usingMonth: number
 };
 
 type State = {
@@ -41,7 +47,8 @@ const ButtonView = styled.View`
     flex-basis: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 60px;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -50,7 +57,7 @@ const ButtonText = styled.Text`
 `;
 
 const TitleText = styled.Text`
-  font-size: 21px;
+  font-size: 20px;
   font-weight: bold;
 `;
 
@@ -58,9 +65,11 @@ const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
   border-width: 1;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
+  margin-right: 15px;
+  margin-left: 15px;
   background-color: white;
   display:flex;
   flex-direction: row;
@@ -150,9 +159,9 @@ class FilterView extends Component<Props, State> {
       modalVisible: false,
       resetVisible: false,
       progress:0,
-      usingDay: Math.ceil(this.props.filterUsingTime/720),
-      usingMonth: Math.ceil(this.props.filterUsingTime/21600)
     }
+  }
+  componentWillMount(){
   }
 
   setModalVisible(visible) {
@@ -160,13 +169,12 @@ class FilterView extends Component<Props, State> {
   }
 
   setResetVisible(visible){
-    console.log(visible,"resetVisible");
     this.setState({resetVisible: visible})
   }
 
   filterTimeReset(){
     this.props.filterTimeResetRequest(0,this.props.barcode).then(()=>
-    this.setResetVisible(!this.state.resetVisible)).then(()=> this.forceUpdate())
+    this.setResetVisible(!this.state.resetVisible)).then(()=> this.forceUpdate()).catch((e)=>console.log(e))
   }
   componentWillReceiveProps(){
 
@@ -179,9 +187,47 @@ class FilterView extends Component<Props, State> {
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
-
+  /*
+    {
+                  percent <= 0.5 ?
+                    <Pie
+                      radius={175}
+                      innerRadius={88}
+                      series={[40-percent*80,percent*80,60]}
+                      colors={['rgba(0, 0, 0, 0.1)','#59e3f5','rgba(0,0,0,0.1)']}
+                      backgroundColor='#ddd' /> : ( percent <= 1 ?
+                    <Pie
+                      radius={175}
+                      innerRadius={88}
+                      series={[40,100-percent*80, percent*80-40]}
+                      colors={['#59e3f5','rgba(0, 0, 0, 0.1)','#59e3f5']}
+                      backgroundColor='#ddd' /> :  <Pie
+                        radius={175}
+                        innerRadius={88}
+                        series={[100]}
+                        colors={['rgba(0, 0, 0, 0.1)']}
+                        backgroundColor='#ddd' />
+                    )
+                }
+   */
 
   render() {
+    console.log("filterUsingTime",this.props.filterUsingTime,"filterMaxTime",this.props.filterMaxTime);
+    const percent = 0.8; //this.props.filterUsingTime/this.props.filterMaxTime
+    const Color = Array.from(Array(100).keys(), i =>{     const r = (89-45)/100;
+    const g = (227-195)/100;
+    const b = (245-232)/100;
+    return `rgba(${Math.ceil(89-r*i)}, ${Math.ceil(227-g*i)}, ${Math.ceil(245-b*i)},1`});
+    const Series = Array.from(Array(100).keys(), i =>{      return percent*80/100;});
+    const UpColor =  Array.from(Array(100).keys(), i =>{     const r = (45-89)/100;
+      const g = (195-227)/100;
+      const b = (232-245)/100;
+      return `rgba(${Math.ceil(45-r*i)}, ${Math.ceil(195-g*i)}, ${Math.ceil(232-b*i)},1`});
+    const Series40 = Array.from(Array(100).keys(), i =>{      return 0.4;});
+    const UpSeries = Array.from(Array(100).keys(), i =>{      return (percent*80-40)/100;});
+    console.log([40-percent*80].concat(Series).concat(60));
+    console.log(Color,'color');
+    console.log(Series,'series');
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -191,8 +237,54 @@ class FilterView extends Component<Props, State> {
             <TopTextContainer>
               <TitleText> 필터 관리</TitleText>
             </TopTextContainer>
-            <ButtonView>
-              <Progress.Circle size={100} progress={ this.props.filterUsingTime/this.props.filterMaxTime} showsText={true} formatText={(progress) => { return (`${this.props.filterUsingTime}분`)}}/>
+            <ButtonView  >
+              <View style={{position:'absolute',   top: 0,
+                }}>
+                {
+                  percent <= 0.5 ?
+                    <Pie
+                      radius={175}
+                      innerRadius={88}
+                      series={[40-percent*80].concat(Series).concat(60)}
+                      colors={['rgba(0, 0, 0, 0.1)'].concat(Color).concat('rgba(0, 0, 0, 0.1)')}
+                      backgroundColor='#ddd' /> : ( percent <= 1 ?
+                    <Pie
+                      radius={175}
+                      innerRadius={88}
+                      series={Array().concat(Series40).concat(100-percent*80).concat(UpSeries)}
+                      colors={Array().concat(Color).concat('rgba(0,0,0,0.1)').concat(UpColor)}
+                      backgroundColor='#ddd' /> :  <Pie
+                        radius={175}
+                        innerRadius={88}
+                        series={[100]}
+                        colors={['rgba(0, 0, 0, 0.1)']}
+                        backgroundColor='#ddd' />
+                    )
+                }
+              </View>
+              <Image source={Fill} style={{
+                height:240,
+                width: 350,
+                resizeMode: 'stretch'
+              }}/>
+              <View style={{position:'absolute', flexBasis: 'auto', height:100, top: 110, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
+              }}>
+                { percent <= 1 ?
+                  <View style={{display:'flex', flexDirection: 'column', justifyContent: 'center', alignSelf:'center'}}>
+                    <Text style={{fontSize: 18,  textAlign: 'center'}}>
+                        필터 사용 시간
+                    </Text>
+                    <Text style={{ color: '#59e3f5', fontSize: 46, textAlign: 'center', fontWeight: 'bold'}}>
+                      {Math.ceil((this.props.usingMonth))} M {Math.ceil((this.props.usingDay))} D
+                    </Text>
+                  </View> :
+                  <View style={{display:'flex', flexDirection: 'column', justifyContent: 'center', alignSelf:'center'}}>
+                    <Text style={{ color: '#59e3f5', fontSize: 35, textAlign: 'center', fontWeight: 'bold'}}>
+                      필터를 교체해 주세요
+                    </Text>
+                  </View>}
+              </View>
+              <View style={{backgroundColor: 'white', width: '100%', height: 150}}/>
             </ButtonView>
             <Modal
               isVisible={this.state.resetVisible}

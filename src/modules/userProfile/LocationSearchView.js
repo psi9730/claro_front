@@ -143,7 +143,7 @@ class LocationSearchView extends Component<Props, State> {
               주소찾기
             </TitleText></View>
             <RemoteContainer><ContentTextInput value={this.state.search}  onChangeText={(search)=>this.setState({search: search})} editable={true}/>
-                <TouchableOpacity onPress={() => this.search(this.state.search)} style={{flexGrow:0, flexShrink:0, flexBasis:'auto', borderBottomWidth: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity onPress={() => this.search(this.state.search)} style={{flexGrow:0, flexShrink:0, flexBasis:'auto', paddingRight: 4,borderBottomWidth: 1, justifyContent: 'center', paddingBottom: 12, alignItems: 'center'}}>
                   <Image source={searchIcn} style={{
                     flexGrow: 0,
                     flexShrink: 0,

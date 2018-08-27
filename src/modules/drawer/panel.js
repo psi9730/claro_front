@@ -56,7 +56,6 @@ class Panel extends Component<Props>{
     this.setState({
       expanded : !this.state.expanded,
     }, () => {
-      console.log(this.state.expanded,this.state.title,this.state.maxHeight,this.state.minHeight,'change expanded')
     });
     this.state.animation.setValue(initialValue);
     Animated.spring(
@@ -92,7 +91,6 @@ class Panel extends Component<Props>{
         minHeight: event.nativeEvent.layout.height
       }, ()=> setTimeout((function() {
         if (this.state.minHeight && this.state.first && this.state.maxHeight) {
-          console.log(this.state.first,"first!!");
           if (this.state.expanded === true) {
             this.toggle();
             this.setState({first: false});

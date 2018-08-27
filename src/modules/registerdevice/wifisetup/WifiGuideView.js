@@ -136,8 +136,8 @@ class WifiGuideView extends Component<Props, State> {
             <TitleText style={{color: 'gray', alignSelf: 'center'}}>가이드 예시 이미지</TitleText>
             <Image source={WifiGuide} resizeMode='center' style={{alignSelf: 'center',flex:1}}/>
             {!this.state.isError ? (
-                <TitleText style={{color: 'black', alignSelf: 'center'}}>본체의 전원버튼을 녹색이 깜빡일때까지 계속 누르십시오.</TitleText>)
-              : ( <TitleText style={{color: 'red', alignSelf: 'center'}}>본체의 전원버튼을 녹색이 깜빡일때까지 계속 누르시거나 S/N번호를 정확히 입력하셨는지 확인해주세요</TitleText>)
+                <TitleText style={{color: 'black', alignSelf: 'center'}}>{'본체의 전원버튼을\n 녹색이 깜빡일때까지 계속 누르십시오.'}</TitleText>)
+              : ( <TitleText style={{color: 'red', alignSelf: 'center'}}>{'본체의 전원버튼을\n 녹색이 깜빡일때까지 계속 누르시거나 S/N번호를 정확히 입력하셨는지 확인해주세요'}</TitleText>)
             }
             <BottomButtonView>
               <NavButton

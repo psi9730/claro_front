@@ -103,11 +103,11 @@ class WifiSetUpView extends Component<Props, State> {
 
   sendWifi() {
     if (this.props.ssid == null || this.props.ssid === '') {
-      toast(this.props.t('enter_your_ssid'),'error');
+      this.setState({isError:true});
       return;
     }
     if (this.props.password == null || this.props.password === '') {
-      toast(this.props.t('enter_your_password'),'error');
+      this.setState({isError:true});
       return;
     }
     Keyboard.dismiss();

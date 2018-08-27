@@ -5,6 +5,8 @@ import {Button, Image, Keyboard, StyleSheet, Modal, Text, TextInput,
   ScrollView, TouchableOpacity, View, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
+import checkBoxN from '../../assets/images/checkboxN.png';
+import checkBoxS from '../../assets/images/checkboxS.png';
 import { CheckBox } from 'react-native-elements'
 import {CLARO_SIGNUP_SCREEN,PERSONAL_INFO_SCREEN,TERM_OF_USE_SCREEN, NAVER_SIGNUP_SCREEN, FACEBOOK_SIGNUP_SCREEN} from '../../../screens';
 type State = {
@@ -31,15 +33,22 @@ const ButtonText = styled.Text`
   font-size: 15px;
 `;
 const NavButton = styled.TouchableOpacity`
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const NavButton2 = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: auto;
+  height: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
   display:flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 `;
 const CheckBoxView = styled.View`
@@ -47,7 +56,12 @@ const CheckBoxView = styled.View`
   flex-shrink:0;
   flex-basis: auto;
   width: 100%;
-  margin-bottom: 5px;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const CheckBoxView2 = styled.View`
   display:flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -81,9 +95,10 @@ const CheckBoxContainer = styled.View`
     align-items: flex-start;
 `;
 const GrayLine = styled.View`
-  height: 1px;
+  height: 2px;
   width: 100%;
-  background-color: gray;
+  background-color: black;
+  opacity: 0.15;
 `;
 class AcceptSignupView extends Component<Props, State> {
   state = {
@@ -160,29 +175,35 @@ class AcceptSignupView extends Component<Props, State> {
   render() {
     return (
           <Container>
-            <LoginText style={{fontSize: 25, color: 'black', fontWeight:'bold'}}>
+            <LoginText style={{marginBottom: 40, fontSize: 20, color: 'black', fontWeight:'bold'}}>
               약관동의
             </LoginText>
-            <CheckBox
-              title='클라로의 모든 약관을 확인하고 전체 동의합니다'
-              containerStyle={{backgroundColor: 'white', flex:0, width: '100%',borderColor:'white' }}
-              checked={this.state.checked1}
-              uncheckedColor='black'
-              checkedColor='black'
-              onPress={()=>this.onChangeCheckBox1()}
-            />
+            <CheckBoxView style={{marginBottom:25}}
+            >
+              <CheckBoxView2>
+                <NavButton onPress={()=> this.onChangeCheckBox1()}>
+                  {this.state.checked1===false ? <Image source={checkBoxN} resizeMode='center' style={{height:30, width:30}}/>
+                    :  <Image source={checkBoxS} resizeMode='center' style={{height:30, width:30}}/>
+                  }
+                </NavButton>
+                <Text style={{fontSize:15}}>클라로의 모든 약관을 확인하고 전체 동의합니다.</Text>
+              </CheckBoxView2>
+            </CheckBoxView>
             <GrayLine/>
-            <CheckBoxView
+            <CheckBoxView style={{marginTop:25, marginBottom: 17,}}
             >
               <CheckBoxContainer>
-                <CheckBox
-                  title='(필수) 이용약관 동의'
-                  containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
-                  checked={this.state.checked2}
-                  uncheckedColor='black'
-                  checkedColor='black'
-                  onPress={()=>this.onChangeCheckBox2()}
-                />
+                <CheckBoxView
+                >
+                  <CheckBoxView2>
+                    <NavButton onPress={()=> this.onChangeCheckBox2()}>
+                      {this.state.checked2===false ? <Image source={checkBoxN} resizeMode='center' style={{height:30, width:30}}/>
+                        :  <Image source={checkBoxS} resizeMode='center' style={{height:30, width:30}}/>
+                      }
+                    </NavButton>
+                    <Text style={{fontSize:15}}>(필수) 이용약관 동의</Text>
+                  </CheckBoxView2>
+                </CheckBoxView>
               </CheckBoxContainer>
               <TextLeftContainer>
                 <ButtonText style={{alignSelf: 'flex-end', textDecorationLine:'underline'}} onPress={()=>this.props.navigator.push({
@@ -414,17 +435,20 @@ class AcceptSignupView extends Component<Props, State> {
 1. 이 약관은 년 월 일부터 적용됩니다.`}</Text>
               </ScrollView>
             </View>
-            <CheckBoxView
+            <CheckBoxView style={{marginTop: 30, marginBottom:20}}
             >
               <CheckBoxContainer>
-                <CheckBox
-                  title='(필수) 개인정보 수집 및 이용'
-                  containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
-                  checked={this.state.checked3}
-                  uncheckedColor='black'
-                  checkedColor='black'
-                  onPress={()=>this.onChangeCheckBox3()}
-                />
+                <CheckBoxView
+                >
+                  <CheckBoxView2>
+                    <NavButton onPress={()=> this.onChangeCheckBox3()}>
+                      {this.state.checked3===false ? <Image source={checkBoxN} resizeMode='center' style={{height:30, width:30}}/>
+                        :  <Image source={checkBoxS} resizeMode='center' style={{height:30, width:30}}/>
+                      }
+                    </NavButton>
+                    <Text style={{fontSize:15}}>(필수) 개인정보 수집 및 이용</Text>
+                  </CheckBoxView2>
+                </CheckBoxView>
               </CheckBoxContainer>
               <TextLeftContainer>
                 <ButtonText style={{alignSelf: 'flex-end', fontWeight:'bold',textDecorationLine:'underline'}} onPress={()=>  this.props.navigator.push({
@@ -434,7 +458,7 @@ class AcceptSignupView extends Component<Props, State> {
                 </ButtonText>
               </TextLeftContainer>
             </CheckBoxView>
-            <View style={{flex:1, alignSelf: 'stretch', padding: 12, paddingBottom:0,marginBottom:15, paddingTop:0, borderWidth:1, borderColor:'gray'}}>
+            <View style={{flex:1, alignSelf: 'stretch', padding: 12, paddingBottom:0,marginBottom:30, paddingTop:0, borderWidth:1, borderColor:'gray'}}>
               <ScrollView style={ {flexGrow:1, paddingTop:3}} contentContainerStyle={{flexGrow: 1}}>
                <Text>
                  {`
@@ -453,7 +477,7 @@ class AcceptSignupView extends Component<Props, State> {
                </Text>
               </ScrollView>
             </View>
-            <NavButton
+            <NavButton2
               style={{alignSelf: 'center', backgroundColor: 'white',borderWidth: 1 }}
               onPress={()=> this.goToClaroSignup()
               }
@@ -463,7 +487,7 @@ class AcceptSignupView extends Component<Props, State> {
                   다음단계
                 </ButtonText>
               </TextLeftContainer>
-            </NavButton>
+            </NavButton2>
           </Container>
     );
   }

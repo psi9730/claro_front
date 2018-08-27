@@ -137,7 +137,7 @@ class RegisterCompleteView extends Component<Props, State> {
               >
                 <TextCenterContainer>
                   <ButtonText style={{alignSelf: 'center', color:'black'}}>
-                    다음
+                    등록완료
                   </ButtonText>
                 </TextCenterContainer>
               </NavButton>

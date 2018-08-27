@@ -34,7 +34,7 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   margin-top:18px;
 `;
 const IntroduceText = styled.Text`
@@ -51,7 +51,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -114,11 +114,11 @@ class PasswordCheckView extends Component<Props, State> {
           onPress={PasswordCheckView.dismissKeyboard}
         >
           <Container>
-            <View><TitleText style={{color:'black',fontSize: 25, fontWeight:'bold'}} >
+            <View><TitleText style={{color:'black',fontSize: 24, marginBottom:40, fontWeight:'bold'}} >
               비밀번호 수정
             </TitleText>
               <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 고객님의 정보수정을 위해</TitleText>   <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 다시 한번 비밀번호를 입력해 주시기 바랍니다.</TitleText></View>
-            <IntroduceText style={{color: 'gray'}}>
+            <IntroduceText style={{opacity: 0.4, marginTop: 40}}>
               비밀번호 재입력
             </IntroduceText>
             <TextsBoxInput
@@ -128,7 +128,7 @@ class PasswordCheckView extends Component<Props, State> {
               onChangeText={(password)=>this.setState({password: password})}
               value={this.state.password}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{marginBottom: 25, fontSize: 18, paddingBottom:12,paddingRight: 4}}
               blurOnSubmit={true}
             />
             <ErrorText>

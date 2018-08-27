@@ -46,7 +46,7 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
+  margin-bottom: 40px;
   margin-top:18px;
   
 `;
@@ -66,7 +66,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -144,7 +144,7 @@ class PhoneNumberEditView extends Component<Props, State> {
 
             <BottomButtonView>
               <NavButton
-                style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+                style={{backgroundColor: 'white',borderWidth: 1 ,paddingRight: 4, marginBottom:15, paddingBottom:12}}
                 onPress={()=> this.updateProfile()}
               >
                 <TextCenterContainer>

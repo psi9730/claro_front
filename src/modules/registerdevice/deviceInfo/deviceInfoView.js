@@ -85,7 +85,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -102,6 +102,7 @@ const TextCenterContainer = styled.View`
     flex-direction: row
     justify-content: center;
     align-items: center;
+    border-color: red;
 `;
 const GrayText = styled.Text`
     font-size: 15px;
@@ -268,7 +269,7 @@ class DeviceInfoView extends Component<Props, State> {
                 </TextCenterContainer>
               </NavButton>
               <NavButton
-                style={{backgroundColor: 'white',borderWidth: 1 ,marginBottom:15}}
+                style={{backgroundColor: 'white',borderWidth: 1 , borderColor: 'red', marginBottom:15}}
                 onPress={()=> this.setModalVisible(!this.state.modalVisible)}
               >
                 <TextCenterContainer style={{borderColor: 'red'}}>

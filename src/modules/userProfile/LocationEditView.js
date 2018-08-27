@@ -48,7 +48,7 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
+  margin-bottom: 40px;
   margin-top:18px;
   
 `;
@@ -68,7 +68,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -192,10 +192,10 @@ class LocationEditView extends Component<Props, State> {
           onPress={LocationEditView.dismissKeyboard}
         >
           <Container>
-            <TitleText style={{color:'black',fontSize: 25, fontWeight:'bold'}} >
+            <TitleText style={{color:'black',fontSize: 24, fontWeight:'bold'}} >
               주소 수정
             </TitleText>
-            <IntroduceText style={{color: 'gray'}}>
+            <IntroduceText style={{opacity: 0.4}}>
               주소
             </IntroduceText>
             <TextAndButtonView >
@@ -206,13 +206,13 @@ class LocationEditView extends Component<Props, State> {
                   editable={false}
                   value={this.state.postcode}
                   autoCapitalize='none'
-                  style={{marginBottom: 5, flex:1}}
+                  style={{marginBottom: 5, flex:1, paddingBottom:12,opacity:0.4}}
                   blurOnSubmit={false}
                 />
               </TextRightContainer>
               <ButtonLeftContainer>
                 <PostButton
-                  style={{backgroundColor: 'gray'}}
+                  style={{backgroundColor: 'rgba(60, 60, 60,1)'}}
                   onPress={()=> this.getPostcode()}
                 >
                   <IntroduceText style={{alignSelf: 'center', color:'white'}}>
@@ -227,10 +227,10 @@ class LocationEditView extends Component<Props, State> {
               editable={false}
               value={this.state.jibunAddr}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{marginBottom: 25, fontSize: 18, paddingBottom:12,opacity:0.4}}
               blurOnSubmit={true}
             />
-            <IntroduceText style={{color: 'gray'}}>
+            <IntroduceText style={{opacity: 0.4}}>
               상세주소
             </IntroduceText>
             <TextsBoxInput
@@ -239,7 +239,7 @@ class LocationEditView extends Component<Props, State> {
               onChangeText={(detailLocation)=>this.setState({detailLocation: detailLocation})}
               value={this.state.detailLocation}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{marginBottom: 25, fontSize: 18, paddingBottom:12}}
               blurOnSubmit={true}
             />
             <BottomButtonView>

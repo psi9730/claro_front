@@ -87,29 +87,58 @@ class RemoteDraggableView extends Component<Props, State> {
       first: true,
       firstHeight:Dimensions.get('window').height
     };
+    if(Platform.OS==='android'){
+      this.props.navigator.setStyle({
+        statusBarTextColorScheme: 'light',
+        statusBarTextColorSchemeSingleScreen: 'light',
+        topBarElevationShadowEnabled: false,
+        statusBarColor: this.props.backgroundColor,
+        navBarHidden: true,
+      });}
+    else {
+      this.props.navigator.setStyle({
+        statusBarTextColorScheme: 'light',
+        statusBarColor: this.props.backgroundColor,
+        navBarHidden: true,
+      });
+    }
   }
   componentDidMount(){
     (async()=> {
       const token = await getAuthenticationToken();
       const refreshToken = token && token.refreshToken;
-      console.log('refreshToken', refreshToken);
+      if(Platform.OS==='android'){
+        this.props.navigator.setStyle({
+          statusBarTextColorScheme: 'light',
+          statusBarTextColorSchemeSingleScreen: 'light',
+          topBarElevationShadowEnabled: false,
+          statusBarColor: this.props.backgroundColor,
+          navBarHidden: true,
+        });}
+      else {
+        this.props.navigator.setStyle({
+          statusBarTextColorScheme: 'light',
+          statusBarColor: this.props.backgroundColor,
+          navBarHidden: true,
+        });
+      }
     })()
   }
   componentWillMount(){
     this.props.getDevicesRequest().then(() => {
-      console.log(this.props.devices,'devices');
       if (_.size(this.props.devices) > 0) {
       }
       else {
         this.props.navigator.resetTo({...SERIAL_NUMBER_SCREEN});
       }
     }).catch(e => console.log(e))
-    this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
+    this._deltaY = Platform.OS==='ios' ? new Animated.Value(Dimensions.get('window').height-135) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-135);
     (async () => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.props.updateBarcode(serialNumber);
+      this.props.getUserProfileRequest().then(()=>{
       this.props.getOuterRequest(serialNumber, this.props.jibunAddr).catch((e)=>console.log(e,'error in getOuterRequest'));
-      this.props.getControlDeviceRequest(serialNumber).catch((e)=>console.log(e));
+      this.props.getControlDeviceRequest(serialNumber).catch((e)=>console.log(e));}).catch((e)=>console.log(e));
     })();
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
@@ -253,7 +282,7 @@ class RemoteDraggableView extends Component<Props, State> {
             style={[styles.panelContainer, {
               backgroundColor: 'black',
               opacity: this._deltaY.interpolate({
-                inputRange: [0, this.state.firstHeight-100],
+                inputRange: [0, this.state.firstHeight-135],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
               })
@@ -263,23 +292,23 @@ class RemoteDraggableView extends Component<Props, State> {
               this.panel = ref;
             }}
             verticalOnly={true}
-            snapPoints={[{y: 0},{y: this.state.firstHeight-100}]}
+            snapPoints={[{y: 0},{y: this.state.firstHeight-135}]}
             boundaries={{top: 0}}
-            initialPosition={{y: this.state.firstHeight-100}}
+            initialPosition={{y: this.state.firstHeight-135}}
             animatedValueY={this._deltaY}
             onSnap={this.onDrawerSnap}>
             <View style={styles.panel}>
               <Animated.View style={[styles.bottomSheetHeader,{
                 height: this._deltaY.interpolate({
-                  inputRange: [0, this.state.firstHeight-100],
-                  outputRange: [0, 100],
+                  inputRange: [0, this.state.firstHeight-135],
+                  outputRange: [0, 135],
                   extrapolateRight: 'clamp'
                 })}]
               }
               >
                 <RemoteBarView
                                _deltaY={this._deltaY.interpolate({
-                  inputRange:[0, this.state.firstHeight-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                  inputRange:[0, this.state.firstHeight-135], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
                 })}
                 />
               </Animated.View>
@@ -295,7 +324,7 @@ class RemoteDraggableView extends Component<Props, State> {
             style={[styles.panelContainer, {
               backgroundColor: 'black',
               opacity: this._deltaY.interpolate({
-                inputRange: [0, Screen.height-100],
+                inputRange: [0, Screen.height-135],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
               })
@@ -305,23 +334,23 @@ class RemoteDraggableView extends Component<Props, State> {
               this.panel = ref;
             }}
             verticalOnly={true}
-            snapPoints={[{y: 0},{y: Screen.height-100}]}
+            snapPoints={[{y: 0},{y: Screen.height-135}]}
             boundaries={{top: 0}}
-            initialPosition={{y: Screen.height-100}}
+            initialPosition={{y: Screen.height-135}}
             animatedValueY={this._deltaY}
             onSnap={this.onDrawerSnap}>
             <View style={styles.panel}>
               <Animated.View style={{
                 height: this._deltaY.interpolate({
-                  inputRange: [0, Screen.height-100],
-                  outputRange: [0, 100],
+                  inputRange: [0, Screen.height-135],
+                  outputRange: [0, 135],
                   extrapolateRight: 'clamp'
                 })}
               }
               >
                 <RemoteBarView
                   _deltaY={this._deltaY.interpolate({
-                    inputRange:[0,Screen.height-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                    inputRange:[0,Screen.height-135], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
                   })}
                 />
               </Animated.View>
@@ -367,7 +396,7 @@ const styles = StyleSheet.create({
   blank: {
     flexGrow:0,
     flexShrink:0,
-    flexBasis: 100
+    flexBasis: 135
   },
   contentIOS: {
     flex:1,

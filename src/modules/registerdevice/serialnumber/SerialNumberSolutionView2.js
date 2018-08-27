@@ -59,10 +59,9 @@ class SerialNumberSolutionView extends Component<Props, State> {
       secure: true,
       isFan: false,
     };
-    NavigationStyleWrapper(this.props.navigator,'dark','white','white',true,false,'black','black')
   }
   componentWillMount() {
-
+    NavigationStyleWrapper(this.props.navigator,'dark','white','white',true,false,'black','black')
   }
   props: Props;
 

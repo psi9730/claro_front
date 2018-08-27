@@ -22,11 +22,21 @@ import toast from '../../../utils/toast';
 import { Icon } from 'react-native-elements'
 import up from '../../../assets/images/Arrowhead-01-128.png'
 import down from '../../../assets/images/Arrowhead-Down-01-128.png'
-import powerIcn from '../../../assets/images/powerIcn.png';
-import powerIcnGreen from '../../../assets/images/powerIcnGreen.png';
-import AIIcnBlue from '../../../assets/images/AIIcnBlue.png';
+import powerIcn from '../../../assets/images/btnPowerN.png';
+import powerIcnGreen from '../../../assets/images/btnPowerOn.png';
+import AIIcnDim from '../../../assets/images/btnAiDim.png';
+import AIIcn from '../../../assets/images/btnAiN.png';
+import AIIcnBlue from '../../../assets/images/buttonAiOn.png';
+import SterilizeIcnDim from '../../../assets/images/btnSterDim.png';
+import SterilizeIcn from '../../../assets/images/btnSterN.png';
+import SterilizeIcnBlue from '../../../assets/images/btnSterOn01.png';
+import SterilizeIcnBlue2 from '../../../assets/images/btnSterOn02.png';
+import PurifyIcnDim from '../../../assets/images/btnPuriDim.png';
+import PurifyIcn from '../../../assets/images/btnPuriN.png';
+import PurifyIcnBlue from '../../../assets/images/btnPuriOn01.png';
+import PurifyIcnBlue2 from '../../../assets/images/btnPuriOn02.png';
 import upIcn from '../../../assets/images/upIcn.png';
-import AIIcn from '../../../assets/images/AIIcn.png';
+import {BoxShadow} from 'react-native-shadow'
 type Props = {
   togglePower_: Function,
   toggleAI_: Function,
@@ -58,14 +68,17 @@ const IconText = styled.Text`
     flex-grow:0;
     flex-shrink:0;
     flex-basis:auto;
-    font-size: 10px;
-    color: gray;
+    font-size: 15px;
+    color: black;
+    opacity: 0.5;
 `;
 const IconView = styled.View`
     flex-grow:0;
     flex-shrink:0;
     flex-basis: auto;
     display:flex;
+    marginTop: 14px;
+    margin-bottom: 14px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -82,10 +95,10 @@ const IconViewContainer = styled.View`
 const GrayLine = styled.View`
     flex-grow:0;
     flex-shrink:0;
-    flex-basis: 1px;
+    flex-basis: 2px;
     width: 100%;
     background-color: black;
-    opacity:1;
+    opacity:0.4;
     top:  0px;
 `;
 
@@ -190,66 +203,276 @@ class RemoteBarView extends Component<Props, State> {
       Platform.OS ==='ios' ?(
             <Container style={{  shadowOffset: {width: 0, height: 2}}}>
               <Image source={upIcn} style={{position: 'absolute',alignSelf: 'center', top:-15,height:40, width:60, resizeMode:'stretch'}} />
-            <IconViewContainer >
+              {this.props.power === 0 ?   <IconViewContainer >
+                  <TouchableOpacity onPress={() => this.togglePower()}>
+                    <IconView>
+                      <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
+                      <IconText>전원</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleAI()}>
+                    <IconView>
+                      <Image source={AIIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
+                      <IconText>AI</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+                    <IconView>
+                      <Image source={SterilizeIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
+                      <IconText>살균</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+                    <IconView>
+                      <Image source={PurifyIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
+                      <IconText>공기 청정</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                </IconViewContainer> :
+                <IconViewContainer>
+                  <TouchableOpacity onPress={() => this.togglePower()}>
+                    <IconView>
+                      {this.props.power === 0 ? <Image source={powerIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : <Image source={powerIcnGreen} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>}
+                      <IconText>전원</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleAI()}>
+                    <IconView>
+                      {this.props.AI === 0 ? <Image source={AIIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : <Image source={AIIcnBlue} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>}
+                      <IconText>AI</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+                    <IconView>
+                      {this.props.sterilizing === 0 ? <Image source={SterilizeIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : (this.props.sterilizing === 1 ? <Image source={SterilizeIcnBlue} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : <Image source={SterilizeIcnBlue2} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>)}
+                      <IconText>살균</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+                    <IconView>
+                      {this.props.airCleaning === 0 ? <Image source={PurifyIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : (this.props.airCleaning === 1 ? <Image source={PurifyIcnBlue} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/> : <Image source={PurifyIcnBlue2} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>)}
+                      <IconText>공기 청정</IconText>
+                    </IconView>
+                  </TouchableOpacity>
+                </IconViewContainer>
+              }
+          </Container>) :(
+        <Container>
+          <GrayLine/>
+          <Image source={upIcn} style={{position: 'absolute',alignSelf: 'center', top:0,height:40, width:60, resizeMode:'stretch'}} />
+          {this.props.power === 0 ?   <IconViewContainer >
               <TouchableOpacity onPress={() => this.togglePower()}>
                 <IconView>
-                  {this.props.power===0 ?  <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} /> :  <Image source={powerIcnGreen} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} />}
+                  <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
                   <IconText>전원</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleAI()}>
                 <IconView>
-                  {this.props.AI===0 ?  <Image source={AIIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} /> :  <Image source={AIIcnBlue} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} />}
+                <Image source={AIIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
                   <IconText>AI</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleSterilizing()}>
                 <IconView>
-                 <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' />
+                  <Image source={SterilizeIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
                   <IconText>살균</IconText>
                 </IconView>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
                 <IconView>
-                  <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' />
+                  <Image source={PurifyIcnDim} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:60, width:60,marginBottom: 4, resizeMode:'stretch'}} />
+                  <IconText>공기 청정</IconText>
+                </IconView>
+              </TouchableOpacity>
+            </IconViewContainer> :
+            <IconViewContainer>
+              <TouchableOpacity onPress={() => this.togglePower()}>
+                <IconView>
+                  {this.props.power === 0 ? <Image source={powerIcn} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : <Image source={powerIcnGreen} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/>}
+                  <IconText>전원</IconText>
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleAI()}>
+                <IconView>
+                  {this.props.AI === 0 ? <Image source={AIIcn} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : <Image source={AIIcnBlue} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/>}
+                  <IconText>AI</IconText>
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+                <IconView>
+                  {this.props.sterilizing === 0 ? <Image source={SterilizeIcn} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : (this.props.sterilizing === 1 ? <Image source={SterilizeIcnBlue} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : <Image source={SterilizeIcnBlue2} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/>)}
+                  <IconText>살균</IconText>
+                </IconView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+                <IconView>
+                  {this.props.airCleaning === 0 ? <Image source={PurifyIcn} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : (this.props.airCleaning === 1 ? <Image source={PurifyIcnBlue} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/> : <Image source={PurifyIcnBlue2} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 60,
+                    width: 60,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/>)}
                   <IconText>공기 청정</IconText>
                 </IconView>
               </TouchableOpacity>
             </IconViewContainer>
-          </Container>) :(
-        <Container >
-          <GrayLine style={{ opacity:0.1}}/>
-          <GrayLine style={{opacity:0.2}}/>
-          <GrayLine style={{opacity:0.3}}/>
-          <GrayLine style={{opacity:0.4}}/>
-          <GrayLine  style={{opacity:0.5}}/>
-        <Animated.Image source={icon} style={{width: 30, height: 30, alignSelf:'center'}} />
-        <IconViewContainer >
-          <TouchableOpacity onPress={() => this.togglePower()}>
-            <IconView>
-              {this.props.power===0 ?  <Image source={powerIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} /> :  <Image source={powerIcnGreen} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:40, width:40,marginBottom: 4, resizeMode:'stretch'}} />}
-              <IconText>전원</IconText>
-            </IconView>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.toggleAI()}>
-            <IconView>
-              <Icon type='entypo'  size={40} color = {this.props.AI===0 ? 'black' : 'blue'} name= 'air' />
-              <IconText>AI</IconText>
-            </IconView>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.toggleSterilizing()}>
-            <IconView>
-              <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' />
-              <IconText>살균</IconText>
-            </IconView>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
-            <IconView>
-              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' />
-              <IconText>공기 청정</IconText>
-            </IconView>
-          </TouchableOpacity>
-        </IconViewContainer>
+          }
         </Container>
       )
     );

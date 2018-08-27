@@ -15,9 +15,11 @@ import _ from 'lodash';
 import {clearAuthenticationToken} from '../../utils/authentication';
 import {KEYS} from '../../utils/ClaroStorage';
 import Storage from '../../utils/ClaroStorage';
+import checkBoxN from '../../assets/images/checkboxN.png';
+import checkBoxS from '../../assets/images/checkboxS.png';
 import { NaverLogin, getProfile } from 'react-native-naver-login';
 import FBSDK, {LoginManager, AccessToken, LoginButton,GraphRequest,GraphRequestManager} from 'react-native-fbsdk';
-import LinearGradient from 'react-native-linear-gradient';
+
 type State = {
   username: string,
   password: string,
@@ -55,9 +57,9 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 14px;
   background-color: #00CC39;
   display:flex;
   flex-direction: row;
@@ -79,12 +81,36 @@ const Container = styled.KeyboardAvoidingView`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content;
   align-items: center;
   background-color: white;
   padding: 30px;
+  paddingTop: 10px;
   padding-bottom: 35px;
   
+`;
+
+const CheckBoxView = styled.View`
+  flex-grow:0;
+  flex-shrink:0;
+  flex-basis: auto;
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const CheckBoxView2 = styled.View`
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
+const NavButton1 = styled.TouchableOpacity`
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 `;
 const ImageContainer = styled.View`
     position: absolute;
@@ -149,7 +175,6 @@ class LoginView extends Component<Props, State> {
     this.setState({password});
   }
   parseLogin(e){
-    console.log(e.message,'message');
     const message = e.message;
     this.setState({errorMessage: message})
   }
@@ -184,13 +209,9 @@ class LoginView extends Component<Props, State> {
         result = await this.naverLogin(IOSinitials);
       else
         result = await this.naverLogin(initials);
-      console.log('token: ' + result);
 
       if (result) {
-        console.log('yes result');
         const profileResult = await this.getNaverProfile(result);
-        console.log('profile');
-        console.log(profileResult);
         if (profileResult.resultcode === '024') {
           Alert.alert('로그인 실패', profileResult.message);
           return;
@@ -229,7 +250,6 @@ class LoginView extends Component<Props, State> {
           }
         )
       } else {
-        console.log('no result');
       }
     } catch (err) {
       console.log('error');
@@ -243,7 +263,6 @@ class LoginView extends Component<Props, State> {
       this.setState({errorMessage: this.props.t('enter_your_password')})
     } else {
       Keyboard.dismiss();
-      console.log("login");
       this.props.loginRequest(this.state.username, this.state.password).then(() => this.props.getDevicesRequest().then(() => {
         console.log(this.props.devices,'devices');
         if (_.size(this.props.devices) > 0) {
@@ -267,7 +286,6 @@ class LoginView extends Component<Props, State> {
       this.props.facebookLoginRequest(this.state.facebookId, this.state.facebookAccessToken).then(()=>
         {
           this.props.getDevicesRequest().then(() => {
-            console.log(this.props.devices,'devices');
             if (_.size(this.props.devices) > 0) {
               (async() => {
                 await Storage.setItem(KEYS.serialNumber, _.nth(this.props.devices,0).serialNumber);
@@ -298,16 +316,13 @@ class LoginView extends Component<Props, State> {
 
   _fbAuth(){
     LoginManager.logOut();
-    console.log("go to facebook");
     if(Platform.OS==='ios')
       LoginManager.setLoginBehavior("web");
     LoginManager.logInWithReadPermissions(["user_friends", "public_profile", "email"]).then((result)=>{
       if(result.isCancelled){
-        console.log('login was cancelled');
       } else {
         AccessToken.getCurrentAccessToken().then(
           (data) => {
-            console.log('userid and token', data.userID, data.accessToken);
             this.setState({facebookId: data.userID});
             this.setState({facebookAccessToken: data.accessToken})
           }
@@ -341,10 +356,10 @@ class LoginView extends Component<Props, State> {
           onPress={LoginView.dismissKeyboard}
         >
           <Container>
-            <LoginText style={{fontSize: 25, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
+            <LoginText style={{fontSize: 20, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
               로그인
             </LoginText>
-            <LoginText style={{margin:10 }}>
+            <LoginText style={{marginBottom:6 }}>
               아이디
             </LoginText>
             <UsernameInput
@@ -353,7 +368,7 @@ class LoginView extends Component<Props, State> {
               onChangeText={this.onChangeUsername}
               value={this.state.username}
             />
-            <LoginText style={{margin:10,backgroundColor:'white',marginBottom:20, marginTop:20}}>
+            <LoginText style={{backgroundColor:'white',marginBottom:6, marginTop:20}}>
               비밀번호
             </LoginText>
             <PasswordInput
@@ -370,14 +385,17 @@ class LoginView extends Component<Props, State> {
             <ErrorText>
               {this.state.errorMessage}
             </ErrorText>
-            <CheckBox
-              title='정보/이벤트 메일 수신에 동의합니다.'
-              containerStyle={{backgroundColor: 'white', width: '100%',borderColor:'white' }}
-              checked={this.state.checked}
-              uncheckedColor='black'
-              checkedColor='black'
-              onPress={() => this.setState({checked: !this.state.checked})}
-            />
+            <CheckBoxView style={{marginBottom:40}}
+            >
+              <CheckBoxView2>
+                <NavButton1 onPress={()=> this.setState({checked: !this.state.checked})}>
+                  {this.state.checked===false ? <Image source={checkBoxN} resizeMode='center' style={{height:30, width:30}}/>
+                    :  <Image source={checkBoxS} resizeMode='center' style={{height:30, width:30}}/>
+                  }
+                </NavButton1>
+                <Text style={{fontSize:15}}>정보/이벤트 메일 수신에 동의합니다.</Text>
+              </CheckBoxView2>
+            </CheckBoxView>
             <NavButton
               style={{backgroundColor: 'white',borderWidth: 1 }}
               onPress={()=> this.onLoginPressed()}
@@ -393,10 +411,7 @@ class LoginView extends Component<Props, State> {
               onPress={this._fbAuth}
             >
               <ImageContainer>
-                <Image source={circle} resizeMode='center' style={{height:30, width:30, margin:10}}/>
-              </ImageContainer>
-              <ImageContainer>
-                <Image source={facebook} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+                <Image source={facebook} resizeMode='center' style={{ backgroundColor: 'transparent',height:30, width:30, margin:10}}/>
               </ImageContainer>
               <TextLeftContainer>
                 <ButtonText style={{alignSelf: 'center'}}>
@@ -408,7 +423,7 @@ class LoginView extends Component<Props, State> {
               onPress={()=> this.onNaverLogin()}
             >
               <ImageContainer>
-              <Image source={naver} resizeMode='center' style={{height:30, width:30, margin:10}}/>
+                <Image source={naver} resizeMode='center' style={{height:30, width:30, margin:10}}/>
               </ImageContainer>
               <TextLeftContainer>
               <ButtonText style={{alignSelf: 'center'}}>

@@ -20,15 +20,24 @@ import toast from '../../../utils/toast';
 import { Icon } from 'react-native-elements'
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import powerIcn from '../../../assets/images/powerIcn.png';
-import AIIcn from '../../../assets/images/AIIcn.png';
 import downIcn from '../../../assets/images/downIcn.png';
-import AIIcnBlue from '../../../assets/images/AIIcnBlue.png';
-import powerIcnGreen from '../../../assets/images/powerIcnGreen.png';
-import sleepIcnBlue from '../../../assets/images/sleepIcnBlue.png';
-import sleepIcn from '../../../assets/images/sleepIcn.png';
-import timerIcnBlue from '../../../assets/images/timerIcnBlue.png';
-import timerIcn from '../../../assets/images/timerIcn.png';
+import powerIcn from '../../../assets/images/btnPowerN.png';
+import powerIcnGreen from '../../../assets/images/btnPowerOn.png';
+import AIIcn from '../../../assets/images/btnAiN.png';
+import AIIcnBlue from '../../../assets/images/buttonAiOn.png';
+import SterilizeIcn from '../../../assets/images/btnSterN.png';
+import SterilizeIcnBlue from '../../../assets/images/btnSterOn01.png';
+import SterilizeIcnBlue2 from '../../../assets/images/btnSterOn02.png';
+import PurifyIcn from '../../../assets/images/btnPuriN.png';
+import PurifyIcnBlue from '../../../assets/images/btnPuriOn01.png';
+import PurifyIcnBlue2 from '../../../assets/images/btnPuriOn02.png';
+import SleepIcn from '../../../assets/images/btnSleepN.png';
+import SleepIcnBlue from '../../../assets/images/btnSleepOn.png';
+import TimerIcn from '../../../assets/images/btnTimerN.png';
+import TimerIcnBlue from '../../../assets/images/btnTimerOn.png'
+import PurifyIcnDim from '../../../assets/images/btnPuriDim.png';
+import SterilizeIcnDim from '../../../assets/images/btnSterDim.png';
+import AIIcnDim from '../../../assets/images/btnAiDim.png';
 import {TIMER_SCREEN} from '../../../../screens';
 type Props = {
   restoreOutsideAirInfo: Function,
@@ -196,10 +205,9 @@ class RemoteDetailView extends Component<Props, State> {
     }
     else if (this.props.sleepMode === 1) { //turn on state
     } else {
-      this.props.toggleSleepRequest(1, this.props.barcode).catch();
-      this.turnOffSterilizing();
-      this.turnOffAirCleaning();
-      this.turnOffAI();
+      this.props.toggleSleepRequest(1, this.props.barcode).then(()=>{ this.turnOffSterilizing();
+        this.turnOffAirCleaning();
+        this.turnOffAI();}).catch();
     }
   }
   toggleAI() {
@@ -279,234 +287,486 @@ class RemoteDetailView extends Component<Props, State> {
         <TouchableWithoutFeedback
           onPress={RemoteDetailView.dismissKeyboard}
         >
+          { this.props.power === 0 ?
           <Container>
             <CenterContainer>
-              <Image source={downIcn} style={{
-                flexGrow: 0,
-                flexShrink: 0,
-                flexBasis: 'auto',
-                height: 20,
-                width: 30,
-                marginTop:10,
-                marginBottom: 10,
-                resizeMode: 'stretch'
-              }}/>
-              <TouchableOpacity onPress={() => this.togglePower()}>
-                { this.props.power===0?
-                  <IconView2>
-                    <Image source={powerIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                    <IconText style={{color: 'black'}}>꺼짐</IconText>
-                  </IconView2> :  <IconView2>
-                    <Image source={powerIcnGreen} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                    <IconText>연결됨</IconText>
-                  </IconView2>
-                }
-              </TouchableOpacity>
+            <Image source={downIcn} style={{
+            flexGrow: 0,
+            flexShrink: 0,
+            flexBasis: 'auto',
+            height: 20,
+            width: 30,
+            marginTop:10,
+            marginBottom: 10,
+            resizeMode: 'stretch'
+          }}/>
+            <TouchableOpacity onPress={() => this.togglePower()}>
+              <IconView2>
+                <Image source={powerIcn} style={{
+                  flexGrow: 0,
+                  flexShrink: 0,
+                  flexBasis: 'auto',
+                  height: 60,
+                  width: 60,
+                  marginBottom: 4,
+                  resizeMode: 'stretch'
+                }}/>
+                <IconText style={{color: 'black', fontWeight: 'bold'}}>꺼짐</IconText>
+              </IconView2>
+            </TouchableOpacity>
             </CenterContainer>
             <GrayLine/>
             <FunctionContainer>
-              <IconView>
-              <TouchableOpacity onPress={() => this.toggleAI()}>
-                { this.props.AI===0?
-                  <IconView2>
-                    <Image source={AIIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  </IconView2> :  <IconView2>
-                    <Image source={AIIcnBlue} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height:50,
-                      width:50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
-                  </IconView2>
-                }
-              </TouchableOpacity>
-              </IconView>
-              <TextContainer>
-                {this.props.AI===0?
-                  (<RemoteContainer><TextLeftView ><RemoteText style={{color : 'black'}}>AI 모드: </RemoteText></TextLeftView>
-                    <TextRightView><RemoteText>OFF</RemoteText></TextRightView></RemoteContainer>):
-                  (<RemoteContainer>
-                    <TextLeftView >
-                      <RemoteText  style={{color :this.props.AI===0 ? 'black' : 'blue'}}>AI 모드: </RemoteText>
-                    </TextLeftView>
-                    <TextRightView>
-                      <RemoteText>ON</RemoteText>
-                    </TextRightView>
-                  </RemoteContainer>)}
-                <RemoteContainer>
-                  <TextLeftView>
-                    <RemoteText style={{color :this.props.AI===0 ? 'black' : 'blue'}}>미세먼지 오염도(PM10):</RemoteText>
-                  </TextLeftView>
-                  <TextRightView>
-                    <RemoteText>좋음</RemoteText>
-                  </TextRightView>
-                </RemoteContainer>
-                <RemoteContainer >
-                  <TextLeftView>
-                    <RemoteText  style={{color : this.props.AI===0 ? 'black' : 'blue'}}>초미세먼지 오염도(PM2.5):</RemoteText>
-                  </TextLeftView>
-                  <TextRightView>
-                    <RemoteText>좋음</RemoteText>
-                  </TextRightView>
-                </RemoteContainer>
-                <RemoteContainer>
-                  <TextLeftView>
-                    <RemoteText style={{color : this.props.AI===0 ? 'black' : 'blue'}}>VOCs 오염도:</RemoteText>
-                  </TextLeftView>
-                  <TextRightView>
-                    <RemoteText>좋음</RemoteText>
-                  </TextRightView>
-                </RemoteContainer>
-              </TextContainer>
+            <IconView>
+            <TouchableOpacity onPress={() => this.toggleAI()}>
+            <IconView2>
+            <Image source={AIIcnDim} style={{
+            flexGrow: 0,
+            flexShrink: 0,
+            flexBasis: 'auto',
+            height: 60,
+            width: 60,
+            marginBottom: 4,
+            resizeMode: 'stretch'
+          }}/>
+            </IconView2>
+            </TouchableOpacity>
+            </IconView>
+            <TextContainer>
+            {this.props.AI===0?
+              (<RemoteContainer><TextLeftView ><RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>AI 모드: </RemoteText></TextLeftView>
+                <TextRightView><RemoteText  style={{opacity: 0.2}}>OFF</RemoteText></TextRightView></RemoteContainer>):
+              (<RemoteContainer>
+                <TextLeftView >
+                  <RemoteText style={{fontWeight: 'bold', opacity: 0.2}}>AI 모드: </RemoteText>
+                </TextLeftView>
+                <TextRightView>
+                  <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>ON</RemoteText>
+                </TextRightView>
+              </RemoteContainer>)}
+            <RemoteContainer>
+            <TextLeftView>
+            <RemoteText   style={{opacity: 0.2}}>미세먼지 오염도(PM10):</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText   style={{opacity: 0.2, fontWeight: 'bold'}}>좋음</RemoteText>
+            </TextRightView>
+            </RemoteContainer>
+            <RemoteContainer >
+            <TextLeftView>
+            <RemoteText   style={{opacity: 0.2}}>초미세먼지 오염도(PM2.5):</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText   style={{opacity: 0.2, fontWeight: 'bold'}}>좋음</RemoteText>
+            </TextRightView>
+            </RemoteContainer>
+            <RemoteContainer>
+            <TextLeftView>
+            <RemoteText   style={{opacity: 0.2}}>VOCs 오염도:</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText   style={{opacity: 0.2, fontWeight: 'bold'}}>좋음</RemoteText>
+            </TextRightView>
+            </RemoteContainer>
+            </TextContainer>
             </FunctionContainer>
             <GrayLine/>
             <FunctionContainer>
-              <IconView>
-                <Icon type='entypo'  size={40}  color = {this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')} name='bug' onPress={() => this.toggleSterilizing()}/>
-              </IconView>
-              <TextContainer>
-                {this.props.sterilizing===0?
-                  (<RemoteContainer>
-                    <TextLeftView>
-                      <RemoteText style={{color : 'black'}}>살균모드:</RemoteText>
-                    </TextLeftView>
-                    <TextRightView>
-                      <RemoteText>OFF</RemoteText>
-                    </TextRightView>
-                  </RemoteContainer>)
-                  : (this.props.sterilizing===1 ? (
-                    <RemoteContainer>
+            <IconView>
+            <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+            <IconView2>
+             <Image source={SterilizeIcnDim} style={{   flexGrow: 0,
+              flexShrink: 0,
+              flexBasis: 'auto',
+              height: 60,
+              width: 60,
+              marginBottom: 4,
+              resizeMode: 'stretch'}} />
+            </IconView2>
+            </TouchableOpacity>
+            </IconView>
+            <TextContainer>
+          {this.props.sterilizing===0?
+            (<RemoteContainer>
+            <TextLeftView>
+            <RemoteText  style={{fontWeight: 'bold' , opacity: 0.2}}>살균모드:</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText  style={{fontWeight: 'bold' , opacity: 0.2}}>OFF</RemoteText>
+            </TextRightView>
+            </RemoteContainer>)
+            : (this.props.sterilizing===1 ? (
+            <RemoteContainer>
+            <TextLeftView >
+            <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>살균 모드:</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>ON(약)</RemoteText>
+            </TextRightView>
+            </RemoteContainer>):(
+            <RemoteContainer>
+            <TextLeftView>
+            <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>살균 모드:</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>ON(강)</RemoteText>
+            </TextRightView>
+            </RemoteContainer>))
+          }
+            <RemoteContainer>
+            <TextLeftView>
+            <RemoteText  style={{opacity: 0.2, fontWeight: 'bold'}}>VOCs 공기질:</RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText  style={{opacity: 0.2}}>오염</RemoteText>
+            </TextRightView>
+            </RemoteContainer>
+            </TextContainer>
+            </FunctionContainer>
+            <GrayLine/>
+            <FunctionContainer>
+            <IconView>
+            <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+            <IconView2>
+            <Image source={PurifyIcnDim} style={{   flexGrow: 0,
+              flexShrink: 0,
+              flexBasis: 'auto',
+              height: 60,
+              width: 60,
+              marginBottom: 4,
+              resizeMode: 'stretch'}} />
+            </IconView2>
+            </TouchableOpacity>
+            </IconView>
+            <TextContainer>
+          {this.props.airCleaning===0?
+            (<RemoteContainer>
+            <TextLeftView>
+            <RemoteText  style={{fontWeight: 'bold', opacity: 0.2}}>공기 청정 모드: </RemoteText>
+            </TextLeftView>
+            <TextRightView>
+            <RemoteText  style={{opacity: 0.2}}>OFF</RemoteText>
+            </TextRightView>
+            </RemoteContainer>) : (this.props.airCleaning===1 ? (<RemoteContainer><TextLeftView><RemoteText style={{fontWeight: 'bold' , opacity: 0.2}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText style={{fontWeight: 'bold' , opacity: 0.2}}>ON(약)</RemoteText></TextRightView></RemoteContainer>):(<RemoteContainer><TextLeftView><RemoteText style={{fontWeight: 'bold' , opacity: 0.2}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText style={{fontWeight: 'bold', opacity: 0.2}} >ON(강)</RemoteText></TextRightView></RemoteContainer>))
+          }
+            <RemoteContainer><TextLeftView><RemoteText style={{opacity: 0.2}}>미세먼지 오염도(PM10):</RemoteText></TextLeftView><TextRightView><RemoteText style={{opacity: 0.2, fontWeight: 'bold'}}>좋음</RemoteText></TextRightView></RemoteContainer>
+            <RemoteContainer><TextLeftView><RemoteText  style={{opacity: 0.2}}>초미세먼지 오염도(PM2.5):</RemoteText></TextLeftView><TextRightView><RemoteText style={{opacity: 0.2, fontWeight: 'bold'}}>좋음</RemoteText></TextRightView></RemoteContainer>
+            </TextContainer>
+            </FunctionContainer>
+            <GrayLine style={{margin:0}}/>
+            <BottomFunctionContainer>
+            <TouchableOpacity onPress={() => this.toggleSleep()}>
+              <IconView2>
+                <Image source={SleepIcn} style={{
+                  flexGrow: 0,
+                  flexShrink: 0,
+                  flexBasis: 'auto',
+                  height:60,
+                  width:60,
+                  marginBottom: 4,
+                  resizeMode: 'stretch'
+                }}/>
+                <IconText  style={{color: 'black'}}>취침모드</IconText>
+              </IconView2>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.toggleTimer()}>
+            { this.props.isTurnOnActive===true || this.props.isTurnOffActive===true ?
+              <IconView2>
+                <Image source={TimerIcnBlue} style={{
+                  flexGrow: 0,
+                  flexShrink: 0,
+                  flexBasis: 'auto',
+                  height:60,
+                  width:60,
+                  marginBottom: 4,
+                  resizeMode: 'stretch'
+                }}/>
+                <IconText style={{color: 'black'}}>타이머</IconText>
+              </IconView2>:<IconView2>
+                <Image source={TimerIcn} style={{
+                  flexGrow: 0,
+                  flexShrink: 0,
+                  flexBasis: 'auto',
+                  height:60,
+                  width:60,
+                  marginBottom: 4,
+                  resizeMode: 'stretch'
+                }}/>
+                <IconText style={{color: 'black'}}>타이머</IconText>
+              </IconView2>
+            }
+            </TouchableOpacity>
+            </BottomFunctionContainer>
+            </Container> :    <Container>
+              <CenterContainer>
+                <Image source={downIcn} style={{
+                  flexGrow: 0,
+                  flexShrink: 0,
+                  flexBasis: 'auto',
+                  height: 20,
+                  width: 30,
+                  marginTop:10,
+                  marginBottom: 10,
+                  resizeMode: 'stretch'
+                }}/>
+                <TouchableOpacity onPress={() => this.togglePower()}>
+                  { this.props.power===0?
+                    <IconView2>
+                      <Image source={powerIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText style={{color: 'black', fontWeight: 'bold'}}>꺼짐</IconText>
+                    </IconView2> :  <IconView2>
+                      <Image source={powerIcnGreen} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText style={{fontWeight: 'bold'}}>연결됨</IconText>
+                    </IconView2>
+                  }
+                </TouchableOpacity>
+              </CenterContainer>
+              <GrayLine/>
+              <FunctionContainer>
+                <IconView>
+                  <TouchableOpacity onPress={() => this.toggleAI()}>
+                    { this.props.AI===0?
+                      <IconView2>
+                        <Image source={AIIcn} style={{
+                          flexGrow: 0,
+                          flexShrink: 0,
+                          flexBasis: 'auto',
+                          height: 60,
+                          width: 60,
+                          marginBottom: 4,
+                          resizeMode: 'stretch'
+                        }}/>
+                      </IconView2> :  <IconView2>
+                        <Image source={AIIcnBlue} style={{
+                          flexGrow: 0,
+                          flexShrink: 0,
+                          flexBasis: 'auto',
+                          height:60,
+                          width:60,
+                          marginBottom: 4,
+                          resizeMode: 'stretch'
+                        }}/>
+                      </IconView2>
+                    }
+                  </TouchableOpacity>
+                </IconView>
+                <TextContainer>
+                  {this.props.AI===0?
+                    (<RemoteContainer><TextLeftView ><RemoteText  style={{fontWeight: 'bold'}}>AI 모드: </RemoteText></TextLeftView>
+                      <TextRightView><RemoteText  style={{opacity: 0.6}}>OFF</RemoteText></TextRightView></RemoteContainer>):
+                    (<RemoteContainer>
                       <TextLeftView >
-                        <RemoteText  style={{color : 'green'}}>살균 모드:</RemoteText>
+                        <RemoteText style={{fontWeight: 'bold'}}>AI 모드: </RemoteText>
                       </TextLeftView>
                       <TextRightView>
-                        <RemoteText>ON(약)</RemoteText>
+                        <RemoteText  style={{fontWeight: 'bold'}}>ON</RemoteText>
                       </TextRightView>
-                    </RemoteContainer>):(
-                      <RemoteContainer >
+                    </RemoteContainer>)}
+                  <RemoteContainer>
+                    <TextLeftView>
+                      <RemoteText   style={{opacity: 0.6}}>미세먼지 오염도(PM10):</RemoteText>
+                    </TextLeftView>
+                    <TextRightView>
+                      <RemoteText   style={{opacity: 0.6, fontWeight: 'bold'}}>좋음</RemoteText>
+                    </TextRightView>
+                  </RemoteContainer>
+                  <RemoteContainer >
+                    <TextLeftView>
+                      <RemoteText   style={{opacity: 0.6}}>초미세먼지 오염도(PM2.5):</RemoteText>
+                    </TextLeftView>
+                    <TextRightView>
+                      <RemoteText   style={{opacity: 0.6, fontWeight: 'bold'}}>좋음</RemoteText>
+                    </TextRightView>
+                  </RemoteContainer>
+                  <RemoteContainer>
+                    <TextLeftView>
+                      <RemoteText   style={{opacity: 0.6}}>VOCs 오염도:</RemoteText>
+                    </TextLeftView>
+                    <TextRightView>
+                      <RemoteText   style={{opacity: 0.6, fontWeight: 'bold'}}>좋음</RemoteText>
+                    </TextRightView>
+                  </RemoteContainer>
+                </TextContainer>
+              </FunctionContainer>
+              <GrayLine/>
+              <FunctionContainer>
+                <IconView>
+                  <TouchableOpacity onPress={() => this.toggleSterilizing()}>
+                    <IconView2>
+                      {this.props.sterilizing===0 ?  <Image source={SterilizeIcn} style={{   flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} /> : ( this.props.sterilizing===1 ? <Image source={SterilizeIcnBlue} style={{  flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} /> :  <Image source={SterilizeIcnBlue2} style={{   flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} />)}
+                    </IconView2>
+                  </TouchableOpacity>
+                </IconView>
+                <TextContainer>
+                  {this.props.sterilizing===0?
+                    (<RemoteContainer>
+                      <TextLeftView>
+                        <RemoteText  style={{fontWeight: 'bold'}}>살균모드:</RemoteText>
+                      </TextLeftView>
+                      <TextRightView>
+                        <RemoteText  style={{fontWeight: 'bold', opacity:0.6}}>OFF</RemoteText>
+                      </TextRightView>
+                    </RemoteContainer>)
+                    : (this.props.sterilizing===1 ? (
+                      <RemoteContainer>
+                        <TextLeftView >
+                          <RemoteText  style={{fontWeight: 'bold'}}>살균 모드:</RemoteText>
+                        </TextLeftView>
+                        <TextRightView>
+                          <RemoteText  style={{fontWeight: 'bold'}}>ON(약)</RemoteText>
+                        </TextRightView>
+                      </RemoteContainer>):(
+                      <RemoteContainer>
                         <TextLeftView>
-                          <RemoteText  style={{color : 'blue'}} >살균 모드:</RemoteText>
+                          <RemoteText  style={{fontWeight: 'bold'}}>살균 모드:</RemoteText>
                         </TextLeftView>
                         <TextRightView>
                           <RemoteText>ON(강)</RemoteText>
                         </TextRightView>
                       </RemoteContainer>))
                   }
-                <RemoteContainer>
-                  <TextLeftView>
-                    <RemoteText  style={{color : this.props.sterilizing===0 ? 'black' : (this.props.sterilizing===1 ? 'green' : 'blue')}}>VOCs 공기질:</RemoteText>
-                  </TextLeftView>
-                  <TextRightView>
-                    <RemoteText>오염</RemoteText>
-                  </TextRightView>
-                </RemoteContainer>
-              </TextContainer>
-            </FunctionContainer>
-            <GrayLine/>
-            <FunctionContainer>
-              <IconView>
-              <Icon type='entypo'  size={40} color = {this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')} name='leaf' onPress={() => this.toggleAirCleaning()}/>
-            </IconView>
-              <TextContainer>
-                {this.props.airCleaning===0?
-                  (<RemoteContainer>
+                  <RemoteContainer>
                     <TextLeftView>
-                      <RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드: </RemoteText>
+                      <RemoteText  style={{opacity: 0.6, fontWeight: 'bold'}}>VOCs 공기질:</RemoteText>
                     </TextLeftView>
                     <TextRightView>
-                      <RemoteText>OFF</RemoteText>
+                      <RemoteText style={{opacity: 0.6}}>오염</RemoteText>
                     </TextRightView>
-                  </RemoteContainer>) : (this.props.airCleaning===1 ? (<RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(약)</RemoteText></TextRightView></RemoteContainer>):(<RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaningColor}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText>ON(강)</RemoteText></TextRightView></RemoteContainer>))
-                }
-                <RemoteContainer><TextLeftView><RemoteText  style={{color :this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}>미세먼지 오염도(PM10):</RemoteText></TextLeftView><TextRightView><RemoteText>좋음</RemoteText></TextRightView></RemoteContainer>
-                <RemoteContainer><TextLeftView><RemoteText style={{color : this.props.airCleaning===0 ? 'black' : (this.props.airCleaning===1 ? 'green' : 'blue')}}>초미세먼지 오염도(PM2.5):</RemoteText></TextLeftView><TextRightView><RemoteText>좋음</RemoteText></TextRightView></RemoteContainer>
-              </TextContainer>
-          </FunctionContainer>
-            <GrayLine style={{margin:0}}/>
-          <BottomFunctionContainer>
-            <TouchableOpacity onPress={() => this.toggleSleep()}>
-              { this.props.sleepMode===1?
-                <IconView2>
-                  <Image source={sleepIcnBlue} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height:50,
-                    width:50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/>
-                  <IconText style={{color: 'black'}}>취침모드</IconText>
-                </IconView2>:<IconView2>
-                  <Image source={sleepIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height:50,
-                    width:50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/>
-                  <IconText  style={{color: 'black'}}>취침모드</IconText>
-                </IconView2>
-              }
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.toggleTimer()}>
-              { this.props.isTurnOnActive===true || this.props.isTurnOffActive===true ?
-                <IconView2>
-                  <Image source={timerIcnBlue} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height:50,
-                    width:50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/>
-                  <IconText style={{color: 'black'}}>타이머</IconText>
-                </IconView2>:<IconView2>
-                  <Image source={timerIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height:50,
-                    width:50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/>
-                  <IconText style={{color: 'black'}}>타이머</IconText>
-                </IconView2>
-              }
-            </TouchableOpacity>
-          </BottomFunctionContainer>
-          </Container>
+                  </RemoteContainer>
+                </TextContainer>
+              </FunctionContainer>
+              <GrayLine/>
+              <FunctionContainer>
+                <IconView>
+                  <TouchableOpacity onPress={() => this.toggleAirCleaning()}>
+                    <IconView2>
+                      {this.props.airCleaning===0 ?  <Image source={PurifyIcn} style={{   flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} /> : ( this.props.airCleaning===1 ? <Image source={PurifyIcnBlue} style={{  flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} /> :  <Image source={PurifyIcnBlue2} style={{   flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 60,
+                        width: 60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'}} />)}
+                    </IconView2>
+                  </TouchableOpacity>
+                </IconView>
+                <TextContainer>
+                  {this.props.airCleaning===0?
+                    (<RemoteContainer>
+                      <TextLeftView>
+                        <RemoteText  style={{fontWeight: 'bold'}}>공기 청정 모드: </RemoteText>
+                      </TextLeftView>
+                      <TextRightView>
+                        <RemoteText style={{opacity: 0.6}}>OFF</RemoteText>
+                      </TextRightView>
+                    </RemoteContainer>) : (this.props.airCleaning===1 ? (<RemoteContainer><TextLeftView><RemoteText style={{fontWeight: 'bold'}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText style={{fontWeight: 'bold'}}>ON(약)</RemoteText></TextRightView></RemoteContainer>):(<RemoteContainer><TextLeftView><RemoteText style={{fontWeight: 'bold'}}>공기 청정 모드:</RemoteText></TextLeftView><TextRightView><RemoteText >ON(강)</RemoteText></TextRightView></RemoteContainer>))
+                  }
+                  <RemoteContainer><TextLeftView><RemoteText style={{opacity: 0.6}}>미세먼지 오염도(PM10):</RemoteText></TextLeftView><TextRightView><RemoteText style={{opacity: 0.6, fontWeight: 'bold'}}>좋음</RemoteText></TextRightView></RemoteContainer>
+                  <RemoteContainer><TextLeftView><RemoteText  style={{opacity: 0.6}}>초미세먼지 오염도(PM2.5):</RemoteText></TextLeftView><TextRightView><RemoteText style={{opacity: 0.6, fontWeight: 'bold'}}>좋음</RemoteText></TextRightView></RemoteContainer>
+                </TextContainer>
+              </FunctionContainer>
+              <GrayLine style={{margin:0}}/>
+              <BottomFunctionContainer>
+                <TouchableOpacity onPress={() => this.toggleSleep()}>
+                  { this.props.sleepMode===1?
+                    <IconView2>
+                      <Image source={SleepIcnBlue} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height:60,
+                        width:60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText style={{color: 'black'}}>취침모드</IconText>
+                    </IconView2>:<IconView2>
+                      <Image source={SleepIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height:60,
+                        width:60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText  style={{color: 'black'}}>취침모드</IconText>
+                    </IconView2>
+                  }
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.toggleTimer()}>
+                  { this.props.isTurnOnActive===true || this.props.isTurnOffActive===true ?
+                    <IconView2>
+                      <Image source={TimerIcnBlue} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height:60,
+                        width:60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText style={{color: 'black'}}>타이머</IconText>
+                    </IconView2>:<IconView2>
+                      <Image source={TimerIcn} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height:60,
+                        width:60,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <IconText style={{color: 'black'}}>타이머</IconText>
+                    </IconView2>
+                  }
+                </TouchableOpacity>
+              </BottomFunctionContainer>
+            </Container>}
         </TouchableWithoutFeedback>
       </ThemeProvider>
     );

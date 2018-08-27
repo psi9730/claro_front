@@ -4,19 +4,13 @@ const log = require('loglevel');
 log.enableAll();
 
 const server = net.createServer((client) => {
-  console.log('Client connected');
   client.on('data', (data) => {
-    console.log('Client sent: ', data);
     const origin = Buffer.from(data);
     const length = origin.slice(0, 4).readUInt32LE();
-    console.log('length: ', length);
     const dataType = origin.slice(8, 10).readUInt16LE();
-    console.log('dataType: ', dataType.toString(16));
     let response = 'wrong dataType';
     if (dataType === 0x0100) {
       let index = 20;
-      console.log("0100");
-      console.log('serial number: ', origin.slice(index, index += 32).toString('utf8'));
       response = Buffer.from([
         0x44, 0x00, 0x00, 0x00,
         0x75, 0x89, 0x79, 0x87,
@@ -37,8 +31,6 @@ const server = net.createServer((client) => {
 
       for (let i = 0; i < uriCount; i += 1) {
         const uriLen = origin.slice(index, index += 2).readUInt16LE();
-        console.log('uri', i, ' length: ', uriLen);
-        console.log('uri', i, ': ', origin.slice(index, index += uriLen).toString('utf8'));
       }
 
       response = Buffer.from([

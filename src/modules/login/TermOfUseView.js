@@ -53,8 +53,8 @@ class TermOfUseView extends Component<Props, State> {
   render() {
     return (
       <Container>
-        <LoginText style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', padding: 30, fontSize: 25, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
-          개인정보 수집 및 이용
+        <LoginText style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', padding: 30, fontSize: 20, marginBottom: 18, backgroundColor:'white', color: 'black', fontWeight:'bold'}}>
+          이용약관
         </LoginText>
         <View style={{flex:1, alignSelf: 'flex-start', paddingBottom:35, paddingLeft: 30, paddingRight:30, display: 'flex', flexDirection:'column',justifyContent: 'flex-start',alignItems:'flex-start'}}>
           <ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1, display:'flex',flexDirection:'column',justifyContent: 'flex-start', alignItems:'flex-start'}}>

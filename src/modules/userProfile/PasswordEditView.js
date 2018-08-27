@@ -64,7 +64,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -163,7 +163,7 @@ class PasswordEditView extends Component<Props, State> {
               onChangeText={(password)=>this.setState({passwordCheck: password})}
               value={this.state.passwordCheck}
               autoCapitalize='none'
-              style={{marginBottom: 25, fontSize: 18}}
+              style={{marginBottom: 25, fontSize: 18, paddingBottom: 12}}
               blurOnSubmit={true}
             />
             <ErrorText>

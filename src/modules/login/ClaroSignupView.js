@@ -46,7 +46,7 @@ const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
   flex-basis: auto;
-  height: 40px;
+  height: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -445,14 +445,14 @@ class ClaroSignupView extends Component<Props, State> {
               도로주소
             </LoginText>
             <TextsInput
-              editable={false}
+              editable={true}
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={this.onChangeRoadAddr}
               value={this.state.roadAddr}
               autoCapitalize='none'
               style={{marginBottom: 5}}
-              ref={(input) => { this.roadAddr= input; }}
+              ref={(input) => { this.roadAddr = input; }}
               onSubmitEditing={() => { this.focusTextInput(this.refs.jibunAddr) }}
               blurOnSubmit={false}
             />
@@ -460,7 +460,7 @@ class ClaroSignupView extends Component<Props, State> {
               지번주소
             </LoginText>
             <TextsInput
-              editable={false}
+              editable={true}
               underlineColorAndroid="transparent"
               autoCorrect={false}
               onChangeText={this.onChangeJibunAddr}

@@ -54,7 +54,7 @@ const ButtonText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -104,12 +104,12 @@ class WifiSetUpTempView extends Component<Props, State> {
     toast("wifi 등록완료");
   }
   sendWifi() {
-    if (this.props.ssidTemp == null || this.props.ssidTemp === '') {
-      toast(this.props.t('enter_your_ssid'),'error');
+    if (this.props.ssid == null || this.props.ssid === '') {
+      this.setState({isError:true});
       return;
     }
-    if (this.props.passwordTemp == null || this.props.passwordTemp === '') {
-      toast(this.props.t('enter_your_password'),'error');
+    if (this.props.password == null || this.props.password === '') {
+      this.setState({isError:true});
       return;
     }
     Keyboard.dismiss();

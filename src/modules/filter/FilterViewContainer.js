@@ -11,6 +11,8 @@ export default connect(
     filterUsingTime: _.get(state, ['remote', 'filterUsingTime']),
     url: _.get(state, ['remote', 'url']),
     barcode: _.get(state,['registerDevice','barcode']),
+    usingDay:_.get(state, ['remote', 'filterUsingTime'])/720,
+    usingMonth:_.get(state, ['remote', 'filterUsingTime'])/21600
   }),
   actions,
 )(

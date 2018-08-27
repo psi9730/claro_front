@@ -47,7 +47,7 @@ const TitleText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: gray;
-  margin-bottom: 18px;
+  margin-bottom: 40px;
   margin-top:18px;
   
 `;
@@ -55,9 +55,7 @@ const IntroduceText = styled.Text`
   align-self: flex-start;
   font-size: 15px;
   color: black;
-  margin-bottom: 5px;
-  margin-top:3px;
-  
+  margin-bottom: 16px;  
 `;
 const ButtonText = styled.Text`
   font-size: 15px;
@@ -71,7 +69,7 @@ const ErrorText = styled.Text`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -133,10 +131,10 @@ class HomeNumberEditView extends Component<Props, State> {
           onPress={HomeNumberEditView.dismissKeyboard}
         >
           <Container>
-            <TitleText style={{color:'black',fontSize: 25, fontWeight:'bold'}} >
+            <TitleText style={{color:'black',fontSize: 24, fontWeight:'bold'}} >
               이메일 수정
             </TitleText>
-            <IntroduceText style={{color: 'gray'}}>
+            <IntroduceText style={{opacity: 0.4}}>
               email
             </IntroduceText>
             <TextsBoxInput
@@ -145,7 +143,7 @@ class HomeNumberEditView extends Component<Props, State> {
               onChangeText={(email)=>this.setState({email: email})}
               value={this.state.email}
               autoCapitalize='none'
-              style={{fontSize: 18}}
+              style={{fontSize: 18, paddingBottom: 12,paddingRight: 4 }}
               blurOnSubmit={true}
             />
             <ErrorText>

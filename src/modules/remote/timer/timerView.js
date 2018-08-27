@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, DatePickerIOS, Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback, Switch
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -12,6 +12,7 @@ import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
 import FlipToggle from 'react-native-flip-toggle-button';
+import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper'
 import mondayIcn from '../../../assets/images/mondayIcn.png';
 import mondayIcnBlue from '../../../assets/images/mondayIcnBlue.png';
 import tuesdayIcn from '../../../assets/images/tuesdayIcn.png';
@@ -26,9 +27,12 @@ import saturdayIcn from '../../../assets/images/saturdayIcn.png';
 import saturdayIcnBlue from '../../../assets/images/saturdayIcnBlue.png';
 import sundayIcn from '../../../assets/images/sundayIcn.png';
 import sundayIcnBlue from '../../../assets/images/sundayIcnBlue.png';
+import FillCircle from '../../../assets/images/icons8-circled-thin-filled-50.png';
+import EmptyCircle from '../../../assets/images/icons8-circled-thin-50.png';
 import checkIcn from '../../../assets/images/checkIcn.png';
 import ToggleSwitch from 'toggle-switch-react-native'
 import DatePicker from 'react-native-datepicker';
+import { TimePicker } from 'react-native-wheel-picker-android';
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -46,7 +50,12 @@ type Props = {
   turnOnHour: any,
   turnOffHour : any,
   turnOnDay: String,
+  setTurnOffRequest: Function,
+  setTurnOnRequest: Function,
   getControlDeviceRequest: Function,
+  hour: number,
+  minute: number,
+  day: String
 };
 
 type State = {
@@ -71,8 +80,8 @@ const RemoteContainer = styled.View`
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
-    marginBottom:5px;
-    marginTop:5px;
+    marginBottom: 8px;
+    marginTop:8px;
     marginRight:0px;
 `;
 const IconContainer = styled.View`
@@ -82,7 +91,7 @@ const IconContainer = styled.View`
     display: flex;
     margin-top: 4px;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
 `;
 const TextLeftView = styled.View`
     flex-grow:1;
@@ -94,11 +103,14 @@ const TextLeftView = styled.View`
     align-items: center;
 `;
 const GrayLine = styled.View`
-  height: 1px;
+  height: 2px;
+  opacity: 0.4;
   width: 100%;
   background-color: gray;
 `;
 const RemoteText = styled.Text`
+  fontSize:16px;
+ 
 `
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -142,6 +154,7 @@ class TimerView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
+    NavigationStyleWrapper(this.props.navigator,'light','#FFFFFF','#FFFFFF',false,false,'black','black')
     this.state = {
       isActive: false,
       isTurnOffActive: false,
@@ -149,6 +162,9 @@ class TimerView extends Component<Props, State> {
       turnOnDay: "MON",
       isTurnOnActive: false,
       turnOnHour: new Date(),
+      dayList: ['오전','오후'],
+      hourList: [12,1,2,3,4,5,6,7,8,9,10,11],
+      minuteList: Array.from(Array(60).keys(), i =>{ return i;})
     }
   }
 
@@ -167,6 +183,43 @@ class TimerView extends Component<Props, State> {
   }
 
   props: Props;
+  setDays(day){
+    const hour_ = new Date();
+    if(day==='오전') {
+      hour_.setHours(this.props.hour);
+      hour_.setMinutes(this.props.minute);
+    }
+    else {
+      hour_.setHours(this.props.hour + 12);
+      hour_.setMinutes(this.props.minute);
+    }
+    console.log(hour_);
+    this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
+  }
+  setHours(hour){
+    const hour_ = new Date();
+    if(this.props.day==='오전'){
+      hour_.setHours(hour);
+      hour_.setMinutes(this.props.minute);
+    }
+    else {
+      hour_.setHours(hour+12);
+      hour_.setMinutes(this.props.minute);
+    }
+    this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
+  }
+  setMinutes(minute){
+    const hour_ = new Date();
+    if(this.props.day==='오전'){
+      hour_.setHours(this.props.hour);
+      hour_.setMinutes(minute);
+    }
+    else {
+      hour_.setHours(this.props.hour+12);
+      hour_.setMinutes(minute);
+    }
+    this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
+  }
   setDay(date){
     let turnOnDay;
     if(_.get(this.props.turnOnDay,date)===true){
@@ -213,6 +266,7 @@ class TimerView extends Component<Props, State> {
   }
 
   render() {
+    NavigationStyleWrapper(this.props.navigator,'light','#FFFFFF','#FFFFFF',false,false,'black','black')
     return (
       <ThemeProvider theme={ClaroTheme}>
         <TouchableWithoutFeedback
@@ -224,20 +278,25 @@ class TimerView extends Component<Props, State> {
             </TopTextContainer>
             <RemoteContainer style={{marginTop: 10}}><TextLeftView><RemoteText style={{color : 'black',  fontWeight:'bold'}}>꺼짐 예약 시간</RemoteText></TextLeftView>
               <TextRightView>
-                <FlipToggle
-                  value={this.props.isTurnOffActive}
-                  buttonWidth={70}
-                  buttonHeight={36}
-                  buttonRadius={36}
-                  sliderWidth={30}
-                  sliderHeight={30}
-                  sliderRadius={50}
-                  buttonOnColor="#4CD964"
-                  buttonOffColor="gray"
-                  sliderOnColor="#FFFFFF"
-                  sliderOffColor="#FFFFFF"
-                  onToggle={ (isOn) => this.turnOffToggle(isOn)}
-                />
+                { Platform.OS==='android' ?
+                  <FlipToggle
+                    value={this.props.isTurnOffActive}
+                    buttonWidth={70}
+                    buttonHeight={36}
+                    buttonRadius={36}
+                    sliderWidth={30}
+                    sliderHeight={30}
+                    sliderRadius={50}
+                    buttonOnColor="#4CD964"
+                    buttonOffColor="gray"
+                    sliderOnColor="#FFFFFF"
+                    sliderOffColor="#FFFFFF"
+                    onToggle={(isOn) => this.turnOffToggle(isOn)}
+                  /> :
+                  <Switch
+                  onValueChange = {(isOn)=>this.turnOffToggle(isOn)}
+                  value = {this.props.isTurnOffActive}/>
+                }
               </TextRightView>
             </RemoteContainer>
             {this.props.isTurnOffActive ?
@@ -332,25 +391,30 @@ class TimerView extends Component<Props, State> {
                 </RemoteContainer>
                   <GrayLine/>
                 </TouchableOpacity>)):null}
-            <RemoteContainer style={{marginBottom:10, marginTop:10}}>
+            <RemoteContainer style={{marginBottom:10, marginTop:20}}>
               <TextLeftView>
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText>
               </TextLeftView>
               <TextRightView>
-                <FlipToggle
-                  value={this.props.isTurnOnActive}
-                  buttonWidth={70}
-                  buttonHeight={36}
-                  buttonRadius={36}
-                  sliderWidth={30}
-                  sliderHeight={30}
-                  sliderRadius={50}
-                  buttonOnColor="#4CD964"
-                  buttonOffColor="gray"
-                  sliderOnColor="#FFFFFF"
-                  sliderOffColor="#FFFFFF"
-                  onToggle={ (isOn) => this.turnOnToggle(isOn)}
-                />
+                { Platform.OS==='android' ?
+                  <FlipToggle
+                    value={this.props.isTurnOnActive}
+                    buttonWidth={70}
+                    buttonHeight={36}
+                    buttonRadius={36}
+                    sliderWidth={30}
+                    sliderHeight={30}
+                    sliderRadius={50}
+                    buttonOnColor="#4CD964"
+                    buttonOffColor="gray"
+                    sliderOnColor="#FFFFFF"
+                    sliderOffColor="#FFFFFF"
+                    onToggle={(isOn) => this.turnOnToggle(isOn)}
+                  /> :
+                  <Switch
+                    onValueChange = {(isOn)=>this.turnOnToggle(isOn)}
+                    value = {this.props.isTurnOnActive}/>
+                }
               </TextRightView>
             </RemoteContainer>
             {this.props.isTurnOnActive && Platform.OS==='ios' ?   (<DatePickerIOS
@@ -382,149 +446,170 @@ class TimerView extends Component<Props, State> {
               <IconContainer>
               <TouchableOpacity onPress={() => this.setDay("monday")}>
                 {  _.get(this.props.turnOnDay,'monday')===true ?
-                  <Image source={mondayIcnBlue} style={{
+                  <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                    <Image source={FillCircle} style={{
                     flexGrow: 0,
                     flexShrink: 0,
                     flexBasis: 'auto',
-                    height: 50,
-                    width: 50,
-                    marginBottom: 4,
-                    resizeMode: 'stretch'
-                  }}/> :<Image source={mondayIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height: 50,
-                    width: 50,
+                    height: 40,
+                    width: 40,
                     marginBottom: 4,
                     resizeMode: 'stretch'
                   }}/>
+                    <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>월</Text>
+                  </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
+                    flexGrow: 0,
+                    flexShrink: 0,
+                    flexBasis: 'auto',
+                    height: 40,
+                    width: 40,
+                    marginBottom: 4,
+                    resizeMode: 'stretch'
+                  }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>월</Text></View>
                 }
               </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("tuesday")}>
                   {  _.get(this.props.turnOnDay,'tuesday')===true ?
-                    <Image source={tuesdayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>화</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> :   <Image source={tuesdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>화</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("wednesday")}>
                   { _.get(this.props.turnOnDay,'wednesday')===true ?
-                    <Image source={wednesdayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>수</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> :   <Image source={wednesdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>수</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("thursday")}>
                   { _.get(this.props.turnOnDay,'thursday')===true ?
-                    <Image source={thursdayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>목</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> :   <Image source={thursdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>목</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("friday")}>
                   {  _.get(this.props.turnOnDay,'friday')===true ?
-                    <Image source={fridayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>금</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> : <Image source={fridayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>금</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("saturday")}>
                   {  _.get(this.props.turnOnDay,'saturday')===true ?
-                    <Image source={saturdayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>토</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> :   <Image source={saturdayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>토</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("sunday")}>
                   {  _.get(this.props.turnOnDay,'sunday') ===true?
-                    <Image source={sundayIcnBlue} style={{
+                    <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
+                      <Image source={FillCircle} style={{
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        flexBasis: 'auto',
+                        height: 40,
+                        width: 40,
+                        marginBottom: 4,
+                        resizeMode: 'stretch'
+                      }}/>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>일</Text>
+                    </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
                       flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/> :   <Image source={sundayIcn} style={{
-                      flexGrow: 0,
-                      flexShrink: 0,
-                      flexBasis: 'auto',
-                      height: 50,
-                      width: 50,
-                      marginBottom: 4,
-                      resizeMode: 'stretch'
-                    }}/>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>일</Text></View>
                   }
                 </TouchableOpacity>
               </IconContainer>

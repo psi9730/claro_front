@@ -136,7 +136,7 @@ const ScrollContainer = styled.ScrollView`
 const NavButton = styled.TouchableOpacity`
   flex-grow:0;
   flex-shrink:0;
-  flex-basis: 40px;
+  flex-basis: 46px;
   width: 100%;
   margin-bottom: 5px;
   background-color: #00CC39;
@@ -183,7 +183,7 @@ class DeviceSelectView extends Component<Props, State> {
     (async() => {
       await Storage.setItem(KEYS.serialNumber,this.props.barcode);
     })();
-    this.props.navigator.resetTo({
+    this.props.navigator.push({
       ...DEVICE_ADD_SCREEN,
     })
   };
@@ -242,8 +242,8 @@ class DeviceSelectView extends Component<Props, State> {
                                 flexGrow: 0,
                                 flexShrink: 0,
                                 flexBasis: 'auto',
-                                height: 20,
-                                width: 20,
+                                height: 25,
+                                width: 25,
                                 resizeMode: 'stretch'
                               }}/>
                             </View>

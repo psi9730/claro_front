@@ -146,27 +146,6 @@ function* requestGetControlDevice({serialNumber}: {serialNumber:string}) {
   }
 }
 
-function* requestSetControlDevice({serialNumber, power, sterilizing, airCleaning, AI, sleepMode,isTurnOnActive, isTurnOffActive, turnOnDay, turnOffHour, turnOnHour}:  {serialNumber: string, power: number,
-  serialNumber: string,
-  sterilizing: number,
-  airCleaning: number,
-  sleepMode: number,
-  AI: number,
-  isTurnOnActive: boolean,
-  isTurnOffActive: boolean,
-  turnOnDay: any,
-  turnOnHour: Date,
-  turnOffHour: number}) {
-  try {
-    const body={
-      serialNumber, power, sterilizing, airCleaning, AI, sleepMode,isTurnOnActive, isTurnOffActive,   "turnOnDay": turnOnDay, turnOffHour, turnOnHour
-    }
-    const token = yield call(post, `/devices/status/${serialNumber}/status`,body);
-    yield put(RemoteActions.setControlDeviceSuccess(token));
-  } catch (e) {
-    yield put(RemoteActions.setControlDeviceFailure(e));
-  }
-}
 function* requestSetControlDevice2({serialNumber, power, sterilizing, airCleaning, AI, sleepMode, isTurnOnActive, isTurnOffActive, turnOnDay, turnOffHour, turnOnHour}:  {serialNumber: string, power: number,
   serialNumber: string,
   sterilizing: number,
@@ -199,9 +178,7 @@ function* requestSetTimerOff({serialNumber, isTurnOffActive, turnOffHour}:  {ser
   turnOffHour: any}) {
   try {
     var now  = new Date()
-    console.log(now, 'date');
     var date = new Date(now.getTime() + (turnOffHour * 60 * 60 * 1000));
-    console.log(date,'newDate');
     const body={
       serial_number: serialNumber,
       is_turn_off_active: isTurnOffActive,

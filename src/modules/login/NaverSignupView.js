@@ -133,7 +133,6 @@ class NaverSignupView extends Component<Props, State> {
     password: '',
   };
   constructor(props) {
-    console.log("constructor");
     super(props);
     autoBind(this);
     this.state={

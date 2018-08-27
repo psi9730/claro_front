@@ -18,14 +18,20 @@ import {
   Platform,
   NativeModules,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import autoBind from 'react-autobind';
 import {REMOTE_DETAIL_SCREEN} from '../../../screens';
 import locationIcn from '../../assets/images/locationDot.png';
+import circleIcnBlue from '../../assets/images/circleIcnBlue.png';
+import exitIcnRed from '../../assets/images/exitIcnRed.png';
 import circleIcn from '../../assets/images/circle.png';
 import LinearGradient from 'react-native-linear-gradient';
 type Props = {
   restoreOutsideAirInfo: Function,
   restoreIndoorAirInfo: Function,
+  toggleSterilizingRequest: Function,
+  toggleAIRequest: Function,
+  toggleAirCleaningRequest: Function,
   AI: number,
   sterilizing: number,
   power: number,
@@ -154,34 +160,75 @@ const LocationContainer = styled.View`
   align-items: center;
   margin-right:10px;
 `;
+const ModalView2= styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis:auto;
+    border-radius:30;
+    border-width: 1;
+    border-color: white;
+    width:90%;
+    display:flex;
+    flex-direction:column;
+    background-color:white;
+`;
+const ModalContainer = styled.View`
+    flex-grow:3;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: column
+    justify-content: center;
+    align-items: center;
+`;
+const ModalView = styled.View`
+    flex-grow:0;
+    flex-shrink:0;
+    flex-basis: 180px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+const BottomButtonRowView = styled.View`
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: auto;
+    display:flex;
+    flex-direction: row
+    justify-content: space-around;
+    align-items: center;
+`;
+const GrayLine = styled.View`
+  height: 1px;
+  width: 100%;
+  background-color: gray;
+`;
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      modalVocVisible: false,
+      modalVisible: false,
+    }
   }
   state: State = {
   };
-
-  static dismissKeyboard() {
-    Keyboard.dismiss();
-  }
-
-  props: Props;
-
-  render() {
+  componentWillMount(){
     const Color = this.props.backgroundColor;
     if(Platform.OS==='android'){
-    this.props.navigator.setStyle({
-      statusBarTextColorScheme: 'light',
-      navBarBackgroundColor: 'steelblue',
-      statusBarTextColorSchemeSingleScreen: 'light',
-      navBarNoBorder: true,
-      topBarElevationShadowEnabled: false,
-      navBarTextColor: 'white',
-      statusBarColor: Color,
-      navBarHidden: true,
-      navBarButtonColor: 'white',
-    });}
+      this.props.navigator.setStyle({
+        statusBarTextColorScheme: 'light',
+        navBarBackgroundColor: 'steelblue',
+        statusBarTextColorSchemeSingleScreen: 'light',
+        navBarNoBorder: true,
+        topBarElevationShadowEnabled: false,
+        navBarTextColor: 'white',
+        statusBarColor: Color,
+        navBarHidden: true,
+        navBarButtonColor: 'white',
+      });}
     else {
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
@@ -193,9 +240,78 @@ class RemoteView extends Component<Props, State> {
         navBarBackgroundColor: 'steelblue',
       });
     }
+    this.props.getUserProfileRequest().catch((e)=>console.log(e));
+    if(this.props.outerTotalGrade==='3'){
+      this.setState({modalVisible: true})
+    }
+  }
+  static dismissKeyboard() {
+    Keyboard.dismiss();
+  }
+
+  props: Props;
+
+  setVocClean(){
+    this.setState({modalVisible: false})
+    this.props.toggleSleepRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleSterilizingRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleAIRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleAirCleaningRequest(2,this.props.barcode).catch((e)=>console.log(e));
+  }
+  setClean(){
+    this.setState({modalVocVisible: false})
+    this.props.toggleSleepRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleSterilizingRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleAIRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.toggleAirCleaningRequest(2,this.props.barcode).catch((e)=>console.log(e));
+  }
+  render() {
+    const Color = this.props.backgroundColor;
     return (
             <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
           <Container>
+            <Modal
+              isVisible={this.state.modalVisible}
+              onBackdropPress={() => this.setState({modalVisible: false})}
+            >
+                <ModalView style={{marginTop: 22}}>
+                  <ModalView2>
+                    <ModalContainer>
+                      <Text>{'미세먼지 상태가 "나쁨"입니다.\n공기 청정을 실행 하시겠습니까?'}</Text>
+                    </ModalContainer>
+                    <GrayLine/>
+                    <BottomButtonRowView>
+                      <TouchableHighlight onPress={()=> this.setClean()} >
+                        <Image source={circleIcnBlue} resizeMode='stretch' style={{height:25, width:25}}/>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={()=> this.setState({modalVisible: false})} >
+                        <Image source={exitIcnRed} resizeMode='stretch' style={{height:25, width:25}}/>
+                      </TouchableHighlight>
+                    </BottomButtonRowView>
+                  </ModalView2>
+                </ModalView>
+            </Modal>
+            <Modal
+              isVisible={this.state.modalVocVisible}
+              onBackdropPress={() => this.setState({modalVocVisible: !this.state.modalVocVisible})}
+            >
+              <ModalView style={{marginTop: 22}}>
+                <ModalView2>
+                  <ModalContainer>
+                    <Text>{'GAS/VOCs "오염" 상태입니다.\n정화를 실행 하시겠습니까?'}</Text>
+                  </ModalContainer>
+                  <GrayLine/>
+                  <BottomButtonRowView>
+                    <TouchableHighlight onPress={()=> this.setVocClean()} >
+                      <Image source={circleIcnBlue} resizeMode='stretch' style={{height:25, width:25}}/>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={()=> this.setState({modalVocVisible: false})} >
+                      <Image source={exitIcnRed} resizeMode='stretch' style={{height:25, width:25}}/>
+                    </TouchableHighlight>
+                  </BottomButtonRowView>
+                </ModalView2>
+              </ModalView>
+            </Modal>
             <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{flexGrow:0,
               flexShrink:0,
               flexBasis: 'auto',
@@ -232,7 +348,7 @@ class RemoteView extends Component<Props, State> {
                   <LocationContainer>
                     <Image source={locationIcn} style={{flexGrow:0, flexShrink:0, flexBasis: 'auto', height:15, width:10,marginRight:4,tintColor: 'gray', resizeMode:'stretch'}} />
                     <OuterTextRight>
-                    {this.props.location}
+                    {this.props.jibunAddr}
                     </OuterTextRight>
                   </LocationContainer>
               <OuterTextCenter>
