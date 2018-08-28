@@ -50,7 +50,7 @@ import PersonalInfoScreen from './src/modules/login/PersonalInfoViewContainer';
 import TermOfUseScreen from './src/modules/login/TermOfUseViewContainer';
 import {getAuthenticationToken} from './src/utils/authentication';
 import SerialNumberSolutionScreen from './src/modules/registerdevice/serialnumber/SerialNumberSolutionViewContainer';
-import burgerIcn from './src/assets/images/burger.png';
+import burgerIcn from './src/assets/images/btnMenuN.png';
 import goBackIcn from './src/assets/images/goBack.png';
 import blankIcn from './src/assets/images/Blank.png';
 

@@ -606,7 +606,7 @@ class AirStatusView extends Component<Props, State> {
                 animated: true,
                 side: 'left',
               })} >
-                <Image source={burgerIcn} resizeMode='stretch' style={{height:30, width:30}}/>
+                <Image source={burgerIcn} resizeMode='stretch' style={{ height:18, width:23}}/>
               </TouchableHighlight>
             </TextContainer>
           </NavBar>

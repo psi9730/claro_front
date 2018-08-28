@@ -35,11 +35,11 @@ const Container = styled.KeyboardAvoidingView`
   display:flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: white;
+  background-color: rgba(251, 251, 251, 1);
 `;
 const GrayText = styled.Text`
   font-size: 15px;
-  color: gray;
+  color: rgba(137, 137, 137, 1);
   margin-top:20px;
   margin-bottom:20px;
 `;
@@ -53,8 +53,8 @@ const RowText = styled.Text`
   font-size: 20px;
 `;
 const GrayLine = styled.View`
-  height: 1px;
-  background-color: gray;
+  height: 2px;
+  background-color: rgba(233, 233, 233,1);
   align-self:stretch;
 `;
 const RowContainer = styled.View`

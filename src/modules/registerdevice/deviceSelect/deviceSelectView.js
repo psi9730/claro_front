@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {
   Button, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, DatePickerIOS, Platform,
-  TouchableWithoutFeedback,ScrollView
+  TouchableWithoutFeedback,ScrollView,Switch
 } from 'react-native';
 import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
@@ -214,6 +214,8 @@ class DeviceSelectView extends Component<Props, State> {
                 <RemoteText style={{color : 'black',  fontWeight:'bold'}}>푸쉬 알림을 허용합니다</RemoteText>
               </TextLeftView>
               <TextRightView>
+                {
+                  Platform.OS==='android' ?
                 <FlipToggle
                   value={this.props.isActive}
                   buttonWidth={70}
@@ -227,7 +229,10 @@ class DeviceSelectView extends Component<Props, State> {
                   sliderOnColor="#FFFFFF"
                   sliderOffColor="#FFFFFF"
                   onToggle={ (isOn) => this.pushToggle(isOn)}
-                />
+                /> :
+                <Switch
+                  onValueChange = {(isOn)=>this.turnOffToggle(isOn)}
+                  value = {this.props.isTurnOffActive}/>}
               </TextRightView>
             </RemoteContainer>
             <ScrollContainer>

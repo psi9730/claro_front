@@ -170,7 +170,6 @@ dependencies {
     compile project(':react-native-linear-gradient')
     compile project(':react-native-naver-login')
     compile project(':react-native-wheel-picker')
-    compile project(':react-native-wheel-datepicker')
     compile project(':react-native-extra-dimensions-android')
     compile project(':react-native-interactable')
     compile project(':react-native-svg')

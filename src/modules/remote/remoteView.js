@@ -204,6 +204,14 @@ const GrayLine = styled.View`
   width: 100%;
   background-color: gray;
 `;
+const VeryGoodBackground = ['rgba(0,162,230,1)','rgba(51, 143, 252, 1)'];
+const StatusVeryGoodBackground = 'rgba(0,162,230,1)';
+const BadBackground = ['rgba(255,180,41,1)','rgba(255, 207, 0, 1)'];
+const StatusBadBackground = 'rgba(255,180,41,1)';
+const VeryBadBackground = ['rgba(255, 105, 124,1)','rgba(255, 73, 96, 1)'];
+const StatusVeryBadBackground = 'rgba(255,105,124,1)';
+const NormalBackground = ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'];
+const StatusNormalBackground = 'rgba(0,176, 177,1)';
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -220,12 +228,12 @@ class RemoteView extends Component<Props, State> {
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        navBarBackgroundColor: 'steelblue',
+        navBarBackgroundColor: StatusVeryBadBackground,
         statusBarTextColorSchemeSingleScreen: 'light',
         navBarNoBorder: true,
         topBarElevationShadowEnabled: false,
         navBarTextColor: 'white',
-        statusBarColor: Color,
+        statusBarColor: StatusVeryBadBackground,
         navBarHidden: true,
         navBarButtonColor: 'white',
       });}
@@ -235,9 +243,9 @@ class RemoteView extends Component<Props, State> {
         navBarButtonColor: 'white',
         navBarTextColor: 'white',
         navBarNoBorder: true,
-        statusBarColor: Color,
+        statusBarColor: StatusVeryBadBackground,
         navBarHidden: true,
-        navBarBackgroundColor: 'steelblue',
+        navBarBackgroundColor: StatusVeryBadBackground,
       });
     }
     this.props.getUserProfileRequest().catch((e)=>console.log(e));
@@ -312,7 +320,7 @@ class RemoteView extends Component<Props, State> {
                 </ModalView2>
               </ModalView>
             </Modal>
-            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{flexGrow:0,
+            <LinearGradient colors={VeryBadBackground} style={{flexGrow:0,
               flexShrink:0,
               flexBasis: 'auto',
               display: 'flex',

@@ -8,31 +8,17 @@ import autoBind from 'react-autobind';
 import styled from 'styled-components/native';
 import {ThemeProvider} from 'styled-components';
 import ClaroTheme from '../../../utils/ClaroTheme';
-import toast from '../../../utils/toast';
 import Storage, {KEYS} from '../../../utils/ClaroStorage';
 import _ from 'lodash';
 import FlipToggle from 'react-native-flip-toggle-button';
 import NavigationStyleWrapper from '../../../../src/utils/NavigationStyleWrapper'
-import mondayIcn from '../../../assets/images/mondayIcn.png';
-import mondayIcnBlue from '../../../assets/images/mondayIcnBlue.png';
-import tuesdayIcn from '../../../assets/images/tuesdayIcn.png';
-import tuesdayIcnBlue from '../../../assets/images/tuesdayIcnBlue.png';
-import wednesdayIcn from '../../../assets/images/wednesdayIcn.png';
-import wednesdayIcnBlue from '../../../assets/images/wednesdayIcnBlue.png';
-import thursdayIcn from '../../../assets/images/thursdayIcn.png';
-import thursdayIcnBlue from '../../../assets/images/thursdayIcnBlue.png';
-import fridayIcn from '../../../assets/images/fridayIcn.png';
-import fridayIcnBlue from '../../../assets/images/fridayIcnBlue.png';
-import saturdayIcn from '../../../assets/images/saturdayIcn.png';
-import saturdayIcnBlue from '../../../assets/images/saturdayIcnBlue.png';
-import sundayIcn from '../../../assets/images/sundayIcn.png';
-import sundayIcnBlue from '../../../assets/images/sundayIcnBlue.png';
 import FillCircle from '../../../assets/images/icons8-circled-thin-filled-50.png';
 import EmptyCircle from '../../../assets/images/icons8-circled-thin-50.png';
 import checkIcn from '../../../assets/images/checkIcn.png';
-import ToggleSwitch from 'toggle-switch-react-native'
 import DatePicker from 'react-native-datepicker';
-import { TimePicker } from 'react-native-wheel-picker-android';
+import Picker from 'react-native-wheel-picker'
+var PickerItem = Picker.Item;
+
 type Props = {
   sendSerialNumberRequest: Function,
   restoreSerialNumber: Function,
@@ -149,6 +135,12 @@ const TopTextContainer = styled.View`
     justify-content: flex-start;
     align-items: flex-start;
 `;
+const RowContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 
 class TimerView extends Component<Props, State> {
   constructor(props) {
@@ -163,14 +155,15 @@ class TimerView extends Component<Props, State> {
       isTurnOnActive: false,
       turnOnHour: new Date(),
       dayList: ['오전','오후'],
-      hourList: [12,1,2,3,4,5,6,7,8,9,10,11],
-      minuteList: Array.from(Array(60).keys(), i =>{ return i;})
+      hourList: ['12','1','2','3','4','5','6','7','8','9','10','11'],
+      minuteList: Array.from(Array(60).keys(), i =>{ return `${i}`;})
     }
   }
 
 
 
   componentWillMount() {
+    this.setState({minute: this.props.minute.toString(), hour: this.props.hour.toString(), day: this.props.day.toString()});
     (async () => {
       const serialNumber = await Storage.getItem(KEYS.serialNumber);
       this.props.getControlDeviceRequest(serialNumber).catch();
@@ -183,7 +176,8 @@ class TimerView extends Component<Props, State> {
   }
 
   props: Props;
-  setDays(day){
+  setDays(i){
+    const day = _.nth(this.state.dayList,i);
     const hour_ = new Date();
     if(day==='오전') {
       hour_.setHours(this.props.hour);
@@ -194,30 +188,40 @@ class TimerView extends Component<Props, State> {
       hour_.setMinutes(this.props.minute);
     }
     console.log(hour_);
+    this.setState({day: day})
     this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
   }
-  setHours(hour){
+  setHours(i){
+    let hour = _.nth(this.state.hourList,i);
+    if(hour==='12')
+    {
+      hour= '0';
+    }
     const hour_ = new Date();
     if(this.props.day==='오전'){
-      hour_.setHours(hour);
+      hour_.setHours(parseInt(hour));
       hour_.setMinutes(this.props.minute);
     }
     else {
-      hour_.setHours(hour+12);
+      hour_.setHours(parseInt(hour)+12);
       hour_.setMinutes(this.props.minute);
     }
+    console.log(hour_);
+    this.setState({hour: hour})
     this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
   }
-  setMinutes(minute){
+  setMinutes(i){
+    const minute = _.nth(this.state.minuteList,i);
     const hour_ = new Date();
     if(this.props.day==='오전'){
       hour_.setHours(this.props.hour);
-      hour_.setMinutes(minute);
+      hour_.setMinutes(parseInt(minute));
     }
     else {
       hour_.setHours(this.props.hour+12);
-      hour_.setMinutes(minute);
+      hour_.setMinutes(parseInt(minute));
     }
+    this.setState({minute: minute});
     this.props.setTurnOnRequest(this.props.barcode, this.props.turnOnDay, hour_, this.props.isTurnOnActive);
   }
   setDay(date){
@@ -391,59 +395,98 @@ class TimerView extends Component<Props, State> {
                 </RemoteContainer>
                   <GrayLine/>
                 </TouchableOpacity>)):null}
-            <RemoteContainer style={{marginBottom:10, marginTop:20}}>
-              <TextLeftView>
-                <RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText>
-              </TextLeftView>
-              <TextRightView>
-                { Platform.OS==='android' ?
-                  <FlipToggle
-                    value={this.props.isTurnOnActive}
-                    buttonWidth={70}
-                    buttonHeight={36}
-                    buttonRadius={36}
-                    sliderWidth={30}
-                    sliderHeight={30}
-                    sliderRadius={50}
-                    buttonOnColor="#4CD964"
-                    buttonOffColor="gray"
-                    sliderOnColor="#FFFFFF"
-                    sliderOffColor="#FFFFFF"
-                    onToggle={(isOn) => this.turnOnToggle(isOn)}
-                  /> :
-                  <Switch
-                    onValueChange = {(isOn)=>this.turnOnToggle(isOn)}
-                    value = {this.props.isTurnOnActive}/>
-                }
-              </TextRightView>
-            </RemoteContainer>
-            {this.props.isTurnOnActive && Platform.OS==='ios' ?   (<DatePickerIOS
-              date={this.props.turnOnHour}
-              onDateChange={this.setHour}
-              mode={"time"}
-            />) : (null)}
-            {this.props.isTurnOnActive && Platform.OS==='android' ?   (<DatePicker
-              onDateChange={value => this.setHourAndroid(value)}
-              date={this.props.turnOnHour}
-              customStyles={{
-                dateText:{
-                  fontSize: 25,
-                }
-                // ... You can check the source to find the other keys.
-              }}
-              format="HH:mm"
-              showIcon={false}
-              style={{
-                marginBottom: 10,
-                width: '100%',
-                backgroundColor: 'white',
-                androidMode:'default',
-              }}
-              mode={"time"}
-            />) : (null)}
-
+                <View style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+                  {this.props.isTurnOnActive && Platform.OS==='ios' ?   ( <RowContainer style={{position:'absolute',top:0}}>
+                    <Picker style={{width: 100, height: 150}}
+                            selectedValue={_.indexOf(this.state.dayList,this.state.day)}
+                            itemStyle={{fontSize:26, color:'black', borderBottomWidth: 2,  borderTopWidth:2}}
+                            onValueChange={(index) => this.setDays(index)}>
+                      {this.state.dayList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"day"+value}/>
+                      ))}
+                    </Picker>
+                    <Picker style={{width: 100, height: 150}}
+                            selectedValue={_.indexOf(this.state.hourList,this.state.hour)}
+                            itemStyle={{fontSize:18, color:'black'}}
+                            onValueChange={(index) => this.setHours(index)}>
+                      {this.state.hourList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"hour"+value}/>
+                      ))}
+                    </Picker>
+                    <Picker style={{width: 100, height: 150}}
+                            selectedValue={_.indexOf(this.state.minuteList,this.state.minute)}
+                            itemStyle={{fontSize:18, color:'black'}}
+                            onValueChange={(index) => this.setMinutes(index)}>
+                      {this.state.minuteList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"minute"+value}/>
+                      ))}
+                    </Picker>
+                    <View style={{backgroundColor: '#FFFFFF', width: '100%', position: 'absolute', flexBasis: 85, height: 85, top: 0}}/>
+                    <View style={{backgroundColor: '#FFFFFF', width: '100%', position: 'absolute', flexBasis: 85, height: 85, top: 130}}/>
+                    <GrayLine style={{position: 'absolute',top:130}}/>
+                    <GrayLine style={{position: 'absolute',top:85}}/>
+                  </RowContainer>) : (null)}
+                  {this.props.isTurnOnActive && Platform.OS==='android' ?   ( <RowContainer style={{position: 'absolute', top: 0, display:'flex', justifyContent: 'center'}}>
+                    <GrayLine style={{position: 'absolute',top:114}}/>
+                    <GrayLine style={{position: 'absolute',top:82}}/>
+                    <Picker style={{width: 100, height: 200}}
+                            selectedValue={_.indexOf(this.state.dayList,this.state.day)}
+                            itemStyle={{fontSize:26, color:'black', borderBottomWidth: 2,  borderTopWidth:2}}
+                            onValueChange={(index) => this.setDays(index)}>
+                      {this.state.dayList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"day"+value}/>
+                      ))}
+                    </Picker>
+                    <Picker style={{width: 100, height: 200}}
+                            selectedValue={_.indexOf(this.state.hourList,this.state.hour)}
+                            itemStyle={{fontSize:18, color:'black'}}
+                            onValueChange={(index) => this.setHours(index)}>
+                      {this.state.hourList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"hour"+value}/>
+                      ))}
+                    </Picker>
+                    <Picker style={{width: 100, height: 200}}
+                            selectedValue={_.indexOf(this.state.minuteList,this.state.minute)}
+                            itemStyle={{fontSize:18, color:'black'}}
+                            onValueChange={(index) => this.setMinutes(index)}>
+                      {this.state.minuteList.map((value, i) => (
+                        <PickerItem label={value} value={i} key={"minute"+value}/>
+                      ))}
+                    </Picker>
+                    <View style={{backgroundColor: '#FFFFFF', width: '100%', position: 'absolute', flexBasis: 82, height:82, top: 0}}/>
+                    <View style={{backgroundColor: '#FFFFFF', width: '100%', position: 'absolute', flexBasis: 82, height:82, top: 114}}/>
+                    <GrayLine style={{position: 'absolute',top:114}}/>
+                    <GrayLine style={{position: 'absolute',top:82}}/>
+                  </RowContainer>) : (null)}
+                  <RemoteContainer style={{marginBottom:10, marginTop:20}}>
+                    <TextLeftView>
+                      <RemoteText style={{color : 'black',  fontWeight:'bold'}}>켜짐 예약 시간</RemoteText>
+                    </TextLeftView>
+                    <TextRightView>
+                      { Platform.OS==='android' ?
+                        <FlipToggle
+                          value={this.props.isTurnOnActive}
+                          buttonWidth={70}
+                          buttonHeight={36}
+                          buttonRadius={36}
+                          sliderWidth={30}
+                          sliderHeight={30}
+                          sliderRadius={50}
+                          buttonOnColor="#4CD964"
+                          buttonOffColor="gray"
+                          sliderOnColor="#FFFFFF"
+                          sliderOffColor="#FFFFFF"
+                          onToggle={(isOn) => this.turnOnToggle(isOn)}
+                        /> :
+                        <Switch
+                          onValueChange = {(isOn)=>this.turnOnToggle(isOn)}
+                          value = {this.props.isTurnOnActive}/>
+                      }
+                    </TextRightView>
+                  </RemoteContainer>
+                </View>
             {this.props.isTurnOnActive ?   (
-              <IconContainer>
+              <IconContainer style={{marginTop:100}}>
               <TouchableOpacity onPress={() => this.setDay("monday")}>
                 {  _.get(this.props.turnOnDay,'monday')===true ?
                   <View style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}>
@@ -456,7 +499,7 @@ class TimerView extends Component<Props, State> {
                     marginBottom: 4,
                     resizeMode: 'stretch'
                   }}/>
-                    <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>월</Text>
+                    <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>월</Text>
                   </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                     flexGrow: 0,
                     flexShrink: 0,
@@ -465,7 +508,7 @@ class TimerView extends Component<Props, State> {
                     width: 40,
                     marginBottom: 4,
                     resizeMode: 'stretch'
-                  }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>월</Text></View>
+                  }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>월</Text></View>
                 }
               </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("tuesday")}>
@@ -480,7 +523,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>화</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>화</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -489,7 +532,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>화</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>화</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("wednesday")}>
@@ -504,7 +547,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>수</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>수</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -513,7 +556,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>수</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>수</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("thursday")}>
@@ -528,7 +571,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>목</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>목</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -537,7 +580,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>목</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>목</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("friday")}>
@@ -552,7 +595,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>금</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>금</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -561,7 +604,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>금</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>금</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("saturday")}>
@@ -576,7 +619,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>토</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>토</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -585,7 +628,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>토</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>토</Text></View>
                   }
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setDay("sunday")}>
@@ -600,7 +643,7 @@ class TimerView extends Component<Props, State> {
                         marginBottom: 4,
                         resizeMode: 'stretch'
                       }}/>
-                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF'}}>일</Text>
+                      <Text style={{ position: 'absolute', fontSize:17, color: '#FFFFFF',top:10}}>일</Text>
                     </View> :<View  style={{display: 'flex',justifyContent: 'center', alignItems:'center',margin:2}}><Image source={EmptyCircle} style={{
                       flexGrow: 0,
                       flexShrink: 0,
@@ -609,7 +652,7 @@ class TimerView extends Component<Props, State> {
                       width: 40,
                       marginBottom: 4,
                       resizeMode: 'stretch'
-                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8'}}>일</Text></View>
+                    }}/><Text style={{ position: 'absolute', fontSize:17, color: '#2dc3e8',top:10}}>일</Text></View>
                   }
                 </TouchableOpacity>
               </IconContainer>
