@@ -211,6 +211,8 @@ export default function LoginReducer(state: LoginState = initialState, action: O
         roadAddr: action.payload.roadAddr,
         postcode: action.payload.postcode,
         detailLocation: action.payload.detailLocation,
+        facebookId: action.payload.fbid,
+        naverId: action.payload.naverId,
         isActivePush: action.payload.isActivePush,
         loading:true,
       };

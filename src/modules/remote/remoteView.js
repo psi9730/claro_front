@@ -37,9 +37,19 @@ type Props = {
   power: number,
   serialNumber: string,
   airCleaning: number,
+  indoorAirGrade: String,
+  indoorPm10: String,
+  indoorPm25: String,
+  indoorVoc: String,
+  pm10: number,
+  pm25: number,
+  vocs: number,
+  StatusBackground: String,
+  Background: any,
 };
 type State = {
 };
+
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   height:100%;
@@ -212,6 +222,7 @@ const VeryBadBackground = ['rgba(255, 105, 124,1)','rgba(255, 73, 96, 1)'];
 const StatusVeryBadBackground = 'rgba(255,105,124,1)';
 const NormalBackground = ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'];
 const StatusNormalBackground = 'rgba(0,176, 177,1)';
+
 class RemoteView extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -224,16 +235,15 @@ class RemoteView extends Component<Props, State> {
   state: State = {
   };
   componentWillMount(){
-    const Color = this.props.backgroundColor;
     if(Platform.OS==='android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        navBarBackgroundColor: StatusVeryBadBackground,
+        navBarBackgroundColor: this.props.StatusBackground,
         statusBarTextColorSchemeSingleScreen: 'light',
         navBarNoBorder: true,
         topBarElevationShadowEnabled: false,
         navBarTextColor: 'white',
-        statusBarColor: StatusVeryBadBackground,
+        statusBarColor: this.props.StatusBackground,
         navBarHidden: true,
         navBarButtonColor: 'white',
       });}
@@ -243,9 +253,9 @@ class RemoteView extends Component<Props, State> {
         navBarButtonColor: 'white',
         navBarTextColor: 'white',
         navBarNoBorder: true,
-        statusBarColor: StatusVeryBadBackground,
+        statusBarColor: this.props.StatusBackground,
         navBarHidden: true,
-        navBarBackgroundColor: StatusVeryBadBackground,
+        navBarBackgroundColor: this.props.StatusBackground,
       });
     }
     this.props.getUserProfileRequest().catch((e)=>console.log(e));
@@ -274,7 +284,6 @@ class RemoteView extends Component<Props, State> {
     this.props.toggleAirCleaningRequest(2,this.props.barcode).catch((e)=>console.log(e));
   }
   render() {
-    const Color = this.props.backgroundColor;
     return (
             <View style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
           <Container>
@@ -320,7 +329,7 @@ class RemoteView extends Component<Props, State> {
                 </ModalView2>
               </ModalView>
             </Modal>
-            <LinearGradient colors={VeryBadBackground} style={{flexGrow:0,
+            <LinearGradient colors={this.props.Background} style={{flexGrow:0,
               flexShrink:0,
               flexBasis: 'auto',
               display: 'flex',
@@ -335,19 +344,19 @@ class RemoteView extends Component<Props, State> {
                 </TextCenter>
                 <InnerAirContainer style={{marginBottom:10}}>
                   <TextContainer style={{backgroundColor: 'transparent'}}><Text style={{fontSize:15, color: 'white', paddingBottom:5, fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
-                  <TextLeftContainer style={{backgroundColor: 'transparent' }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>매우 나쁨</Text></TextLeftContainer>
+                  <TextLeftContainer style={{backgroundColor: 'transparent' }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>{this.props.indoorAirGrade}</Text></TextLeftContainer>
                 </InnerAirContainer>
               <InnerAirContainer style={{marginTop: 0, backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >나쁨 </Text></TextLeftContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>{`미세먼지(PM 10): ${this.props.pm10} ug/m3`}</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorPm10} </Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>초미세먼지(PM 10): 25 ug/m3</Text></ImageTextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >매우 나쁨</Text></TextLeftContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>{`초미세먼지(PM 25): ${this.props.pm25} ug/m3`}</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorPm25}</Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
                 <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >오염 </Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorVoc} </Text></TextLeftContainer>
               </InnerAirContainer>
             </LinearGradient>
             <OuterContainer>
@@ -364,7 +373,7 @@ class RemoteView extends Component<Props, State> {
               </OuterTextCenter>
               <FunctionContainer style={{paddingBottom: 10}}>
                 <TextContainer><Text style={{fontWeight: 'bold' }}>통합 공기 청정도</Text></TextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold', fontSize:25, color: Color}}>{this.props.outerTotalGrade=== '1' ? '좋음' : (this.props.outerTotalGrade==='2' ? '보통' : '나쁨')}</Text></TextLeftContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold', fontSize:25, color: this.props.outerTotalGrade=== '1' ? StatusVeryGoodBackground : (this.props.outerTotalGrade==='2' ? StatusNormalBackground : StatusVeryBadBackground)}}>{this.props.outerTotalGrade=== '1' ? '좋음' : (this.props.outerTotalGrade==='2' ? '보통' : '나쁨')}</Text></TextLeftContainer>
               </FunctionContainer>
               <FunctionContainer>
                 <TextContainer><Text>미세먼지(PM 10)</Text></TextContainer>

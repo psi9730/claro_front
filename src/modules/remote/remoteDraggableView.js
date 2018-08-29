@@ -76,14 +76,6 @@ const Screen = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height
 };
-const VeryGoodBackground = ['rgba(0,162,230,1)','rgba(51, 143, 252, 1)'];
-const StatusVeryGoodBackground = 'rgba(0,162,230,1)';
-const BadBackground = ['rgba(255,180,41,1)','rgba(255, 207, 0, 1)'];
-const StatusBadBackground = 'rgba(255,180,41,1)';
-const VeryBadBackground = ['rgba(255, 105, 124,1)','rgba(255, 73, 96, 1)'];
-const StatusVeryBadBackground = 'rgba(255,105,124,1)';
-const NormalBackground = ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'];
-const StatusNormalBackground = 'rgba(0,176, 177,1)';
 
 class RemoteDraggableView extends Component<Props, State> {
 
@@ -123,13 +115,13 @@ class RemoteDraggableView extends Component<Props, State> {
         statusBarTextColorScheme: 'light',
         statusBarTextColorSchemeSingleScreen: 'light',
         topBarElevationShadowEnabled: false,
-        statusBarColor: StatusVeryBadBackground,
+        statusBarColor: this.props.StatusBackground,
         navBarHidden: true,
       });}
     else {
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        statusBarColor: StatusVeryBadBackground,
+        statusBarColor: this.props.StatusBackground,
         navBarHidden: true,
       });
     }
@@ -183,7 +175,7 @@ class RemoteDraggableView extends Component<Props, State> {
     } else if(event.nativeEvent.index===1){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'light',
-        statusBarColor: this.props.backgroundColor,
+        statusBarColor:  this.props.StatusBackground,
         statusBarTextColorSchemeSingleScreen: 'light',
       })
     }
@@ -202,14 +194,13 @@ class RemoteDraggableView extends Component<Props, State> {
   props: Props;
   render() {
     var newDate = dateformat(this.props.date,'yyyy.mm.dd HH:MM');
-    const Color = this.props.backgroundColor;
     console.log(" StatusBarManager.HEIGHT", StatusBarManager.HEIGHT);
     return (
       <View style={styles.IOSContainer} onLayout={(event) => {
         {this.onLayout(event)}
       }}>
         { Platform.OS==='android' ?(
-          <NavBar style ={{ padding: 20, backgroundColor: StatusVeryBadBackground,  display: 'flex', flexDirection: 'row', flexGrow:0, flexShrink:0, flexBasis:'auto', height: Platform.select({
+          <NavBar style ={{ padding: 20, backgroundColor: this.props.StatusBackground,  display: 'flex', flexDirection: 'row', flexGrow:0, flexShrink:0, flexBasis:'auto', height: Platform.select({
               ios: 64,
               android: 54
             })
@@ -228,12 +219,12 @@ class RemoteDraggableView extends Component<Props, State> {
           </NavBar>
         ): (
           <View style={{ flexGrow:0, flexShrink:0, flexBasis:'auto', display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', alignItems:'stretch'}}>
-            <NavBar style ={{  backgroundColor: StatusVeryBadBackground, height: Platform.select({
+            <NavBar style ={{  backgroundColor:this.props.StatusBackground, height: Platform.select({
                 ios:  20,
                 android: StatusBarManager.HEIGHT, flexGrow:0, flexShrink:0, flexBasis: 'auto'
               }),
             }} />
-            <NavBar style ={{ padding: 20, backgroundColor: StatusVeryBadBackground,  flexGrow:0, flexShrink:0, flexBasis:'auto', height: Platform.select({
+            <NavBar style ={{ padding: 20, backgroundColor: this.props.StatusBackground,  flexGrow:0, flexShrink:0, flexBasis:'auto', height: Platform.select({
                 ios: 64,
                 android: 54
               })

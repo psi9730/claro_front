@@ -119,7 +119,7 @@ class HomeNumberEditView extends Component<Props, State> {
   updateProfile() {
     if(EmailValidator.validate(this.state.email)) {
       this.props.updateUserProfileRequest(this.props.phoneNumber, this.props.homeNumber, this.props.jibunAddr, this.props.roadAddr, this.props.detailLocation, this.props.postcode, this.state.email).then(() =>
-        this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch((e) => this.setState({errorMessage: e.message}));
+        this.props.navigator.resetTo({...USER_PROFILE_SCREEN})).catch((e) => this.setState({errorMessage: "이미 존재하는 이메일입니다."}));
     } else{
       this.setState({errorMessage: this.props.t('check_email_form')})
     }

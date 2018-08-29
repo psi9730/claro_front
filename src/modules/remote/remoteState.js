@@ -51,6 +51,15 @@ const initialState = {
   outerPm25Value : 0,
   outerCoValue: 0,
   outerSo2Value : 0,
+  indoorAirGrade: '보통',
+  Background : ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'],
+  StatusNormalBackground : 'rgba(0,176, 177,1)',
+  indoorPm10: '5',
+  indoorPm25: '5',
+  indoorVoc: '',
+  pm10: 0,
+  pm25: 0,
+  vocs: 0,
 };
 
 // Action Creators
@@ -309,8 +318,46 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           let turnOffHourDate = new Date(status.turnOffDate);
           let now = new Date();
           let diff = Math.ceil((turnOffHourDate.getTime()-now)/(1000*60*60));
-        return {
+          const indoorAirGrade = status.pm10>5 ? '나쁨' : '보통';
+          const indoorPm10 = status.pm10>5 ? '나쁨' : '보통';
+          const indoorPm25 = status.pm25>5 ? '나쁨' : '보통';
+          const indoorVoc = status.vocs>5 ? '나쁨' : '보통';
+          const VeryGoodBackground = ['rgba(0,162,230,1)','rgba(51, 143, 252, 1)'];
+          const StatusVeryGoodBackground = 'rgba(0,162,230,1)';
+          const BadBackground = ['rgba(255,180,41,1)','rgba(255, 207, 0, 1)'];
+          const StatusBadBackground = 'rgba(255,180,41,1)';
+          const VeryBadBackground = ['rgba(255, 105, 124,1)','rgba(255, 73, 96, 1)'];
+          const StatusVeryBadBackground = 'rgba(255,105,124,1)';
+          const NormalBackground = ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'];
+          const StatusNormalBackground = 'rgba(0,176, 177,1)';
+          let StatusBackground = "";
+          let Background = "";
+          if(indoorAirGrade === '매우나쁨')
+          {
+            StatusBackground = StatusVeryBadBackground;
+            Background = VeryBadBackground;
+          } else if(indoorAirGrade === '나쁨')
+          {
+            StatusBackground = StatusBadBackground;
+            Background = BadBackground;
+          } else if(indoorAirGrade === '좋음')
+          {
+            StatusBackground = StatusVeryGoodBackground;
+            Background = VeryGoodBackground;
+          } else if(indoorAirGrade === '보통')
+          {
+            StatusBackground = StatusNormalBackground;
+            Background = NormalBackground;
+          }
+
+      return {
           ...state,
+          indoorAirGrade,
+          StatusBackground,
+          Background,
+          indoorPm10,
+          indoorPm25,
+          indoorVoc,
           barcode: status.serial_number,
           power: status.power,
           sterilizing: status.sterilizing,
@@ -324,6 +371,9 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           filterUsingTime: status.filterSum,
           turnOnHour: new Date(status.turnOnDate),
           loading: false,
+          pm10: status.pm10,
+          pm25: status.pm25,
+          voc: status.voc,
         };
     case RemoteTypes.FILTER_TIME_RESET:
       return {

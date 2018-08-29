@@ -114,10 +114,13 @@ class PasswordCheckView extends Component<Props, State> {
           onPress={PasswordCheckView.dismissKeyboard}
         >
           <Container>
-            <View><TitleText style={{color:'black',fontSize: 24, marginBottom:40, fontWeight:'bold'}} >
-              비밀번호 수정
-            </TitleText>
-              <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 고객님의 정보수정을 위해</TitleText>   <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 다시 한번 비밀번호를 입력해 주시기 바랍니다.</TitleText></View>
+            <View>
+              <TitleText style={{color:'black',fontSize: 24, marginBottom:40, fontWeight:'bold'}} >
+                비밀번호 수정
+              </TitleText>
+              <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 고객님의 정보수정을 위해</TitleText>
+              <TitleText style={{marginTop: 4, fontSize: 15, color: 'black'}}> 다시 한번 비밀번호를 입력해 주시기 바랍니다.</TitleText>
+            </View>
             <IntroduceText style={{opacity: 0.4, marginTop: 40}}>
               비밀번호 재입력
             </IntroduceText>

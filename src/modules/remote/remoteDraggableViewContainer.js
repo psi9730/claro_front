@@ -7,9 +7,10 @@ import {compose, withProps} from 'recompose';
 
 export default connect(
   state => ({
-    backgroundColor: _.get(state,['remote','backgroundColor']),
     jibunAddr:_.get(state, ['login','jibunAddr']),
     devices: _.get(state, ['registerDevice','devices']),
+    StatusBackground: _.get(state, ['remote', 'StatusBackground']),
+    Background: _.get(state, ['remote', 'Background']),
   }),
   actions,
 )(

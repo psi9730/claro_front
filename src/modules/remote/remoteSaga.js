@@ -9,12 +9,12 @@ function* requestTogglePowerRequest({power, serial_number}: {power: number, seri
     if(power===0)
       body = {
       serial_number,
-      type: 0
+      command: '{10}',
     };
     else
       body = {
       serial_number,
-        type:1
+        command: '{11}'
       };
     const token = yield call(post, `/devices/add_command`, body);
     yield put(RemoteActions.togglePowerSuccess(power));
@@ -32,7 +32,7 @@ function* requestToggleAIRequest({AI, serial_number}: {AI: number, serial_number
     else{
       body = {
         serial_number,
-        type: 2
+        command: '{30}'
       };
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleAISuccess(AI));
@@ -50,7 +50,7 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
     else if(air === 1){
       body = {
         serial_number,
-        type: 5
+        command: '{31}'
       };
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleAirCleaningSuccess(air));
@@ -58,7 +58,7 @@ function* requestToggleAirRequest({air, serial_number}: {air: number, serial_num
     else if(air===2){
       body = {
         serial_number,
-        type: 6
+        command: '{32}'
       };
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleAirCleaningSuccess(air));
@@ -73,16 +73,12 @@ function* requestToggleSleepRequest({sleep, serial_number}: {sleep: number, seri
     if(sleep===1) {
       body = {
         serial_number,
-        type: 7
+        command: '{21}'
       };
       yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleSleepSuccess(sleep));
     }
     else {
-      body = {                //non-sleep mode
-        serial_number,
-        type: 0
-      };
       yield put(RemoteActions.toggleSleepSuccess(sleep));
     }
   } catch (e) {
@@ -99,7 +95,7 @@ function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterili
     else if(sterilizing === 1) {
       body = {
         serial_number,
-        type: 3
+        command: '{22}'
       };
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleSterilizingSuccess(sterilizing));
@@ -107,7 +103,7 @@ function* requestToggleSterilizingRequest({sterilizing, serial_number}: {sterili
     else if(sterilizing === 2) {
       body = {
         serial_number,
-        type: 4
+        command: '{23}'
       };
       const token = yield call(post, `/devices/add_command`, body);
       yield put(RemoteActions.toggleSterilizingSuccess(sterilizing));

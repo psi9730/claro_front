@@ -8,6 +8,15 @@ import {compose, withHandlers, withProps, withState} from 'recompose';
 export default connect(
   state => ({
     power: _.get(state, ['remote', 'power']),
+    pm10: _.get(state, ['remote', 'pm10']),
+    pm25: _.get(state, ['remote', 'pm25']),
+    vocs: _.get(state, ['remote', 'vocs']),
+    indoorPm10: _.get(state, ['remote', 'indoorPm10']),
+    indoorPm25: _.get(state, ['remote', 'indoorPm25']),
+    indoorVoc: _.get(state, ['remote', 'indoorVoc']),
+    StatusBackground: _.get(state, ['remote', 'StatusBackground']),
+    Background: _.get(state, ['remote', 'Background']),
+    indoorAirGrade: _.get(state, ['remote', 'indoorAirGrade']),
     sterilizing: _.get(state, ['remote', 'sterilizing']),
     airCleaning: _.get(state, ['remote', 'airCleaning']),
     AI: _.get(state, ['remote', 'AI']),

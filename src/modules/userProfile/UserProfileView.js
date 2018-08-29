@@ -145,26 +145,12 @@ class UserProfileView extends Component<Props, State> {
           내 정보 관리
         </TitleText>
         <View style={{flex:1}}>
+          { this.props.naverId || this.props.facebookId ?
           <ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1, display:'flex',flexDirection:'column',justifyContent: 'flex-start', alignItems:'flex-start'}}>
-            <RemoteContainer><TextLeftView ><GrayText>이름 </GrayText><ContentText>{this.props.name}</ContentText></TextLeftView>
+            <RemoteContainer><TextLeftView><GrayText>이름 </GrayText><ContentText>{this.props.name}</ContentText></TextLeftView>
             </RemoteContainer>
             <GrayLine style={{backgroundColor: '#333333'}}/>
-            <RemoteContainer><TextLeftView ><GrayText>ID </GrayText><ContentText>{this.props.login}</ContentText></TextLeftView>
-            </RemoteContainer>
-            <GrayLine style={{backgroundColor: '#333333'}}/>
-            <RemoteContainer><TextLeftView ><GrayText>비밀번호 </GrayText><ContentText>*******</ContentText></TextLeftView>
-              <TextRightView>
-                <TouchableOpacity onPress={() => this.goToPassword()}>
-                  <Image source={arrowLeftIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height: 14,
-                    width: 8,
-                    resizeMode: 'stretch'
-                  }}/>
-                </TouchableOpacity>
-              </TextRightView>
+            <RemoteContainer><TextLeftView><GrayText>비밀번호 </GrayText><ContentText>*******</ContentText></TextLeftView>
             </RemoteContainer>
             <GrayLine e style={{backgroundColor: '#333333'}}/>
             <RemoteContainer><TextLeftView><GrayText>휴대폰번호 </GrayText><ContentText>{this.props.phoneNumber}</ContentText></TextLeftView>
@@ -197,22 +183,10 @@ class UserProfileView extends Component<Props, State> {
               </TextRightView>
             </RemoteContainer>
             <GrayLine/>
-            <RemoteContainer><TextLeftView ><GrayText>e-mail </GrayText><ContentText>{this.props.email}</ContentText></TextLeftView>
-              <TextRightView>
-                <TouchableOpacity onPress={() => this.goToEmail()}>
-                  <Image source={arrowLeftIcn} style={{
-                    flexGrow: 0,
-                    flexShrink: 0,
-                    flexBasis: 'auto',
-                    height: 14,
-                    width: 8,
-                    resizeMode: 'stretch'
-                  }}/>
-                </TouchableOpacity>
-              </TextRightView>
+            <RemoteContainer><TextLeftView><GrayText>e-mail </GrayText><ContentText>{this.props.email}</ContentText></TextLeftView>
             </RemoteContainer>
             <GrayLine/>
-            <RemoteContainer><TextLeftView > <GrayText>주소 </GrayText><ContentText>{this.props.jibunAddr}</ContentText></TextLeftView>
+            <RemoteContainer><TextLeftView><GrayText>주소 </GrayText><ContentText>{this.props.jibunAddr}</ContentText></TextLeftView>
               <TextRightView>
                 <TouchableOpacity onPress={() => this.goToLocation()}>
                   <Image source={arrowLeftIcn} style={{
@@ -265,7 +239,127 @@ class UserProfileView extends Component<Props, State> {
               )
               }
             </ScrollContainer>
-          </ScrollView>
+          </ScrollView> : <ScrollView style={ {flexGrow:1}} contentContainerStyle={{flexGrow: 1, display:'flex',flexDirection:'column',justifyContent: 'flex-start', alignItems:'flex-start'}}>
+              <RemoteContainer><TextLeftView><GrayText>이름 </GrayText><ContentText>{this.props.name}</ContentText></TextLeftView>
+              </RemoteContainer>
+              <GrayLine style={{backgroundColor: '#333333'}}/>
+              <RemoteContainer><TextLeftView><GrayText>ID </GrayText><ContentText>{this.props.login}</ContentText></TextLeftView>
+              </RemoteContainer>
+              <GrayLine style={{backgroundColor: '#333333'}}/>
+              <RemoteContainer><TextLeftView><GrayText>비밀번호 </GrayText><ContentText>*******</ContentText></TextLeftView>
+                <TextRightView>
+                  <TouchableOpacity onPress={() => this.goToPassword()}>
+                    <Image source={arrowLeftIcn} style={{
+                      flexGrow: 0,
+                      flexShrink: 0,
+                      flexBasis: 'auto',
+                      height: 14,
+                      width: 8,
+                      resizeMode: 'stretch'
+                    }}/>
+                  </TouchableOpacity>
+                </TextRightView>
+              </RemoteContainer>
+              <GrayLine e style={{backgroundColor: '#333333'}}/>
+              <RemoteContainer><TextLeftView><GrayText>휴대폰번호 </GrayText><ContentText>{this.props.phoneNumber}</ContentText></TextLeftView>
+                <TextRightView>
+                  <TouchableOpacity onPress={() => this.goToPhoneNumber()}>
+                    <Image source={arrowLeftIcn} style={{
+                      flexGrow: 0,
+                      flexShrink: 0,
+                      flexBasis: 'auto',
+                      height: 14,
+                      width: 8,
+                      resizeMode: 'stretch'
+                    }}/>
+                  </TouchableOpacity>
+                </TextRightView>
+              </RemoteContainer>
+              <GrayLine style={{backgroundColor: '#333333'}}/>
+              <RemoteContainer><TextLeftView><GrayText>전화번호 </GrayText><ContentText>{this.props.homeNumber}</ContentText></TextLeftView>
+                <TextRightView>
+                  <TouchableOpacity onPress={() => this.goToHomeNumber()}>
+                    <Image source={arrowLeftIcn} style={{
+                      flexGrow: 0,
+                      flexShrink: 0,
+                      flexBasis: 'auto',
+                      height: 14,
+                      width: 8,
+                      resizeMode: 'stretch'
+                    }}/>
+                  </TouchableOpacity>
+                </TextRightView>
+              </RemoteContainer>
+              <GrayLine/>
+              <RemoteContainer><TextLeftView><GrayText>e-mail </GrayText><ContentText>{this.props.email}</ContentText></TextLeftView>
+                <TextRightView>
+                  <TouchableOpacity onPress={() => this.goToEmail()}>
+                    <Image source={arrowLeftIcn} style={{
+                      flexGrow: 0,
+                      flexShrink: 0,
+                      flexBasis: 'auto',
+                      height: 14,
+                      width: 8,
+                      resizeMode: 'stretch'
+                    }}/>
+                  </TouchableOpacity>
+                </TextRightView>
+              </RemoteContainer>
+              <GrayLine/>
+              <RemoteContainer><TextLeftView><GrayText>주소 </GrayText><ContentText>{this.props.jibunAddr}</ContentText></TextLeftView>
+                <TextRightView>
+                  <TouchableOpacity onPress={() => this.goToLocation()}>
+                    <Image source={arrowLeftIcn} style={{
+                      flexGrow: 0,
+                      flexShrink: 0,
+                      flexBasis: 'auto',
+                      height: 14,
+                      width: 8,
+                      resizeMode: 'stretch'
+                    }}/>
+                  </TouchableOpacity>
+                </TextRightView>
+              </RemoteContainer>
+              <GrayLine/>
+              <ScrollContainer >
+                {_.map(this.props.devices, (device, index) => {
+                    return (
+                      <View key={index} style={{flex:1}}>
+                        <GrayText style={{marginLeft: 20}}>등록제품 {index+1} </GrayText>
+                        <RemoteContainer>
+                          <TextLeftView>
+                            {
+                              device.deviceInfo &&
+                              <RemoteText
+                                style={{
+                                  fontSize: 17,
+                                  color: 'black', marginBottom: 5
+                                }}>{device.deviceUser.nickname} ({device.deviceInfo.modelName})
+                              </RemoteText>
+                            }
+                          </TextLeftView>
+                        </RemoteContainer>
+                        <RemoteContainer>
+                          <TextLeftView>
+                            {
+                              device.deviceInfo &&
+                              <RemoteText
+                                style={{
+                                  fontSize: 17,
+                                  color: 'black', marginBottom: 5
+
+                                }}>S/N: {device.serialNumber}
+                              </RemoteText>
+                            }
+                          </TextLeftView>
+                        </RemoteContainer>
+                        <GrayLine/>
+                      </View>)
+                  }
+                )
+                }
+              </ScrollContainer>
+            </ScrollView>}
         </View>
       </Container>
     );
