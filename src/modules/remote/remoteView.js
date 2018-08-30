@@ -41,6 +41,9 @@ type Props = {
   indoorPm10: String,
   indoorPm25: String,
   indoorVoc: String,
+  indoorPm10Color: String,
+  indoorPm25Color: String,
+  indoorVocColor: String,
   pm10: number,
   pm25: number,
   vocs: number,
@@ -169,6 +172,7 @@ const LocationContainer = styled.View`
   justify-content: flex-end;
   align-items: center;
   margin-right:10px;
+  margin-bottom: 15px;
 `;
 const ModalView2= styled.View`
     flex-grow:1;
@@ -258,7 +262,7 @@ class RemoteView extends Component<Props, State> {
         navBarBackgroundColor: this.props.StatusBackground,
       });
     }
-    this.props.getUserProfileRequest().catch((e)=>console.log(e));
+    this.props.getUserProfileRequest().then(()=> this.props.indoorAirGrade==='나쁨' || this.props.indoorAirGrade==='매우나쁨' ? this.setState({modalVisible: true}) : ( this.props.indoorVoc==='오염' && this.setState({modalVocVisible: true}))).catch((e)=>console.log(e));
     if(this.props.outerTotalGrade==='3'){
       this.setState({modalVisible: true})
     }
@@ -269,18 +273,20 @@ class RemoteView extends Component<Props, State> {
 
   props: Props;
 
-  setVocClean(){
+  setClean(){
     this.setState({modalVisible: false})
     this.props.toggleSleepRequest(0,this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleSterilizingRequest(0,this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleAIRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.togglePowerRequest(1, this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleAirCleaningRequest(2,this.props.barcode).catch((e)=>console.log(e));
   }
-  setClean(){
+  setVocClean(){
     this.setState({modalVocVisible: false})
     this.props.toggleSleepRequest(0,this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleSterilizingRequest(0,this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleAIRequest(0,this.props.barcode).catch((e)=>console.log(e));
+    this.props.togglePowerRequest(1, this.props.barcode).catch((e)=>console.log(e));
     this.props.toggleAirCleaningRequest(2,this.props.barcode).catch((e)=>console.log(e));
   }
   render() {
@@ -347,16 +353,16 @@ class RemoteView extends Component<Props, State> {
                   <TextLeftContainer style={{backgroundColor: 'transparent' }}><Text style={{fontSize: 25, color: 'white', fontWeight: 'bold' }}>{this.props.indoorAirGrade}</Text></TextLeftContainer>
                 </InnerAirContainer>
               <InnerAirContainer style={{marginTop: 0, backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>{`미세먼지(PM 10): ${this.props.pm10} ug/m3`}</Text></ImageTextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorPm10} </Text></TextLeftContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: this.props.indoorPm10Color}} /><Text>{`미세먼지(PM 10): ${this.props.pm10} ug/m3`}</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorPm10}</Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>{`초미세먼지(PM 25): ${this.props.pm25} ug/m3`}</Text></ImageTextContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: this.props.indoorPm25Color}} /><Text>{`초미세먼지(PM 25): ${this.props.pm25} ug/m3`}</Text></ImageTextContainer>
                 <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorPm25}</Text></TextLeftContainer>
               </InnerAirContainer>
               <InnerAirContainer style={{backgroundColor : 'white'}}>
-                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: 'red'}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
-                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorVoc} </Text></TextLeftContainer>
+                <ImageTextContainer><Image source={circleIcn} style={{height:8, width:8, margin:10, resizeMode:'stretch', tintColor: this.props.indoorVocColor}} /><Text>GAS/ VOCs</Text></ImageTextContainer>
+                <TextLeftContainer><Text style={{fontWeight: 'bold' }} >{this.props.indoorVoc}</Text></TextLeftContainer>
               </InnerAirContainer>
             </LinearGradient>
             <OuterContainer>

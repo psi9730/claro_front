@@ -10,6 +10,7 @@ export default connect(
     ssidTemp: _.get(state, ['registerDevice', 'home', 'ssidTemp']),
     passwordTemp: _.get(state, ['registerDevice', 'home', 'passwordTemp']),
     ip: _.get(state, ['registerDevice', 'home', 'ip']),
+    barcodeTemp: _.get(state,['registerDevice','barcodeTemp']),
   }),
   actions,
 )(

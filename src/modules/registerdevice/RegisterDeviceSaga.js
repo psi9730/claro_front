@@ -1,5 +1,6 @@
 import { call, take, put, takeLatest } from 'redux-saga/effects'
 import {post,get, del, put as puts} from '../../utils/api';
+import {postWifi,getWifi, delWifi, putWifi as putsWifi} from '../../utils/apiWifi';
 import {DeviceActions, DeviceTypes} from './RegisterDeviceState';
 import {callApi} from '../../utils/tcpapi'
 import { makeBody, makeBssidBuffer, strBuffer, int16Buffer } from '../../utils/ClaroBuffer';
@@ -22,6 +23,20 @@ function* requestSendWifiInfo({ssid, password}: {ssid: string, password: string}
     yield put(DeviceActions.sendWifiInfoFailure(error));
   }
 }
+
+/*
+function* requestSendWifiInfo({ssid, password, serialNumber}: {ssid: string, password: string, serialNumber: string}) {
+  try {
+    const urls = [
+      `${API_ROOT}/devices/get_command/`,
+    ];
+    yield call(getWifi, `?serialNumber=${serialNumber}&url=${_.nth(urls,0)}&ssid=${ssid}&password=${password}`, null);
+    yield put(DeviceActions.sendWifiInfoSuccess());
+  } catch (error) {
+    yield put(DeviceActions.sendWifiInfoFailure(error));
+  }
+}*/
+
 
 function* requestSendAP() {
   const urls = [
@@ -49,7 +64,6 @@ function* requestSendAP() {
   }
 }
 
-
 function* requestSendSerialNumber({barcode}: {barcode: string}) {
   try {
     yield call(callApi, 0x0100, makeBody(strBuffer(barcode,32)));
@@ -65,7 +79,19 @@ function* requestSendSerialNumber({barcode}: {barcode: string}) {
   }
 }
 
-
+/*
+function* requestSendSerialNumber({barcode}: {barcode: string}) {
+  try {
+    const urls = [
+      `${API_ROOT}/devices/get_command/`,
+    ];
+    yield call(getWifi, `?serialNumber='${barcode}'&url='${_.nth(urls,0)}'`, null);
+    yield put(DeviceActions.sendSerialNumberSuccess());
+  } catch (e) {
+    yield put(DeviceActions.sendSerialNumberFailure(e));
+  }
+}
+*/
 function* requestRegisterDevice({barcode,nickname,deviceInfo}: {barcode: string,nickname: string,deviceInfo:any}) {
   try {
     const body = {

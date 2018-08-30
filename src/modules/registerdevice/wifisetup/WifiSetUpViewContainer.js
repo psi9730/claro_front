@@ -10,6 +10,7 @@ export default connect(
     ssid: _.get(state, ['registerDevice', 'home', 'ssid']),
     password: _.get(state, ['registerDevice', 'home', 'password']),
     ip: _.get(state, ['registerDevice', 'home', 'ip']),
+    barcode: _.get(state, ['registerDevice', 'barcode']),
   }),
   actions,
 )(

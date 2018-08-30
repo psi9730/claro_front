@@ -201,7 +201,7 @@ class RemoteDetailView extends Component<Props, State> {
   }
   toggleSleep(){
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.sleepMode === 1) { //turn on state
     } else {
@@ -212,7 +212,7 @@ class RemoteDetailView extends Component<Props, State> {
   }
   toggleAI() {
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.AI === 0) {    //turn off state
       console.log("AI is 0");
@@ -228,7 +228,7 @@ class RemoteDetailView extends Component<Props, State> {
 
   toggleSterilizing(){
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.sterilizing === 0){
       this.turnOffAI();
@@ -246,7 +246,7 @@ class RemoteDetailView extends Component<Props, State> {
 
   toggleAirCleaning(){
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.airCleaning === 0){
       this.turnOffAI();

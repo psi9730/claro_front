@@ -101,6 +101,10 @@ const GrayLine = styled.View`
     opacity:0.4;
     top:  0px;
 `;
+const GrayLine2 = styled.View`
+    width: 100%;
+    backgroundColor:#f8f8f8;
+`;
 
 class RemoteBarView extends Component<Props, State> {
   constructor(props) {
@@ -125,7 +129,7 @@ class RemoteBarView extends Component<Props, State> {
   }
   toggleAI() {
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.AI === 0) {    //turn off state
       console.log("AI is 0");
@@ -142,7 +146,7 @@ class RemoteBarView extends Component<Props, State> {
     console.log(this.props.sterilizing);
     console.log(this.props.sterilizingColor);
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.sterilizing === 0){
       this.turnOffAI();
@@ -160,7 +164,7 @@ class RemoteBarView extends Component<Props, State> {
 
   toggleAirCleaning(){
     if(this.props.power===0){
-      toast("Power is Off");
+      toast("전원이 꺼져있습니다.");
     }
     else if (this.props.airCleaning === 0){
       this.turnOffAI();
@@ -338,7 +342,7 @@ class RemoteBarView extends Component<Props, State> {
               }
           </Container>) :(
         <Container>
-          <GrayLine/>
+          <GrayLine style = {{elevation: 2, transform: [{ rotate: '180deg'}]}} />
           <Image source={upIcn} style={{position: 'absolute',alignSelf: 'center', top:0,height:40, width:60, resizeMode:'stretch'}} />
           {this.props.power === 0 ?   <IconViewContainer >
               <TouchableOpacity onPress={() => this.togglePower()}>

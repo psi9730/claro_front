@@ -104,11 +104,11 @@ class WifiSetUpTempView extends Component<Props, State> {
     toast("wifi 등록완료");
   }
   sendWifi() {
-    if (this.props.ssid == null || this.props.ssid === '') {
+    if (this.props.ssidTemp == null || this.props.ssidTemp === '') {
       this.setState({isError:true});
       return;
     }
-    if (this.props.password == null || this.props.password === '') {
+    if (this.props.passwordTemp == null || this.props.passwordTemp === '') {
       this.setState({isError:true});
       return;
     }
@@ -116,6 +116,7 @@ class WifiSetUpTempView extends Component<Props, State> {
     this.props.sendWifiInfoRequest(
       this.props.ssidTemp,
       this.props.passwordTemp,
+      this.props.barcodeTemp,
     ).then(()=> {
       (
         async () => {

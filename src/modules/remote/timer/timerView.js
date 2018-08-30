@@ -395,7 +395,7 @@ class TimerView extends Component<Props, State> {
                 </RemoteContainer>
                   <GrayLine/>
                 </TouchableOpacity>)):null}
-                <View style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+                <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
                   {this.props.isTurnOnActive && Platform.OS==='ios' ?   ( <RowContainer style={{position:'absolute',top:0}}>
                     <Picker style={{width: 100, height: 150}}
                             selectedValue={_.indexOf(this.state.dayList,this.state.day)}
@@ -407,7 +407,7 @@ class TimerView extends Component<Props, State> {
                     </Picker>
                     <Picker style={{width: 100, height: 150}}
                             selectedValue={_.indexOf(this.state.hourList,this.state.hour)}
-                            itemStyle={{fontSize:18, color:'black'}}
+                            itemStyle={{fontSize:18, color:'black', borderBottomWidth: 2,  borderTopWidth:2}}
                             onValueChange={(index) => this.setHours(index)}>
                       {this.state.hourList.map((value, i) => (
                         <PickerItem label={value} value={i} key={"hour"+value}/>
@@ -415,7 +415,7 @@ class TimerView extends Component<Props, State> {
                     </Picker>
                     <Picker style={{width: 100, height: 150}}
                             selectedValue={_.indexOf(this.state.minuteList,this.state.minute)}
-                            itemStyle={{fontSize:18, color:'black'}}
+                            itemStyle={{fontSize:18, color:'black', borderBottomWidth: 2,  borderTopWidth:2}}
                             onValueChange={(index) => this.setMinutes(index)}>
                       {this.state.minuteList.map((value, i) => (
                         <PickerItem label={value} value={i} key={"minute"+value}/>

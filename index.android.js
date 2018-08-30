@@ -12,10 +12,9 @@ import {setConfiguration} from './src/utils/configuration';
 import {postPushToken} from './src/utils/api';
 import {pushNotifListener} from './src/utils/notifUtils';
 import Constants from './src/constants/constants';
-const {API_ROOT} = Constants
+const {API_ROOT, API_ROOT_WIFI} = Constants
 const isProd = process.env.NODE_ENV === 'production';
 let defaultHost = API_ROOT;
-// let defaultHost = 'https://itest-backend.vendor.easi6.com';
 if (Platform.OS === 'ios') {
   defaultHost = API_ROOT;
 }
@@ -24,8 +23,13 @@ if (isProd) {
   apiRoot = 'https://backend.vendor.easi6.com';
 }
 
-setConfiguration('API_ROOT', apiRoot);
+let apiRootWifi = API_ROOT_WIFI;
+if (isProd) {
+  apiRootWifi = 'https://backend.vendor.easi6.com';
+}
 
+setConfiguration('API_ROOT', apiRoot);
+setConfiguration('API_ROOT_WIFI', apiRootWifi);
 sagaMiddleware.run(mySaga);
 
 registerScreens();

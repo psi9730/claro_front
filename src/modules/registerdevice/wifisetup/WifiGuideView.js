@@ -99,13 +99,13 @@ class WifiGuideView extends Component<Props, State> {
       return;
     }
     this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
-      this.props.sendApRequest().catch();
       (
         async () => {
           let key;
           key = KEYS.serialNumber;
           await Storage.setItem(key, this.props.barcode);
-        })();}).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(()=>{  Keyboard.dismiss();
+        })();
+    }).then(()=>this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(()=>{  Keyboard.dismiss();
       this.props.navigator.push({
         ...WIFI_SET_UP_SCREEN,
       })}).catch()).catch( e=>

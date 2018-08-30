@@ -53,10 +53,13 @@ const initialState = {
   outerSo2Value : 0,
   indoorAirGrade: '보통',
   Background : ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'],
-  StatusNormalBackground : 'rgba(0,176, 177,1)',
-  indoorPm10: '5',
-  indoorPm25: '5',
-  indoorVoc: '',
+  StatusBackground : 'rgba(0,176, 177,1)',
+  indoorPm10: '보통',
+  indoorPm25: '보통',
+  indoorVoc: '오염',
+  indoorPm10Color: 'rgba(0, 176, 177, 1)',
+  indoorVocColor: 'rgba(0, 176, 177, 1)',
+  indoorPm25Color: 'rgba(0, 176, 177, 1)',
   pm10: 0,
   pm25: 0,
   vocs: 0,
@@ -318,10 +321,6 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           let turnOffHourDate = new Date(status.turnOffDate);
           let now = new Date();
           let diff = Math.ceil((turnOffHourDate.getTime()-now)/(1000*60*60));
-          const indoorAirGrade = status.pm10>5 ? '나쁨' : '보통';
-          const indoorPm10 = status.pm10>5 ? '나쁨' : '보통';
-          const indoorPm25 = status.pm25>5 ? '나쁨' : '보통';
-          const indoorVoc = status.vocs>5 ? '나쁨' : '보통';
           const VeryGoodBackground = ['rgba(0,162,230,1)','rgba(51, 143, 252, 1)'];
           const StatusVeryGoodBackground = 'rgba(0,162,230,1)';
           const BadBackground = ['rgba(255,180,41,1)','rgba(255, 207, 0, 1)'];
@@ -330,6 +329,13 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           const StatusVeryBadBackground = 'rgba(255,105,124,1)';
           const NormalBackground = ['rgba(0, 176, 177, 1)', 'rgba(59, 185, 146, 1)'];
           const StatusNormalBackground = 'rgba(0,176, 177,1)';
+          const indoorAirGrade = status.pm10>5 || status.pm25>5 || status.vocs>5 ? '나쁨' : '보통';
+          const indoorPm10 = status.pm10>10 ? '매우나쁨': (status.pm10>5? '나쁨' : (status.pm>2 ? '보통' : '좋음'));
+          const indoorPm10Color = status.pm10>10 ? StatusVeryBadBackground : (status.pm10>5? StatusBadBackground : (status.pm10>2 ? StatusNormalBackground : StatusVeryGoodBackground));
+          const indoorPm25 = status.pm25>10 ? '매우나쁨': (status.pm25>5? '나쁨' : (status.pm25>2 ? '보통' : '좋음'));
+          const indoorPm25Color = status.pm25>10 ? StatusVeryBadBackground : (status.pm25>5? StatusBadBackground : (status.pm25>2 ? StatusNormalBackground : StatusVeryGoodBackground));
+          const indoorVoc = status.vocs>10 ? '매우나쁨': (status.vocs>5? '나쁨' : (status.vocs>2 ? '보통' : '좋음'));
+          const indoorVocColor = status.vocs>10 ? StatusVeryBadBackground : (status.vocs>5? StatusBadBackground : (status.vocs>2 ? StatusNormalBackground : StatusVeryGoodBackground));
           let StatusBackground = "";
           let Background = "";
           if(indoorAirGrade === '매우나쁨')
@@ -371,9 +377,12 @@ export default function RemoteReducer(state: RemoteState = initialState, action:
           filterUsingTime: status.filterSum,
           turnOnHour: new Date(status.turnOnDate),
           loading: false,
-          pm10: status.pm10,
-          pm25: status.pm25,
+          pm10: status.pm10 ? status.pm10 : 0,
+          pm25: status.pm25 ? status.pm25 : 0,
           voc: status.voc,
+          indoorPm10Color,
+          indoorPm25Color,
+          indoorVocColor,
         };
     case RemoteTypes.FILTER_TIME_RESET:
       return {

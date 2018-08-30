@@ -93,8 +93,7 @@ class WifiMainView extends Component<Props, State> {
       toast(this.props.t('enter_your_SN'), 'error');
       return;
     }
-    this.props.sendSerialNumberRequest(this.props.barcode).then(() => {
-      this.props.sendApRequest().catch((e)=>console.log(e));
+    this.props.sendSerialNumberRequest(this.props.barcode).then(()=> {
       (
         async () => {
           let key;
@@ -102,14 +101,14 @@ class WifiMainView extends Component<Props, State> {
           await Storage.setItem(key, this.props.barcode);
         })();
     }).then(() => this.props.registerDeviceRequest(this.props.barcode, this.props.deviceInfo.modelName,this.props.deviceInfo).then(() => {
-      Keyboard.dismiss();
-      this.props.navigator.push({
-        ...WIFI_SET_UP_SCREEN,
-      })}).catch((e) => console.log(e))
-    ).catch(e => {
-      this.setState({error: "Please turn on the Wifi"})
-      toast("Please turn on the Wifi", 'error')
-    });
+        Keyboard.dismiss();
+        this.props.navigator.push({
+          ...WIFI_SET_UP_SCREEN,
+        })}).catch((e) => console.log(e))
+      ).catch(e => {
+        this.setState({error: "Wifi를 켜주시기바랍니다."})
+        toast("Wifi를 켜주시기바랍니다.", 'error')
+      });
   }
   goWifiGuideView(){
     Keyboard.dismiss();

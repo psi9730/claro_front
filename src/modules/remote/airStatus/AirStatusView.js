@@ -213,7 +213,7 @@ class AirStatusView extends Component<Props, State> {
 
   }
   componentWillMount(){
-    this._deltaY = Platform.OS ==='ios' ? new Animated.Value(Dimensions.get('window').height-100) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-100);
+    this._deltaY = Platform.OS ==='ios' ? new Animated.Value(Dimensions.get('window').height-135) : new Animated.Value(ExtraDimensions.get('REAL_WINDOW_HEIGHT')-135);
     if(Platform.OS === 'android'){
       this.props.navigator.setStyle({
         statusBarTextColorScheme: 'dark',
@@ -662,7 +662,7 @@ class AirStatusView extends Component<Props, State> {
               style={[styles.panelContainer, {
                 backgroundColor: 'black',
                 opacity: this._deltaY.interpolate({
-                  inputRange: [0, this.state.firstHeight-100],
+                  inputRange: [0, this.state.firstHeight-135],
                   outputRange: [0.5, 0],
                   extrapolateRight: 'clamp'
                 })
@@ -672,23 +672,23 @@ class AirStatusView extends Component<Props, State> {
                 this.panel = ref;
               }}
               verticalOnly={true}
-              snapPoints={[{y: 0},{y: this.state.firstHeight-100}]}
+              snapPoints={[{y: 0},{y: this.state.firstHeight-135}]}
               boundaries={{top: 0}}
-              initialPosition={{y: this.state.firstHeight-100}}
+              initialPosition={{y: this.state.firstHeight-135}}
               animatedValueY={this._deltaY}
               onSnap={this.onDrawerSnap}>
               <View style={styles.panel}>
                 <Animated.View style={[styles.bottomSheetHeader,{
                   height: this._deltaY.interpolate({
-                    inputRange: [0, this.state.firstHeight-100],
-                    outputRange: [0, 100],
+                    inputRange: [0, this.state.firstHeight-135],
+                    outputRange: [0, 135],
                     extrapolateRight: 'clamp'
                   })}]
                 }
                 >
                   <RemoteBarView
                     _deltaY={this._deltaY.interpolate({
-                      inputRange:[0, this.state.firstHeight-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                      inputRange:[0, this.state.firstHeight-135], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
                     })}
                   />
                 </Animated.View>
@@ -704,7 +704,7 @@ class AirStatusView extends Component<Props, State> {
             style={[styles.panelContainer, {
               backgroundColor: 'black',
               opacity: this._deltaY.interpolate({
-                inputRange: [0, Screen.height-100],
+                inputRange: [0, Screen.height-135],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
               })
@@ -714,23 +714,23 @@ class AirStatusView extends Component<Props, State> {
               this.panel = ref;
             }}
             verticalOnly={true}
-            snapPoints={[{y: 0},{y: Screen.height-100}]}
+            snapPoints={[{y: 0},{y: Screen.height-135}]}
             boundaries={{top: 0}}
-            initialPosition={{y: Screen.height-100}}
+            initialPosition={{y: Screen.height-135}}
             animatedValueY={this._deltaY}
             onSnap={this.onDrawerSnap}>
             <View style={styles.panel}>
               <Animated.View style={{
                 height: this._deltaY.interpolate({
-                  inputRange: [0, Screen.height-100],
-                  outputRange: [0, 100],
+                  inputRange: [0, Screen.height-135],
+                  outputRange: [0, 135],
                   extrapolateRight: 'clamp'
                 })}
               }
               >
                 <RemoteBarView
                   _deltaY={this._deltaY.interpolate({
-                    inputRange:[0,Screen.height-100], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
+                    inputRange:[0,Screen.height-135], outputRange:['180deg', '0deg'], extrapolateRight: 'clamp'
                   })}
                 />
               </Animated.View>
@@ -776,7 +776,7 @@ const styles = StyleSheet.create({
   blank: {
     flexGrow:0,
     flexShrink:0,
-    flexBasis: 100
+    flexBasis: 135
   },
   contentIOS: {
     flex:1,

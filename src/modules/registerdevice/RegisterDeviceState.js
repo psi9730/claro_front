@@ -45,7 +45,7 @@ export const {Types: DeviceTypes, Creators: DeviceActions} = createActions(
     restoreSerialNumber: ['barcode'],
     restoreWifiInfo: ['ssid','password'],
     sendSerialNumberRequest: ['barcode'],
-    sendWifiInfoRequest: ['ssid','password'],
+    sendWifiInfoRequest: ['ssid','password','serialNumber'],
     sendApRequest: [],
     getDevicesRequest:[],
     deleteDeviceRequest:['serialNumber'],

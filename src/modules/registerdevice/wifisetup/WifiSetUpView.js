@@ -114,6 +114,7 @@ class WifiSetUpView extends Component<Props, State> {
     this.props.sendWifiInfoRequest(
       this.props.ssid,
       this.props.password,
+      this.props.barcode,
     ).then(()=> {
       (
         async () => {
@@ -133,7 +134,7 @@ class WifiSetUpView extends Component<Props, State> {
         <Container>
           {!this.state.isError ? (<TitleText style = {{fontSize: 25, color: 'black', fontWeight:'bold'}}>
             {'연결할 인터넷 공유기의 SSID와 P/W를 입력해주세요.'}
-          </TitleText>) : (<View><TitleText style={{color:'red',fontSize: 25, fontWeight:'bold', marginBottom:8}} >
+          </TitleText>) : (<View><TitleText style={{color:'red',fontSize: 25, fontWeight:'bold', marginBottom:8}}>
             연결이 완료되지 않았습니다.
             </TitleText>
             <TitleText style={{marginTop: 4, fontSize: 25, color: 'black', fontWeight:'bold'}}> SSID와 P/W를 다시 입력 해주세요.</TitleText></View>)

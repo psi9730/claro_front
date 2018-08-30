@@ -179,6 +179,7 @@ class RemoteDraggableView extends Component<Props, State> {
         statusBarTextColorSchemeSingleScreen: 'light',
       })
     }
+    this.setState({first: false})
   }
   onLayout = (event) => {
       var {height} = event.nativeEvent.layout;
@@ -187,14 +188,15 @@ class RemoteDraggableView extends Component<Props, State> {
       this.setState({firstHeight: height})
     }
   }
-
+  onDrawerDrag = ()=> {
+    this.setState({first: false});
+  }
   static dismissKeyboard() {
     Keyboard.dismiss();
   }
   props: Props;
   render() {
     var newDate = dateformat(this.props.date,'yyyy.mm.dd HH:MM');
-    console.log(" StatusBarManager.HEIGHT", StatusBarManager.HEIGHT);
     return (
       <View style={styles.IOSContainer} onLayout={(event) => {
         {this.onLayout(event)}
@@ -251,7 +253,7 @@ class RemoteDraggableView extends Component<Props, State> {
             pointerEvents={'box-none'}
             style={[styles.panelContainer, {
               backgroundColor: 'black',
-              opacity: this._deltaY.interpolate({
+              opacity: this.state.first===true ? 0 : this._deltaY.interpolate({
                 inputRange: [0, this.state.firstHeight-135],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
@@ -266,10 +268,11 @@ class RemoteDraggableView extends Component<Props, State> {
             boundaries={{top: 0}}
             initialPosition={{y: this.state.firstHeight-135}}
             animatedValueY={this._deltaY}
-            onSnap={this.onDrawerSnap}>
+            onSnap={this.onDrawerSnap}
+            onDrag={this.onDrawerDrag}>
             <View style={styles.panel}>
               <Animated.View style={[styles.bottomSheetHeader,{
-                height: this._deltaY.interpolate({
+                height: this.state.first===true ? 135 : this._deltaY.interpolate({
                   inputRange: [0, this.state.firstHeight-135],
                   outputRange: [0, 135],
                   extrapolateRight: 'clamp'
@@ -293,7 +296,7 @@ class RemoteDraggableView extends Component<Props, State> {
             pointerEvents={'box-none'}
             style={[styles.panelContainer, {
               backgroundColor: 'black',
-              opacity: this._deltaY.interpolate({
+              opacity:  this.state.first===true ? 0 : this._deltaY.interpolate({
                 inputRange: [0, Screen.height-135],
                 outputRange: [0.5, 0],
                 extrapolateRight: 'clamp'
@@ -308,14 +311,24 @@ class RemoteDraggableView extends Component<Props, State> {
             boundaries={{top: 0}}
             initialPosition={{y: Screen.height-135}}
             animatedValueY={this._deltaY}
+            onDrag={this.onDrawerDrag}
             onSnap={this.onDrawerSnap}>
             <View style={styles.panel}>
               <Animated.View style={{
-                height: this._deltaY.interpolate({
+                height: this.state.first===true ? 135 : this._deltaY.interpolate({
                   inputRange: [0, Screen.height-135],
                   outputRange: [0, 135],
                   extrapolateRight: 'clamp'
-                })}
+                }),
+                flexBasis: this.state.first===true ? 135 : this._deltaY.interpolate({
+                  inputRange: [0, Screen.height-135],
+                  outputRange: [0, 135],
+                  extrapolateRight: 'clamp'
+                }),
+                flexGrow: 0,
+                flexShrink: 0,
+              }
+
               }
               >
                 <RemoteBarView
